@@ -1,0 +1,1 @@
+/Users/terrencelam/.config/fisherman/z/completions/z.fish
