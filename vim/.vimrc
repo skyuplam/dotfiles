@@ -423,3 +423,8 @@ nmap <leader>sp <Plug>CtrlSFPwordPath
 nnoremap <leader>so :CtrlSFOpen<CR>
 nnoremap <leader>st :CtrlSFToggle<CR>
 inoremap <leader>st <Esc>:CtrlSFToggle<CR>
+
+" Map ag
+nmap <leader>ag :Ack ""<Left>
+nmap <leader>af :AckFile ""<Left>
+
