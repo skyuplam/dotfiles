@@ -54,3 +54,9 @@ function make_completion --argument-names alias command
 end
 
 make_completion g 'git'
+
+# Replace $HOME string with ~
+function pwd
+  printf $PWD | sed "s|$HOME|~|"
+end
+
