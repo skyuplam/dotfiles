@@ -126,7 +126,6 @@ colorscheme monokai
 set mouse=a                 " Automatically enable mouse usage
 set mousehide               " Hide the mouse cursor while typing
 scriptencoding utf-8
-set encoding=utf-8
 " Set font
 if has("gui_running")
   if has("gui_gtk2")
@@ -347,6 +346,7 @@ endif
 
 if !has('nvim')
   set ttyfast
+  set encoding=utf-8
 endif
 
 set nocompatible
