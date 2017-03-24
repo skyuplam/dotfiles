@@ -29,6 +29,13 @@ set -x EDITOR $VISUAL
 
 set -x MYVIMRC ~/.vimrc
 
+# Add GNU core utilities (those that come with macOS are outdated).
+set -x PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
+set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
+# Add GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
+set -x PATH /usr/local/opt/findutils/libexec/gnubin $PATH
+set -x MANPATH /usr/local/opt/findutils/libexec/gnuman $MANPATH
+
 # test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
 
