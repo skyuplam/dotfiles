@@ -162,6 +162,7 @@ set scrolloff=3                 " Minimum lines to keep above and below cursor
 set foldenable                  " Auto fold code
 set foldlevelstart=10           " open most folds by default to
 set foldnestmax=10              " 10 nested fold max
+set synmaxcol=1000              " Don't syntax highlight long lines
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql
@@ -203,7 +204,12 @@ endif
 
 " Neomake settings, run Neomake on the current file on every write
 autocmd! BufWritePost * Neomake
+let g:neomake_open_list = 0
+let g:neomake_verbose = 1
+let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_javascript_jsx_enabled_makers = ['eslint']
 let g:neomake_javascript_enabled_makers = ['eslint']
+
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
 " following patterns array:
@@ -332,6 +338,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " Enable deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
 
 " ternjs deoplete config
 " Use deoplete.
