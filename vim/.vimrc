@@ -41,7 +41,11 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 
 
 " YCM
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
+" Asynchronous keyword completion 
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" deoplete.nvim source for javascript
+Plug 'carlitux/deoplete-ternjs'
 
 Plug 'ervandew/supertab'
 
@@ -51,7 +55,9 @@ Plug 'plasticboy/vim-markdown'
 
 Plug 'Raimondi/delimitMate'
 
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+" Use Neomake instead of syntasitic
+Plug 'neomake/neomake'
 
 " Plug 'Yggdroot/indentLine'
 " Plug 'nathanaelkane/vim-indent-guides'
@@ -159,7 +165,7 @@ set foldnestmax=10              " 10 nested fold max
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql
-set shell=/bin/zsh
+" set shell=/bin/zsh
 set gdefault        " Add the `g` flag to search/replace by default
 
 set tabpagemax=15  " Only show 15 tabs
@@ -178,29 +184,34 @@ endif
 
 
 " vim-syntastic/syntastic config
-let g:syntastic_mode_map = { 'mode': 'active',
-                            \ 'active_filetypes': ['python', 'javascript', 'javascript.jsx'],
-                            \ 'passive_filetypes': [] }
+" let g:syntastic_mode_map = { 'mode': 'active',
+"                             \ 'active_filetypes': ['python', 'javascript', 'javascript.jsx'],
+"                             \ 'passive_filetypes': [] }
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_shell = "/bin/zsh"
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
-let g:syntastic_python_checkers = ['pylint']
+" let g:syntastic_shell = "/bin/zsh"
+" let g:syntastic_aggregate_errors = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exec = 'eslint_d'
+" let g:syntastic_python_checkers = ['pylint']
+
+" Neomake settings, run Neomake on the current file on every write
+autocmd! BufWritePost * Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
 " following patterns array:
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
-
+" Enable spell check for commit messages
+autocmd FileType gitcommit setlocal spell
 
 " vim-indent-guides config
 " set background=dark
@@ -315,9 +326,24 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 " YouCompleteMe
-let g:acp_enableAtStartup = 0
-let g:ycm_python_binary_path = '/usr/local/bin/python3'
-let g:ycm_collect_identifiers_from_tags_files = 1    " Enable completion from tags
+" let g:acp_enableAtStartup = 0
+" let g:ycm_python_binary_path = '/usr/local/bin/python3'
+" let g:ycm_collect_identifiers_from_tags_files = 1    " Enable completion from tags
+
+" Enable deoplete
+let g:deoplete#enable_at_startup = 1
+
+" ternjs deoplete config
+" Use deoplete.
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+
+"Add extra filetypes
+let g:tern#filetypes = [
+                \ 'jsx',
+                \ 'javascript.jsx',
+                \ 'vue',
+                \ ]
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -427,4 +453,12 @@ inoremap <leader>st <Esc>:CtrlSFToggle<CR>
 " Map ag
 nmap <leader>ag :Ack ""<Left>
 nmap <leader>af :AckFile ""<Left>
+
+
+" Neomake key mapping
+nmap <Leader><Space>o :lopen<CR>      " open location window
+nmap <Leader><Space>c :lclose<CR>     " close location window
+nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+nmap <Leader><Space>n :lnext<CR>      " next error/warning
+nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 
