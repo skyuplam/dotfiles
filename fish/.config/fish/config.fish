@@ -50,3 +50,7 @@ set fish_function_path ~/.config/fish/functions/theme-pure $fish_function_path
 
 # Load private config
 source ~/.local.fish
+# THEME PURE #
+set fish_function_path /Users/terrencelam/.config/fish/functions/theme-pure $fish_function_path
+# THEME PURE #
+set fish_function_path /Users/terrencelam/.config/fish/functions/theme-pure $fish_function_path
