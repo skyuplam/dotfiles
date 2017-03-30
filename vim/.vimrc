@@ -24,7 +24,7 @@ let g:neomake_javascript_jsx_enabled_makers = ['eslint']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_exe = 'eslint_d'  " Use eslint_d for faster linting
 " Neomake Python
-let g:neomake_python_enabled_makers = ['pylint']
+let g:neomake_python_enabled_makers = ['pyflakes']
 
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
