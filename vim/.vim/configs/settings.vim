@@ -26,7 +26,7 @@ set winminheight=0              " Windows can be 0 line high
 set ignorecase                  " Case insensitive search
 set smartcase                   " Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
-set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+" set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
 set wildignore=*.swp            " ignore swp files in completion
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
@@ -68,15 +68,19 @@ set tabstop=2
 set shiftwidth=2
 " on pressing tab, insert 4 spaces
 set expandtab
+set shiftround
 set smarttab
 set autoindent
+
+" Use one space, not two, after punctuation.
+set nojoinspaces
 
 " Enable spell check for commit messages
 autocmd FileType gitcommit setlocal spell
 " in makefiles, don't expand tabs to spaces, since actual tab characters are
 " needed, and have indentation at 8 chars to be sure that all indents are tabs
 " (despite the mappings later):
-autocmd FileType make setlocal noexpandtab shiftwidth=8 softtabstop=0
+autocmd FileType make setlocal noexpandtab shiftwidth=4 softtabstop=0
 
 " Column width guide
 if exists('+colorcolumn')
@@ -124,3 +128,39 @@ if has('nvim')
   let g:python_host_prog  = '/usr/local/bin/python'
   let g:python3_host_prog  = '/usr/local/bin/python3'
 endif
+
+augroup vimrcEx
+  autocmd!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+augroup END
+
+
+" Tab completion
+" will insert tab at beginning of line,
+" will use completion if not at beginning
+set wildmode=list:longest,list:full
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <S-Tab> <c-n>
+
+" Always use vertical diffs
+set diffopt+=vertical

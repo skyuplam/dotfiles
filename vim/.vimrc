@@ -3,11 +3,23 @@
 " Config
 " -----------------------------------------------
 "
+" Plugins for vim-plug
+if filereadable(expand("~/.vim/configs/plugins.vim"))
+  source ~/.vim/configs/plugins.vim
+endif
+" General settings
+if filereadable(expand("~/.vim/configs/settings.vim"))
+  source ~/.vim/configs/settings.vim
+endif
+" Key Mappings
+if filereadable(expand("~/.vim/configs/mappings.vim"))
+  source ~/.vim/configs/mappings.vim
+endif
 
-source ~/.vim/configs/plugins.vim  " Plugins for vim-plug
-source ~/.vim/configs/settings.vim  "General settings
-source ~/.vim/configs/mappings.vim  " Key Mappings
 
+" -----------------------------------------------
+" Plugin config
+" -----------------------------------------------
 
 " NerdCommenter
 " Add spaces after comment delimiters by default
@@ -56,16 +68,21 @@ let g:ctrlp_max_height = 20            " provide more space to display results
 let g:ctrlp_switch_buffer = ''         " don't try to switch buffers
 
 if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-    set grepprg=ag\ --nogroup\ --nocolor
-    let s:ctrlp_fallback = 'ag -Q %s --hidden --nocolor -l -g ""'
-    let s:ctrlp_use_caching = 0        " ag is fast enough that ctrlp doesn't need to cache
+  let g:ackprg = 'ag --vimgrep'
+  set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+  let g:ctrlp_use_caching = 0
+  if !exists(":Ag")
+    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    nnoremap \ :Ag<SPACE>
+  endif
 elseif executable('ack-grep')
-    let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
+  let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
 elseif executable('ack')
-    let s:ctrlp_fallback = 'ack %s --nocolor -f'
+  let s:ctrlp_fallback = 'ack %s --nocolor -f'
 else
-    let s:ctrlp_fallback = 'find %s -type f'
+  let s:ctrlp_fallback = 'find %s -type f'
 endif
 
 
