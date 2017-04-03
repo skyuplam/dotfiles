@@ -48,6 +48,8 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " deoplete.nvim source for javascript
 Plug 'carlitux/deoplete-ternjs'
+" deoplete.nvim for jedi for python
+Plug 'zchee/deoplete-jedi'
 
 Plug 'ervandew/supertab'
 

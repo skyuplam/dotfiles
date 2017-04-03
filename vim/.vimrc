@@ -36,7 +36,7 @@ let g:neomake_javascript_jsx_enabled_makers = ['eslint']
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_exe = 'eslint_d'  " Use eslint_d for faster linting
 " Neomake Python
-let g:neomake_python_enabled_makers = ['pyflakes']
+let g:neomake_python_enabled_makers = ['pylama']
 
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
@@ -113,10 +113,9 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " Enable deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
+
+" jedi deoplete config
+let g:deoplete#sources#jedi#show_docstring = 1
 
 " ternjs deoplete config
 " Use deoplete.
