@@ -70,6 +70,9 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-fugitive'
 
+" Interactive command execution in Vim
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
 " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
 Plug 'airblade/vim-gitgutter'
 
@@ -105,8 +108,9 @@ Plug 'mhinz/vim-startify'
 Plug 'tmhedberg/matchit'
 
 " Monokai color scheme for Vim converted from Textmate theme
-Plug 'flazz/vim-colorschemes'
 " Plug 'tomasr/molokai'
+Plug 'crusoexia/vim-monokai'
+
 Plug 'ryanoasis/vim-devicons'
 
 " Add plugins to &runtimepath

@@ -1,7 +1,6 @@
 
 " Syntax Color
 syntax on                   " Syntax highlighting
-colorscheme monokai
 set mouse=a                 " Automatically enable mouse usage
 set mousehide               " Hide the mouse cursor while typing
 scriptencoding utf-8
@@ -38,7 +37,6 @@ set foldnestmax=10              " 10 nested fold max
 set synmaxcol=1000              " Don't syntax highlight long lines
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql
 " set shell=/bin/zsh
 set gdefault        " Add the `g` flag to search/replace by default
 
@@ -75,12 +73,6 @@ set autoindent
 " Use one space, not two, after punctuation.
 set nojoinspaces
 
-" Enable spell check for commit messages
-autocmd FileType gitcommit setlocal spell
-" in makefiles, don't expand tabs to spaces, since actual tab characters are
-" needed, and have indentation at 8 chars to be sure that all indents are tabs
-" (despite the mappings later):
-autocmd FileType make setlocal noexpandtab shiftwidth=4 softtabstop=0
 
 " Column width guide
 if exists('+colorcolumn')
@@ -96,6 +88,19 @@ set number
 
 set laststatus=2  " appear all the time
 
+"" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
+augroup vimrc-sync-fromstart
+  autocmd!
+  autocmd BufEnter * :syntax sync maxlines=200
+augroup END
+
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql
+" Enable spell check for commit messages
+autocmd FileType gitcommit setlocal spell
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make setlocal noexpandtab shiftwidth=4 softtabstop=0
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -150,17 +155,17 @@ augroup END
 " Tab completion
 " will insert tab at beginning of line,
 " will use completion if not at beginning
-set wildmode=list:longest,list:full
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
+" set wildmode=list:longest,list:full
+" function! InsertTabWrapper()
+"     let col = col('.') - 1
+"     if !col || getline('.')[col - 1] !~ '\k'
+"         return "\<tab>"
+"     else
+"         return "\<c-p>"
+"     endif
+" endfunction
+" inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+" inoremap <S-Tab> <c-n>
 
 " Always use vertical diffs
 set diffopt+=vertical
