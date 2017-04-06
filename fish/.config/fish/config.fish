@@ -1,7 +1,7 @@
 # Load configs from conf.d
-for file in ~/.config/fish/conf.d/*.fish
-    source $file
-end
+# for file in ~/.config/fish/conf.d/*.fish
+#     source $file
+# end
 
 # import alias
 source ~/.config/fish/alias.fish
@@ -17,7 +17,7 @@ set -x HOMEBREW_NO_ANALYTICS 1
 set -x OPENSSL_INCLUDE_DIR (brew --prefix openssl)/include
 set -x OPENSSL_LIB_DIR (brew --prefix openssl)/lib
 # set -x PATH ANDROID_HOME/tools ANDROID_HOME/platform-tools $PATH
-set -x XDG_CONFIG_HOME ~/.local/share/
+set -x XDG_CONFIG_HOME ~/.config
 set -x RUST_SRC_PATH ~/dev/oss/rust/src
 set -x RUSTUP_HOME ~/.multirust
 
@@ -50,7 +50,3 @@ set fish_function_path ~/.config/fish/functions/theme-pure $fish_function_path
 
 # Load private config
 source ~/.local.fish
-# THEME PURE #
-set fish_function_path /Users/terrencelam/.config/fish/functions/theme-pure $fish_function_path
-# THEME PURE #
-set fish_function_path /Users/terrencelam/.config/fish/functions/theme-pure $fish_function_path
