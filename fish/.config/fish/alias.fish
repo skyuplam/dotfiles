@@ -18,6 +18,9 @@ alias ag='ag --follow --hidden'
 # alias docker_images_clean='docker rmi (docker images -f dangling=true -q)'
 # alias docker_clean='docker rm (docker ps -a -q)'
 
+# it is a good practice to export VISUAL='mvim -f' to ensure MacVim will not
+# fork a new process when called, which should give you what you want when using
+# it with your shell environment.
 # VIM
 alias vi vim
 # alias vim 'mvim -v -f'
