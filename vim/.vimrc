@@ -244,6 +244,7 @@ let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 let g:airline_theme='dark'
 let g:airline_powerline_fonts=1  " enable powerline fonts
 " Airline workaround for [neovim](https://github.com/neovim/neovim/issues/4487)
+" TODO: enable it back when the bug fixed
 if has('nvim')
   let g:airline#extensions#branch#enabled = 0
 endif
