@@ -83,8 +83,8 @@ set showmode
 set showcmd
 set modeline                    " Always show modeline
 set backspace=indent,eol,start  "Backspace for dummies
-set linespace=0  " No extra spaces between rows
-set showmatch  " Show matching brackets/parenthesis
+set linespace=0                 " No extra spaces between rows
+set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Highlight search terms
 set winminheight=0              " Windows can be 0 line high
@@ -102,10 +102,10 @@ set synmaxcol=200               " Don't syntax highlight long lines
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 " set shell=/bin/zsh
-set gdefault        " Add the `g` flag to search/replace by default
+set gdefault                    " Add the `g` flag to search/replace by default
 
-set tabpagemax=15  " Only show 15 tabs
-set cursorline  " Highlight the current line
+set tabpagemax=15               " Only show 15 tabs
+set cursorline                  " Highlight the current line
 
 " Open splits more naturally
 set splitbelow
@@ -113,7 +113,7 @@ set splitright
 
 
 if has('clipboard')
-    if has('unnamedplus')  " When possible use + register for copy-paste
+    if has('unnamedplus')       " When possible use + register for copy-paste
         set clipboard=unnamed,unnamedplus
     else
         set clipboard=unnamed
@@ -147,7 +147,7 @@ set number
 
 set laststatus=2  " appear all the time
 
-"" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
+" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
 augroup vimrc-sync-fromstart
   autocmd!
   autocmd BufEnter * :syntax sync maxlines=200
