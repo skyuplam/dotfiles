@@ -1,29 +1,216 @@
-"
 " -----------------------------------------------
-" Config
+" Plugins
 " -----------------------------------------------
-"
-" Plugins for vim-plug
-if filereadable(expand("~/.vim/configs/plugins.vim"))
-  source ~/.vim/configs/plugins.vim
+
+" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+call plug#begin('~/.vim/plugged')
+  " A tree explorer plugin for vim. https://github.com/scrooloose/nerdtree
+  Plug 'scrooloose/nerdtree'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'jistr/vim-nerdtree-tabs'
+  " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
+  " http://ctrlpvim.github.com/ctrlp.vim
+  Plug 'ctrlpvim/ctrlp.vim'
+  " surround.vim: quoting/parenthesizing made simple
+  " http://www.vim.org/scripts/script.php?script_id=1697
+  Plug 'tpope/vim-surround'
+  " Comment functions so powerful—no comment necessary.
+  " https://github.com/scrooloose/nerdcommenter
+  Plug 'scrooloose/nerdcommenter'
+  " Asynchronous keyword completion
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  " deoplete.nvim source for javascript
+  Plug 'carlitux/deoplete-ternjs'
+  " deoplete.nvim for jedi for python
+  Plug 'zchee/deoplete-jedi'
+  Plug 'ervandew/supertab'
+  " vim Markdown
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+  Plug 'Raimondi/delimitMate'
+  " Use Neomake instead of syntasitic
+  Plug 'neomake/neomake'
+  Plug 'tpope/vim-fugitive'
+  " Interactive command execution in Vim
+  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+  " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
+  Plug 'airblade/vim-gitgutter'
+  Plug 'tpope/vim-git'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'pangloss/vim-javascript'
+  Plug 'mxw/vim-jsx'
+  Plug 'terryma/vim-multiple-cursors'
+  Plug 'tpope/vim-unimpaired'
+  Plug 'jeetsukumaran/vim-buffergator'
+  Plug 'ntpeters/vim-better-whitespace'
+  Plug 'python-mode/python-mode'
+  Plug 'tpope/vim-repeat'
+  Plug 'mattn/emmet-vim'
+  Plug 'mhinz/vim-startify'
+  Plug 'tmhedberg/matchit'
+  Plug 'mileszs/ack.vim'
+  " Monokai color scheme for Vim converted from Textmate theme
+  Plug 'crusoexia/vim-monokai'
+  Plug 'ryanoasis/vim-devicons'
+  " Add plugins to &runtimepath
+call plug#end()
+
+
+
+" -----------------------------------------------
+" General Config
+" -----------------------------------------------
+
+set nocompatible
+set nobackup
+set nowritebackup
+set noswapfile
+set mouse=a                 " Automatically enable mouse usage
+set mousehide               " Hide the mouse cursor while typing
+scriptencoding utf-8
+" Set font
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ h12
+  elseif has("gui_macvim")
+    set guifont=Knack\ Regular\ Nerd\ Font\ Complete:h12
+  endif
 endif
-" General settings
-if filereadable(expand("~/.vim/configs/settings.vim"))
-  source ~/.vim/configs/settings.vim
+
+set scrolloff=3
+set showmode
+set showcmd
+set modeline                    " Always show modeline
+set backspace=indent,eol,start  "Backspace for dummies
+set linespace=0  " No extra spaces between rows
+set showmatch  " Show matching brackets/parenthesis
+set incsearch                   " Find as you type search
+set hlsearch                    " Highlight search terms
+set winminheight=0              " Windows can be 0 line high
+set ignorecase                  " Case insensitive search
+set smartcase                   " Case sensitive when uc present
+set wildmenu                    " Show list instead of just completing
+set wildignore=*.swp            " ignore swp files in completion
+set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+set scrolljump=5                " Lines to scroll when cursor leaves screen
+set scrolloff=3                 " Minimum lines to keep above and below cursor
+set foldenable                  " Auto fold code
+set foldlevelstart=10           " open most folds by default to
+set foldnestmax=10              " 10 nested fold max
+set synmaxcol=200               " Don't syntax highlight long lines
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+" set shell=/bin/zsh
+set gdefault        " Add the `g` flag to search/replace by default
+
+set tabpagemax=15  " Only show 15 tabs
+set cursorline  " Highlight the current line
+
+" Open splits more naturally
+set splitbelow
+set splitright
+
+
+if has('clipboard')
+    if has('unnamedplus')  " When possible use + register for copy-paste
+        set clipboard=unnamed,unnamedplus
+    else
+        set clipboard=unnamed
+    endif
 endif
-" Key Mappings
-if filereadable(expand("~/.vim/configs/mappings.vim"))
-  source ~/.vim/configs/mappings.vim
+
+" Indent space
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=2
+" when indenting with '>', use 4 spaces width
+set shiftwidth=2
+" on pressing tab, insert 4 spaces
+set expandtab
+set shiftround
+set smarttab
+set autoindent
+
+" Use one space, not two, after punctuation.
+set nojoinspaces
+
+" Column width guide
+if exists('+colorcolumn')
+  set textwidth=80
+  set colorcolumn=+1
+endif
+
+" Line Number
+set relativenumber
+set number
+
+set laststatus=2  " appear all the time
+
+"" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
+augroup vimrc-sync-fromstart
+  autocmd!
+  autocmd BufEnter * :syntax sync maxlines=200
+augroup END
+
+" Enable spell check for commit messages
+autocmd FileType gitcommit setlocal spell
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make setlocal noexpandtab shiftwidth=4 softtabstop=0
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" set completeopt-=preview
+
+" Autocompolete with dictoinary words when spell check is on
+set complete+=kspell
+
+if !has('nvim')
+  set ttyfast
+  set encoding=utf-8
 endif
 
 
+" Use Truecolors
+set termguicolors
+
+" Nvim specific config
+if has('nvim')
+  " Program to use for evaluating Python code. Setting this makes startup faster.
+  " Also useful for working with virtualenvs.
+  let g:python_host_prog  = '/usr/local/bin/python'
+  let g:python3_host_prog  = '/usr/local/bin/python3'
+endif
+
+augroup vimrcEx
+  autocmd!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+augroup END
+
+" Always use vertical diffs
+set diffopt+=vertical
 " -----------------------------------------------
 " Plugin config
 " -----------------------------------------------
 
 " Color Scheme
 colorscheme monokai
-set t_Co=256
 
 " NerdCommenter
 " Add spaces after comment delimiters by default
@@ -56,40 +243,9 @@ let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 " Set airline theme
 let g:airline_theme='dark'
 let g:airline_powerline_fonts=1  " enable powerline fonts
-" vim-airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-if !exists('g:airline_powerline_fonts')
-  let g:airline#extensions#tabline#left_sep = ' '
-  let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep          = '▶'
-  let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep         = '◀'
-  let g:airline_right_alt_sep     = '«'
-  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-  let g:airline#extensions#readonly#symbol   = '⊘'
-  let g:airline#extensions#linecolumn#prefix = '¶'
-  let g:airline#extensions#paste#symbol      = 'ρ'
-  let g:airline_symbols.linenr    = '␊'
-  let g:airline_symbols.branch    = '⎇'
-  let g:airline_symbols.paste     = 'ρ'
-  let g:airline_symbols.paste     = 'Þ'
-  let g:airline_symbols.paste     = '∥'
-  let g:airline_symbols.whitespace = 'Ξ'
-else
-  let g:airline#extensions#tabline#left_sep = ''
-  let g:airline#extensions#tabline#left_alt_sep = ''
-
-  " powerline symbols
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = ''
+" Airline workaround for [neovim](https://github.com/neovim/neovim/issues/4487)
+if has('nvim')
+  let g:airline#extensions#branch#enabled = 0
 endif
 
 " Vim-jsx
@@ -102,16 +258,18 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|build|dist)$',
   \ 'file': '\v\.(exe|so|dll|pyc)$',
   \ }
-let g:ctrlp_mruf_max = 250             " track recently used files
+let g:ctrlp_mruf_max = 50             " track recently used files
 let g:ctrlp_max_height = 20            " provide more space to display results
-let g:ctrlp_switch_buffer = ''         " don't try to switch buffers
+let g:ctrlp_switch_buffer = 0         " don't try to switch buffers
 
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag --vimgrep --smart-case'
   set grepprg=ag\ --nogroup\ --nocolor
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+  let g:ctrlp_user_command = 'ag -Q -l --nocolor -g "" %s'
   let g:ctrlp_use_caching = 0
+  cnoreabbrev ag Ack
+
   if !exists(":Ag")
     command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
     nnoremap \ :Ag<SPACE>
@@ -152,15 +310,12 @@ let g:NERDTreeIndicatorMapCustom = {
 
 " Enable deoplete
 let g:deoplete#enable_at_startup = 1
-
 " jedi deoplete config
 let g:deoplete#sources#jedi#show_docstring = 1
-
 " ternjs deoplete config
 " Use deoplete.
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
-
 "Add extra filetypes
 let g:tern#filetypes = [
                 \ 'jsx',
@@ -174,4 +329,68 @@ let g:user_emmet_mode='a'    "enable all function in all mode.
 " Enable just for html/css/javascript
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
+
+
+" -----------------------------------------------
+" Key Mapping
+" -----------------------------------------------
+"
+
+" Set mapleader
+let mapleader = ","
+
+" NERDTree
+map <C-e> :NERDTreeToggle<CR>
+
+" Fugitive
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gr :Gread<CR>
+nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+nnoremap <silent> <leader>gi :Git add -p %<CR>
+nnoremap <silent> <leader>gg :SignifyToggle<CR>
+
+" Use ctrl-[hjkl] to select the active split!
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+" Mappings to move lines
+nnoremap ∆ :m .+1<CR>==
+nnoremap ˚ :m .-2<CR>==
+inoremap ∆ <A-j> <Esc>:m .+1<CR>==gi
+inoremap ˚ <Esc>:m .-2<CR>==gi
+vnoremap ∆ :m '>+1<CR>gv=gv
+vnoremap ˚ :m '<-2<CR>gv=gv
+
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
+
+" JSON
+nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+
+" edit vimrc and reload vimrc - mnemonic: (e)dit(v)imrc, (r)eload(v)imrc
+nnoremap <leader>ev :tabe $MYVIMRC<CR>
+nnoremap <leader>rv :source $MYVIMRC<CR>
+
+" ctrlsf.vim mapping
+nmap <leader>sf <Plug>CtrlSFPrompt
+vmap <leader>sf <Plug>CtrlSFVwordPath
+vmap <leader>sF <Plug>CtrlSFVwordExec
+nmap <leader>sp <Plug>CtrlSFPwordPath
+nnoremap <leader>so :CtrlSFOpen<CR>
+nnoremap <leader>st :CtrlSFToggle<CR>
+inoremap <leader>st <Esc>:CtrlSFToggle<CR>
+
+" Neomake key mapping
+nmap <Leader><Space>o :lopen<CR>      " open location window
+nmap <Leader><Space>c :lclose<CR>     " close location window
+nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+nmap <Leader><Space>n :lnext<CR>      " next error/warning
+nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 
