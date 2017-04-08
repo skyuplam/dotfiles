@@ -174,16 +174,15 @@ if !has('nvim')
   set encoding=utf-8
 endif
 
-
-" Use Truecolors
-set termguicolors
-
 " Nvim specific config
 if has('nvim')
   " Program to use for evaluating Python code. Setting this makes startup faster.
   " Also useful for working with virtualenvs.
   let g:python_host_prog  = '/usr/local/bin/python'
   let g:python3_host_prog  = '/usr/local/bin/python3'
+
+  " Use Truecolors
+  set termguicolors
 endif
 
 augroup vimrcEx
