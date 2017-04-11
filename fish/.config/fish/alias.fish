@@ -17,6 +17,9 @@ alias ag='ag --follow --hidden'
 # Remove dangling docker images
 # alias docker_images_clean='docker rmi (docker images -f dangling=true -q)'
 # alias docker_clean='docker rm (docker ps -a -q)'
+# Docker
+alias d docker
+alias dc docker-compose
 
 # it is a good practice to export VISUAL='mvim -f' to ensure MacVim will not
 # fork a new process when called, which should give you what you want when using
@@ -25,6 +28,9 @@ alias ag='ag --follow --hidden'
 alias vi vim
 # alias vim 'mvim -v -f'
 alias vim nvim
+
+# AWS login credential
+alias  awslogin 'aws ecr get-login --region eu-west-1 | source'
 
 
 # Update installed brew and npm packages
@@ -57,4 +63,16 @@ function make_completion --argument-names alias command
 end
 
 make_completion g 'git'
+make_completion d 'docker'
+make_completion dc 'docker-compose'
 
+
+# pip fish completion start
+function __fish_complete_pip
+    set -lx COMP_WORDS (commandline -o) ""
+    set -lx COMP_CWORD (math (contains -i -- (commandline -t) $COMP_WORDS)-1)
+    set -lx PIP_AUTO_COMPLETE 1
+    string split \  -- (eval $COMP_WORDS[1])
+end
+complete -fa "(__fish_complete_pip)" -c pip
+# pip fish completion end

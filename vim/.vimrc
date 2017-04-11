@@ -2,6 +2,12 @@
 " Plugins
 " -----------------------------------------------
 
+" Helper function for conditional loading plugin
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
   " A tree explorer plugin for vim. https://github.com/scrooloose/nerdtree
@@ -18,9 +24,9 @@ call plug#begin('~/.vim/plugged')
   " https://github.com/scrooloose/nerdcommenter
   Plug 'scrooloose/nerdcommenter'
   " Asynchronous keyword completion
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
   " deoplete.nvim source for javascript
-  Plug 'carlitux/deoplete-ternjs'
+  Plug 'carlitux/deoplete-ternjs', Cond(has('nvim'))
   " deoplete.nvim for jedi for python
   Plug 'zchee/deoplete-jedi'
   Plug 'ervandew/supertab'
@@ -29,7 +35,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'plasticboy/vim-markdown'
   Plug 'Raimondi/delimitMate'
   " Use Neomake instead of syntasitic
-  Plug 'neomake/neomake'
+  Plug 'neomake/neomake', Cond(has('nvim'))
   Plug 'tpope/vim-fugitive'
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -217,16 +223,33 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = { 'javascript.jsx': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }}
 
-" Neomake settings, run Neomake on the current file on every write
-autocmd! BufWritePost * Neomake
-" Neomake Javascript
-let g:neomake_open_list = 0
-let g:neomake_verbose = 1
-let g:neomake_javascript_jsx_enabled_makers = ['eslint']
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_javascript_eslint_exe = 'eslint_d'  " Use eslint_d for faster linting
-" Neomake Python
-let g:neomake_python_enabled_makers = ['pylama']
+if has('nvim')
+  " Neomake settings, run Neomake on the current file on every write autocmd! BufWritePost * Neomake
+  " Neomake Javascript
+  let g:neomake_open_list = 0
+  let g:neomake_verbose = 1
+  let g:neomake_javascript_jsx_enabled_makers = ['eslint']
+  let g:neomake_javascript_enabled_makers = ['eslint']
+  let g:neomake_javascript_eslint_exe = 'eslint_d'  " Use eslint_d for faster linting
+  " Neomake Python
+  let g:neomake_python_enabled_makers = ['pyflakes', 'mypy', 'pylint', 'flake8']
+
+
+  " Enable deoplete
+  let g:deoplete#enable_at_startup = 1
+  " jedi deoplete config
+  let g:deoplete#sources#jedi#show_docstring = 1
+  " ternjs deoplete config
+  " Use deoplete.
+  let g:tern_request_timeout = 1
+  let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+  "Add extra filetypes
+  let g:tern#filetypes = [
+                  \ 'jsx',
+                  \ 'javascript.jsx',
+                  \ 'vue',
+                  \ ]
+endif
 
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
@@ -308,20 +331,6 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
-" Enable deoplete
-let g:deoplete#enable_at_startup = 1
-" jedi deoplete config
-let g:deoplete#sources#jedi#show_docstring = 1
-" ternjs deoplete config
-" Use deoplete.
-let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
-"Add extra filetypes
-let g:tern#filetypes = [
-                \ 'jsx',
-                \ 'javascript.jsx',
-                \ 'vue',
-                \ ]
 
 " Emmet-vim
 " Enable in different mode
