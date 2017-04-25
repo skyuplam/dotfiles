@@ -36,6 +36,12 @@ powerline-daemon -q
 # THEME PURE #
 set fish_function_path ~/.config/fish/functions/theme-pure $fish_function_path
 
+# [tiny-care-terminal](https://github.com/notwaldorf/tiny-care-terminal) config
+set -gx TTC_BOTS 'tinycarebot,selfcare_bot,magicrealismbot'
+set -gx TTC_WEATHER 'Oslo'
+set -gx TTC_CELSIUS true
+set -gx TTC_APIKEYS true
+set -gx TTC_UPDATE_INTERVAL 20  # Refresh the dashboard every 20 minutes
 
 # Load private config
 source ~/.local.fish
