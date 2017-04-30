@@ -8,6 +8,7 @@ set -x PYTHONIOENCODING 'UTF-8'
 # Environment Variables
 set -x LC_ALL en_US.UTF-8
 set -x LANG en_US.UTF-8
+set -x EDITOR vim
 
 set -x HOMEBREW_NO_ANALYTICS 1
 set -x OPENSSL_INCLUDE_DIR (brew --prefix openssl)/include
@@ -43,5 +44,8 @@ set -gx TTC_CELSIUS true
 set -gx TTC_APIKEYS true
 set -gx TTC_UPDATE_INTERVAL 20  # Refresh the dashboard every 20 minutes
 
-# Load private config
+# Rust
+set -x PATH $HOME/.cargo/bin $PATH
+
+ #Load private config
 source ~/.local.fish
