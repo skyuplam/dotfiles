@@ -27,7 +27,9 @@ alias dc docker-compose
 # VIM
 alias vi vim
 # alias vim 'mvim -v -f'
-alias vim nvim
+if type nvim > /dev/null 2>&1
+    alias vim='nvim'
+end
 
 # AWS login credential
 alias  awslogin 'aws ecr get-login --region eu-west-1 | source'
