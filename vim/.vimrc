@@ -230,8 +230,8 @@ if has('nvim')
   autocmd! BufWritePost * Neomake
   let g:neomake_open_list = 0
   let g:neomake_verbose = 1
-  let g:neomake_javascript_enabled_makers = ['eslint']
-  let g:neomake_javascript_jsx_enabled_makers = ['eslint']
+  let g:neomake_javascript_enabled_makers = ['eslint_d']
+  let g:neomake_javascript_jsx_enabled_makers = ['eslint_d']
   " let g:neomake_javascript_eslint_exe = 'eslint_d'  " Use eslint_d for faster linting
   " Neomake Python
   let g:neomake_python_enabled_makers = ['pyflakes', 'mypy', 'pylint', 'flake8']
