@@ -15,8 +15,8 @@ set -x OPENSSL_INCLUDE_DIR (brew --prefix openssl)/include
 set -x OPENSSL_LIB_DIR (brew --prefix openssl)/lib
 set -x XDG_CONFIG_HOME ~/.config
 set -x XDG_DATA_HOME ~/.config
-set -x RUST_SRC_PATH ~/dev/oss/rust/src
 set -x RUSTUP_HOME ~/.multirust
+set -x RUST_SRC_PATH {$RUSTUP_HOME}/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
 
 set -x MYVIMRC ~/.vimrc
 
