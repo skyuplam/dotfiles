@@ -45,6 +45,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'pangloss/vim-javascript'
+  Plug 'rust-lang/rust.vim'
+  Plug 'sebastianmarkow/deoplete-rust'
   Plug 'mxw/vim-jsx'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-unimpaired'
@@ -224,15 +226,22 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = { 'javascript.jsx': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }}
 
+" Startify
+let g:startify_change_to_dir = 0
+
 if has('nvim')
   " Neomake settings, run Neomake on the current file on every write autocmd! BufWritePost * Neomake
   " Neomake Javascript
   autocmd! BufWritePost * Neomake
+
+  " This maker should be run explicitly using the command `:Neomake! clippy`.
+  " It needs a nightly build of Rust, and supports rustup.
+
   let g:neomake_open_list = 0
   let g:neomake_verbose = 1
-  let g:neomake_javascript_enabled_makers = ['eslint_d']
-  let g:neomake_javascript_jsx_enabled_makers = ['eslint_d']
-  " let g:neomake_javascript_eslint_exe = 'eslint_d'  " Use eslint_d for faster linting
+  let g:neomake_javascript_enabled_makers = ['eslint']
+  let g:neomake_javascript_jsx_enabled_makers = ['eslint']
+  let g:neomake_rust_enabled_makers = ['cargo', 'rustc']
   " Neomake Python
   let g:neomake_python_enabled_makers = ['pyflakes', 'mypy', 'pylint', 'flake8']
 
@@ -251,6 +260,10 @@ if has('nvim')
                   \ 'javascript.jsx',
                   \ 'vue',
                   \ ]
+  " Rust Racer for autocomplete with deoplete
+  let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
+  let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
+  let g:deoplete#sources#rust#documentation_max_height=20
 endif
 
 
@@ -404,4 +417,7 @@ nmap <Leader><Space>c :lclose<CR>     " close location window
 nmap <Leader><Space>, :ll<CR>         " go to current error/warning
 nmap <Leader><Space>n :lnext<CR>      " next error/warning
 nmap <Leader><Space>p :lprev<CR>      " previous error/warning
+
+" Rust
+nmap <Leader>rf :RustFmt<CR>          " format your code with rustfmt
 
