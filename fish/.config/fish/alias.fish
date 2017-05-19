@@ -34,6 +34,8 @@ end
 # AWS login credential
 alias  awslogin 'aws ecr get-login --region eu-west-1 | source'
 
+# rust-clippy linter
+alias clippy 'cargo rustc -q --features=clippy -- -Z no-trans -Z extra-plugins=clippy'
 
 # Update installed brew and npm packages
 alias brew_update 'brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u; fisher up'
