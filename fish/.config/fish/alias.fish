@@ -38,7 +38,7 @@ alias  awslogin 'aws ecr get-login --region eu-west-1 | source'
 alias clippy 'cargo rustc -q --features=clippy -- -Z no-trans -Z extra-plugins=clippy'
 
 # Update installed brew and npm packages
-alias brew_update 'brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u; fisher up'
+alias brew_update 'brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u; fisher up; rustup update'
 
 # Useful `tree` aliases
 function tree1; tree --dirsfirst -ChFLQ 1 $argv; end
