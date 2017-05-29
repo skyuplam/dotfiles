@@ -1,6 +1,18 @@
 # dotfiles
 My Personal dotfiles .:.
 
+## Dependencies
+
+1. `stow`
+2. `pygmentize`
+3. `jq`
+4. `The silver search (ag)`
+5. `docker`
+6. `docker-compose`
+7. `aws-cli`
+8. `tree`
+9. `cargo`
+
 ## Manage dotfiles
 
 I use [stow](https://www.gnu.org/software/stow/) to manage my dotfiles.
