@@ -1,4 +1,5 @@
 [global_config]
+  sticky = True
   title_font = Knack Nerd Font 9
   title_inactive_bg_color = "#75715e"
   title_inactive_fg_color = "#f8f8f2"
@@ -6,6 +7,21 @@
   title_transmit_fg_color = "#f8f8f2"
   title_use_system_font = False
 [keybindings]
+  cycle_next = <Primary>Tab
+  cycle_prev = <Primary><Shift>Tab
+  new_tab = <Super>t
+  rotate_ccw = <Super>bracketleft
+  rotate_cw = <Super>bracketright
+  search = <Super>f
+  split_horiz = <Shift><Super>d
+  split_vert = <Super>d
+  switch_to_tab_1 = <Super>1
+  switch_to_tab_2 = <Super>2
+  switch_to_tab_3 = <Super>3
+  switch_to_tab_4 = <Super>4
+  switch_to_tab_5 = <Super>5
+  switch_to_tab_6 = <Super>6
+  toggle_zoom = <Shift><Super>Return
 [layouts]
   [[default]]
     [[[child1]]]
@@ -18,7 +34,15 @@
 [plugins]
 [profiles]
   [[default]]
+    audible_bell = True
     background_color = "#272822"
+    background_darkness = 0.88
+    background_type = transparent
+    copy_on_selection = True
     cursor_color = "#f8f8f2"
+    font = Knack Nerd Font 11
     foreground_color = "#f8f8f2"
     palette = "#272822:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#a1efe4:#f8f8f2:#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#a1efe4:#f9f8f5"
+    scrollback_infinite = True
+    scrollbar_position = hidden
+    use_system_font = False
