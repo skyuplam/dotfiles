@@ -1,1 +1,1 @@
-/Users/terrencelam/.config/fisherman/z/functions/__z_add.fish
+/home/terrencelam/.config/fisherman/z/functions/__z_add.fish

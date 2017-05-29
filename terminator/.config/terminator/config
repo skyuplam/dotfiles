@@ -1,0 +1,24 @@
+[global_config]
+  title_font = Knack Nerd Font 9
+  title_inactive_bg_color = "#75715e"
+  title_inactive_fg_color = "#f8f8f2"
+  title_transmit_bg_color = "#272822"
+  title_transmit_fg_color = "#f8f8f2"
+  title_use_system_font = False
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#272822"
+    cursor_color = "#f8f8f2"
+    foreground_color = "#f8f8f2"
+    palette = "#272822:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#a1efe4:#f8f8f2:#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#a1efe4:#f9f8f5"

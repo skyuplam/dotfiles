@@ -1,1 +1,1 @@
-/Users/terrencelam/.config/fisherman/pure/fish_right_prompt.fish
+/home/terrencelam/.config/fisherman/simple/functions/fish_right_prompt.fish

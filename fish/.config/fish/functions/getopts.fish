@@ -1,1 +1,1 @@
-/Users/terrencelam/.config/fisherman/getopts/getopts.fish
+/home/terrencelam/.config/fisherman/getopts/getopts.fish
