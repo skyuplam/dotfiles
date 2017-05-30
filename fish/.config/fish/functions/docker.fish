@@ -1,1 +1,0 @@
-/Users/terrencelam/.config/fisherman/docker-fish-completion/docker.fish

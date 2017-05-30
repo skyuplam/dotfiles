@@ -1,1 +1,1 @@
-/home/terrencelam/.config/fisherman/z/functions/z.awk
+/Users/terrencelam/.config/fisherman/z/functions/z.awk
