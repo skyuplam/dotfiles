@@ -1,8 +1,13 @@
-fishfile
+# fish shell
+fishd.*
 fish_history
 generated_completions/
 conf.d/
 functions/
 plugged/
 
+# vim
 shada/
+viminfo
+swaps/*
+undo
