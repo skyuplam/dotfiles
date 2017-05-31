@@ -1,1 +1,1 @@
-/home/terrencelam/.vimrc
+../../../vim/.vimrc
