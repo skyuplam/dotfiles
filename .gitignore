@@ -1,14 +1,18 @@
 # fish shell
-fishd.*
-fish_history
-generated_completions/
-conf.d/
-functions/
-plugged/
+fish/**/fishd.tlaminator
+fish/**/fish_history
+fish/**/generated_completions
+fish/**/conf.d
+fish/**/functions
 
 # vim
-shada/
-site/
-viminfo
-swaps/*
-undo
+vim/**/plugged
+vim/**/shada
+vim/**/site
+vim/**/viminfo
+vim/**/swaps
+vim/**/undo
+
+# nvim
+nvim/**/shada
+nvim/**/site

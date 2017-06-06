@@ -1,1 +1,0 @@
-/Users/terrencelam/.config/fisherman/pure/installer.fish
