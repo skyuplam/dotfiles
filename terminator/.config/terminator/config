@@ -9,8 +9,8 @@
 [keybindings]
   cycle_next = <Primary>Tab
   cycle_prev = <Primary><Shift>Tab
-  line_down = <Shift><Super>k
-  line_up = <Shift><Super>j
+  line_down = <Shift><Super>j
+  line_up = <Shift><Super>k
   new_tab = <Super>t
   rotate_ccw = <Super>bracketleft
   rotate_cw = <Super>bracketright
