@@ -1,4 +1,5 @@
 [global_config]
+  inactive_color_offset = 0.909090909091
   sticky = True
   title_font = Knack Nerd Font 9
   title_inactive_bg_color = "#75715e"
@@ -7,13 +8,15 @@
   title_transmit_fg_color = "#f8f8f2"
   title_use_system_font = False
 [keybindings]
-  cycle_next = <Primary>Tab
-  cycle_prev = <Primary><Shift>Tab
+  copy = <Primary>c
+  cycle_next = <Super>bracketright
+  cycle_prev = <Super>bracketleft
   line_down = <Shift><Super>j
   line_up = <Shift><Super>k
   new_tab = <Super>t
-  rotate_ccw = <Super>bracketleft
-  rotate_cw = <Super>bracketright
+  paste = <Primary>v
+  rotate_ccw = <Primary>r
+  rotate_cw = <Primary><Shift>r
   search = <Super>f
   split_horiz = <Shift><Super>d
   split_vert = <Super>d
@@ -26,23 +29,33 @@
   toggle_zoom = <Shift><Super>Return
 [layouts]
   [[default]]
-    [[[child1]]]
-      parent = window0
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = c8483725-f0e1-4230-983d-e1673f478b6e
+      last_active_window = True
+      maximised = False
+      order = 0
+      parent = ""
+      position = 112:34
+      size = 642, 426
+      title = fish  /home/terrencelam
+      type = Window
+    [[[terminal1]]]
+      order = 0
+      parent = child0
       profile = default
       type = Terminal
-    [[[window0]]]
-      parent = ""
-      type = Window
+      uuid = c8483725-f0e1-4230-983d-e1673f478b6e
 [plugins]
 [profiles]
   [[default]]
     audible_bell = True
     background_color = "#272822"
-    background_darkness = 0.88
+    background_darkness = 0.91
     background_type = transparent
     copy_on_selection = True
     cursor_color = "#f8f8f2"
-    font = Knack Nerd Font 10
+    font = Knack Nerd Font 11
     foreground_color = "#f8f8f2"
     palette = "#272822:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#a1efe4:#f8f8f2:#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#a1efe4:#f9f8f5"
     scrollback_infinite = True

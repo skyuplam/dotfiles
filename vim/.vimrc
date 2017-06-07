@@ -80,7 +80,7 @@ scriptencoding utf-8
 " Set font
 if has("gui_running")
   if has("gui_gtk2")
-    set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ h12
+    set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ h13
   elseif has("gui_macvim")
     set guifont=Knack\ Regular\ Nerd\ Font\ Complete:h12
   endif
@@ -186,8 +186,8 @@ endif
 if has('nvim')
   " Program to use for evaluating Python code. Setting this makes startup faster.
   " Also useful for working with virtualenvs.
-  let g:python_host_prog  = '/usr/local/bin/python'
-  let g:python3_host_prog  = '/usr/local/bin/python3'
+  " let g:python_host_prog  = '/usr/local/bin/python'
+  let g:python3_host_prog  = '/usr/bin/python'
 
   " Use Truecolors
   set termguicolors

@@ -42,7 +42,12 @@ end
 # powline fish shell prompt
 # set fish_function_path $fish_function_path "/usr/local/lib/python2.7/site-packagessite-packages/powerline/bindings/fish"
 # THEME PURE #
-set fish_function_path ~/.config/fish/functions/theme-pure $fish_function_path
+# set fish_function_path ~/.config/fish/functions/theme-pure $fish_function_path
+
+test -e {$HOME}/.local/bin ; and set -x PATH $HOME/.local/bin $PATH
+
+# fish prompt theme-bobthefish
+set -g theme_nerd_fonts yes
 
 # Rust
 test -e {$HOME}/.cargo/bin ; and set -x PATH $HOME/.cargo/bin $PATH

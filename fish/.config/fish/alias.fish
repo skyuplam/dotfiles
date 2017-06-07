@@ -54,7 +54,6 @@ function ll ; tree --dirsfirst -ChFupDaLg 1 $argv ; end
 
 # Quick check running state of a process
 alias ps='ps -ef | peco'
-alias top='top -o cpu'
 
 # Completions
 function make_completion --argument-names alias command
