@@ -49,6 +49,9 @@ test -e {$HOME}/.local/bin ; and set -x PATH $HOME/.local/bin $PATH
 # fish prompt theme-bobthefish
 set -g theme_nerd_fonts yes
 
+# fzf
+set -U FZF_LEGACY_KEYBINDINGS 0
+
 # Rust
 test -e {$HOME}/.cargo/bin ; and set -x PATH $HOME/.cargo/bin $PATH
 
