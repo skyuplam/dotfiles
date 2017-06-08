@@ -1,4 +1,8 @@
+fisherman/await
 oh-my-fish/theme-bobthefish
+barnybug/docker-fish-completion
+fisherman/fzf
+fisherman/get
 fisherman/getopts
 fisherman/git_util
 fisherman/host_info
