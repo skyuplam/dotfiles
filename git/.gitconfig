@@ -1,6 +1,6 @@
 # set your user tokens as environment variables, such as ~/.secrets
 [color]
-  ui = true
+  ui = auto
 [color "branch"]
   current = yellow reverse
   local = yellow
@@ -10,6 +10,11 @@
   frag = magenta bold
   old = red
   new = green
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
 [alias]
   # add
   a = add                           # add
@@ -45,7 +50,8 @@
   last = diff HEAD^                 # diff last committed change
 
   # log
-  l = log --graph --date=short
+  # View abbreviated SHA, description, and history graph of the latest 20 commits
+  l = log --pretty=oneline -n 20 --graph --abbrev-commit
   changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   simple = log --pretty=format:\" * %s\"
@@ -77,7 +83,7 @@
   sd = stash drop                   # drop stashes (destory changes)
 
   # status
-  s = status                        # status
+  s = status -s                     # status
   st = status                       # status
   stat = status                     # status
 
