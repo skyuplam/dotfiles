@@ -25,15 +25,18 @@ By organizing the folder structure as the following.
 dotfiles
 ├──vim/
 ├──tmux/
+├──fish/
 ...
 ```
 
-To install my vim config, simply run the command `stow vim` under the `dotfiles`
+To install vim config, simply run the command `stow -t ~ vim` under the `dotfiles`
 folder. `stow` will symbolic link the content under `vim` folder to your home
 dir.
 
+To install fish config, `# stow -t $XDG_CONFIG_HOME fish`.
 
 ## Private files
 
 `fishshell`: run `touch ~/.local.fish` to create an empty local fish config to store all
 your private stuff, e.g. `API_KEY`, `PRIVATE_TOKEN`, etc.
+`git`: ~/.secret
