@@ -52,6 +52,7 @@
   # log
   # View abbreviated SHA, description, and history graph of the latest 20 commits
   l = log --pretty=oneline -n 20 --graph --abbrev-commit
+  log = log --pretty=oneline -n 20 --graph --abbrev-commit
   changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   simple = log --pretty=format:\" * %s\"
@@ -84,8 +85,8 @@
 
   # status
   s = status -s                     # status
-  st = status                       # status
-  stat = status                     # status
+  st = status -s                    # status
+  stat = status -s                  # status
 
   # tag
   t = tag -n                        # show tags with <n> lines of each tag message
