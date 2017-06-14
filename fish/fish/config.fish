@@ -39,14 +39,10 @@ if command --search powerline-daemon > /dev/null do
   powerline-daemon -q
 end
 
-# powline fish shell prompt
-# set fish_function_path $fish_function_path "/usr/local/lib/python2.7/site-packagessite-packages/powerline/bindings/fish"
-# THEME PURE #
-# set fish_function_path ~/.config/fish/functions/theme-pure $fish_function_path
-
 test -e {$HOME}/.local/bin ; and set -x PATH $HOME/.local/bin $PATH
 
-# fish prompt theme-bobthefish
+# fish prompt oh-my-fish/theme-bobthefish
+set -g theme_powerline_fonts yes
 set -g theme_nerd_fonts yes
 
 # fzf
