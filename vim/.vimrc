@@ -36,6 +36,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'Raimondi/delimitMate'
   " Use Neomake instead of syntasitic
   Plug 'neomake/neomake', Cond(has('nvim'))
+  Plug 'benjie/neomake-local-eslint.vim', Cond(has('nvim'))
   Plug 'tpope/vim-fugitive'
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -171,7 +172,7 @@ autocmd FileType make setlocal noexpandtab shiftwidth=4 softtabstop=0
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 " set completeopt-=preview
 
 " Autocompolete with dictoinary words when spell check is on
@@ -249,12 +250,12 @@ if has('nvim')
   " Enable deoplete
   let g:deoplete#enable_at_startup = 1
   " jedi deoplete config
-  " let g:deoplete#sources#jedi#show_docstring = 1
+  let g:deoplete#sources#jedi#show_docstring = 0
   " ternjs deoplete config
   " Use deoplete.
   let g:tern_request_timeout = 1
   let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
-  let g:deoplete#auto_complete_delay = 1000
+  let g:deoplete#auto_complete_delay = 50
   "Add extra filetypes
   let g:tern#filetypes = [
                   \ 'jsx',

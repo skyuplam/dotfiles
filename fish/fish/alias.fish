@@ -42,6 +42,11 @@ if command --search brew > /dev/null do
   alias brew_update 'brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u; fisher up; rustup update'
 end
 
+# Update python packages with pip
+if command --search pip > /dev/null do
+  alias pip_update 'pip list --outdated --format=freeze | cut -d = -f 1 | xargs sudo pip install -U'
+end
+
 # Useful `tree` aliases
 function tree1; tree --dirsfirst -ChFLQ 1 $argv; end
 function tree2; tree --dirsfirst -ChFLQ 2 $argv; end
