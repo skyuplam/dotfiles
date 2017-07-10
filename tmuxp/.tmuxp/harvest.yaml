@@ -1,0 +1,22 @@
+session_name: harvest
+start_directory: ~/dev/fronteersolutions/development/ # load session relative to config location (project root).
+# before_script: ./bootstrap_env.py # ./ to load relative to project root.
+windows:
+- window_name: harvest
+  focus: True
+  layout: main-vertical
+  options:
+    main-pane-height: 35
+  # shell_command_before:
+  #   - '[ -d .venv -a -f .venv/bin/activate ] && source .venv/bin/activate'
+  panes:
+  - focus: True
+  - pane
+  - pane
+- window_name: vim
+  focus: False
+  layout: main-vertical
+  options:
+    main-pane-height: 35
+  panes:
+  - focus: False
