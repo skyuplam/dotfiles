@@ -11,7 +11,7 @@ windows:
   #   - '[ -d .venv -a -f .venv/bin/activate ] && source .venv/bin/activate'
   panes:
   - focus: True
-  - pane
+  - dc up -d
   - pane
 - window_name: vim
   focus: False
@@ -19,4 +19,5 @@ windows:
   options:
     main-pane-height: 35
   panes:
-  - vim
+  - cd ./harvest; vim
+  - pane

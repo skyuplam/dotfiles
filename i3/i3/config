@@ -11,6 +11,7 @@
 
 set $mod Mod4
 set $editor termite
+set $wallpaper $HOME/Pictures/Wallpapers/wallpaper.png
 
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
@@ -44,7 +45,7 @@ set $ws8  "8:  "
 set $ws9  "9:  "
 set $ws10 "10:  "
 
-set $default_gaps_inner 0
+set $default_gaps_inner 10
 set $default_gaps_outer 0
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
@@ -149,7 +150,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+Shift+a focus child
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -188,6 +189,8 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+bindsym Mod1+Control+Shift+l exec --no-startup-id $HOME/.config/i3/i3exit lock
+
 set $mode_resize resize
 bindsym $mod+r mode "$mode_resize"
 mode "$mode_resize" {
@@ -211,7 +214,7 @@ mode "$mode_resize" {
     bindsym Escape mode "default"
 }
 
-set $mode_power power
+set $mode_power power (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (p) shutdown
 bindsym Mod1+Control+l mode "$mode_power"
 mode "$mode_power" {
     bindsym l mode "default", exec --no-startup-id $HOME/.config/i3/i3exit lock
@@ -272,7 +275,8 @@ mode "$mode_gaps_outer" {
 
 # fix graphics glitch
 new_window none
-#for_window [class=(?i)termite] border pixel 3
+# for_window [class=(?i)termite] border pixel 3
+for_window [class=(?i)nautilus] floating enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -285,7 +289,28 @@ bar {
     strip_workspace_numbers yes
     separator_symbol "■"
     height $height
+    bindsym button4 nop
+    bindsym button5 nop
+    # tray_output eDP1
+    # tray_output LVDS-0
+    # tray_padding 0
+    colors {
+        # statusline         $white
+        background         $transparent
+        separator          $transparent
+
+#                          BORDER       BACKGROUND   TEXT
+        # focused_workspace  $transparent $transparent $darkwhite
+        # inactive_workspace $transparent $transparent $white
+        # active_workspace   $transparent $transparent $white
+        # urgent_workspace   $darkred     $darkred     $transparent
+        # binding_mode       $darkred     $darkred     $transparent
+    }
 }
 
 # AUTOSTART
-exec_always --no-startup-id feh --bg-fill $HOME/Pictures/Wallpapers/04118_friolero_3440x1440.jpg
+exec_always --no-startup-id feh --bg-fill $wallpaper
+exec --no-startup-id compton -b
+
+exec_always --no-startup-id "pgrep --exact xev || xev -root -event randr | grep --line-buffered ScreenChangeNotify | while read change; do pkill -RTMIN+4 i3blocks; done"
+
