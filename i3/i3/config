@@ -50,7 +50,7 @@ set $default_gaps_outer 0
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 
-workspace $ws1 gaps inner 0
+workspace $ws1 gaps inner 10
 workspace $ws1 gaps outer 0
 workspace $ws9 gaps inner 0
 workspace $ws9 gaps outer 0
@@ -293,18 +293,18 @@ bar {
     bindsym button5 nop
     # tray_output eDP1
     # tray_output LVDS-0
-    # tray_padding 0
+    tray_padding 0
     colors {
-        # statusline         $white
+        statusline         $white
         background         $transparent
         separator          $transparent
 
 #                          BORDER       BACKGROUND   TEXT
-        # focused_workspace  $transparent $transparent $darkwhite
-        # inactive_workspace $transparent $transparent $white
-        # active_workspace   $transparent $transparent $white
-        # urgent_workspace   $darkred     $darkred     $transparent
-        # binding_mode       $darkred     $darkred     $transparent
+        focused_workspace  $transparent $transparent $darkwhite
+        inactive_workspace $transparent $transparent $white
+        active_workspace   $transparent $transparent $white
+        urgent_workspace   $darkred     $darkred     $transparent
+        binding_mode       $darkred     $darkred     $transparent
     }
 }
 
