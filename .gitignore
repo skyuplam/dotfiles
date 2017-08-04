@@ -13,6 +13,7 @@ vim/**/viminfo
 vim/**/swaps
 vim/**/undo
 vim/**/plug.vim.old
+vim/**/plug.vim
 
 # nvim
 nvim/**/shada
