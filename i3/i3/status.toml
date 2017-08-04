@@ -67,9 +67,6 @@ block = "pacman"
 interval = 600
 
 [[block]]
-block = "sound"
-
-[[block]]
 block = "time"
 interval = 60
 format = "%m-%d (%a) %R"
