@@ -12,7 +12,12 @@ vim/**/site
 vim/**/viminfo
 vim/**/swaps
 vim/**/undo
+vim/**/plug.vim.old
 
 # nvim
 nvim/**/shada
 nvim/**/site
+nvim/**/rplugin.vim
+
+# python
+.mypy_cache/
