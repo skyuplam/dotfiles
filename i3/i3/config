@@ -287,10 +287,11 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 # finds out, if available)
 bar {
 #    verbose yes
-    status_command i3blocks
+    font pango:DejaVu Sans Mono, Icons 12
+    status_command i3status-rs $HOME/.config/i3/status.toml
     i3bar_command i3bar -t
     position top
-    font pango:SFNS Display 10
+    # font pango:SFNS Display 10
     strip_workspace_numbers yes
     separator_symbol "■"
     height $height
