@@ -20,4 +20,4 @@ windows:
     main-pane-height: 35
   panes:
   - cd ./harvest; vim
-  - pane
+  - cd ./harvest
