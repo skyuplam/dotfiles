@@ -215,7 +215,7 @@ mode "$mode_resize" {
 }
 
 set $mode_power power (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (p) shutdown
-bindsym Mod1+Control+l mode "$mode_power"
+bindsym $mod+XF86Eject mode "$mode_power"
 mode "$mode_power" {
     bindsym l mode "default", exec --no-startup-id $HOME/.config/i3/i3exit lock
     bindsym e mode "default", exec --no-startup-id $HOME/.config/i3/i3exit logout
@@ -318,5 +318,5 @@ bar {
 exec_always --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id compton -b
 
-exec_always --no-startup-id "pgrep --exact xev || xev -root -event randr | grep --line-buffered ScreenChangeNotify | while read change; do pkill -RTMIN+4 i3blocks; done"
+# exec_always --no-startup-id "pgrep --exact xev || xev -root -event randr | grep --line-buffered ScreenChangeNotify | while read change; do pkill -RTMIN+4 i3blocks; done"
 
