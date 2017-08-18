@@ -62,9 +62,9 @@ interval = 1
 format = "{1m}"
 
 [[block]]
-block = "pacman"
+block = "sound"
 
-interval = 600
+interval = 10
 
 [[block]]
 block = "time"
