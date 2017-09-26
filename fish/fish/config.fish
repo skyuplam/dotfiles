@@ -41,15 +41,29 @@ end
 
 test -e {$HOME}/.local/bin ; and set -x PATH $HOME/.local/bin $PATH
 
-# fish prompt oh-my-fish/theme-bobthefish
-set -g theme_powerline_fonts yes
-set -g theme_nerd_fonts yes
+# fish prompt pure
+# Change the colors
+set pure_color_blue (set_color "2196F3")
+set pure_color_cyan (set_color "80DEEA")
+set pure_color_gray (set_color "BDBDBD")
+set pure_color_green (set_color "00E676")
+set pure_color_normal (set_color "00E5FF")
+set pure_color_red (set_color "F44336")
+set pure_color_yellow (set_color "FFFF00")
 
 # fzf
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 set -U FZF_LEGACY_KEYBINDINGS 0
+set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 # Rust
 test -e {$HOME}/.cargo/bin ; and set -x PATH $HOME/.cargo/bin $PATH
 
  #Load private config
 source ~/.local.fish
+# THEME PURE #
+set fish_function_path /home/terrencelam/.config/fish/functions/theme-pure $fish_function_path
