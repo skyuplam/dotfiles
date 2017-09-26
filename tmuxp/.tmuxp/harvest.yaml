@@ -12,7 +12,7 @@ windows:
   panes:
   - focus: True
   - dc up -d
-  - pane
+  - kubectl proxy -p 8010
 - window_name: vim
   focus: False
   layout: main-vertical
@@ -20,4 +20,4 @@ windows:
     main-pane-height: 35
   panes:
   - cd ./harvest; vim
-  - cd ./harvest
+  - cd ./harvest; yarn test
