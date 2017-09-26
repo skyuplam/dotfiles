@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'jistr/vim-nerdtree-tabs'
+  Plug 'majutsushi/tagbar'
   " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
   " http://ctrlpvim.github.com/ctrlp.vim
   Plug 'ctrlpvim/ctrlp.vim'
@@ -40,8 +41,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+  " Yank stack
+  Plug 'maxbrunsfeld/vim-yankstack'
   " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
   Plug 'airblade/vim-gitgutter'
+  Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -49,6 +53,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'rust-lang/rust.vim'
   Plug 'sebastianmarkow/deoplete-rust'
   Plug 'mxw/vim-jsx'
+  Plug 'elzr/vim-json'
+  Plug 'moll/vim-node'
   Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-unimpaired'
   Plug 'jeetsukumaran/vim-buffergator'
@@ -58,7 +64,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'mattn/emmet-vim'
   Plug 'mhinz/vim-startify'
   Plug 'tmhedberg/matchit'
-  Plug 'mileszs/ack.vim'
+  " Plug 'mileszs/ack.vim'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
   " Monokai color scheme for Vim converted from Textmate theme
   Plug 'crusoexia/vim-monokai'
   Plug 'ryanoasis/vim-devicons'
@@ -302,12 +310,29 @@ let g:ctrlp_mruf_max = 50             " track recently used files
 let g:ctrlp_max_height = 20            " provide more space to display results
 let g:ctrlp_switch_buffer = 0         " don't try to switch buffers
 
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --smart-case'
+" :Find <expr>
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+elseif executable('ag')
+  " let g:ackprg = 'ag --vimgrep --smart-case'
   set grepprg=ag\ --nogroup\ --nocolor
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag -Q -l --nocolor -g "" %s'
-  " let g:ctrlp_use_caching = 0
+  let g:ctrlp_use_caching = 0
   cnoreabbrev ag Ack
 
   if !exists(":Ag")
@@ -321,6 +346,7 @@ elseif executable('ack')
 else
   let s:ctrlp_fallback = 'find %s -type f'
 endif
+
 
 
 " NerdTree
@@ -356,6 +382,12 @@ let g:user_emmet_mode='a'    "enable all function in all mode.
 let g:user_emmet_install_global = 0
 autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
 
+" Yankstack
+" Load yankstack without default key mappings
+let g:yankstack_map_keys = 0
+
+" JSON
+let g:vim_json_syntax_conceal = 0
 
 " -----------------------------------------------
 " Key Mapping
@@ -449,3 +481,9 @@ vnoremap <silent> # :<C-U>
 " Rust
 nmap <Leader>rf :RustFmt<CR>          " format your code with rustfmt
 
+" Yankstack
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
