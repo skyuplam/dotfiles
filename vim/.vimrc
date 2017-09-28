@@ -59,6 +59,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-unimpaired'
   Plug 'jeetsukumaran/vim-buffergator'
   Plug 'ntpeters/vim-better-whitespace'
+  Plug 'flowtype/vim-flow', { 'for': 'javascript' }
   " Plug 'python-mode/python-mode'
   Plug 'tpope/vim-repeat'
   Plug 'mattn/emmet-vim'
