@@ -196,8 +196,11 @@ endif
 if has('nvim')
   " Program to use for evaluating Python code. Setting this makes startup faster.
   " Also useful for working with virtualenvs.
-  " let g:python_host_prog  = '/usr/local/bin/python'
-  let g:python3_host_prog  = '/usr/bin/python'
+  if (system('uname') =~ "darwin")
+    let g:python_host_prog  = '/usr/local/bin/python'
+  else
+    let g:python3_host_prog  = '/usr/bin/python'
+  endif
 
   " Use Truecolors
   set termguicolors
