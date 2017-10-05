@@ -59,7 +59,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-unimpaired'
   Plug 'jeetsukumaran/vim-buffergator'
   Plug 'ntpeters/vim-better-whitespace'
-  Plug 'flowtype/vim-flow', { 'for': 'javascript' }
   " Plug 'python-mode/python-mode'
   Plug 'tpope/vim-repeat'
   Plug 'mattn/emmet-vim'
@@ -220,7 +219,7 @@ augroup vimrcEx
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile Appraisals set filetype=ruby
   autocmd BufRead,BufNewFile *.md set filetype=markdown
-  autocmd BufRead,BufNewFile .{jscs,jshint,eslint}rc set filetype=json
+  autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
 augroup END
 
 " Always use vertical diffs
