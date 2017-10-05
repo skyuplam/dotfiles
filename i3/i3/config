@@ -288,7 +288,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 bar {
 #    verbose yes
     font pango:DejaVu Sans Mono, Icons 12
-    status_command i3status-rs $HOME/.config/i3/status.toml
+    status_command py3status -c ~/.config/i3/status.conf
     i3bar_command i3bar -t
     position top
     # font pango:SFNS Display 10
