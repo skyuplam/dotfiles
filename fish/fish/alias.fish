@@ -7,8 +7,6 @@ function grep     ; command rg --color=auto $argv ; end
 # sudo easy_install -U Pygments
 alias c='pygmentize -O style=monokai,encoding=utf-8 -f console256 -g'
 
-alias j='jq'
-
 alias ag='ag --follow --hidden'
 
 # An orphaned image is one without a tag and it is also not a parent of
