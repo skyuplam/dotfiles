@@ -5,6 +5,7 @@ fish/**/generated_completions
 fish/**/conf.d
 fish/**/functions
 fish/**/completions
+fish/**/fishd.*
 
 # vim
 vim/**/plugged
