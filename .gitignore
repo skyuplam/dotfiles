@@ -4,6 +4,7 @@ fish/**/fish_history
 fish/**/generated_completions
 fish/**/conf.d
 fish/**/functions
+fish/**/completions
 
 # vim
 vim/**/plugged

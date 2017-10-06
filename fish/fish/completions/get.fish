@@ -1,1 +1,0 @@
-/home/terrencelam/.config/fisherman/get/completions/get.fish

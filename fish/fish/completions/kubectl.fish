@@ -1,1 +1,0 @@
-/home/terrencelam/fish-kubectl-completions/kubectl.fish
