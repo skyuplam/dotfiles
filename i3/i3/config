@@ -10,7 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $editor termite
+set $editor alacritty
 set $wallpaper $HOME/Pictures/Wallpapers/wallpaper.png
 
 set_from_resource $darkred     color1  #000000
@@ -90,7 +90,7 @@ client.background       $black
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
