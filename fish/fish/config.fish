@@ -73,3 +73,6 @@ test -e {$HOME}/.cargo/bin ; and set -x PATH $HOME/.cargo/bin $PATH
 source ~/.local.fish
 # THEME PURE #
 set fish_function_path /home/terrencelam/.config/fish/functions/theme-pure $fish_function_path
+
+# Autojump
+[ -f /usr/local/share/autojump/autojump.fish ]; and source /usr/local/share/autojump/autojump.fish
