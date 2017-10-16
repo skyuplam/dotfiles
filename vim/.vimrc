@@ -53,6 +53,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'rust-lang/rust.vim'
   Plug 'sebastianmarkow/deoplete-rust'
   Plug 'mxw/vim-jsx'
+  Plug 'leafgarland/typescript-vim'
   Plug 'elzr/vim-json'
   Plug 'moll/vim-node'
   Plug 'terryma/vim-multiple-cursors'
@@ -255,7 +256,7 @@ if has('nvim')
   let g:neomake_javascript_jsx_enabled_makers = ['eslint']
   let g:neomake_rust_enabled_makers = ['cargo', 'rustc']
   " Neomake Python
-  let g:neomake_python_enabled_makers = ['pyflakes', 'mypy', 'pylint', 'flake8']
+  let g:neomake_python_enabled_makers = ['pyflakes', 'pylint', 'flake8']
 
 
   " Enable deoplete
@@ -364,18 +365,6 @@ let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
 " NERDTree Git plugin
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Ignored"   : "👻",
-    \ "Unknown"   : "?"
-    \ }
 
 
 " Emmet-vim
