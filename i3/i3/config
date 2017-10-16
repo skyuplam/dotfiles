@@ -30,6 +30,7 @@ set_from_resource $white       color15 #000000
 # Use custom colors for black
 set $black       #282828
 set $darkblack   #1d2021
+set $gray500     #00000080
 set $transparent #00000000
 
 set $height 34
@@ -302,8 +303,8 @@ bar {
     tray_padding 0
     colors {
         statusline         $white
-        background         $transparent
-        separator          $transparent
+        background         $gray500
+        separator          $gray500
 
 #                          BORDER       BACKGROUND   TEXT
         focused_workspace  $transparent $transparent $darkwhite
