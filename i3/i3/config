@@ -296,7 +296,7 @@ bar {
     position top
     # font pango:SFNS Display 10
     strip_workspace_numbers yes
-    separator_symbol "■"
+    separator_symbol "  "
     height $height
     bindsym button4 nop
     bindsym button5 nop
@@ -306,7 +306,7 @@ bar {
     colors {
         statusline         $white
         background         $gray500
-        separator          $gray500
+        separator          $black
 
 #                          BORDER       BACKGROUND   TEXT
         focused_workspace  $indigo      $indigo      $darkwhite
