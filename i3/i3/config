@@ -30,6 +30,8 @@ set_from_resource $white       color15 #000000
 # Use custom colors for black
 set $black       #282828
 set $darkblack   #1d2021
+set $indigo      #2196F380
+set $lightBlue   #00B0FF80
 set $gray500     #00000080
 set $transparent #00000000
 
@@ -288,7 +290,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 # finds out, if available)
 bar {
 #    verbose yes
-    font pango:DejaVu Sans Mono, Icons 12
+    font pango:Knack Regular Nerd Font Complete, Icons 13
     status_command py3status -c ~/.config/i3/status.conf
     i3bar_command i3bar -t
     position top
@@ -307,9 +309,9 @@ bar {
         separator          $gray500
 
 #                          BORDER       BACKGROUND   TEXT
-        focused_workspace  $transparent $transparent $darkwhite
+        focused_workspace  $indigo      $indigo      $darkwhite
         inactive_workspace $transparent $transparent $white
-        active_workspace   $transparent $transparent $white
+        active_workspace   $lightBlue   $lightBlue   $white
         urgent_workspace   $darkred     $darkred     $transparent
         binding_mode       $darkred     $darkred     $transparent
     }
