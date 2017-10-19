@@ -17,6 +17,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'majutsushi/tagbar'
   " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
   " http://ctrlpvim.github.com/ctrlp.vim
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'benmills/vimux'
   Plug 'ctrlpvim/ctrlp.vim'
   " surround.vim: quoting/parenthesizing made simple
   " http://www.vim.org/scripts/script.php?script_id=1697
@@ -479,3 +481,7 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
+
+" Vimux
+map <Leader>vp :VimuxPromptCommand<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
