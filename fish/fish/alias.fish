@@ -42,7 +42,7 @@ end
 
 # Update python packages with pip
 if command --search pip > /dev/null do
-  alias pip_update 'pip list --outdated --format=freeze | cut -d = -f 1 | xargs sudo pip install -U'
+  alias pip_update 'pip list --outdated --format=freeze | cut -d = -f 1 | xargs sudo -H pip install -U'
 end
 
 # Useful `tree` aliases

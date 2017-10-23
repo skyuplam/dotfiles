@@ -4,5 +4,6 @@ barnybug/docker-fish-completion
 fisherman/fzf
 fisherman/get
 fisherman/getopts
+evanlucas/fish-kubectl-completions
 fisherman/last_job_id
 rafaelrinaldi/pure
