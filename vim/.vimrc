@@ -38,13 +38,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'plasticboy/vim-markdown'
   Plug 'Raimondi/delimitMate'
   " Use Neomake instead of syntasitic
-  Plug 'neomake/neomake', Cond(has('nvim'))
-  Plug 'benjie/neomake-local-eslint.vim', Cond(has('nvim'))
+  " Plug 'neomake/neomake', Cond(has('nvim'))
+  " Plug 'benjie/neomake-local-eslint.vim', Cond(has('nvim'))
+  " ALE
+  Plug 'w0rp/ale'
   Plug 'tpope/vim-fugitive'
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   " Yank stack
-  Plug 'maxbrunsfeld/vim-yankstack'
+  " Plug 'maxbrunsfeld/vim-yankstack'
+  Plug 'vim-scripts/YankRing.vim'
   " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
@@ -244,21 +247,27 @@ let g:NERDCustomDelimiters = { 'javascript.jsx': { 'left': '//', 'leftAlt': '/*'
 " Startify
 let g:startify_change_to_dir = 0
 
+" ALE
+" Enable airline
+let g:airline#extensions#ale#enabled = 1
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠'
+
 if has('nvim')
   " Neomake settings, run Neomake on the current file on every write autocmd! BufWritePost * Neomake
   " Neomake Javascript
-  autocmd! BufWritePost * Neomake
+  " autocmd! BufWritePost * Neomake
 
   " This maker should be run explicitly using the command `:Neomake! clippy`.
   " It needs a nightly build of Rust, and supports rustup.
 
-  let g:neomake_open_list = 0
-  let g:neomake_verbose = 1
-  let g:neomake_javascript_enabled_makers = ['eslint']
-  let g:neomake_javascript_jsx_enabled_makers = ['eslint']
-  let g:neomake_rust_enabled_makers = ['cargo', 'rustc']
+  " let g:neomake_open_list = 0
+  " let g:neomake_verbose = 1
+  " let g:neomake_javascript_enabled_makers = ['eslint']
+  " let g:neomake_javascript_jsx_enabled_makers = ['eslint']
+  " let g:neomake_rust_enabled_makers = ['cargo', 'rustc']
   " Neomake Python
-  let g:neomake_python_enabled_makers = ['pyflakes', 'pylint', 'flake8']
+  " let g:neomake_python_enabled_makers = ['pyflakes', 'pylint', 'flake8']
 
 
   " Enable deoplete
@@ -454,11 +463,16 @@ nnoremap <leader>st :CtrlSFToggle<CR>
 inoremap <leader>st <Esc>:CtrlSFToggle<CR>
 
 " Neomake key mapping
-nmap <Leader><Space>o :lopen<CR>      " open location window
-nmap <Leader><Space>c :lclose<CR>     " close location window
-nmap <Leader><Space>, :ll<CR>         " go to current error/warning
-nmap <Leader><Space>n :lnext<CR>      " next error/warning
-nmap <Leader><Space>p :lprev<CR>      " previous error/warning
+" nmap <Leader><Space>o :lopen<CR>      " open location window
+" nmap <Leader><Space>c :lclose<CR>     " close location window
+" nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+" nmap <Leader><Space>n :lnext<CR>      " next error/warning
+" nmap <Leader><Space>p :lprev<CR>      " previous error/warning
+
+" ALE keymapping
+nmap <silent> <Leader><Space>p <Plug>(ale_previous)
+nmap <silent> <Leader><Space>n <Plug>(ale_next)
+
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -476,8 +490,11 @@ vnoremap <silent> # :<C-U>
 nmap <Leader>rf :RustFmt<CR>          " format your code with rustfmt
 
 " Yankstack
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" nmap <leader>p <Plug>yankstack_substitute_older_paste
+" nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" Yankring
+nnoremap ,yr :YRShow<CR>
+" nnoremap C-y :YRShow<CR>
 
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
