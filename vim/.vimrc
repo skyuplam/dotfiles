@@ -387,7 +387,10 @@ autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
 
 " Yankstack
 " Load yankstack without default key mappings
-let g:yankstack_map_keys = 0
+" let g:yankstack_map_keys = 0
+" Yankring
+let g:yankring_replace_n_pkey = '<m-p>'
+let g:yankring_replace_n_nkey = '<m-n>'
 
 " JSON
 let g:vim_json_syntax_conceal = 0
