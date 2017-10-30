@@ -60,11 +60,7 @@ set pure_color_yellow (set_color "FFFF00")
 set -U FZF_LEGACY_KEYBINDINGS 0
 set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-set -x FZF_DEFAULT_OPTS '
-  --color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75
-  --color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07
-  --color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07
-'
+set -x FZF_DEFAULT_OPTS '--color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75 --color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07 --color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07'
 
 # Rust
 test -e {$HOME}/.cargo/bin ; and set -x PATH $HOME/.cargo/bin $PATH
