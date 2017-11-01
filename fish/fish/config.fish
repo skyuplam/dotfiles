@@ -10,6 +10,11 @@ set -x LC_ALL en_US.UTF-8
 set -x LANG en_US.UTF-8
 set -x EDITOR vim
 
+# IBus
+set -x GTK_IM_MODULE ibus
+set -x XMODIFIERS '@im ibus'
+set -x QT_IM_MODULE ibus
+
 if command --search brew > /dev/null do
   set -x HOMEBREW_NO_ANALYTICS 1
   set -x OPENSSL_INCLUDE_DIR (brew --prefix openssl)/include
