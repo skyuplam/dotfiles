@@ -20,6 +20,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'benmills/vimux'
   Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'Shougo/denite.nvim'
   " surround.vim: quoting/parenthesizing made simple
   " http://www.vim.org/scripts/script.php?script_id=1697
   Plug 'tpope/vim-surround'
@@ -43,11 +44,9 @@ call plug#begin('~/.vim/plugged')
   " ALE
   Plug 'w0rp/ale'
   Plug 'tpope/vim-fugitive'
+  Plug 'bfredl/nvim-miniyank', Cond(has('nvim'))
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-  " Yank stack
-  " Plug 'maxbrunsfeld/vim-yankstack'
-  Plug 'vim-scripts/YankRing.vim'
   " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
@@ -389,8 +388,8 @@ autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
 " Load yankstack without default key mappings
 " let g:yankstack_map_keys = 0
 " Yankring
-let g:yankring_replace_n_pkey = '<m-p>'
-let g:yankring_replace_n_nkey = '<m-n>'
+" let g:yankring_replace_n_pkey = '<m-p>'
+" let g:yankring_replace_n_nkey = '<m-n>'
 
 " JSON
 let g:vim_json_syntax_conceal = 0
@@ -492,12 +491,13 @@ vnoremap <silent> # :<C-U>
 " Rust
 nmap <Leader>rf :RustFmt<CR>          " format your code with rustfmt
 
-" Yankstack
-" nmap <leader>p <Plug>yankstack_substitute_older_paste
-" nmap <leader>P <Plug>yankstack_substitute_newer_paste
-" Yankring
-nnoremap ,yr :YRShow<CR>
-" nnoremap C-y :YRShow<CR>
+" nvim-miniyank
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
+map <leader>p <Plug>(miniyank-startput)
+map <leader>P <Plug>(miniyank-startPut)
+map <leader>n <Plug>(miniyank-cycle)
+map <leader>l :Denite miniyank<CR>
 
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
