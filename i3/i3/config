@@ -320,6 +320,9 @@ bar {
 # AUTOSTART
 exec_always --no-startup-id feh --bg-fill $wallpaper
 exec --no-startup-id compton -b
+exec_always --no-startup-id xss-lock -- i3lock -n -i $wallpaper
+exec_always --no-startup-id xautolock -detectsleep -time 5 -locker "i3lock -n -i '/home/terrencelam/Pictures/Wallpapers/wallpaper.png'"
+exec --no-startup-id ibus-daemon -drx
 
 # exec_always --no-startup-id "pgrep --exact xev || xev -root -event randr | grep --line-buffered ScreenChangeNotify | while read change; do pkill -RTMIN+4 i3blocks; done"
 
