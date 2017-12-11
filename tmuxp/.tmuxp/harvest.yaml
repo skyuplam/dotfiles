@@ -12,4 +12,4 @@ windows:
   panes:
   - focus: True
   - dc up -d
-  - kubectl proxy -p 8010
+  - kubectl proxy -p 8011
