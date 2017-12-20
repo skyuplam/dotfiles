@@ -1,4 +1,4 @@
-
+set fish_greeting
 # import alias
 source ~/.config/fish/alias.fish
 

@@ -1,9 +1,7 @@
 fisherman/autojump
 fisherman/await
-barnybug/docker-fish-completion
+oh-my-fish/theme-bobthefish
 fisherman/fzf
 fisherman/get
 fisherman/getopts
-evanlucas/fish-kubectl-completions
 fisherman/last_job_id
-rafaelrinaldi/pure
