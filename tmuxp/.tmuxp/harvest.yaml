@@ -1,5 +1,5 @@
 session_name: harvest
-start_directory: ~/dev/fronteersolutions/development/ # load session relative to config location (project root).
+start_directory: ~/dev/fronteer/development/ # load session relative to config location (project root).
 # before_script: ./bootstrap_env.py # ./ to load relative to project root.
 windows:
 - window_name: harvest
