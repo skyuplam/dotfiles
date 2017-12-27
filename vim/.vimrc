@@ -340,7 +340,7 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 if executable('rg')
   set grepprg=rg\ --vimgrep
   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
+  let g:ctrlp_use_caching = 1
 elseif executable('ag')
   " let g:ackprg = 'ag --vimgrep --smart-case'
   set grepprg=ag\ --nogroup\ --nocolor
