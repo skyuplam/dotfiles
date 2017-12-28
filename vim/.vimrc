@@ -14,9 +14,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'jistr/vim-nerdtree-tabs'
-  Plug 'majutsushi/tagbar'
+  " Plug 'majutsushi/tagbar'
   " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
   " http://ctrlpvim.github.com/ctrlp.vim
+  Plug 'tpope/vim-sensible'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'benmills/vimux'
   Plug 'ctrlpvim/ctrlp.vim'
@@ -30,9 +31,9 @@ call plug#begin('~/.vim/plugged')
   " Asynchronous keyword completion
   Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
   " deoplete.nvim source for javascript
-  Plug 'carlitux/deoplete-ternjs', Cond(has('nvim'))
+  " Plug 'carlitux/deoplete-ternjs', Cond(has('nvim'))
   " deoplete.nvim for jedi for python
-  Plug 'zchee/deoplete-jedi'
+  " Plug 'zchee/deoplete-jedi'
   Plug 'ervandew/supertab'
   " vim Markdown
   Plug 'godlygeek/tabular'
@@ -55,12 +56,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline-themes'
   Plug 'pangloss/vim-javascript'
   Plug 'rust-lang/rust.vim'
-  Plug 'sebastianmarkow/deoplete-rust'
+  " Plug 'sebastianmarkow/deoplete-rust'
   Plug 'mxw/vim-jsx'
   Plug 'leafgarland/typescript-vim'
   Plug 'elzr/vim-json'
-  Plug 'moll/vim-node'
-  Plug 'terryma/vim-multiple-cursors'
+  " Plug 'moll/vim-node'
+  " Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-unimpaired'
   Plug 'jeetsukumaran/vim-buffergator'
   Plug 'ntpeters/vim-better-whitespace'
@@ -127,7 +128,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 set gdefault                    " Add the `g` flag to search/replace by default
 
 set tabpagemax=15               " Only show 15 tabs
-set cursorline                  " Highlight the current line
+" set cursorline                  " Highlight the current line
 
 " Open splits more naturally
 set splitbelow
@@ -170,10 +171,10 @@ set number
 set laststatus=2  " appear all the time
 
 " The PC is fast enough, do syntax highlight syncing from start unless 200 lines
-augroup vimrc-sync-fromstart
-  autocmd!
-  autocmd BufEnter * :syntax sync maxlines=200
-augroup END
+" augroup vimrc-sync-fromstart
+"   autocmd!
+"   autocmd BufEnter * :syntax sync maxlines=200
+" augroup END
 
 " Enable spell check for commit messages
 autocmd FileType gitcommit setlocal spell
@@ -222,7 +223,7 @@ augroup vimrcEx
     \ endif
 
   " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+  " autocmd BufRead,BufNewFile Appraisals set filetype=ruby
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
 augroup END
@@ -253,41 +254,25 @@ let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 
 if has('nvim')
-  " Neomake settings, run Neomake on the current file on every write autocmd! BufWritePost * Neomake
-  " Neomake Javascript
-  " autocmd! BufWritePost * Neomake
-
-  " This maker should be run explicitly using the command `:Neomake! clippy`.
-  " It needs a nightly build of Rust, and supports rustup.
-
-  " let g:neomake_open_list = 0
-  " let g:neomake_verbose = 1
-  " let g:neomake_javascript_enabled_makers = ['eslint']
-  " let g:neomake_javascript_jsx_enabled_makers = ['eslint']
-  " let g:neomake_rust_enabled_makers = ['cargo', 'rustc']
-  " Neomake Python
-  " let g:neomake_python_enabled_makers = ['pyflakes', 'pylint', 'flake8']
-
-
   " Enable deoplete
   let g:deoplete#enable_at_startup = 1
   " jedi deoplete config
-  let g:deoplete#sources#jedi#show_docstring = 0
+  " let g:deoplete#sources#jedi#show_docstring = 0
   " ternjs deoplete config
   " Use deoplete.
-  let g:tern_request_timeout = 1
-  let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
-  let g:deoplete#auto_complete_delay = 50
+  " let g:tern_request_timeout = 1
+  " let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+  " let g:deoplete#auto_complete_delay = 50
   "Add extra filetypes
-  let g:tern#filetypes = [
-                  \ 'jsx',
-                  \ 'javascript.jsx',
-                  \ 'vue',
-                  \ ]
+  " let g:tern#filetypes = [
+  "                 \ 'jsx',
+  "                 \ 'javascript.jsx',
+  "                 \ 'vue',
+  "                 \ ]
   " Rust Racer for autocomplete with deoplete
-  let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
-  let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
-  let g:deoplete#sources#rust#documentation_max_height=20
+  " let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
+  " let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
+  " let g:deoplete#sources#rust#documentation_max_height=20
 endif
 
 
@@ -320,9 +305,9 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|build|dist)$',
   \ 'file': '\v\.(exe|so|dll|pyc)$',
   \ }
-let g:ctrlp_mruf_max = 50             " track recently used files
+let g:ctrlp_mruf_max = 30              " track recently used files
 let g:ctrlp_max_height = 20            " provide more space to display results
-let g:ctrlp_switch_buffer = 0         " don't try to switch buffers
+let g:ctrlp_switch_buffer = 0          " don't try to switch buffers
 
 " :Find <expr>
 " --column: Show column number
@@ -346,7 +331,7 @@ elseif executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag -Q -l --nocolor -g "" %s'
-  let g:ctrlp_use_caching = 0
+  let g:ctrlp_use_caching = 1
   cnoreabbrev ag Ack
 
   if !exists(":Ag")
