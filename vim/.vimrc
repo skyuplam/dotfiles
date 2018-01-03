@@ -285,14 +285,15 @@ let g:jsx_ext_required = 0
 
 " CtrlP config
 " Ignore files and directories
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|build|dist)$',
-  \ 'file': '\v\.(exe|so|dll|pyc)$',
-  \ }
+let g:ctrlp_working_path_mode = 0
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|build|dist)$',
+"   \ 'file': '\v\.(exe|so|dll|pyc)$',
+"   \ }
 let g:ctrlp_mruf_max = 30              " track recently used files
 let g:ctrlp_max_height = 20            " provide more space to display results
 let g:ctrlp_switch_buffer = 0          " don't try to switch buffers
+let g:ctrlp_match_window = 'bottom,order:ttb'
 
 " :Find <expr>
 " --column: Show column number
@@ -363,6 +364,16 @@ autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
 
 " JSON
 let g:vim_json_syntax_conceal = 0
+
+" Tmux
+" allows cursor change in tmux mode
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " -----------------------------------------------
 " Key Mapping
