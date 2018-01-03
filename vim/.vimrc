@@ -11,9 +11,9 @@ endfunction
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
   " A tree explorer plugin for vim. https://github.com/scrooloose/nerdtree
-  Plug 'scrooloose/nerdtree'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'jistr/vim-nerdtree-tabs'
+  Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+  Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
   " Plug 'majutsushi/tagbar'
   " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
   " http://ctrlpvim.github.com/ctrlp.vim
@@ -21,7 +21,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'benmills/vimux'
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'Shougo/denite.nvim'
+  Plug 'Shougo/denite.nvim', Cond(has('nvim'))
   " surround.vim: quoting/parenthesizing made simple
   " http://www.vim.org/scripts/script.php?script_id=1697
   Plug 'tpope/vim-surround'
@@ -37,7 +37,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ervandew/supertab'
   " vim Markdown
   Plug 'godlygeek/tabular'
-  Plug 'plasticboy/vim-markdown'
+  Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   Plug 'Raimondi/delimitMate'
   " Use Neomake instead of syntasitic
   " Plug 'neomake/neomake', Cond(has('nvim'))
@@ -54,12 +54,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-git'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'pangloss/vim-javascript'
-  Plug 'rust-lang/rust.vim'
+  Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   " Plug 'sebastianmarkow/deoplete-rust'
-  Plug 'mxw/vim-jsx'
-  Plug 'leafgarland/typescript-vim'
-  Plug 'elzr/vim-json'
+  Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+  Plug 'elzr/vim-json', { 'for': 'json' }
   " Plug 'moll/vim-node'
   " Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-unimpaired'
@@ -67,7 +67,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ntpeters/vim-better-whitespace'
   " Plug 'python-mode/python-mode'
   Plug 'tpope/vim-repeat'
-  Plug 'mattn/emmet-vim'
+  Plug 'mattn/emmet-vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
   Plug 'mhinz/vim-startify'
   Plug 'tmhedberg/matchit'
   " Plug 'mileszs/ack.vim'
