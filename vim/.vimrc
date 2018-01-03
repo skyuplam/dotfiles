@@ -176,21 +176,6 @@ set laststatus=2  " appear all the time
 "   autocmd BufEnter * :syntax sync maxlines=200
 " augroup END
 
-" Enable spell check for commit messages
-autocmd FileType gitcommit setlocal spell
-" in makefiles, don't expand tabs to spaces, since actual tab characters are
-" needed, and have indentation at 8 chars to be sure that all indents are tabs
-" (despite the mappings later):
-autocmd FileType make setlocal noexpandtab shiftwidth=4 softtabstop=0
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" set completeopt-=preview
-
-" Autocompolete with dictoinary words when spell check is on
-set complete+=kspell
 
 if !has('nvim')
   set ttyfast

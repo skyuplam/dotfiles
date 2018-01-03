@@ -6,3 +6,4 @@ setlocal expandtab
 setlocal smarttab
 setlocal nosmartindent
 setlocal foldmethod=indent
+setlocal omnifunc=pythoncomplete#Complete
