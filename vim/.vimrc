@@ -73,8 +73,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'mileszs/ack.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-  " Monokai color scheme for Vim converted from Textmate theme
-  Plug 'crusoexia/vim-monokai'
+  Plug 'tomasr/molokai'
   Plug 'ryanoasis/vim-devicons'
   " Add plugins to &runtimepath
 call plug#end()
@@ -221,7 +220,9 @@ set diffopt+=vertical
 " -----------------------------------------------
 
 " Color Scheme
-colorscheme monokai
+" syntax enable
+" let g:molokai_original = 1
+colorscheme molokai
 
 " NerdCommenter
 " Add spaces after comment delimiters by default
