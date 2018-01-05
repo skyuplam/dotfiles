@@ -224,7 +224,9 @@ set diffopt+=vertical
 " Color Scheme
 " syntax enable
 set background=dark
-colorscheme solarized8_high
+let g:solarized_termtrans=1
+let g:solarized_visibility='high'
+colorscheme solarized8
 
 " NerdCommenter
 " Add spaces after comment delimiters by default
@@ -360,7 +362,7 @@ endif
 let g:user_emmet_mode='a'    "enable all function in all mode.
 " Enable just for html/css/javascript
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
+" autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
 
 " Yankstack
 " Load yankstack without default key mappings
