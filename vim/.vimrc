@@ -14,7 +14,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
   Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
-  " Plug 'majutsushi/tagbar'
+  Plug 'jlanzarotta/bufexplorer', { 'on': 'BufExplorer' }
+  Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+
   " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
   " http://ctrlpvim.github.com/ctrlp.vim
   Plug 'tpope/vim-sensible'
@@ -73,7 +75,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'mileszs/ack.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-  Plug 'tomasr/molokai'
+  Plug 'flazz/vim-colorschemes'
   Plug 'ryanoasis/vim-devicons'
   " Add plugins to &runtimepath
 call plug#end()
@@ -221,7 +223,6 @@ set diffopt+=vertical
 
 " Color Scheme
 " syntax enable
-" let g:molokai_original = 1
 colorscheme molokai
 
 " NerdCommenter
@@ -229,6 +230,7 @@ colorscheme molokai
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = { 'javascript.jsx': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }}
+let g:NERDTrimTrailingWhitespace = 1
 
 " Startify
 let g:startify_change_to_dir = 0
@@ -346,8 +348,11 @@ let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-" NERDTree Git plugin
-
+" Undotree persistent
+if has("persistent_undo")
+    set undodir=~/.vim/.undodir/
+    set undofile
+endif
 
 " Emmet-vim
 " Enable in different mode
@@ -384,8 +389,21 @@ endif
 " Set mapleader
 let mapleader = ","
 
-" NERDTree
-map <C-e> :NERDTreeToggle<CR>
+" Explorer Mapping
+" nnoremap <C-e> :NERDTreeToggle<CR>
+nnoremap <leader>bb :BufExplorer<cr>
+nnoremap <leader>bs :BufExplorerHorizontalSplit<cr>
+nnoremap <leader>bv :BufExplorerVerticalSplit<cr>
+nnoremap <leader>nt :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>nn :e .<cr>
+nnoremap <leader>nd :e %:h<cr>
+nnoremap <leader>] :TagbarToggle<cr>
+nnoremap <c-p> :CtrlP<cr>
+nnoremap <c-f> :CtrlPBuffer<cr>
+
+" Undotree
+nnoremap <leader>ut :UndotreeToggle<CR>
 
 " Fugitive
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -438,13 +456,13 @@ nnoremap <leader>ev :tabe $MYVIMRC<CR>
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
 " ctrlsf.vim mapping
-nmap <leader>sf <Plug>CtrlSFPrompt
-vmap <leader>sf <Plug>CtrlSFVwordPath
-vmap <leader>sF <Plug>CtrlSFVwordExec
-nmap <leader>sp <Plug>CtrlSFPwordPath
-nnoremap <leader>so :CtrlSFOpen<CR>
-nnoremap <leader>st :CtrlSFToggle<CR>
-inoremap <leader>st <Esc>:CtrlSFToggle<CR>
+" nmap <leader>sf <Plug>CtrlSFPrompt
+" vmap <leader>sf <Plug>CtrlSFVwordPath
+" vmap <leader>sF <Plug>CtrlSFVwordExec
+" nmap <leader>sp <Plug>CtrlSFPwordPath
+" nnoremap <leader>so :CtrlSFOpen<CR>
+" nnoremap <leader>st :CtrlSFToggle<CR>
+" inoremap <leader>st <Esc>:CtrlSFToggle<CR>
 
 " Neomake key mapping
 " nmap <Leader><Space>o :lopen<CR>      " open location window
@@ -482,7 +500,7 @@ map <leader>n <Plug>(miniyank-cycle)
 map <leader>l :Denite miniyank<CR>
 
 " Tagbar
-nmap <F8> :TagbarToggle<CR>
+" nmap <F8> :TagbarToggle<CR>
 
 " Vimux
 map <Leader>vp :VimuxPromptCommand<CR>
