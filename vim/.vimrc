@@ -75,7 +75,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'mileszs/ack.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-  Plug 'flazz/vim-colorschemes'
+  Plug 'rafi/awesome-vim-colorschemes'
   Plug 'ryanoasis/vim-devicons'
   " Add plugins to &runtimepath
 call plug#end()
@@ -223,7 +223,8 @@ set diffopt+=vertical
 
 " Color Scheme
 " syntax enable
-colorscheme molokai
+set background=dark
+colorscheme solarized8_high
 
 " NerdCommenter
 " Add spaces after comment delimiters by default
