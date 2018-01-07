@@ -1,4 +1,3 @@
-fisherman/pipenv
 fisherman/autojump
 fisherman/await
 oh-my-fish/theme-bobthefish
@@ -7,3 +6,5 @@ fisherman/get
 fisherman/getopts
 evanlucas/fish-kubectl-completions
 fisherman/last_job_id
+fisherman/pipenv
+rafaelrinaldi/pure
