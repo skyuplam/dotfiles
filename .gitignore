@@ -1,7 +1,3 @@
-# fish shell
-fish/**/conf.d
-fish/**/completions
-
 # vim
 vim/**/plugged
 vim/**/shada
