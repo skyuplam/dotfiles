@@ -5,8 +5,6 @@ setlocal omnifunc=htmlcomplete#CompleteTags
 " Automatically wrap at 80 characters
 setlocal textwidth=80
 
-silent TableModeEnable
-
 nnoremap <leader>= :s/.*/\=repeat("=", len(getline(line(".") - 1)))/<cr> <bar> :noh<cr>
 nnoremap <leader>- :s/.*/\=repeat("-", len(getline(line(".") - 1)))/<cr> <bar> :noh<cr>
 
@@ -25,20 +23,6 @@ function! MarkdownUpdateHeadingUnderline() abort
         call setline(lnum+1, repeat("=", len(getline(lnum))))
     endif
 endfunction
-
-call textobj#user#plugin('markdown', {
-      \   'subhead': {
-      \     'pattern': ['^.\+\n--\+$', '\(.\{-}\n\ze.\+\n[-=]\{2,}$\|.*\%$\)'],
-      \     'select-a': 'ah',
-      \     'select-i': 'ih',
-      \   },
-      \
-      \   'head': {
-      \     'pattern': ['^.*\n^==\+$', '\(.\{-}\n\ze.\+\n=\{2,}$\|.*\%$\)'],
-      \     'select-a': 'aH',
-      \     'select-i': 'iH',
-      \   },
-      \ })
 
 
 nnoremap <silent> <buffer> <esc> :call <SID>CheckToRealignTable()<cr>
