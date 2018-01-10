@@ -69,7 +69,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ntpeters/vim-better-whitespace'
   " Plug 'python-mode/python-mode'
   Plug 'tpope/vim-repeat'
-  Plug 'mattn/emmet-vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'] }
+  Plug 'mattn/emmet-vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': ':EmmetInstall' }
   Plug 'mhinz/vim-startify'
   Plug 'tmhedberg/matchit'
   " Plug 'mileszs/ack.vim'
@@ -359,9 +359,9 @@ endif
 
 " Emmet-vim
 " Enable in different mode
-let g:user_emmet_mode='a'    "enable all function in all mode.
+" let g:user_emmet_mode='a'    "enable all function in all mode.
 " Enable just for html/css/javascript
-let g:user_emmet_install_global = 0
+" let g:user_emmet_install_global = 0
 " autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
 
 " Yankstack
