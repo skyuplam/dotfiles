@@ -57,6 +57,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   " Plug 'sebastianmarkow/deoplete-rust'
   Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
@@ -65,7 +66,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'moll/vim-node'
   " Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-unimpaired'
-  Plug 'jeetsukumaran/vim-buffergator'
+  " Plug 'jeetsukumaran/vim-buffergator'
   Plug 'ntpeters/vim-better-whitespace'
   " Plug 'python-mode/python-mode'
   Plug 'tpope/vim-repeat'
@@ -312,7 +313,15 @@ let g:ctrlp_match_window = 'bottom,order:ttb'
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+let g:rg_cmd ='rg --column --line-number --no-heading --fixed-strings
+  \ --ignore-case --color "always" --no-ignore --hidden --follow
+  \ --glob "!.git/*" '
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(g:rg_cmd .shellescape(<q-args>), 1,
+  \ <bang>0 ? fzf#vim#with_preview('up:60%')
+  \         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \ <bang>0)
+let g:fzf_layout = { 'down': '~40%' }
 
 if executable('rg')
   set grepprg=rg\ --vimgrep
@@ -393,17 +402,9 @@ endif
 let mapleader = ","
 
 " Explorer Mapping
-" nnoremap <C-e> :NERDTreeToggle<CR>
-nnoremap <leader>bb :BufExplorer<cr>
-nnoremap <leader>bs :BufExplorerHorizontalSplit<cr>
-nnoremap <leader>bv :BufExplorerVerticalSplit<cr>
-nnoremap <leader>nt :NERDTreeToggle<cr>
-nnoremap <leader>nf :NERDTreeFind<cr>
-nnoremap <leader>nn :e .<cr>
-nnoremap <leader>nd :e %:h<cr>
-nnoremap <leader>] :TagbarToggle<cr>
+nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <c-p> :CtrlP<cr>
-nnoremap <c-f> :CtrlPBuffer<cr>
+nnoremap <c-f> :Rg
 
 " Undotree
 nnoremap <leader>ut :UndotreeToggle<CR>
@@ -458,22 +459,6 @@ nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
 nnoremap <leader>ev :tabe $MYVIMRC<CR>
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
-" ctrlsf.vim mapping
-" nmap <leader>sf <Plug>CtrlSFPrompt
-" vmap <leader>sf <Plug>CtrlSFVwordPath
-" vmap <leader>sF <Plug>CtrlSFVwordExec
-" nmap <leader>sp <Plug>CtrlSFPwordPath
-" nnoremap <leader>so :CtrlSFOpen<CR>
-" nnoremap <leader>st :CtrlSFToggle<CR>
-" inoremap <leader>st <Esc>:CtrlSFToggle<CR>
-
-" Neomake key mapping
-" nmap <Leader><Space>o :lopen<CR>      " open location window
-" nmap <Leader><Space>c :lclose<CR>     " close location window
-" nmap <Leader><Space>, :ll<CR>         " go to current error/warning
-" nmap <Leader><Space>n :lnext<CR>      " next error/warning
-" nmap <Leader><Space>p :lprev<CR>      " previous error/warning
-
 " ALE keymapping
 nmap <silent> <Leader><Space>p <Plug>(ale_previous)
 nmap <silent> <Leader><Space>n <Plug>(ale_next)
@@ -501,9 +486,6 @@ map <leader>p <Plug>(miniyank-startput)
 map <leader>P <Plug>(miniyank-startPut)
 map <leader>n <Plug>(miniyank-cycle)
 map <leader>l :Denite miniyank<CR>
-
-" Tagbar
-" nmap <F8> :TagbarToggle<CR>
 
 " Vimux
 map <Leader>vp :VimuxPromptCommand<CR>
