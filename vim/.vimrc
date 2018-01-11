@@ -292,7 +292,7 @@ let g:jsx_ext_required = 0
 
 " CtrlP config
 " Ignore files and directories
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'ra'
 " let g:ctrlp_custom_ignore = {
 "   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|build|dist)$',
 "   \ 'file': '\v\.(exe|so|dll|pyc)$',
