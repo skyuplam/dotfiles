@@ -43,6 +43,7 @@ call plug#begin('~/.vim/plugged')
   " For func argument completion
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
+  Plug 'sebastianmarkow/deoplete-rust'
 
   Plug 'ervandew/supertab'
   " vim Markdown
@@ -254,6 +255,20 @@ let g:ale_echo_msg_format = '%severity%[%linter%]%code: %%s'
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:neosnippet#enable_completed_snippet = 1
+let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='$HOME/dev/oss/rust/src'
+
+" Denite
+call denite#custom#var('file_rec', 'command',
+    \ ['rg', '--files', '--glob', '!.git'])
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'default_opts',
+    \ ['--vimgrep', '--no-heading'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
 " following patterns array:
@@ -376,7 +391,6 @@ let mapleader = ","
 " Explorer Mapping
 nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <c-p> :CtrlP<cr>
-nnoremap <c-f> :Rg
 
 " Undotree
 nnoremap <leader>ut :UndotreeToggle<CR>
