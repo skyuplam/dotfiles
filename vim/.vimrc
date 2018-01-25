@@ -31,11 +31,19 @@ call plug#begin('~/.vim/plugged')
   " https://github.com/scrooloose/nerdcommenter
   Plug 'scrooloose/nerdcommenter'
   " Asynchronous keyword completion
-  Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': ':UpdateRemotePlugins' })
-  " deoplete.nvim source for javascript
-  " Plug 'carlitux/deoplete-ternjs', Cond(has('nvim'))
-  " deoplete.nvim for jedi for python
-  " Plug 'zchee/deoplete-jedi'
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+  endif
+  Plug 'wokalski/autocomplete-flow', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+  " For func argument completion
+  Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
+
   Plug 'ervandew/supertab'
   " vim Markdown
   Plug 'godlygeek/tabular'
@@ -59,26 +67,19 @@ call plug#begin('~/.vim/plugged')
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-  " Plug 'sebastianmarkow/deoplete-rust'
   Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'elzr/vim-json', { 'for': 'json' }
-  " Plug 'moll/vim-node'
-  " Plug 'terryma/vim-multiple-cursors'
   Plug 'tpope/vim-unimpaired'
-  " Plug 'jeetsukumaran/vim-buffergator'
   Plug 'ntpeters/vim-better-whitespace'
-  " Plug 'python-mode/python-mode'
   Plug 'tpope/vim-repeat'
   Plug 'mattn/emmet-vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': ':EmmetInstall' }
   Plug 'mhinz/vim-startify'
   Plug 'tmhedberg/matchit'
-  " Plug 'mileszs/ack.vim'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'rafi/awesome-vim-colorschemes'
   Plug 'ryanoasis/vim-devicons'
-  " Add plugins to &runtimepath
 call plug#end()
 
 
@@ -244,29 +245,15 @@ let g:startify_change_to_dir = 0
 let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
+" custom echos message
+let g:ale_echo_msg_error_str = '✖'
+let g:ale_echo_msg_warning_str = '⚠'
+let g:ale_echo_msg_warning_str = '!'
+let g:ale_echo_msg_format = '%severity%[%linter%]%code: %%s'
 
-if has('nvim')
-  " Enable deoplete
-  let g:deoplete#enable_at_startup = 1
-  " jedi deoplete config
-  " let g:deoplete#sources#jedi#show_docstring = 0
-  " ternjs deoplete config
-  " Use deoplete.
-  " let g:tern_request_timeout = 1
-  " let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
-  " let g:deoplete#auto_complete_delay = 50
-  "Add extra filetypes
-  " let g:tern#filetypes = [
-  "                 \ 'jsx',
-  "                 \ 'javascript.jsx',
-  "                 \ 'vue',
-  "                 \ ]
-  " Rust Racer for autocomplete with deoplete
-  " let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
-  " let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
-  " let g:deoplete#sources#rust#documentation_max_height=20
-endif
-
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+let g:neosnippet#enable_completed_snippet = 1
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
 " following patterns array:
@@ -366,20 +353,6 @@ if has("persistent_undo")
     set undofile
 endif
 
-" Emmet-vim
-" Enable in different mode
-" let g:user_emmet_mode='a'    "enable all function in all mode.
-" Enable just for html/css/javascript
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css,javascript,javascript.jsx EmmetInstall
-
-" Yankstack
-" Load yankstack without default key mappings
-" let g:yankstack_map_keys = 0
-" Yankring
-" let g:yankring_replace_n_pkey = '<m-p>'
-" let g:yankring_replace_n_nkey = '<m-n>'
-
 " JSON
 let g:vim_json_syntax_conceal = 0
 
@@ -396,7 +369,6 @@ endif
 " -----------------------------------------------
 " Key Mapping
 " -----------------------------------------------
-"
 
 " Set mapleader
 let mapleader = ","
