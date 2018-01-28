@@ -46,11 +46,10 @@ end
 
 test -e {$HOME}/.local/bin ; and set -x PATH $HOME/.local/bin $PATH
 
-# fish prompt pure
+# fish prompt bobthefish
 set -g theme_powerline_fonts yes
-set -g theme_nerd_fonts_yes
+set -g theme_nerd_fonts yes
 set -g theme_color_scheme solarized-dark
-
 
 # fzf
 # --files: List files that would be searched but do not search
