@@ -446,8 +446,8 @@ nnoremap <leader>ev :tabe $MYVIMRC<CR>
 nnoremap <leader>rv :source $MYVIMRC<CR>
 
 " ALE keymapping
-nmap <silent> <Leader><Space>p <Plug>(ale_previous)
-nmap <silent> <Leader><Space>n <Plug>(ale_next)
+nmap <silent> <Leader><Space>p <Plug>(ale_previous_wrap)
+nmap <silent> <Leader><Space>n <Plug>(ale_next_wrap)
 
 
 " Search for selected text, forwards or backwards.
