@@ -47,14 +47,10 @@ end
 test -e {$HOME}/.local/bin ; and set -x PATH $HOME/.local/bin $PATH
 
 # fish prompt pure
-# Change the colors
-set pure_color_blue (set_color "2196F3")
-set pure_color_cyan (set_color "80DEEA")
-set pure_color_gray (set_color "BDBDBD")
-set pure_color_green (set_color "00E676")
-set pure_color_normal (set_color "00E5FF")
-set pure_color_red (set_color "F44336")
-set pure_color_yellow (set_color "FFFF00")
+set -g theme_powerline_fonts yes
+set -g theme_nerd_fonts_yes
+set -g theme_color_scheme solarized-dark
+
 
 # fzf
 # --files: List files that would be searched but do not search
