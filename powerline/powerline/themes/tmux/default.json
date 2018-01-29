@@ -1,0 +1,64 @@
+{
+	"segments": {
+		"right": [
+			{
+				"function": "powerline.segments.common.net.network_load"
+			},
+			{
+				"function": "powerline.segments.common.sys.uptime",
+				"priority": 50
+			},
+			{
+				"function": "powerline.segments.common.sys.system_load",
+				"priority": 50
+			},
+			{
+				"function": "powerline.segments.common.time.date",
+				"args": {
+					"format": "%d-%m-%Y"
+				}
+			},
+			{
+				"function": "powerline.segments.common.time.date",
+				"name": "time",
+				"args": {
+					"format": "%H:%M",
+					"istime": true
+				}
+			},
+			{
+				"function": "powerline.segments.common.wthr.weather",
+				"args": {
+					"location_query": "oslo, norway",
+					"icons": {
+						"day":           "〇",
+						"blustery":      "⚑",
+						"rainy":         "\ue239",
+						"cloudy":        "\ue21d",
+						"snowy":         "\uf2dc",
+						"stormy":        "☈",
+						"foggy":         "≡",
+						"sunny":         "☼",
+						"night":         "☾",
+						"windy":         "☴",
+						"not_available": "�",
+						"unknown":       "⚠"
+}
+				}
+			},
+			{
+				"function": "powerline.segments.common.net.hostname",
+				"args": {
+					"only_if_ssh": true
+				}
+			},
+			{
+				"function": "powerline.segments.common.net.external_ip",
+				"args": {
+					"interval": 300,
+					"query_url": "http://icanhazip.com/"
+				}
+			}
+		]
+	}
+}
