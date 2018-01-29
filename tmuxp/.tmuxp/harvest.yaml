@@ -2,14 +2,15 @@ session_name: harvest
 start_directory: ~/dev/fronteer/development/ # load session relative to config location (project root).
 # before_script: ./bootstrap_env.py # ./ to load relative to project root.
 windows:
-- window_name: harvest
+- window_name: general
   focus: True
-  layout: main-vertical
-  options:
-    main-pane-height: 35
-  # shell_command_before:
-  #   - '[ -d .venv -a -f .venv/bin/activate ] && source .venv/bin/activate'
+  layout: main-horizontal
   panes:
   - focus: True
-  - dc up -d
+  - focus: False
   - kubectl proxy -p 8011
+- window_name: harvest
+  focus: False
+  layout: main-horizontal
+  panes:
+    - cd ./harvest
