@@ -66,7 +66,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-  Plug 'flowtype/vim-flow', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
@@ -257,17 +256,21 @@ let g:deoplete#enable_at_startup = 1
 let g:neosnippet#enable_completed_snippet = 1
 let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='$HOME/dev/oss/rust/src'
+set completeopt-=preview
+
 
 " Denite
-call denite#custom#var('file_rec', 'command',
-    \ ['rg', '--files', '--glob', '!.git'])
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts',
-    \ ['--vimgrep', '--no-heading'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
+if has('nvim')
+  call denite#custom#var('file_rec', 'command',
+      \ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg'])
+  call denite#custom#var('grep', 'default_opts',
+      \ ['--vimgrep', '--no-heading'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
+endif
 
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
@@ -448,6 +451,7 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 " ALE keymapping
 nmap <silent> <Leader><Space>p <Plug>(ale_previous_wrap)
 nmap <silent> <Leader><Space>n <Plug>(ale_next_wrap)
+nmap <silent> <Leader><Space>l :lopen<CR>
 
 
 " Search for selected text, forwards or backwards.
@@ -471,7 +475,9 @@ map P <Plug>(miniyank-autoPut)
 map <leader>p <Plug>(miniyank-startput)
 map <leader>P <Plug>(miniyank-startPut)
 map <leader>n <Plug>(miniyank-cycle)
-map <leader>l :Denite miniyank<CR>
+if has('nvim')
+  map <leader>l :Denite miniyank<CR>
+endif
 
 " Vimux
 map <Leader>vp :VimuxPromptCommand<CR>
