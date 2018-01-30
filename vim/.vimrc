@@ -66,6 +66,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  Plug 'dag/vim-fish', { 'for': ['fish'] }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
