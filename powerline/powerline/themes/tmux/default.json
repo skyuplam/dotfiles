@@ -31,18 +31,18 @@
 				"args": {
 					"location_query": "oslo, norway",
 					"icons": {
-						"day":           "〇",
-						"blustery":      "⚑",
+						"day":           "\uf10c",
+						"blustery":      "\uf024",
 						"rainy":         "\ue239",
 						"cloudy":        "\ue21d",
 						"snowy":         "\uf2dc",
-						"stormy":        "☈",
-						"foggy":         "≡",
-						"sunny":         "☼",
-						"night":         "☾",
-						"windy":         "☴",
-						"not_available": "�",
-						"unknown":       "⚠"
+						"stormy":        "\ue208",
+						"foggy":         "\ue268",
+						"sunny":         "\uf185",
+						"night":         "\uf186",
+						"windy":         "\ue27e",
+						"not_available": "\uf059",
+						"unknown":       "\uf071"
 }
 				}
 			},
