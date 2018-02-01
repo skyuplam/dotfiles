@@ -9,6 +9,7 @@ set -x PYTHONIOENCODING 'UTF-8'
 set -x LC_ALL en_US.UTF-8
 set -x LANG en_US.UTF-8
 set -x EDITOR vim
+set -x WEECHAT_HOME ~/.config/weechat
 
 # IBus
 set -x GTK_IM_MODULE ibus
