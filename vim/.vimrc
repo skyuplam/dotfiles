@@ -69,6 +69,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'dag/vim-fish', { 'for': ['fish'] }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  Plug 'autozimu/LanguageClient-neovim', Cond(has('nvim'), { 'branch': 'next', 'do': 'bash install.sh' })
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'elzr/vim-json', { 'for': 'json' }
   Plug 'tpope/vim-unimpaired'
@@ -252,12 +253,28 @@ let g:ale_echo_msg_warning_str = '⚠'
 let g:ale_echo_msg_warning_str = '!'
 let g:ale_echo_msg_format = '%severity%[%linter%]%code: %%s'
 
+" Do not lint or fix minified files.
+let g:ale_pattern_options = {
+\ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+\ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+\}
+
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:neosnippet#enable_completed_snippet = 1
 let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
 let g:deoplete#sources#rust#rust_source_path='$HOME/dev/oss/rust/src'
 set completeopt-=preview
+
+" LanguageClient-neovim
+" https://github.com/autozimu/LanguageClient-neovim
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ }
 
 
 " Denite
@@ -272,6 +289,9 @@ if has('nvim')
   call denite#custom#var('grep', 'separator', ['--'])
   call denite#custom#var('grep', 'final_opts', [])
 endif
+
+" Rust.vim
+let g:rust_clip_command = 'xclip -selection clipboard'
 
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
@@ -391,6 +411,7 @@ endif
 
 " Set mapleader
 let mapleader = ","
+let g:mapleader = ","
 
 " Explorer Mapping
 nnoremap <C-e> :NERDTreeToggle<CR>
@@ -483,3 +504,8 @@ endif
 " Vimux
 map <Leader>vp :VimuxPromptCommand<CR>
 map <Leader>vl :VimuxRunLastCommand<CR>
+
+" LanguageClient-neovim
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>

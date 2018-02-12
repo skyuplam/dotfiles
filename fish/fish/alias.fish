@@ -1,7 +1,7 @@
 # Utilities
 function c        ; pygmentize -O style=monokai -f console256 -g $argv ; end
 function g        ; git $argv ; end
-function grep     ; command rg --color=auto $argv ; end
+# function grep     ; command rg --color=auto $argv ; end
 
 # `cat` with beautiful colors. requires Pygments installed.
 # sudo easy_install -U Pygments
