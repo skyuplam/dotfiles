@@ -43,7 +43,7 @@ call plug#begin('~/.vim/plugged')
   " For func argument completion
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
-  Plug 'sebastianmarkow/deoplete-rust'
+  Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
   Plug 'ervandew/supertab'
   " vim Markdown
@@ -68,6 +68,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'dag/vim-fish', { 'for': ['fish'] }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+  Plug 'cespare/vim-toml', { 'for': 'toml' }
   Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'autozimu/LanguageClient-neovim', Cond(has('nvim'), { 'branch': 'next', 'do': 'bash install.sh' })
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
@@ -262,8 +263,6 @@ let g:ale_pattern_options = {
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:neosnippet#enable_completed_snippet = 1
-let g:deoplete#sources#rust#racer_binary='$HOME/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path='$HOME/dev/oss/rust/src'
 set completeopt-=preview
 
 " LanguageClient-neovim
@@ -286,9 +285,6 @@ if has('nvim')
   call denite#custom#var('grep', 'separator', ['--'])
   call denite#custom#var('grep', 'final_opts', [])
 endif
-
-" Rust.vim
-let g:rust_clip_command = 'xclip -selection clipboard'
 
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
