@@ -38,7 +38,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
-  Plug 'wokalski/autocomplete-flow', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  " Plug 'wokalski/autocomplete-flow', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'zchee/deoplete-jedi', { 'for': 'python' }
   " For func argument completion
   Plug 'Shougo/neosnippet'
@@ -269,12 +269,9 @@ set completeopt-=preview
 " LanguageClient-neovim
 " https://github.com/autozimu/LanguageClient-neovim
 set hidden
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ }
+let g:LanguageClient_autoStart = 1
+" Minimal LSP configuration
+let g:LanguageClient_serverCommands = {}
 
 
 " Denite
@@ -509,3 +506,4 @@ map <Leader>vl :VimuxRunLastCommand<CR>
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> <leader>f :call LanguageClient_textDocument_documentSymbol()<CR>
