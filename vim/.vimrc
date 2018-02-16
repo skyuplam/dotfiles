@@ -101,7 +101,7 @@ scriptencoding utf-8
 " Set font
 if has("gui_running")
   if has("gui_gtk2")
-    set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ h13
+    set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ h12
   elseif has("gui_macvim")
     set guifont=Knack\ Regular\ Nerd\ Font\ Complete:h12
   endif
@@ -397,6 +397,8 @@ else
     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+" Disable while zoomed
+let g:tmux_navigator_disable_when_zoomed = 1
 
 " -----------------------------------------------
 " Key Mapping
