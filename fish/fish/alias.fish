@@ -37,7 +37,7 @@ alias clippy 'cargo rustc -q --features=clippy -- -Z no-trans -Z extra-plugins=c
 
 # Update installed brew and npm packages
 if command --search brew > /dev/null do
-  alias brew_update 'brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u; fisher up; rustup update'
+  alias brew_update 'brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; fisher up; rustup update'
 end
 
 # Update python packages with pip
