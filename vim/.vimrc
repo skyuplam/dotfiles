@@ -130,8 +130,11 @@ set foldnestmax=10              " 10 nested fold max
 set synmaxcol=200               " Don't syntax highlight long lines
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-" set shell=/bin/zsh
 set gdefault                    " Add the `g` flag to search/replace by default
+
+if &shell =~# 'fish$'
+  set shell=/usr/bin/zsh
+endif
 
 set tabpagemax=15               " Only show 15 tabs
 " set cursorline                  " Highlight the current line
