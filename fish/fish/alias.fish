@@ -56,7 +56,7 @@ function tree6; tree --dirsfirst -ChFLQ 6 $argv; end
 function ll ; tree --dirsfirst -ChFupDaLg 1 $argv ; end
 
 # Quick check running state of a process
-alias ps='ps -ef | peco'
+# alias ps='ps -ef | peco'
 
 # Completions
 function make_completion --argument-names alias command
