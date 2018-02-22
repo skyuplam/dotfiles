@@ -401,7 +401,7 @@ else
     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 " Disable while zoomed
-let g:tmux_navigator_disable_when_zoomed = 1
+let g:tmux_navigator_no_mappings=1
 
 " -----------------------------------------------
 " Key Mapping
@@ -431,10 +431,14 @@ nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 
 " Use ctrl-[hjkl] to select the active split!
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
+" nmap <silent> <c-k> :wincmd k<CR>
+" nmap <silent> <c-j> :wincmd j<CR>
+" nmap <silent> <c-h> :wincmd h<CR>
+" nmap <silent> <c-l> :wincmd l<CR>
+nnoremap <silent> <c-w>h :TmuxNavigateLeft<CR>
+nnoremap <silent> <c-w>j :TmuxNavigateDown<CR>
+nnoremap <silent> <c-w>k :TmuxNavigateUp<CR>
+nnoremap <silent> <c-w>l :TmuxNavigateRight<CR>
 
 " Mappings to move lines
 nnoremap ∆ :m .+1<CR>==
