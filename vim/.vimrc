@@ -430,11 +430,9 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 
+nnoremap <silent> <leader>v :vsplit<CR>
+nnoremap <silent> <leader>s :split<CR>
 " Use ctrl-[hjkl] to select the active split!
-" nmap <silent> <c-k> :wincmd k<CR>
-" nmap <silent> <c-j> :wincmd j<CR>
-" nmap <silent> <c-h> :wincmd h<CR>
-" nmap <silent> <c-l> :wincmd l<CR>
 nnoremap <silent> <c-w>h :TmuxNavigateLeft<CR>
 nnoremap <silent> <c-w>j :TmuxNavigateDown<CR>
 nnoremap <silent> <c-w>k :TmuxNavigateUp<CR>
