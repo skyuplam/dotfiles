@@ -40,6 +40,8 @@ call plug#begin('~/.vim/plugged')
   endif
   " Plug 'wokalski/autocomplete-flow', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'zchee/deoplete-jedi', { 'for': 'python' }
+  Plug 'Shougo/context_filetype.vim'
+  Plug 'carlitux/deoplete-ternjs'
   " For func argument completion
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
@@ -70,7 +72,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'cespare/vim-toml', { 'for': 'toml' }
   Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
-  Plug 'autozimu/LanguageClient-neovim', Cond(has('nvim'), { 'branch': 'next', 'do': 'bash install.sh' })
+  Plug 'autozimu/LanguageClient-neovim', Cond(has('nvim'),
+        \ { 'branch': 'next', 'do': 'bash install.sh', 'for': ['rust', 'python'] })
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'elzr/vim-json', { 'for': 'json' }
   Plug 'tpope/vim-unimpaired'
@@ -265,6 +268,8 @@ let g:ale_pattern_options = {
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+" Use smartcase
+let g:deoplete#enable_smart_case = 1
 let g:neosnippet#enable_completed_snippet = 1
 set completeopt-=preview
 
