@@ -223,6 +223,7 @@ augroup vimrcEx
   " autocmd BufRead,BufNewFile Appraisals set filetype=ruby
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
+  autocmd BufRead,BufNewFile {Dockerfile,*.docker} set filetype=dockerfile
 augroup END
 
 " Always use vertical diffs
