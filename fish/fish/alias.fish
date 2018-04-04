@@ -5,9 +5,9 @@ function g        ; git $argv ; end
 
 # `cat` with beautiful colors. requires Pygments installed.
 # sudo easy_install -U Pygments
-alias c='pygmentize -O style=monokai,encoding=utf-8 -f console256 -g'
+# alias c='pygmentize -O style=monokai,encoding=utf-8 -f console256 -g'
 
-alias ag='ag --follow --hidden'
+# alias ag='ag --follow --hidden'
 
 # An orphaned image is one without a tag and it is also not a parent of
 # a tagged image. We also call these "dangling" images since they are not
@@ -16,33 +16,33 @@ alias ag='ag --follow --hidden'
 # alias docker_images_clean='docker rmi (docker images -f dangling=true -q)'
 # alias docker_clean='docker rm (docker ps -a -q)'
 # Docker
-alias d docker
-alias dc docker-compose
+alias d="docker"
+alias dc="docker-compose"
 
 # it is a good practice to export VISUAL='mvim -f' to ensure MacVim will not
 # fork a new process when called, which should give you what you want when using
 # it with your shell environment.
 # VIM
-alias vi vim
+# alias vi vim
 # alias vim 'mvim -v -f'
-if type nvim > /dev/null 2>&1
-    alias vim='nvim'
-end
+# if type nvim > /dev/null 2>&1
+#     alias vim='nvim'
+# end
 
 # AWS login credential
-alias  awslogin 'aws ecr get-login --region eu-west-1 | source'
+alias  awslogin="aws ecr get-login --region eu-west-1 | source"
 
 # rust-clippy linter
-alias clippy 'cargo rustc -q --features=clippy -- -Z no-trans -Z extra-plugins=clippy'
+alias clippy="cargo rustc -q --features=clippy -- -Z no-trans -Z extra-plugins=clippy"
 
 # Update installed brew and npm packages
 if command --search brew > /dev/null do
-  alias brew_update 'brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; fisher up; rustup update'
+  alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; fisher up; rustup update"
 end
 
 # Update python packages with pip
 if command --search pip > /dev/null do
-  alias pip_update 'pip list --outdated --format=freeze | cut -d = -f 1 | xargs sudo -H pip install -U'
+  alias pip_update="pip list --outdated --format=freeze | cut -d = -f 1 | xargs sudo -H pip install -U"
 end
 
 # Useful `tree` aliases
