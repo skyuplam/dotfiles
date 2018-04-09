@@ -136,7 +136,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 set gdefault                    " Add the `g` flag to search/replace by default
 
 if &shell =~# 'fish$'
-  set shell=/usr/bin/zsh
+  set shell=$(which zsh)
 endif
 
 set tabpagemax=15               " Only show 15 tabs

@@ -1,4 +1,3 @@
-set fish_greeting
 # import alias
 source ~/.config/fish/alias.fish
 
@@ -16,7 +15,7 @@ set -x GTK_IM_MODULE ibus
 set -x XMODIFIERS '@im ibus'
 set -x QT_IM_MODULE ibus
 
-if command --search brew > /dev/null do
+if command --search brew > /dev/null
   set -x HOMEBREW_NO_ANALYTICS 1
   set -x OPENSSL_INCLUDE_DIR (brew --prefix openssl)/include
   set -x OPENSSL_LIB_DIR (brew --prefix openssl)/lib
@@ -29,7 +28,7 @@ set -x RUST_SRC_PATH {$RUSTUP_HOME}/toolchains/nightly-x86_64-apple-darwin/lib/r
 
 set -x MYVIMRC ~/.vimrc
 
-if command --search brew > /dev/null do
+if command --search brew > /dev/null
   # Add GNU core utilities (those that come with macOS are outdated).
   set -x PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
   set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
@@ -40,7 +39,7 @@ end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
-if command --search powerline-daemon > /dev/null do
+if command --search powerline-daemon > /dev/null
   # Run Powerline daemon
   powerline-daemon -q
 end
