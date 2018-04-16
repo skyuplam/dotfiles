@@ -32,6 +32,8 @@ set -x MYVIMRC ~/.vimrc
 set -x PATH $GOPATH/bin $PATH
 
 if command --search brew > /dev/null
+  set -x PATH /usr/local/bin $PATH
+  set -x PATH /usr/local/sbin $PATH
   # Add GNU core utilities (those that come with macOS are outdated).
   set -x PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
   set -x MANPATH /usr/local/opt/coreutils/libexec/gnuman $MANPATH
