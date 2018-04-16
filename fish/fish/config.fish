@@ -25,8 +25,11 @@ set -x XDG_CONFIG_HOME ~/.config
 set -x XDG_DATA_HOME ~/.config
 set -x RUSTUP_HOME ~/.multirust
 set -x RUST_SRC_PATH {$RUSTUP_HOME}/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
+set -x GOPATH {$XDG_CONFIG_HOME}/go
 
 set -x MYVIMRC ~/.vimrc
+
+set -x PATH $GOPATH/bin $PATH
 
 if command --search brew > /dev/null
   # Add GNU core utilities (those that come with macOS are outdated).
