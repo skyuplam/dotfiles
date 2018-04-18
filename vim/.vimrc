@@ -439,10 +439,10 @@ nnoremap <silent> <leader>gg :SignifyToggle<CR>
 nnoremap <silent> <leader>v :vsplit<CR>
 nnoremap <silent> <leader>s :split<CR>
 " Use ctrl-[hjkl] to select the active split!
-nnoremap <silent> <c-w>h :TmuxNavigateLeft<CR>
-nnoremap <silent> <c-w>j :TmuxNavigateDown<CR>
-nnoremap <silent> <c-w>k :TmuxNavigateUp<CR>
-nnoremap <silent> <c-w>l :TmuxNavigateRight<CR>
+nnoremap <silent> <c-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <c-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <c-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <c-l> :TmuxNavigateRight<CR>
 
 " Mappings to move lines
 nnoremap ∆ :m .+1<CR>==
