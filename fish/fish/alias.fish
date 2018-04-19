@@ -21,6 +21,10 @@ if command --search docker > /dev/null
   alias dc="docker-compose"
 end
 
+if command --search xclip > /dev/null
+  alias xclip="xclip -selection c"
+end
+
 # it is a good practice to export VISUAL='mvim -f' to ensure MacVim will not
 # fork a new process when called, which should give you what you want when using
 # it with your shell environment.
