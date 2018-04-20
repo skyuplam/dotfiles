@@ -375,8 +375,6 @@ else
   let s:ctrlp_fallback = 'find %s -type f'
 endif
 
-
-
 " NerdTree
 let NERDTreeIgnore=['\.py[cd]$',
     \ '\~$', '\.swo$', '\.swp$', '^\.git$',
@@ -436,8 +434,6 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 nnoremap <silent> <leader>gi :Git add -p %<CR>
 nnoremap <silent> <leader>gg :SignifyToggle<CR>
 
-nnoremap <silent> <leader>v :vsplit<CR>
-nnoremap <silent> <leader>s :split<CR>
 " Use ctrl-[hjkl] to select the active split!
 nnoremap <silent> <c-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <c-j> :TmuxNavigateDown<CR>
@@ -480,7 +476,6 @@ nnoremap <leader>rv :source $MYVIMRC<CR>
 nmap <silent> <Leader><Space>p <Plug>(ale_previous_wrap)
 nmap <silent> <Leader><Space>n <Plug>(ale_next_wrap)
 nmap <silent> <Leader><Space>l :lopen<CR>
-
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
