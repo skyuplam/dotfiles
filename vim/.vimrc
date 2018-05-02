@@ -14,8 +14,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
   Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
-  Plug 'jlanzarotta/bufexplorer', { 'on': 'BufExplorer' }
-  Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
   " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
   " http://ctrlpvim.github.com/ctrlp.vim
@@ -49,16 +47,11 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'ervandew/supertab'
   " vim Markdown
-  Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   Plug 'Raimondi/delimitMate'
-  " Use Neomake instead of syntasitic
-  " Plug 'neomake/neomake', Cond(has('nvim'))
-  " Plug 'benjie/neomake-local-eslint.vim', Cond(has('nvim'))
   " ALE
   Plug 'w0rp/ale'
   Plug 'tpope/vim-fugitive'
-  Plug 'bfredl/nvim-miniyank', Cond(has('nvim'))
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
@@ -386,12 +379,6 @@ let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-" Undotree persistent
-if has("persistent_undo")
-    set undodir=~/.vim/.undodir/
-    set undofile
-endif
-
 " JSON
 let g:vim_json_syntax_conceal = 0
 
@@ -491,16 +478,6 @@ vnoremap <silent> # :<C-U>
 
 " Rust
 nmap <Leader>rf :RustFmt<CR>          " format your code with rustfmt
-
-" nvim-miniyank
-map p <Plug>(miniyank-autoput)
-map P <Plug>(miniyank-autoPut)
-map <leader>p <Plug>(miniyank-startput)
-map <leader>P <Plug>(miniyank-startPut)
-map <leader>n <Plug>(miniyank-cycle)
-if has('nvim')
-  map <leader>l :Denite miniyank<CR>
-endif
 
 " Vimux
 map <Leader>vp :VimuxPromptCommand<CR>
