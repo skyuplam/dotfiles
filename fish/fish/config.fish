@@ -40,6 +40,10 @@ if command --search brew > /dev/null
   # Add GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
   set -x PATH /usr/local/opt/findutils/libexec/gnubin $PATH
   set -x MANPATH /usr/local/opt/findutils/libexec/gnuman $MANPATH
+
+  # Python modules
+  set -x CFLAGS -I(brew --prefix)/include
+  set -x LDFLAGS -L(brew --prefix)/lib
 end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
