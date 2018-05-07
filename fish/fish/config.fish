@@ -31,6 +31,8 @@ test -e {$GOPATH}/bin ; and set -x PATH $GOPATH/bin $PATH
 
 set -x MYVIMRC ~/.vimrc
 
+set -x NVM_DIR $HOME/.nvm
+
 if command --search brew > /dev/null
   set -x PATH /usr/local/bin $PATH
   set -x PATH /usr/local/sbin $PATH

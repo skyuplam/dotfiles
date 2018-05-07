@@ -57,15 +57,20 @@ if command --search pip > /dev/null
 end
 
 # Useful `tree` aliases
-if command --search tree > /dev/null
-  function tree1; tree --dirsfirst -ChFLQ 1 $argv; end
-  function tree2; tree --dirsfirst -ChFLQ 2 $argv; end
-  function tree3; tree --dirsfirst -ChFLQ 3 $argv; end
-  function tree4; tree --dirsfirst -ChFLQ 4 $argv; end
-  function tree5; tree --dirsfirst -ChFLQ 5 $argv; end
-  function tree6; tree --dirsfirst -ChFLQ 6 $argv; end
+# if command --search tree > /dev/null
+#   function tree1; tree --dirsfirst -ChFLQ 1 $argv; end
+#   function tree2; tree --dirsfirst -ChFLQ 2 $argv; end
+#   function tree3; tree --dirsfirst -ChFLQ 3 $argv; end
+#   function tree4; tree --dirsfirst -ChFLQ 4 $argv; end
+#   function tree5; tree --dirsfirst -ChFLQ 5 $argv; end
+#   function tree6; tree --dirsfirst -ChFLQ 6 $argv; end
 
-  function ll ; tree --dirsfirst -ChFupDaLg 1 $argv ; end
+#   function ll ; tree --dirsfirst -ChFupDaLg 1 $argv ; end
+# end
+
+if command --search exa > /dev/null
+  function ll ; exa -lgm --group-directories-first -s modified $argv ; end
+  function ls ; exa $argv ; end
 end
 
 # Quick check running state of a process
