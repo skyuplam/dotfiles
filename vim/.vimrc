@@ -17,17 +17,14 @@ call plug#begin('~/.vim/plugged')
 
   " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
   " http://ctrlpvim.github.com/ctrlp.vim
-  Plug 'tpope/vim-sensible'
+  " Plug 'tpope/vim-sensible'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'benmills/vimux'
   Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'Shougo/denite.nvim', Cond(has('nvim'))
+  " Plug 'Shougo/denite.nvim', Cond(has('nvim'))
   " surround.vim: quoting/parenthesizing made simple
   " http://www.vim.org/scripts/script.php?script_id=1697
   Plug 'tpope/vim-surround'
-  " Comment functions so powerful—no comment necessary.
-  " https://github.com/scrooloose/nerdcommenter
-  Plug 'scrooloose/nerdcommenter'
   " Asynchronous keyword completion
   if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -41,16 +38,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'Shougo/context_filetype.vim'
   Plug 'carlitux/deoplete-ternjs'
   " For func argument completion
-  Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
+  " Plug 'Shougo/neosnippet'
+  " Plug 'Shougo/neosnippet-snippets'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
   Plug 'ervandew/supertab'
   " vim Markdown
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-  Plug 'Raimondi/delimitMate'
   " ALE
-  Plug 'w0rp/ale'
+  Plug 'w0rp/ale', { 'for': ['rust', 'python', 'javascript', 'javascript.jsx']}
   Plug 'tpope/vim-fugitive'
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -58,8 +54,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'dag/vim-fish', { 'for': ['fish'] }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -69,7 +63,7 @@ call plug#begin('~/.vim/plugged')
         \ { 'branch': 'next', 'do': 'bash install.sh', 'for': ['rust', 'python'] })
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
   Plug 'elzr/vim-json', { 'for': 'json' }
-  Plug 'tpope/vim-unimpaired'
+  " Plug 'tpope/vim-unimpaired'
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'tpope/vim-repeat'
   Plug 'mattn/emmet-vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': ':EmmetInstall' }
@@ -77,7 +71,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tmhedberg/matchit'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
-  Plug 'rafi/awesome-vim-colorschemes'
   Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -141,11 +134,11 @@ set splitright
 
 
 if has('clipboard')
-    if has('unnamedplus')       " When possible use + register for copy-paste
-        set clipboard=unnamed,unnamedplus
-    else
-        set clipboard=unnamed
-    endif
+  if has('unnamedplus')       " When possible use + register for copy-paste
+    set clipboard=unnamed,unnamedplus
+  else
+    set clipboard=unnamed
+  endif
 endif
 
 " Indent space
@@ -174,13 +167,6 @@ set relativenumber
 set number
 
 set laststatus=2  " appear all the time
-
-" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
-" augroup vimrc-sync-fromstart
-"   autocmd!
-"   autocmd BufEnter * :syntax sync maxlines=200
-" augroup END
-
 
 if !has('nvim')
   set ttyfast
@@ -233,19 +219,10 @@ let g:solarized_termtrans=1
 let g:solarized_visibility='high'
 colorscheme solarized8
 
-" NerdCommenter
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDCustomDelimiters = { 'javascript.jsx': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }}
-let g:NERDTrimTrailingWhitespace = 1
-
 " Startify
 let g:startify_change_to_dir = 0
 
 " ALE
-" Enable airline
-let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 " custom echos message
@@ -276,17 +253,17 @@ let g:LanguageClient_serverCommands = {}
 
 
 " Denite
-if has('nvim')
-  call denite#custom#var('file_rec', 'command',
-      \ ['rg', '--files', '--glob', '!.git'])
-  call denite#custom#var('grep', 'command', ['rg'])
-  call denite#custom#var('grep', 'default_opts',
-      \ ['--vimgrep', '--no-heading'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'final_opts', [])
-endif
+" if has('nvim')
+"   call denite#custom#var('file_rec', 'command',
+"       \ ['rg', '--files', '--glob', '!.git'])
+"   call denite#custom#var('grep', 'command', ['rg'])
+"   call denite#custom#var('grep', 'default_opts',
+"       \ ['--vimgrep', '--no-heading'])
+"   call denite#custom#var('grep', 'recursive_opts', [])
+"   call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+"   call denite#custom#var('grep', 'separator', ['--'])
+"   call denite#custom#var('grep', 'final_opts', [])
+" endif
 
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
@@ -297,16 +274,7 @@ let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 " Add %{fugitive#statusline()} to your statusline to get an indicator including
 " the current branch and the currently edited file's commit.  If you don't have
 " a statusline, this one matches the default when 'ruler' is set:
-" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-
-" Set airline theme
-let g:airline_theme='dark'
-let g:airline_powerline_fonts=1  " enable powerline fonts
-" Airline workaround for [neovim](https://github.com/neovim/neovim/issues/4487)
-" TODO: enable it back when the bug fixed
-if has('nvim')
-  let g:airline#extensions#branch#enabled = 0
-endif
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Vim-jsx
 let g:jsx_ext_required = 0
