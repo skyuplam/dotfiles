@@ -43,7 +43,7 @@ call plug#begin('~/.vim/plugged')
   " vim Markdown
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   " ALE
-  Plug 'w0rp/ale', { 'for': ['rust', 'python', 'javascript', 'javascript.jsx']}
+  Plug 'w0rp/ale'
   Plug 'tpope/vim-fugitive'
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -268,10 +268,22 @@ let g:LanguageClient_serverCommands = {}
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? '' : printf(
+    \   '[%dW %dE]',
+    \   all_non_errors,
+    \   all_errors
+    \)
+  endfunction
 " Add %{fugitive#statusline()} to your statusline to get an indicator including
 " the current branch and the currently edited file's commit.  If you don't have
 " a statusline, this one matches the default when 'ruler' is set:
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%{LinterStatus()}%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Vim-jsx
 let g:jsx_ext_required = 0
