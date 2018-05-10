@@ -37,9 +37,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'zchee/deoplete-jedi', { 'for': 'python' }
   Plug 'Shougo/context_filetype.vim'
   Plug 'carlitux/deoplete-ternjs'
-  " For func argument completion
-  " Plug 'Shougo/neosnippet'
-  " Plug 'Shougo/neosnippet-snippets'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
   Plug 'ervandew/supertab'
