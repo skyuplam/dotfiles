@@ -39,6 +39,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'carlitux/deoplete-ternjs'
   Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
+  " org-mode
+  Plug 'mattn/calendar-vim'
+  Plug 'jceb/vim-orgmode'
+  Plug 'tpope/vim-speeddating'
+
   Plug 'ervandew/supertab'
   " vim Markdown
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -163,11 +168,45 @@ endif
 set relativenumber
 set number
 
+" Statusline
 set laststatus=2  " appear all the time
 
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '' : printf(
+  \   '[%dW %dE]',
+  \   all_non_errors,
+  \   all_errors
+  \)
+endfunction
+
+" Add %{fugitive#statusline()} to your statusline to get an indicator including
+" the current branch and the currently edited file's commit.  If you don't have
+" a statusline, this one matches the default when 'ruler' is set:
+set statusline=
+set statusline+=%7*\%{LinterStatus()}                     "Linter
+set statusline+=%0*\[%n]                                  "buffernr
+set statusline+=%8*\ %<%f\                                "File+path
+set statusline+=%4*\ \[%{fugitive#head()}]%h%m%r%w\       "Fugitive
+set statusline+=%2*\ %y\                                  "FileType
+set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
+set statusline+=%4*\ %{&ff}\                              "FileFormat (dos/unix..)
+set statusline+=%8*\ %=(%l,%c%V)\                         "(row,col)
+set statusline+=%0*\ %P\                                  "Modified? Readonly? Top/bot.
+
+" Encoding
 if !has('nvim')
   set ttyfast
   set encoding=utf-8
+  set encoding=utf-8
+  set termencoding=utf-8
+  set fileencoding=utf-8
+  set fileencodings=utf-8
 endif
 
 " Nvim specific config
@@ -268,22 +307,6 @@ let g:LanguageClient_serverCommands = {}
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? '' : printf(
-    \   '[%dW %dE]',
-    \   all_non_errors,
-    \   all_errors
-    \)
-  endfunction
-" Add %{fugitive#statusline()} to your statusline to get an indicator including
-" the current branch and the currently edited file's commit.  If you don't have
-" a statusline, this one matches the default when 'ruler' is set:
-set statusline=%{LinterStatus()}%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Vim-jsx
 let g:jsx_ext_required = 0
