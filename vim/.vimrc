@@ -15,15 +15,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
   Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
 
-  " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
-  " http://ctrlpvim.github.com/ctrlp.vim
-  " Plug 'tpope/vim-sensible'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'benmills/vimux'
-  Plug 'ctrlpvim/ctrlp.vim'
-  " Plug 'Shougo/denite.nvim', Cond(has('nvim'))
   " surround.vim: quoting/parenthesizing made simple
-  " http://www.vim.org/scripts/script.php?script_id=1697
   Plug 'tpope/vim-surround'
   " Asynchronous keyword completion
   if has('nvim')
@@ -311,18 +305,6 @@ let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 " Vim-jsx
 let g:jsx_ext_required = 0
 
-" CtrlP config
-" Ignore files and directories
-let g:ctrlp_working_path_mode = 'ra'
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules|build|dist)$',
-"   \ 'file': '\v\.(exe|so|dll|pyc)$',
-"   \ }
-let g:ctrlp_mruf_max = 30              " track recently used files
-let g:ctrlp_max_height = 20            " provide more space to display results
-let g:ctrlp_switch_buffer = 0          " don't try to switch buffers
-let g:ctrlp_match_window = 'bottom,order:ttb'
-
 " :Find <expr>
 " --column: Show column number
 " --line-number: Show line number
@@ -334,6 +316,7 @@ let g:ctrlp_match_window = 'bottom,order:ttb'
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let g:rg_cmd ='rg --column --line-number --no-heading --fixed-strings
   \ --ignore-case --color "always" --no-ignore --hidden --follow
   \ --glob "!.git/*" '
@@ -343,30 +326,6 @@ command! -bang -nargs=* Rg
   \         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \ <bang>0)
 let g:fzf_layout = { 'down': '~40%' }
-
-if executable('rg')
-  set grepprg=rg\ --vimgrep
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 1
-elseif executable('ag')
-  " let g:ackprg = 'ag --vimgrep --smart-case'
-  set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag -Q -l --nocolor -g "" %s'
-  let g:ctrlp_use_caching = 1
-  cnoreabbrev ag Ack
-
-  if !exists(":Ag")
-    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-    nnoremap \ :Ag<SPACE>
-  endif
-elseif executable('ack-grep')
-  let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
-elseif executable('ack')
-  let s:ctrlp_fallback = 'ack %s --nocolor -f'
-else
-  let s:ctrlp_fallback = 'find %s -type f'
-endif
 
 " NerdTree
 let NERDTreeIgnore=['\.py[cd]$',
@@ -404,7 +363,7 @@ let g:mapleader = ","
 
 " Explorer Mapping
 nnoremap <C-e> :NERDTreeToggle<CR>
-nnoremap <c-p> :CtrlP<cr>
+nnoremap <C-p> :Files<CR>
 
 " Undotree
 nnoremap <leader>ut :UndotreeToggle<CR>
