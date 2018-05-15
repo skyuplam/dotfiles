@@ -5,12 +5,12 @@ setlocal omnifunc=htmlcomplete#CompleteTags
 " Automatically wrap at 80 characters
 setlocal textwidth=80
 
+setlocal expandtab
+setlocal smarttab
 setlocal autoindent
-setlocal colorcolumn=0
 setlocal linebreak
 setlocal shiftwidth=2
 setlocal tabstop=2
-setlocal wrap
 
 " [Plugin Repo](https://github.com/plasticboy/vim-markdown)
 " Disable folding
