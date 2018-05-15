@@ -42,7 +42,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   " ALE
   Plug 'w0rp/ale'
-  Plug 'tpope/vim-fugitive'
+  " Plug 'tpope/vim-fugitive'
   " Interactive command execution in Vim
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
@@ -184,7 +184,7 @@ set statusline=
 set statusline+=%7*\%{LinterStatus()}                     "Linter
 set statusline+=%0*\[%n]                                  "buffernr
 set statusline+=%8*\ %<%f\                                "File+path
-set statusline+=%4*\ \[%{fugitive#head()}]%h%m%r%w\       "Fugitive
+" set statusline+=%4*\ \[%{fugitive#head()}]%h%m%r%w\       "Fugitive
 set statusline+=%2*\ %y\                                  "FileType
 set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
@@ -353,6 +353,9 @@ endif
 " Disable while zoomed
 let g:tmux_navigator_no_mappings=1
 
+" To enter |Terminal-mode| automatically
+autocmd TermOpen * startinsert
+
 " -----------------------------------------------
 " Key Mapping
 " -----------------------------------------------
@@ -369,16 +372,22 @@ nnoremap <C-p> :Files<CR>
 nnoremap <leader>ut :UndotreeToggle<CR>
 
 " Fugitive
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gr :Gread<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>ge :Gedit<CR>
-nnoremap <silent> <leader>gi :Git add -p %<CR>
-nnoremap <silent> <leader>gg :SignifyToggle<CR>
+" nnoremap <silent> <leader>gs :Gstatus<CR>
+" nnoremap <silent> <leader>gd :Gdiff<CR>
+" nnoremap <silent> <leader>gc :Gcommit<CR>
+" nnoremap <silent> <leader>gb :Gblame<CR>
+" nnoremap <silent> <leader>gp :Git push<CR>
+" nnoremap <silent> <leader>gr :Gread<CR>
+" nnoremap <silent> <leader>gw :Gwrite<CR>
+" nnoremap <silent> <leader>ge :Gedit<CR>
+" nnoremap <silent> <leader>gi :Git add -p %<CR>
+" nnoremap <silent> <leader>gg :SignifyToggle<CR>
+
+" Map <Esc> to exit terminal-mode
+tnoremap <Esc> <C-\><C-n><CR>
+
+" Tig
+nnoremap <silent> <Leader>gs :split term://tig status<CR>
 
 " Use ctrl-[hjkl] to select the active split!
 nnoremap <silent> <c-h> :TmuxNavigateLeft<CR>
