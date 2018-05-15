@@ -27,7 +27,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
   endif
-  " Plug 'wokalski/autocomplete-flow', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
   Plug 'zchee/deoplete-jedi', { 'for': 'python' }
   Plug 'Shougo/context_filetype.vim'
   Plug 'carlitux/deoplete-ternjs'
@@ -230,6 +229,7 @@ augroup vimrcEx
 
   " Set syntax highlighting for specific file types
   " autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+  autocmd BufRead,BufNewFile *.{js,jsx} set filetype=javascript
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
   autocmd BufRead,BufNewFile {Dockerfile,*.docker} set filetype=dockerfile
