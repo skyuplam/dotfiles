@@ -5,30 +5,34 @@ setlocal omnifunc=htmlcomplete#CompleteTags
 " Automatically wrap at 80 characters
 setlocal textwidth=80
 
-" nnoremap <leader>= :s/.*/\=repeat("=", len(getline(line(".") - 1)))/<cr> <bar> :noh<cr>
-" nnoremap <leader>- :s/.*/\=repeat("-", len(getline(line(".") - 1)))/<cr> <bar> :noh<cr>
-" 
-" autocmd insertleave,textchanged <buffer> call MarkdownUpdateHeadingUnderline()
-" 
-" function! MarkdownUpdateHeadingUnderline() abort
-"     let lnum = line(".")
-" 
-"     if getline(lnum) =~ '^\s*-'
-"         return
-"     endif
-" 
-"     if getline(lnum+1) =~ '^-\+$'
-"         call setline(lnum+1, repeat("-", len(getline(lnum))))
-"     elseif getline(lnum+1) =~ '^=\+$'
-"         call setline(lnum+1, repeat("=", len(getline(lnum))))
-"     endif
-" endfunction
-" 
-" 
-" nnoremap <silent> <buffer> <esc> :call <SID>CheckToRealignTable()<cr>
-" inoremap <silent> <buffer> <esc> <esc>:call <SID>CheckToRealignTable()<cr>
-" function! s:CheckToRealignTable() abort
-"     if getline(line(".")) =~ '^|.*|.*|'
-"         TableModeRealign
-"     endif
-" endfunction
+setlocal autoindent
+setlocal colorcolumn=0
+setlocal linebreak
+setlocal shiftwidth=2
+setlocal tabstop=2
+setlocal wrap
+
+" [Plugin Repo](https://github.com/plasticboy/vim-markdown)
+" Disable folding
+let g:vim_markdown_folding_disabled = 1
+setlocal nofoldenable
+
+" Enable TOC window auto-fit
+let g:vim_markdown_toc_autofit = 1
+
+" Enable Syntax Concealing
+set conceallevel=2
+
+" Folow named anchors
+let g:vim_markdown_follow_anchor = 1
+
+" Front matters
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+
+" Adjust new list item indent
+let g:vim_markdown_new_list_item_indent = 2
+
+" vim:set sw=2:
