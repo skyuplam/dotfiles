@@ -190,7 +190,7 @@ set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''}      "Encoding
 set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\            "Encoding2
 set statusline+=%4*\ %{&ff}\                              "FileFormat (dos/unix..)
 set statusline+=%8*\ %=(%l,%c%V)\                         "(row,col)
-set statusline+=%0*\ %P\                                  "Modified? Readonly? Top/bot.
+set statusline+=%5*\ %P\                                  "Modified? Readonly? Top/bot.
 
 " Encoding
 if !has('nvim')

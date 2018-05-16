@@ -20,15 +20,15 @@ endif
 let g:colors_name = 'solarized8'
 
 " StatusLine
-hi User1 guifg=#ffdad8  guibg=#880c0e
-hi User2 guifg=#000000  guibg=#F4905C
-hi User3 guifg=#292b00  guibg=#f4f597
-hi User4 guifg=#112605  guibg=#afdf00
-hi User5 guifg=#051d00  guibg=#7dcc7d
-hi User7 guifg=#ffffff  guibg=#880c0e gui=bold
-hi User8 guifg=#ffffff  guibg=#5b7fbb
-hi User9 guifg=#ffffff  guibg=#810085
-hi User0 guifg=#ffffff  guibg=#094afe
+hi User1 guifg=#ffdad8  guibg=#dc322f                 " red
+hi User2 guifg=#000000  guibg=#6c71c4                 " violet
+hi User3 guifg=#292b00  guibg=#2aa198                 " cyan
+hi User4 guifg=#112605  guibg=#859900                 " green
+hi User5 guifg=#051d00  guibg=#b58900                 " yellow
+hi User7 guifg=#ffffff  guibg=#dc322f gui=bold        " red
+hi User8 guifg=#ffffff  guibg=#268bd2                 " blue
+hi User9 guifg=#ffffff  guibg=#cb4b16                 " orange
+"hi User0 guifg=#ffffff  guibg=#094afe
 
 " 256-color variant
 if !get(g:, 'solarized_use16', 0)

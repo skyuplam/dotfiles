@@ -1,7 +1,4 @@
 setlocal omnifunc=javascriptcomplete#CompleteJS
 
-" let g:deoplete#omni#functions.javascript = ['tern#Complete', 'jspc#omni']
-" let g:deoplete#sources#ternjs#filetypes = [
-"                 \ 'jsx',
-"                 \ 'javascript.jsx',
-"                 \ ]
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
