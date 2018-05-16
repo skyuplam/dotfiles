@@ -353,8 +353,52 @@ endif
 " Disable while zoomed
 let g:tmux_navigator_no_mappings=1
 
-" To enter |Terminal-mode| automatically
-autocmd TermOpen * startinsert
+
+" -----------------------------------------------
+" Tig
+" -----------------------------------------------
+if has('nvim')
+  if !exists('g:tig_executable')
+    let g:tig_executable = 'tig'
+  endif
+
+  if !exists('g:tig_default_command')
+    let g:tig_default_command = 'status'
+  endif
+
+  if !exists('g:tig_on_exit')
+    let g:tig_on_exit = 'bw!'
+  endif
+
+  if !exists('g:tig_open_command')
+    let g:tig_open_command = 'enew'
+  endif
+
+  function! s:tig(bang, ...)
+    let s:callback = {}
+    let current = expand('%')
+
+    function! s:callback.on_exit(id, status, event)
+      exec g:tig_on_exit
+    endfunction
+
+    function! s:tigopen(arg)
+      call termopen(g:tig_executable . ' ' . a:arg, s:callback)
+    endfunction
+
+    exec g:tig_open_command
+    if a:bang > 0
+      call s:tigopen(current)
+    elseif a:0 > 0
+      call s:tigopen(a:1)
+    else
+      call s:tigopen(g:tig_default_command)
+    endif
+    startinsert
+  endfunction
+
+  command! -bang -nargs=? Tig call s:tig(<bang>0, <f-args>)
+endif
 
 " -----------------------------------------------
 " Key Mapping
@@ -371,23 +415,8 @@ nnoremap <C-p> :Files<CR>
 " Undotree
 nnoremap <leader>ut :UndotreeToggle<CR>
 
-" Fugitive
-" nnoremap <silent> <leader>gs :Gstatus<CR>
-" nnoremap <silent> <leader>gd :Gdiff<CR>
-" nnoremap <silent> <leader>gc :Gcommit<CR>
-" nnoremap <silent> <leader>gb :Gblame<CR>
-" nnoremap <silent> <leader>gp :Git push<CR>
-" nnoremap <silent> <leader>gr :Gread<CR>
-" nnoremap <silent> <leader>gw :Gwrite<CR>
-" nnoremap <silent> <leader>ge :Gedit<CR>
-" nnoremap <silent> <leader>gi :Git add -p %<CR>
-" nnoremap <silent> <leader>gg :SignifyToggle<CR>
-
-" Map <Esc> to exit terminal-mode
-tnoremap <Esc> <C-\><C-n><CR>
-
 " Tig
-nnoremap <silent> <Leader>gs :split term://tig status<CR>
+nnoremap <silent> <Leader>gs :Tig<CR>
 
 " Use ctrl-[hjkl] to select the active split!
 nnoremap <silent> <c-h> :TmuxNavigateLeft<CR>
@@ -422,6 +451,9 @@ nnoremap <leader><leader> <c-^>
 
 " JSON
 nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+
+" yank until EOL (y$) instead of the entire line (yy)
+nnoremap Y y$
 
 " edit vimrc and reload vimrc - mnemonic: (e)dit(v)imrc, (r)eload(v)imrc
 nnoremap <leader>ev :tabe $MYVIMRC<CR>

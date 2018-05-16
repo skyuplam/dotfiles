@@ -10,4 +10,3 @@ bind status + !git commit --amend
 
 # User-defined internal command that reloads tigrc
 bind generic S :source $XDG_CONFIG_HOME/tig/config
-
