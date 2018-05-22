@@ -1,0 +1,12 @@
+# ------------------------------------------------------------------------------
+# Key Binding
+# ------------------------------------------------------------------------------
+
+# Add keybinding to quickly jump to the next diff chunk in the stage view
+bind stage <Enter> :/^@@
+
+# User-defined external command to amend the last commit
+bind status + !git commit --amend
+
+# User-defined internal command that reloads tigrc
+bind generic S :source $XDG_CONFIG_HOME/tig/config
