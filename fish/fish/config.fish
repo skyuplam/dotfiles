@@ -31,6 +31,9 @@ test -e {$GOPATH}/bin ; and set -x PATH $GOPATH/bin $PATH
 
 set -x MYVIMRC ~/.vimrc
 
+set -x DROPBOX_DIR ~/Dropbox
+set -x ORG_DIR $DROPBOX_DIR/org
+
 set -x NVM_DIR $HOME/.nvm
 
 if command --search brew > /dev/null

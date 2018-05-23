@@ -341,6 +341,11 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 " JSON
 let g:vim_json_syntax_conceal = 0
 
+" orgmode
+if exists('$ORG_DIR')
+  let g:org_agenda_files = [$ORG_DIR . '/*.org']
+endif
+
 " Tmux
 " allows cursor change in tmux mode
 if exists('$TMUX')
