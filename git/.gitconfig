@@ -96,15 +96,16 @@
   svnl = svn log --oneline --show-commit
 [format]
   pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+[diff]
+  tool = vimdiff
 [mergetool]
   prompt = false
-[mergetool "mvimdiff"]
-  cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
-  keepbackup=false
+[mergetool "vimdiff"]
+  cmd=nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [merge]
   summary = true
   verbosity = 1
-  tool = mvimdiff
+  tool = vimdiff
 [apply]
   whitespace = nowarn
 [branch]
