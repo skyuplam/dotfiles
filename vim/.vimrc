@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugged')
   endif
   Plug 'zchee/deoplete-jedi', { 'for': 'python' }
   Plug 'Shougo/context_filetype.vim'
-  Plug 'carlitux/deoplete-ternjs'
+  Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
   Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
   " org-mode
@@ -298,7 +298,7 @@ let g:LanguageClient_serverCommands = {}
 
 " To ensure that this plugin works well with Tim Pope's fugitive, use the
 " following patterns array:
-let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+" let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
 
 
