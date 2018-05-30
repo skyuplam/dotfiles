@@ -32,6 +32,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
   Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
+  Plug 'Raimondi/delimitMate'
+
   " org-mode
   Plug 'mattn/calendar-vim'
   Plug 'jceb/vim-orgmode'
