@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugged')
   endif
   Plug 'zchee/deoplete-jedi', { 'for': 'python' }
   Plug 'Shougo/context_filetype.vim'
-  Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript' }
+  Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
 
   Plug 'Raimondi/delimitMate'
@@ -51,11 +51,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
-  Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'dag/vim-fish', { 'for': ['fish'] }
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
   Plug 'cespare/vim-toml', { 'for': 'toml' }
-  Plug 'mxw/vim-jsx', { 'for': ['javascript', 'jsx', 'javascript.jsx'] }
+  Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'autozimu/LanguageClient-neovim', Cond(has('nvim'),
         \ { 'branch': 'next', 'do': 'bash install.sh', 'for': ['rust', 'python'] })
   Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
@@ -63,7 +63,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'tpope/vim-unimpaired'
   Plug 'ntpeters/vim-better-whitespace'
   Plug 'tpope/vim-repeat'
-  Plug 'mattn/emmet-vim', { 'for': ['javascript', 'jsx', 'javascript.jsx', 'html'], 'do': ':EmmetInstall' }
+  Plug 'mattn/emmet-vim', { 'for': ['javascript', 'javascript.jsx', 'html'], 'do': ':EmmetInstall' }
   Plug 'mhinz/vim-startify'
   Plug 'tmhedberg/matchit'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -231,7 +231,6 @@ augroup vimrcEx
 
   " Set syntax highlighting for specific file types
   " autocmd BufRead,BufNewFile Appraisals set filetype=ruby
-  autocmd BufRead,BufNewFile *.{js,jsx} set filetype=javascript
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
   autocmd BufRead,BufNewFile {Dockerfile,*.docker} set filetype=dockerfile
