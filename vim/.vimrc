@@ -62,6 +62,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'elzr/vim-json', { 'for': 'json' }
   " Plug 'tpope/vim-unimpaired'
   Plug 'ntpeters/vim-better-whitespace'
+  Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-repeat'
   Plug 'mattn/emmet-vim', { 'for': ['javascript', 'javascript.jsx', 'html'], 'do': ':EmmetInstall' }
   Plug 'mhinz/vim-startify'
