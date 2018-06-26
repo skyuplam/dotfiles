@@ -106,6 +106,8 @@
   summary = true
   verbosity = 1
   tool = vimdiff
+[commit]
+  gpgsign = true
 [apply]
   whitespace = nowarn
 [branch]
