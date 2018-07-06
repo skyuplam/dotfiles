@@ -15,6 +15,9 @@ set -x GTK_IM_MODULE ibus
 set -x XMODIFIERS '@im ibus'
 set -x QT_IM_MODULE ibus
 
+# GPG
+set -x GPG_TTY (tty)
+
 if command --search brew > /dev/null
   set -x HOMEBREW_NO_ANALYTICS 1
   set -x OPENSSL_INCLUDE_DIR (brew --prefix openssl)/include
