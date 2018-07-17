@@ -209,10 +209,12 @@ endif
 if has('nvim')
   " Program to use for evaluating Python code. Setting this makes startup faster.
   " Also useful for working with virtualenvs.
-  if (system('uname') =~ "darwin")
+  if (system('uname') =~ "darwin") " MacOS
     let g:python_host_prog  = '/usr/local/bin/python'
-  else
     let g:python3_host_prog  = '/usr/local/bin/python3'
+  else
+    let g:python_host_prog  = '/usr/bin/python2'
+    let g:python3_host_prog  = '/usr/bin/python3'
   endif
 
   " Use Truecolors
