@@ -9,7 +9,7 @@ function! Cond(cond, ...)
 endfunction
 
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
   " A tree explorer plugin for vim. https://github.com/scrooloose/nerdtree
   Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
   Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
@@ -20,19 +20,11 @@ call plug#begin('~/.vim/plugged')
   " surround.vim: quoting/parenthesizing made simple
   Plug 'tpope/vim-surround'
   " Asynchronous keyword completion
-  if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-  endif
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'zchee/deoplete-jedi', { 'for': 'python' }
   Plug 'Shougo/context_filetype.vim'
   Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
-
-  Plug 'Raimondi/delimitMate'
 
   " org-mode
   Plug 'mattn/calendar-vim'

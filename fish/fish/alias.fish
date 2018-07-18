@@ -33,7 +33,6 @@ end
 # alias vim 'mvim -v -f'
 if command --search nvim > /dev/null
   alias vim='nvim'
-    alias vim='nvim'
 end
 
 # AWS login credential
