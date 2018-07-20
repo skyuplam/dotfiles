@@ -23,6 +23,8 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'ryanoasis/vim-devicons'
 
+  Plug 'junegunn/vim-slash'
+
   Plug 'junegunn/seoul256.vim'
 call plug#end()
 
@@ -57,7 +59,9 @@ set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 " clipboard
-set clipboard=unnamedplus
+" Workaround for the poor performance of the clipboard provider
+" See https://github.com/neovim/neovim/issues/8631 or https://github.com/neovim/neovim/issues/7237
+" set clipboard=unnamedplus
 
 set tabpagemax=15               " Only show 15 tabs
 
@@ -83,6 +87,9 @@ set colorcolumn=+1
 set relativenumber
 set number
 
+" Always use vertical diffs
+set diffopt+=vertical
+
 " Statusline
 set laststatus=2  " appear all the time
 
@@ -98,6 +105,69 @@ function! s:statusline_expr()
   return '[%n] %F %<'.mod.ro.ft.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
+
+augroup vimrcEx
+  autocmd!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
+  autocmd BufRead,BufNewFile {Dockerfile,*.docker} set filetype=dockerfile
+augroup END
+
+" -----------------------------------------------
+" Tig
+" -----------------------------------------------
+if has('nvim')
+  if !exists('g:tig_executable')
+    let g:tig_executable = 'tig'
+  endif
+
+  if !exists('g:tig_default_command')
+    let g:tig_default_command = 'status'
+  endif
+
+  if !exists('g:tig_on_exit')
+    let g:tig_on_exit = 'bw!'
+  endif
+
+  if !exists('g:tig_open_command')
+    let g:tig_open_command = 'enew'
+  endif
+
+  function! s:tig(bang, ...)
+    let s:callback = {}
+    let current = expand('%')
+
+    function! s:callback.on_exit(id, status, event)
+      exec g:tig_on_exit
+    endfunction
+
+    function! s:tigopen(arg)
+      call termopen(g:tig_executable . ' ' . a:arg, s:callback)
+    endfunction
+
+    exec g:tig_open_command
+    if a:bang > 0
+      call s:tigopen(current)
+    elseif a:0 > 0
+      call s:tigopen(a:1)
+    else
+      call s:tigopen(g:tig_default_command)
+    endif
+    startinsert
+  endfunction
+
+  command! -bang -nargs=? Tig call s:tig(<bang>0, <f-args>)
+endif
 
 " }}}
 " ============================================================================
@@ -152,6 +222,9 @@ let g:mapleader = ","
 nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
 
+" Tig
+nnoremap <silent> <Leader>gs :Tig<CR>
+
 " Mappings to move lines
 nnoremap ∆ :m .+1<CR>==
 nnoremap ˚ :m .-2<CR>==
@@ -194,7 +267,7 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-" Zoom
+" Zoom view
 function! s:zoom()
   if winnr('$') > 1
     tab split
@@ -204,5 +277,15 @@ function! s:zoom()
   endif
 endfunction
 nnoremap <silent> <leader>z :call <sid>zoom()<cr>
+
+" vim-slash
+" Places the current match at the center of the window
+noremap <plug>(slash-after) zz
+
+" Enable clipboard
+noremap <silent> <F8> :set clipboard=unnamed,unnamedplus<CR>
+
+" yank until EOL (y$) instead of the entire line (yy)
+nnoremap Y y$
 
 " }}}
