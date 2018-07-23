@@ -60,8 +60,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 
 " clipboard
 " Workaround for the poor performance of the clipboard provider
-" See https://github.com/neovim/neovim/issues/8631 or https://github.com/neovim/neovim/issues/7237
-" set clipboard=unnamedplus
+" set clipboard^=unnamed,unnamedplus
 
 set tabpagemax=15               " Only show 15 tabs
 
@@ -102,7 +101,19 @@ function! s:statusline_expr()
   let pos = ' %-12(%l : %c%V%) '
   let pct = ' %P'
 
-  return '[%n] %F %<'.mod.ro.ft.sep.pos.'%*'.pct
+  " ALE
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  let ale = l:counts.total == 0 ? '[OK] ' : printf(
+  \   '[%dW %dE] ',
+  \   all_non_errors,
+  \   all_errors
+  \)
+
+  return ale.'[%n] %F %<'.mod.ro.ft.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
 
@@ -283,9 +294,13 @@ nnoremap <silent> <leader>z :call <sid>zoom()<cr>
 noremap <plug>(slash-after) zz
 
 " Enable clipboard
-noremap <silent> <F8> :set clipboard=unnamed,unnamedplus<CR>
+noremap <silent> <F8> :set clipboard^=unnamed,unnamedplus<CR>
 
 " yank until EOL (y$) instead of the entire line (yy)
 nnoremap Y y$
+
+" Vim
+nnoremap <Leader>ev :tabe $MYINITVIM<CR>
+nnoremap <Leader>rv :source $MYINITVIM<CR>
 
 " }}}

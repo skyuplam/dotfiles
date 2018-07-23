@@ -33,7 +33,7 @@ set -x RUST_SRC_PATH {$RUSTUP_HOME}/toolchains/nightly-x86_64-apple-darwin/lib/r
 set -x GOPATH {$XDG_CONFIG_HOME}/go
 test -e {$GOPATH}/bin ; and set -x PATH $GOPATH/bin $PATH
 
-set -x MYVIMRC ~/.vimrc
+set -x MYINITVIM $XDG_CONFIG_HOME/nvim/init.vim
 
 set -x DROPBOX_DIR ~/Dropbox
 set -x ORG_DIR $DROPBOX_DIR/org
