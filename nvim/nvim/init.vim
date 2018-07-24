@@ -15,9 +15,12 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
 
+  Plug 'christoomey/vim-tmux-navigator'
+
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-  Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
+  Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
   Plug 'elzr/vim-json', { 'for': 'json' }
+  Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
@@ -92,6 +95,19 @@ set diffopt+=vertical
 " Statusline
 set laststatus=2  " appear all the time
 
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '' : printf(
+  \   '[%d⚠ %d✖]',
+  \   all_non_errors,
+  \   all_errors
+  \)
+endfunction
+
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro  = "%{&readonly ? '[RO] ' : ''}"
@@ -100,20 +116,9 @@ function! s:statusline_expr()
   let sep = ' %= '
   let pos = ' %-12(%l : %c%V%) '
   let pct = ' %P'
+  let ale = "%{len(LinterStatus()) ? LinterStatus() : ''}"
 
-  " ALE
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  let ale = l:counts.total == 0 ? '[OK] ' : printf(
-  \   '[%dW %dE] ',
-  \   all_non_errors,
-  \   all_errors
-  \)
-
-  return ale.'[%n] %F %<'.mod.ro.ft.sep.pos.'%*'.pct
+  return ale.'[%n] %f %<'.mod.ro.ft.sep.pos.'%*'.pct
 endfunction
 let &statusline = s:statusline_expr()
 
@@ -191,7 +196,10 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 set completeopt-=preview
 
-" Vim-jsx
+" vim-javascript
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+" vim-jsx
 let g:jsx_ext_required = 0
 
 " Seoul256
@@ -219,6 +227,17 @@ let NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
+
+" ALE
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠'
+" custom echos message
+let g:ale_echo_msg_error_str = '✖'
+let g:ale_echo_msg_warning_str = '⚠'
+let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
+
+" vim-json
+let g:vim_json_syntax_conceal = 0
 
 " }}}
 " ============================================================================
