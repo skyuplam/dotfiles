@@ -322,4 +322,7 @@ nnoremap Y y$
 nnoremap <Leader>ev :tabe $MYINITVIM<CR>
 nnoremap <Leader>rv :source $MYINITVIM<CR>
 
+" Scrolling sync
+nnoremap <silent> <F9> :set scb!<CR>
+
 " }}}
