@@ -313,7 +313,7 @@ nnoremap <silent> <leader>z :call <sid>zoom()<cr>
 noremap <plug>(slash-after) zz
 
 " Enable clipboard
-noremap <silent> <F8> :set clipboard^=unnamed,unnamedplus<CR>
+noremap <silent> <F8> :set clipboard+=unnamedplus<CR>
 
 " yank until EOL (y$) instead of the entire line (yy)
 nnoremap Y y$
@@ -324,5 +324,13 @@ nnoremap <Leader>rv :source $MYINITVIM<CR>
 
 " Scrolling sync
 nnoremap <silent> <F9> :set scb!<CR>
+
+" }}}
+" ============================================================================
+" SOURCE LOCAL SETTINGS {{{
+" ============================================================================
+if filereadable(expand('~/.config/nvim/local.vim'))
+  exec 'source ~/.config/nvim/local.vim'
+endif
 
 " }}}
