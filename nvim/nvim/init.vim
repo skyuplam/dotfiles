@@ -17,6 +17,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   Plug 'christoomey/vim-tmux-navigator'
 
+  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+  Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
+  Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ 'for': ['python', 'rust'],
+      \ }
+
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
   Plug 'elzr/vim-json', { 'for': 'json' }
@@ -321,6 +329,12 @@ nnoremap Y y$
 " Vim
 nnoremap <Leader>ev :tabe $MYINITVIM<CR>
 nnoremap <Leader>rv :source $MYINITVIM<CR>
+
+" LanguageClient-neovim
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> <leader>f :call LanguageClient_textDocument_documentSymbol()<CR>
 
 " Scrolling sync
 nnoremap <silent> <F9> :set scb!<CR>
