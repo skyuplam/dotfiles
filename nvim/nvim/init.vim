@@ -25,7 +25,7 @@ call plug#begin('~/.local/share/nvim/plugged')
       \ 'for': ['python', 'rust'],
       \ }
 
-  Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+  Plug 'chemzqm/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
   Plug 'elzr/vim-json', { 'for': 'json' }
   Plug 'tpope/vim-surround'
