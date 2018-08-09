@@ -208,7 +208,7 @@ set completeopt-=preview
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_flow = 1
 " vim-jsx
-let g:jsx_ext_required = 0
+" let g:jsx_ext_required = 0
 
 " Seoul256
 let g:seoul256_background = 233
