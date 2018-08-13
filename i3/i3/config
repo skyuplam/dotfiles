@@ -291,7 +291,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 bar {
 #    verbose yes
     font pango:Knack Regular Nerd Font Complete, Icons 13
-    status_command py3status -c ~/.config/i3/status.conf
+    status_command ~/.local/bin/py3status -c ~/.config/i3/status.conf
     i3bar_command i3bar -t
     position top
     # font pango:SFNS Display 10
