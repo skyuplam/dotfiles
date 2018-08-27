@@ -1,5 +1,5 @@
 # Please first install [antigen](http://antigen.sharats.me/)
-
+export PATH=/usr/local/bin:$PATH
 # ---------------------------------------------------------
 # Plugins
 # ---------------------------------------------------------
