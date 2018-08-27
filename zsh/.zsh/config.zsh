@@ -34,6 +34,8 @@ antigen bundle pip
 antigen bundle docker
 antigen bundle docker-compose
 antigen bundle z
+antigen bundle colored-man-pages
+antigen bundle command-not-found
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
