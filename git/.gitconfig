@@ -20,6 +20,9 @@
   a = add                           # add
   chunkyadd = add --patch           # stage commits chunk by chunk
 
+  # Log Graph
+  graph = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%C(blue)%x20(%ce)%x20%C(cyan)[gpg:%GK%x20%G?]%C(reset)%n%x20%s%n"
+
   # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
   snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
   snapshots = !git stash list --grep snapshot
@@ -135,9 +138,9 @@
 [include]
   path = ~/.gitconfig.user
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
 [user]
-	email = skyuplam@gmail.com
-	name = Terrence Lam
+  email = skyuplam@gmail.com
+  name = Terrence Lam
