@@ -75,11 +75,11 @@ export XDG_DATA_HOME=~/.local/share
 
 # Rust
 export RUSTUP_HOME=~/.multirust
-[ -f $HOME/.cargo/bin ] && export PATH=$HOME/.cargo/bin:$PATH
+[ -d $HOME/.cargo/bin ] && export PATH=$HOME/.cargo/bin:$PATH
 
 # Go
 export GOPATH=$XDG_CONFIG_HOME/go
-[ -f $GOPATH/bin ] && export PATH=$GOPATH/bin:$PATH
+[ -d $GOPATH/bin ] && export PATH=$GOPATH/bin:$PATH
 
 # Neovim
 export MYINITVIM=$XDG_CONFIG_HOME/nvim/init.vim
