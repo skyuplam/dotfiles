@@ -33,6 +33,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'ryanoasis/vim-devicons'
+  Plug 'chrisbra/Colorizer'
 
   Plug 'junegunn/vim-slash'
 
