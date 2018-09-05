@@ -294,14 +294,11 @@ bar {
     status_command ~/.local/bin/py3status -c ~/.config/i3/status.conf
     i3bar_command i3bar -t
     position top
-    # font pango:SFNS Display 10
     strip_workspace_numbers yes
     separator_symbol "  "
     height $height
     bindsym button4 nop
     bindsym button5 nop
-    # tray_output eDP1
-    # tray_output LVDS-0
     tray_padding 0
     colors {
         statusline         $white
