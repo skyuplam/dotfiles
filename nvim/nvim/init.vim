@@ -46,6 +46,7 @@ call plug#end()
 " ============================================================================
 set termguicolors
 
+
 " Mouse
 set mouse=a
 set mousehide
@@ -214,6 +215,10 @@ let g:javascript_plugin_flow = 1
 " Seoul256
 let g:seoul256_background = 233
 colo seoul256
+
+" Transparet BG color
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let g:rg_cmd ='rg --column --line-number --no-heading --fixed-strings
