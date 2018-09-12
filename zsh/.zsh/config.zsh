@@ -1,62 +1,11 @@
-export PATH=/usr/local/bin:$PATH
-
-HISTFILE=~/.histfile
-HISTSIZE=20000
-SAVEHIST=20000
-
-setopt appendhistory autocd beep extendedglob nomatch
-bindkey -v
-autoload -Uz compinit; compinit
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-# zstyle ':completion:*' menu select=2 eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+# vim: set foldmethod=marker foldlevel=0 nomodeline:
 
 # ---------------------------------------------------------
-# Plugins
+# Env {{{
 # ---------------------------------------------------------
-
-# Please first install [antigen](http://antigen.sharats.me/)
-# Load the oh-my-zsh's library
-antigen use oh-my-zsh
-
-antigen bundle git
-antigen bundle pip
-antigen bundle docker
-antigen bundle docker-compose
-antigen bundle z
-antigen bundle colored-man-pages
-antigen bundle command-not-found
-
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
-# Fish-like auto suggestions
-antigen bundle zsh-users/zsh-autosuggestions
-# Extra zsh completions
-antigen bundle zsh-users/zsh-completions
-
-
-# Load the theme
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
-
-# Tell antigen that you're done
-antigen apply
-
-# ---------------------------------------------------------
-# Env
-# ---------------------------------------------------------
+export HISTFILE=~/.histfile
+export HISTSIZE=20000
+export SAVEHIST=20000
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export VISUAL=nvim
@@ -72,6 +21,9 @@ export GPG_TTY=$(tty)
 # XDG
 export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
+
+typeset -U path
+path=(~/.local/bin /usr/local/bin $path[@])
 
 # Rust
 export RUSTUP_HOME=~/.multirust
@@ -91,6 +43,67 @@ export ORG_DIR=$DROPBOX_DIR/org
 # nvm
 export NVM_DIR=$HOME/.nvm
 
+# Joplin
+[ -f $HOME/.joplin-bin/bin/joplin ] && export PATH=$HOME/.joplin-bin/bin:$PATH
+
+# }}}
+# ---------------------------------------------------------
+# Zsh general settings {{{
+# ---------------------------------------------------------
+
+setopt appendhistory autocd beep extendedglob nomatch
+
+bindkey -v
+
+autoload -Uz compinit up-line-or-beginning-search down-line-or-beginning-search
+
+compinit
+
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+[[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
+[[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
+
+zstyle ':completion::complete:*' gain-privileges 1
+
+# }}}
+# ---------------------------------------------------------
+# Plugins {{{
+# ---------------------------------------------------------
+
+# Please first install [antigen](http://antigen.sharats.me/)
+# Load the oh-my-zsh's library
+antigen use oh-my-zsh
+
+antigen bundle git
+antigen bundle pip
+antigen bundle docker
+antigen bundle docker-compose
+antigen bundle z
+antigen bundle fzf
+antigen bundle colored-man-pages
+antigen bundle command-not-found
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+# Fish-like auto suggestions
+antigen bundle zsh-users/zsh-autosuggestions
+# Extra zsh completions
+antigen bundle zsh-users/zsh-completions
+
+
+# Load the theme
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
+
+# Tell antigen that you're done
+antigen apply
+
+# }}}
+# ---------------------------------------------------------
+# Plugins Configs {{{
+# ---------------------------------------------------------
 
 # fzf
 # --files: List files that would be searched but do not search
@@ -106,10 +119,13 @@ FZF_FG='--color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07'
 FZF_MARKER='--color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07'
 export FZF_DEFAULT_OPTS="$FZF_BG $FZF_FG $FZF_MARKER"
 
+# }}}
 # ---------------------------------------------------------
-# Sourcing other configs
+# Sourcing other configs {{{
 # ---------------------------------------------------------
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 [ -f ~/.zsh/local.zsh ] && source ~/.zsh/local.zsh
+
+# }}}
