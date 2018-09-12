@@ -15,6 +15,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
 
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown'
+
   Plug 'christoomey/vim-tmux-navigator'
 
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -252,6 +255,12 @@ let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
+
+" vim-markdown
+" Disable folding
+let g:vim_markdown_folding_disabled = 1
+" Disable conceal
+let g:vim_markdown_conceal = 0
 
 " }}}
 " ============================================================================
