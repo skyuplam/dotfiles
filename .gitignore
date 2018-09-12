@@ -13,6 +13,9 @@ nvim/**/shada
 nvim/**/site
 nvim/**/rplugin.vim
 
+# firefox
+firefox/**/userjs_backups
+
 # python
 .mypy_cache/
 
