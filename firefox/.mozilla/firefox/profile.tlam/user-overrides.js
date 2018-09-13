@@ -4,12 +4,19 @@
 /* 0102: set START page (0=blank, 1=home, 2=last visited page, 3=resume previous session)
  * [SETTING] General>Startup>When Firefox starts ***/
 user_pref("browser.startup.page", 3);
-/** SESSIONS & SESSION RESTORE ***/
-/* 1020: disable the Session Restore service completely
- * [WARNING] [SETUP] This also disables the "Recently Closed Tabs" feature
- * It does not affect "Recently Closed Windows" or any history. ***/
-user_pref("browser.sessionstore.max_tabs_undo", 10);
-user_pref("browser.sessionstore.max_windows_undo", 3);
+/* 0804: limit history leaks via enumeration (PER TAB: back/forward) - PRIVACY
+ * This is a PER TAB session history. You still have a full history stored under all history
+ * default=50, minimum=1=currentpage, 2 is the recommended minimum as some pages
+ * use it as a means of referral (e.g. hotlinking), 4 or 6 or 10 may be more practical ***/
+user_pref("browser.sessionhistory.max_entries", 50);
+/* 0807: disable search bar LIVE search suggestions - PRIVACY
+ * [SETTING] Search>Provide search suggestions ***/
+user_pref("browser.search.suggest.enabled", true);
+/* 0808: disable location bar LIVE search suggestions (requires 0807 = true) - PRIVACY
+ * Also disable the location bar prompt to enable/disable or learn more about it.
+ * [SETTING] Search>Show search suggestions in address bar results ***/
+user_pref("browser.urlbar.suggest.searches", true);
+user_pref("browser.urlbar.userMadeSearchSuggestionsChoice", true); // (FF41+)
 /* 0850a: disable location bar autocomplete and suggestion types
  * If you enforce any of the suggestion types, you MUST enforce 'autocomplete'
  *   - If *ALL* of the suggestion types are false, 'autocomplete' must also be false
@@ -19,7 +26,15 @@ user_pref("browser.sessionstore.max_windows_undo", 3);
 user_pref("browser.urlbar.autocomplete.enabled", true);
 user_pref("browser.urlbar.suggest.history", true);
 user_pref("browser.urlbar.suggest.bookmark", true);
-user_pref("browser.urlbar.suggest.openpage", false);
+user_pref("browser.urlbar.suggest.openpage", true);
+/* 0850c: disable location bar dropdown
+ * This value controls the total number of entries to appear in the location bar dropdown
+ * [NOTE] Items (bookmarks/history/openpages) with a high "frecency"/"bonus" will always
+ * be displayed (no we do not know how these are calculated or what the threshold is),
+ * and this does not affect the search by search engine suggestion (see 0808)
+ * [USAGE] This setting is only useful if you want to enable search engine keywords
+ * (i.e. at least one of 0850a suggestion types must be true) but you want to *limit* suggestions shown ***/
+   // user_pref("browser.urlbar.maxRichResults", 0);
 /* 0850e: disable location bar one-off searches (FF51+)
  * [1] https://www.ghacks.net/2016/08/09/firefox-one-off-searches-address-bar/ ***/
 user_pref("browser.urlbar.oneOffSearches", true);
@@ -30,6 +45,17 @@ user_pref("browser.urlbar.maxHistoricalSearchSuggestions", 10); // max. number o
  * Also disable the location bar prompt to enable/disable or learn more about it.
  * [SETTING] Search>Show search suggestions in address bar results ***/
 user_pref("browser.urlbar.suggest.searches", true);
+/* 1001: disable disk cache ***/
+user_pref("browser.cache.disk.enable", true);
+user_pref("browser.cache.disk.capacity", 1048576);
+user_pref("browser.cache.disk.smart_size.enabled", true);
+user_pref("browser.cache.disk.smart_size.first_run", false);
+/** SESSIONS & SESSION RESTORE ***/
+/* 1020: disable the Session Restore service completely
+ * [WARNING] [SETUP] This also disables the "Recently Closed Tabs" feature
+ * It does not affect "Recently Closed Windows" or any history. ***/
+user_pref("browser.sessionstore.max_tabs_undo", 100);
+user_pref("browser.sessionstore.max_windows_undo", 10);
 // 1021b: disable deferred level of storing extra session data 0=all 1=http-only 2=none
    // extra session data contains contents of forms, scrollbar positions, cookies and POST data
    // [-] https://bugzilla.mozilla.org/1235379
@@ -89,7 +115,7 @@ user_pref("full-screen-api.warning.timeout", 0);
    // user_pref("clipboard.autocopy", false); // disable autocopy default [LINUX]
 user_pref("layout.spellcheckDefault", 2); // 0=none, 1-multi-line, 2=multi-line & single-line
 /* UX BEHAVIOR ***/
-   // user_pref("browser.backspace_action", 2); // 0=previous page, 1=scroll up, 2=do nothing
+user_pref("browser.backspace_action", 2); // 0=previous page, 1=scroll up, 2=do nothing
 user_pref("browser.ctrlTab.previews", true);
 user_pref("browser.tabs.closeWindowWithLastTab", false);
    // user_pref("browser.tabs.loadBookmarksInTabs", true); // open bookmarks in a new tab (FF57+)
