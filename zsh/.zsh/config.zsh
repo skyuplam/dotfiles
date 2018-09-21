@@ -92,11 +92,8 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 # Extra zsh completions
 antigen bundle zsh-users/zsh-completions
-
-
-# Load the theme
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
+# Prompt
+antigen bundle nojhan/liquidprompt
 
 # Tell antigen that you're done
 antigen apply
