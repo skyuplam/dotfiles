@@ -84,7 +84,6 @@ antigen bundle z
 antigen bundle fzf
 antigen bundle colored-man-pages
 antigen bundle command-not-found
-antigen bundle kubectl
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -125,5 +124,8 @@ export FZF_DEFAULT_OPTS="$FZF_BG $FZF_FG $FZF_MARKER"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 [ -f ~/.zsh/local.zsh ] && source ~/.zsh/local.zsh
+
+# kubectl
+source <(kubectl completion zsh)
 
 # }}}
