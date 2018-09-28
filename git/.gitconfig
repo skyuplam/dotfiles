@@ -54,7 +54,7 @@
 
   # log
   # View abbreviated SHA, description, and history graph of the latest 20 commits
-  l = log --pretty=oneline -n 20 --graph --abbrev-commit
+  l = log --pretty='%Cred%h%Creset %s %Cgreen(%cr) %Cblue%aN <%ae>%Creset' --graph -m --simplify-merges --color --date=relative --abbrev-commit
   changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
   short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
   simple = log --pretty=format:\" * %s\"
