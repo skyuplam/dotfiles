@@ -414,13 +414,13 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 ; menu-2-1 = cancel
 ; menu-2-1-exec = menu-open-0
 
-[module/dropbox-isrunning]
-type = custom/script
-exec = ~/.config/polybar/isrunning-dropbox/isrunning-dropbox.sh
-interval = 5
-;click-left = ~/.config/polybar/isrunning-dropbox/isrunning-dropbox.sh --toggle
-label = %output%
-label-foreground = ${colors.good}
+; [module/dropbox-isrunning]
+; type = custom/script
+; exec = ~/.config/polybar/isrunning-dropbox/isrunning-dropbox.sh
+; interval = 5
+; ;click-left = ~/.config/polybar/isrunning-dropbox/isrunning-dropbox.sh --toggle
+; label = %output%
+; label-foreground = ${colors.good}
 
 [settings]
 screenchange-reload = true
