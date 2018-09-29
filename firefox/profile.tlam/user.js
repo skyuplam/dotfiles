@@ -2183,6 +2183,7 @@ user_pref("_user.js.parrot", "5000 syntax error: this is an ex-parrot!");
 user_pref("browser.tabs.warnOnClose", false);
 user_pref("browser.tabs.warnOnCloseOtherTabs", false);
 user_pref("browser.tabs.warnOnOpen", false);
+user_pref("full-screen-api.enabled", true);
 user_pref("full-screen-api.warning.delay", 0);
 user_pref("full-screen-api.warning.timeout", 0);
 /* APPEARANCE ***/
@@ -2196,6 +2197,8 @@ user_pref("layout.spellcheckDefault", 2); // 0=none, 1-multi-line, 2=multi-line 
 user_pref("browser.backspace_action", 2); // 0=previous page, 1=scroll up, 2=do nothing
 user_pref("browser.ctrlTab.previews", true);
 user_pref("browser.tabs.closeWindowWithLastTab", true);
+user_pref("browser.urlbar.oneOffSearches", true);
+user_pref("browser.urlbar.userMadeSearchSuggestionsChoice", true);
    // user_pref("browser.tabs.loadBookmarksInTabs", true); // open bookmarks in a new tab (FF57+)
    // user_pref("browser.urlbar.decodeURLsOnCopy", true); // see  Bugzilla 1320061 (FF53+)
    // user_pref("general.autoScroll", false); // middle-click enabling auto-scrolling [WINDOWS] [MAC]
