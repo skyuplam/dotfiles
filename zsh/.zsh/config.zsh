@@ -53,7 +53,8 @@ export NVM_DIR=$HOME/.nvm
 
 setopt appendhistory autocd beep extendedglob nomatch
 
-bindkey -v
+# Bindkey to emac mode
+bindkey -e
 
 autoload -Uz compinit up-line-or-beginning-search down-line-or-beginning-search
 
@@ -72,30 +73,27 @@ zstyle ':completion::complete:*' gain-privileges 1
 # Plugins {{{
 # ---------------------------------------------------------
 
-# Please first install [antigen](http://antigen.sharats.me/)
-# Load the oh-my-zsh's library
-antigen use oh-my-zsh
+# Wrap antibody
+source <(antibody init)
 
-antigen bundle git
-antigen bundle pip
-antigen bundle docker
-antigen bundle docker-compose
-antigen bundle z
-antigen bundle fzf
-antigen bundle colored-man-pages
-antigen bundle command-not-found
+# From oh-my-zsh's library
+antibody bundle robbyrussell/oh-my-zsh folder:plugins/git
+antibody bundle robbyrussell/oh-my-zsh folder:plugins/pip
+antibody bundle robbyrussell/oh-my-zsh folder:plugins/docker
+antibody bundle robbyrussell/oh-my-zsh folder:plugins/docker-compose
+antibody bundle robbyrussell/oh-my-zsh folder:plugins/z
+antibody bundle robbyrussell/oh-my-zsh folder:plugins/fzf
+antibody bundle robbyrussell/oh-my-zsh folder:plugins/colored-man-pages
+antibody bundle robbyrussell/oh-my-zsh folder:plugins/command-not-found
 
 # Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
+antibody bundle zsh-users/zsh-syntax-highlighting
 # Fish-like auto suggestions
-antigen bundle zsh-users/zsh-autosuggestions
+antibody bundle zsh-users/zsh-autosuggestions
 # Extra zsh completions
-antigen bundle zsh-users/zsh-completions
+antibody bundle zsh-users/zsh-completions
 # Prompt
-antigen bundle nojhan/liquidprompt
-
-# Tell antigen that you're done
-antigen apply
+antibody bundle nojhan/liquidprompt
 
 # }}}
 # ---------------------------------------------------------
