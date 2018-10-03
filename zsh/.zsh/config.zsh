@@ -9,6 +9,7 @@ export SAVEHIST=20000
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export VISUAL=nvim
+export BROWSER=firefox-nightly
 
 # IBus
 export GTK_IM_MODULE=ibus
@@ -56,12 +57,12 @@ setopt appendhistory autocd beep extendedglob nomatch
 # Bindkey to emac mode
 bindkey -e
 
-autoload -Uz compinit up-line-or-beginning-search down-line-or-beginning-search
+autoload -Uz compinit #up-line-or-beginning-search down-line-or-beginning-search
 
 compinit
 
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
+# zle -N up-line-or-beginning-search
+# zle -N down-line-or-beginning-search
 
 [[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
 [[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
@@ -88,6 +89,8 @@ antibody bundle robbyrussell/oh-my-zsh folder:plugins/command-not-found
 
 # Syntax highlighting bundle.
 antibody bundle zsh-users/zsh-syntax-highlighting
+# ZSH port of Fish history search (up arrow)
+antibody bundle zsh-users/zsh-history-substring-search
 # Fish-like auto suggestions
 antibody bundle zsh-users/zsh-autosuggestions
 # Extra zsh completions
@@ -99,6 +102,13 @@ antibody bundle nojhan/liquidprompt
 # ---------------------------------------------------------
 # Plugins Configs {{{
 # ---------------------------------------------------------
+
+# ZSH port of Fish history search (up arrow)
+# Key bindings
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
 
 # fzf
 # --files: List files that would be searched but do not search
