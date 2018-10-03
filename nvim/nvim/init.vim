@@ -150,6 +150,8 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
   autocmd BufRead,BufNewFile {Dockerfile,*.docker} set filetype=dockerfile
+  " Mail
+  autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
 augroup END
 
 " -----------------------------------------------
