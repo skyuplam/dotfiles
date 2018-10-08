@@ -78,14 +78,14 @@ zstyle ':completion::complete:*' gain-privileges 1
 source <(antibody init)
 
 # From oh-my-zsh's library
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/git
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/pip
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/docker
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/docker-compose
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/z
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/fzf
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/colored-man-pages
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/command-not-found
+antibody bundle robbyrussell/oh-my-zsh path:plugins/git
+antibody bundle robbyrussell/oh-my-zsh path:plugins/pip
+antibody bundle robbyrussell/oh-my-zsh path:plugins/docker
+antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
+antibody bundle robbyrussell/oh-my-zsh path:plugins/z
+antibody bundle robbyrussell/oh-my-zsh path:plugins/fzf
+antibody bundle robbyrussell/oh-my-zsh path:plugins/colored-man-pages
+antibody bundle robbyrussell/oh-my-zsh path:plugins/command-not-found
 
 # Syntax highlighting bundle.
 antibody bundle zsh-users/zsh-syntax-highlighting
