@@ -67,7 +67,9 @@ compinit
 [[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
 [[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
 
-zstyle ':completion::complete:*' gain-privileges 1
+setopt MENU_COMPLETE
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# zstyle ':completion::complete:*' gain-privileges 1
 
 # }}}
 # ---------------------------------------------------------
