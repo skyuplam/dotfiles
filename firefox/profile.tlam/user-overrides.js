@@ -4,6 +4,16 @@
 /* 0102: set START page (0=blank, 1=home, 2=last visited page, 3=resume previous session)
  * [SETTING] General>Startup>When Firefox starts ***/
 user_pref("browser.startup.page", 3);
+/* 0707: disable (or setup) DNS-over-HTTPS (DoH) (FF60+)
+ * TRR = Trusted Recursive Resolver
+ * .mode: 0=off, 1=race, 2=TRR first, 3=TRR only, 4=race for stats, but always use native result
+ * [WARNING] DoH bypasses hosts and gives info to yet another party (e.g. Cloudflare)
+ * [1] https://www.ghacks.net/2018/04/02/configure-dns-over-https-in-firefox/
+ * [2] https://hacks.mozilla.org/2018/05/a-cartoon-intro-to-dns-over-https/ ***/
+user_pref("network.trr.mode", 2);
+// user_pref("network.trr.bootstrapAddress", "");
+user_pref("network.trr.uri", "https://cloudflare-dns.com/dns-query");
+user_pref("network.security.esni.enabled", true);
 /* 0804: limit history leaks via enumeration (PER TAB: back/forward) - PRIVACY
  * This is a PER TAB session history. You still have a full history stored under all history
  * default=50, minimum=1=currentpage, 2 is the recommended minimum as some pages

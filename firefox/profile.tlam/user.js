@@ -1,8 +1,8 @@
 /******
 * name: ghacks user.js
-* date: 08 September 2018
-* version 62-beta: Total Eclipse of the Pants
-*   "Once upon a time there was light in my life, but now there's only pants in the dark"
+* date: 10 October 2018
+* version 63-alpha: Pants Romance
+*   "Rah rah ah-ah-ah! Ro mah ro-mah-mah. Gaga oh-la-la! Want your pants romance"
 * authors: v52+ github | v51- www.ghacks.net
 * url: https://github.com/ghacksuserjs/ghacks-user.js
 * license: MIT: https://github.com/ghacksuserjs/ghacks-user.js/blob/master/LICENSE.txt
@@ -285,9 +285,6 @@ user_pref("browser.safebrowsing.provider.google4.dataSharingURL", "");
  * [2] https://support.mozilla.org/kb/tracking-protection-firefox ***/
    // user_pref("privacy.trackingprotection.pbmode.enabled", true); // default: true
    // user_pref("privacy.trackingprotection.enabled", true);
-/* 0421: enable more Tracking Protection choices under Options>Privacy & Security>Use Tracking Protection
- * Displays three choices: "Always", "Only in private windows", "Never" ***/
-user_pref("privacy.trackingprotection.ui.enabled", true);
 /* 0422: set which Tracking Protection block list to use
  * [WARNING] We don't recommend enforcing this from here, as available block lists can change
  * [SETTING] Privacy & Security>Tracking Protection>Change Block List ***/
@@ -471,6 +468,14 @@ user_pref("network.proxy.autoconfig_url.include_path", false); // default: false
 /* 0709: disable using UNC (Uniform Naming Convention) paths (FF61+)
  * [1] https://trac.torproject.org/projects/tor/ticket/26424 ***/
 user_pref("network.file.disable_unc_paths", true); // (hidden pref)
+/* 0710: disable GIO as a potential proxy bypass vector
+ * Gvfs/GIO has a set of supported protocols like obex, network, archive, computer, dav, cdda,
+ * gphoto2, trash, etc. By default only smb and sftp protocols are accepted so far (as of FF64)
+ * [1] https://bugzilla.mozilla.org/1433507
+ * [2] https://trac.torproject.org/23044
+ * [3] https://en.wikipedia.org/wiki/GVfs
+ * [4] https://en.wikipedia.org/wiki/GIO_(software) ***/
+user_pref("network.gio.supported-protocols", ""); // (hidden pref)
 
 /*** 0800: LOCATION BAR / SEARCH BAR / SUGGESTIONS / HISTORY / FORMS [SETUP]
      If you are in a private environment (no unwanted eyeballs) and your device is private
@@ -684,7 +689,7 @@ user_pref("toolkit.winRegisterApplicationRestart", false);
  * If set to false then the shortcuts use a generic Firefox icon ***/
 user_pref("browser.shell.shortcutFavicons", false);
 /* 1031: disable favicons in tabs and new bookmarks
- * bookmark favicons are stored as data blobs in places.sqlite>moz_favicons ***/
+ * bookmark favicons are stored as data blobs in favicons.sqlite ***/
    // user_pref("browser.chrome.site_icons", false);
    // user_pref("browser.chrome.favicons", false);
 /* 1032: disable favicons in web notifications ***/
@@ -705,10 +710,11 @@ user_pref("alerts.showFavicons", false); // default: false
 ***/
 user_pref("_user.js.parrot", "1200 syntax error: the parrot's a stiff!");
 /** SSL (Secure Sockets Layer) / TLS (Transport Layer Security) ***/
-/* 1201: disable old SSL/TLS - vulnerable to a MiTM attack
- * [WARNING] Tested Feb 2017 - still breaks too many sites
- * [1] https://wiki.mozilla.org/Security:Renegotiation ***/
-   // user_pref("security.ssl.require_safe_negotiation", true);
+/* 1201: disable old SSL/TLS "insecure" renegotiation (vulnerable to a MiTM attack)
+ * [WARNING] <2% of secure sites do NOT support the newer "secure" renegotiation, see [2]
+ * [1] https://wiki.mozilla.org/Security:Renegotiation
+ * [2] https://www.ssllabs.com/ssl-pulse/ ***/
+user_pref("security.ssl.require_safe_negotiation", true);
 /* 1202: control TLS versions with min and max
  * 1=min version of TLS 1.0, 2=min version of TLS 1.1, 3=min version of TLS 1.2 etc
  * [NOTE] Jul-2017: Telemetry indicates approx 2% of TLS web traffic uses 1.0 or 1.1
@@ -816,7 +822,7 @@ user_pref("security.pki.sha1_enforcement_level", 1);
    // user_pref("security.ssl3.rsa_aes_256_sha", false);
 
 /** UI (User Interface) ***/
-/* 1270: display warning (red padlock) for "broken security"
+/* 1270: display warning (red padlock) for "broken security" (see 1201)
  * [1] https://wiki.mozilla.org/Security:Renegotiation ***/
 user_pref("security.ssl.treat_unsafe_negotiation_as_broken", true);
 /* 1271: control "Add Security Exception" dialog on SSL warnings
@@ -851,9 +857,11 @@ user_pref("browser.display.use_document_fonts", 0);
    // user_pref("font.name.sans-serif.x-western", "Arial"); // default: Arial
    // user_pref("font.name.monospace.x-unicode", "Lucida Console");
    // user_pref("font.name.monospace.x-western", "Lucida Console"); // default: Courier New
-/* 1403: enable icon fonts (glyphs) (FF41+)
- * [1] https://bugzilla.mozilla.org/789788 ***/
-user_pref("gfx.downloadable_fonts.enabled", true); // default: true
+/* 1403: disable icon fonts (glyphs) (FF41) and local fallback rendering
+ * [1] https://bugzilla.mozilla.org/789788
+ * [2] https://trac.torproject.org/projects/tor/ticket/8455 ***/
+   // user_pref("gfx.downloadable_fonts.enabled", false);
+   // user_pref("gfx.downloadable_fonts.fallback_delay", -1);
 /* 1404: disable rendering of SVG OpenType fonts
  * [1] https://wiki.mozilla.org/SVGOpenTypeFonts - iSECPartnersReport recommends to disable this ***/
 user_pref("gfx.font_rendering.opentype_svg.enabled", false);
@@ -1546,6 +1554,7 @@ user_pref("privacy.firstparty.isolate.restrict_opener_access", true);
       FF60: Fix keydown/keyup events (1438795)
  ** 1337157 - disable WebGL debug renderer info (see 4613) (FF60+)
  ** 1459089 - disable OS locale in HTTP Accept-Language headers [ANDROID] (FF62+)
+ ** 1363508 - spoof/suppress Pointer Events (FF64+)
 ***/
 user_pref("_user.js.parrot", "4500 syntax error: the parrot's popped 'is clogs");
 /* 4501: enable privacy.resistFingerprinting (FF41+)
@@ -2123,6 +2132,16 @@ user_pref("_user.js.parrot", "SUCCESS: No no he's not dead, he's, he's restin'!"
 /* 0102: set START page (0=blank, 1=home, 2=last visited page, 3=resume previous session)
  * [SETTING] General>Startup>When Firefox starts ***/
 user_pref("browser.startup.page", 3);
+/* 0707: disable (or setup) DNS-over-HTTPS (DoH) (FF60+)
+ * TRR = Trusted Recursive Resolver
+ * .mode: 0=off, 1=race, 2=TRR first, 3=TRR only, 4=race for stats, but always use native result
+ * [WARNING] DoH bypasses hosts and gives info to yet another party (e.g. Cloudflare)
+ * [1] https://www.ghacks.net/2018/04/02/configure-dns-over-https-in-firefox/
+ * [2] https://hacks.mozilla.org/2018/05/a-cartoon-intro-to-dns-over-https/ ***/
+user_pref("network.trr.mode", 2);
+// user_pref("network.trr.bootstrapAddress", "");
+user_pref("network.trr.uri", "https://cloudflare-dns.com/dns-query");
+user_pref("network.security.esni.enabled", true);
 /* 0804: limit history leaks via enumeration (PER TAB: back/forward) - PRIVACY
  * This is a PER TAB session history. You still have a full history stored under all history
  * default=50, minimum=1=currentpage, 2 is the recommended minimum as some pages
