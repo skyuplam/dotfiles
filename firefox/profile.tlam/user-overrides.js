@@ -14,6 +14,9 @@ user_pref("network.trr.mode", 2);
 // user_pref("network.trr.bootstrapAddress", "");
 user_pref("network.trr.uri", "https://cloudflare-dns.com/dns-query");
 user_pref("network.security.esni.enabled", true);
+/* 0801: disable location bar using search - PRIVACY
+ * don't leak typos to a search engine, give an error message instead ***/
+user_pref("keyword.enabled", true); // to enable search in addressbar
 /* 0804: limit history leaks via enumeration (PER TAB: back/forward) - PRIVACY
  * This is a PER TAB session history. You still have a full history stored under all history
  * default=50, minimum=1=currentpage, 2 is the recommended minimum as some pages
@@ -29,6 +32,12 @@ user_pref("browser.sessionstore.max_windows_undo", 10);
    // extra session data contains contents of forms, scrollbar positions, cookies and POST data
    // [-] https://bugzilla.mozilla.org/1235379
 user_pref("browser.sessionstore.privacy_level_deferred", 0);
+/* 1401: disable websites choosing fonts (0=block, 1=allow)
+ * If you disallow fonts, this drastically limits/reduces font
+ * enumeration (by JS) which is a high entropy fingerprinting vector.
+ * [SETTING] General>Language and Appearance>Advanced>Allow pages to choose...
+ * [SETUP] Disabling fonts can uglify the web a fair bit. ***/
+user_pref("browser.display.use_document_fonts", 1);
 /* 2803: set what history items to clear on shutdown
  * [SETTING] Privacy & Security>History>Clear history when Firefox closes>Settings
  * [NOTE] If 'history' is true, downloads will also be cleared regardless of the value
