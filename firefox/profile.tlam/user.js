@@ -340,9 +340,22 @@ user_pref("extensions.pocket.enabled", false);
  *  - ONE: make sure to set your "home" and "newtab" to about:blank (or use an extension to control them)
  *  - TWO: DELETE the XPI file in your System Add-ons directory (note this get reinstalled on app updates)
  * And/or you can try to control the ever-growing, ever-changing "browser.newtabpage.activity-stream.*" prefs
+ * [FF63+] Activity Stream (AS) is now builtin and no longer an easily deletable system addon!
+ *     We'll clean this up and move to a new number when ESR67 is released.
  * [1] https://wiki.mozilla.org/Firefox/Activity_Stream
  * [2] https://www.ghacks.net/2016/02/15/firefox-mockups-show-activity-stream-new-tab-page-and-share-updates/ ***/
 user_pref("browser.library.activity-stream.enabled", false); // (FF57+)
+/* 0514a: disable AS Snippets ***/
+user_pref("browser.newtabpage.activity-stream.disableSnippets", true);
+user_pref("browser.newtabpage.activity-stream.feeds.snippets", false); // [SETTING] Home>Firefox Home Content>Snippets
+/* 0514b: disable AS Top Stories and other Pocket-based and/or sponsored content ***/
+user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
+user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false); // [SETTING] Home>Firefox Home Content>Highlights>Pages Saved to Pocket
+user_pref("browser.newtabpage.activity-stream.showSponsored", false);
+/* 0514c: disable AS telemetry ***/
+user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
+user_pref("browser.newtabpage.activity-stream.telemetry", false);
+user_pref("browser.newtabpage.activity-stream.telemetry.ping.endpoint", "");
 /* 0515: disable Screenshots (FF55+)
  * alternatively in FF60+, disable uploading to the Screenshots server
  * [1] https://github.com/mozilla-services/screenshots
@@ -1344,7 +1357,9 @@ user_pref("security.dialog_enable_delay", 700); // default: 1000 (milliseconds)
 user_pref("_user.js.parrot", "2700 syntax error: the parrot's joined the bleedin' choir invisible!");
 /* 2701: disable 3rd-party cookies and site-data [SETUP]
  * You can set exceptions under site permissions or use an extension
- * 0=allow all 1=allow same host 2=disallow all 3=allow 3rd party if it already set a cookie
+ * 0=Accept cookies and site data, 1=Block third-party cookies, 2=Block all cookies,
+ * 3=Block cookies from unvisited sites, 4=Block third-party trackers (FF63+)
+ * [NOTE] value 4 is tied to the Tracking Protection lists so make sure you have 0424 + 0425 on default values!
  * [SETTING] Privacy & Security>History>Custom Settings>Accept cookies from sites
  * [NOTE] Blocking 3rd party controls 3rd party access to localStorage, IndexedDB, Cache API and Service Worker Cache.
  * Blocking 1st party controls access to localStorage and IndexedDB (note: Service Workers can still use IndexedDB).
@@ -1472,6 +1487,7 @@ user_pref("privacy.sanitize.timeSpan", 0);
  ** 1344170 - isolate blob: URI (FF55+)
  ** 1300671 - isolate data:, about: URLs (FF55+)
  ** 1473247 - isolate IP addresses (FF63+)
+ ** 1492607 - isolate postMessage with targetOrigin "*" (requires 4002) (FF65+)
 
  NOTE: FPI has some issues depending on your Firefox release
  ** 1418931 - [fixed in FF58+] IndexedDB (Offline Website Data) with FPI Origin Attributes
@@ -1485,8 +1501,14 @@ user_pref("_user.js.parrot", "4000 syntax error: the parrot's pegged out");
 user_pref("privacy.firstparty.isolate", true);
 /* 4002: enforce FPI restriction for window.opener (FF54+)
  * [NOTE] Setting this to false may reduce the breakage in 4001
- * [1] https://bugzilla.mozilla.org/1319773#c22 ***/
-user_pref("privacy.firstparty.isolate.restrict_opener_access", true);
+ * [FF65+] blocks postMessage with targetOrigin "*" if originAttributes don't match. But
+ * to reduce breakage it ignores the 1st-party domain (FPD) originAttribute. (see [2],[3])
+ * The 2nd pref removes that limitation and will only allow communication if FPDs also match.
+ * [1] https://bugzilla.mozilla.org/1319773#c22
+ * [2] https://bugzilla.mozilla.org/1492607
+ * [3] https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage ***/
+user_pref("privacy.firstparty.isolate.restrict_opener_access", true); // default: true
+   // user_pref("privacy.firstparty.isolate.block_post_message", true); // (hidden pref)
 
 /*** 4500: privacy.resistFingerprinting (RFP)
    This master switch will be used for a wide range of items, many of which will
