@@ -227,14 +227,14 @@ hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-let g:rg_cmd ='rg --column --line-number --no-heading --fixed-strings
-  \ --ignore-case --color "always" --no-ignore --hidden --follow
-  \ --glob "!.git/*" '
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(g:rg_cmd .shellescape(<q-args>), 1,
-  \ <bang>0 ? fzf#vim#with_preview('up:60%')
-  \         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \ <bang>0)
+" let g:rg_cmd ='rg --column --line-number --no-heading --fixed-strings
+"   \ --ignore-case --color "always" --no-ignore --hidden --follow
+"   \ --glob "!.git/*" '
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(g:rg_cmd .shellescape(<q-args>), 1,
+"   \ <bang>0 ? fzf#vim#with_preview('up:60%')
+"   \         : fzf#vim#with_preview('right:50%:hidden', '?'),
+"   \ <bang>0)
 let g:fzf_layout = { 'down': '~40%' }
 
 " NerdTree
