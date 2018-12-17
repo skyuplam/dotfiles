@@ -343,11 +343,14 @@ you should place your code here."
   ;; Live `eslint'
   ;; Enable `flycheck' `eslint' checker for `web-mode'
   (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (setq flycheck-indication-mode 'left-fringe)
+  ;; (setq flycheck-indication-mode 'left-fringe)
   ;; Using a local `eslint' from `node_modules'
   (add-hook 'flycheck-mode-hook 'add-node-modules-path)
   ;; Emmet HTML tag expansion
   (add-hook 'web-mode-hook 'emmet-mode)
+
+  ;; NeoTree Smart-open
+  (setq neo-smart-open t)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
