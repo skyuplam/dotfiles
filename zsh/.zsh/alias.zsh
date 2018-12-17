@@ -14,3 +14,8 @@ fi
 if type docker-compose > /dev/null; then
   alias dc='docker-compose'
 fi
+
+# Emacs
+if type emacs > /dev/null; then
+  alias emacs='emacs -nw'
+fi
