@@ -1,3 +1,3 @@
 ;;; layers.el
 
-(configuration-layer/declare-layers '(html javascript))
+(configuration-layer/declare-layers '(javascript node tern))
