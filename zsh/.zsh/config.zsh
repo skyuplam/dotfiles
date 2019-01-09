@@ -24,7 +24,7 @@ export XDG_CONFIG_HOME=~/.config
 export XDG_DATA_HOME=~/.local/share
 
 typeset -U path
-path=(~/.local/bin /usr/local/bin $path[@])
+path=(~/.local/bin /usr/local/opt/make/libexec/gnubin /usr/local/sbin /usr/local/bin $path[@])
 
 # Rust
 export RUSTUP_HOME=~/.multirust
