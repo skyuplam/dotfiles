@@ -76,6 +76,7 @@ This function should only modify configuration layer settings."
              )
      epub
      pdf
+     deft
      ;; jsx
      )
 
@@ -484,6 +485,10 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; NeoTree Smart-open
   (setq neo-smart-open t)
+
+  ;; Deft
+  (setq deft-directory "~/Dropbox/org")
+  (setq deft-extensions '("org" "md" "txt"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -500,7 +505,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (doom-modeline ace-window helm helm-core ghub yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill treepy toc-org symon string-inflection spaceline-all-the-icons smeargle shrink-path shell-pop restart-emacs rainbow-delimiters persp-mode pdf-tools pcre2el password-generator paradox ox-gfm overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file nov neotree nameless mwim multi-term move-text monokai-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum link-hint indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag graphql google-translate golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav elfeed-web elfeed-org elfeed-goodies eldoc-eval editorconfig dumb-jump dotenv-mode diminish diff-hl define-word counsel-projectile company-statistics company-quickhelp column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
+    (deft pdf-tools org-brain eyebrowse evil-nerd-commenter evil-matchit eshell-prompt-extras editorconfig dumb-jump doom-modeline eldoc-eval counsel-projectile counsel ivy auto-compile aggressive-indent smartparens flycheck flyspell-correct company helm helm-core markdown-mode projectile magit git-commit spaceline powerline evil goto-chg async org-plus-contrib yasnippet-snippets xterm-color ws-butler writeroom-mode with-editor winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill undo-tree treepy toc-org tablist symon swiper string-inflection spaceline-all-the-icons smeargle shrink-path shell-pop restart-emacs rainbow-delimiters persp-mode pcre2el password-generator paradox packed ox-gfm overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file nov neotree nameless mwim multi-term move-text monokai-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum link-hint indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag graphql google-translate golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-mc evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z esh-help elisp-slime-nav elfeed-web elfeed-org elfeed-goodies dotenv-mode diminish diff-hl define-word company-statistics company-quickhelp column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
