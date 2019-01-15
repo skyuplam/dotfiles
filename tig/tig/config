@@ -16,3 +16,5 @@ bind generic S :source ~/.config/tig/config
 bind status D !git difftool --trust-exit-code %(commit) %(file)
 
 bind generic R !git rebase -i %(commit)
+
+bind status p ?git add --patch %(file)
