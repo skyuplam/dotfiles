@@ -87,7 +87,11 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages
+   '(
+     oauth2
+     org-caldav
+     )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -486,6 +490,20 @@ before packages are loaded."
   ;; NeoTree Smart-open
   (setq neo-smart-open t)
 
+  ;; org-capture
+  (setq org-default-notes-file "~/Dropbox/org/notes.org")
+
+  ;; org-agenda
+  (setq org-agenda-include-diary t)
+
+  ;; org-caldav
+  (setq org-caldav-oauth2-client-id "321774321297-u2llv7ieq1mgvomp6bmuuluj4qmjrsfe.apps.googleusercontent.com")
+  (setq org-caldav-oauth2-client-secret "Ic_fSdxoKMHoZaD2PWASmYJ- ")
+  (setq org-caldav-url 'google)
+  (setq org-caldav-calendar-id "c2t5dXBsYW1AZ21haWwuY29t@group.calendar.google.com")
+  (setq org-caldav-calendar-inbox "~/Dropbox/org/caldav.org")
+  (setq org-caldav-timezone "Europe/Oslo")
+
   ;; Deft
   (setq deft-directory "~/Dropbox/org")
   (setq deft-extensions '("org" "md" "txt"))
@@ -505,7 +523,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (deft pdf-tools org-brain eyebrowse evil-nerd-commenter evil-matchit eshell-prompt-extras editorconfig dumb-jump doom-modeline eldoc-eval counsel-projectile counsel ivy auto-compile aggressive-indent smartparens flycheck flyspell-correct company helm helm-core markdown-mode projectile magit git-commit spaceline powerline evil goto-chg async org-plus-contrib yasnippet-snippets xterm-color ws-butler writeroom-mode with-editor winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill undo-tree treepy toc-org tablist symon swiper string-inflection spaceline-all-the-icons smeargle shrink-path shell-pop restart-emacs rainbow-delimiters persp-mode pcre2el password-generator paradox packed ox-gfm overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file nov neotree nameless mwim multi-term move-text monokai-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum link-hint indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag graphql google-translate golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-mc evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z esh-help elisp-slime-nav elfeed-web elfeed-org elfeed-goodies dotenv-mode diminish diff-hl define-word company-statistics company-quickhelp column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (oauth2 yasnippet-snippets xterm-color ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org symon string-inflection spaceline-all-the-icons smeargle shell-pop restart-emacs rainbow-delimiters persp-mode pdf-tools pcre2el password-generator paradox ox-gfm overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-caldav org-bullets org-brain open-junk-file nov neotree nameless mwim multi-term move-text monokai-theme mmm-mode markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum link-hint indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help elisp-slime-nav elfeed-web elfeed-org elfeed-goodies editorconfig dumb-jump dotenv-mode doom-modeline diminish diff-hl deft define-word counsel-projectile company-statistics company-quickhelp column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
