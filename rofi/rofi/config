@@ -69,7 +69,7 @@ rofi.font:                           Knack Nerd Font 12
 ! "Set the modi to combine in combi mode" Set from: Default
 rofi.combi-modi:                     window,drun,run,ssh
 ! "Set the matching algorithm. (normal, regex, glob, fuzzy)" Set from: Default
-rofi.matching:                       fuzzy
+rofi.matching:                       normal
 ! "Tokenize input string" Set from: Default
 ! rofi.tokenize:                       true
 ! "Monitor id to show on" Set from: Default
