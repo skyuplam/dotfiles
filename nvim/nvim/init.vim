@@ -42,6 +42,16 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'junegunn/vim-slash'
 
   Plug 'junegunn/seoul256.vim'
+
+  " Plug for orgmode and related/suggested plugins
+  Plug 'jceb/vim-orgmode'
+  Plug 'vim-scripts/utl.vim'
+  Plug 'vim-scripts/taglist.vim'
+  Plug 'majutsushi/tagbar'
+  Plug 'tpope/vim-speeddating'
+  Plug 'chrisbra/NrrwRgn'
+  Plug 'mattn/calendar-vim'
+  Plug 'inkarkat/vim-SyntaxRange'
 call plug#end()
 
 " }}}
@@ -264,6 +274,9 @@ let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 " Disable conceal
 let g:vim_markdown_conceal = 0
+
+" vim-orgmode
+let g:org_agenda_files = ['~/Dropbox/org/home-tasks.org', '~/Dropbox/org/work-tasks.org']
 
 " }}}
 " ============================================================================
