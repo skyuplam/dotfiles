@@ -99,6 +99,9 @@ antibody bundle robbyrussell/oh-my-zsh path:plugins/z
 antibody bundle robbyrussell/oh-my-zsh path:plugins/fzf
 antibody bundle robbyrussell/oh-my-zsh path:plugins/colored-man-pages
 antibody bundle robbyrussell/oh-my-zsh path:plugins/command-not-found
+antibody bundle robbyrussell/oh-my-zsh path:plugins/rust
+antibody bundle robbyrussell/oh-my-zsh path:plugins/cargo
+antibody bundle robbyrussell/oh-my-zsh path:plugins/systemd
 
 # Syntax highlighting bundle.
 antibody bundle zsh-users/zsh-syntax-highlighting
