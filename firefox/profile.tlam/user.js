@@ -1,8 +1,8 @@
 /******
 * name: ghacks user.js
-* date: 12 December 2018
-* version 64-beta: Crocodile Pants
-*   "I remember when Pants was young, me and Suzie had so much fun"
+* date: 17 January 2019
+* version 65-alpha: Dancing with My Pants
+*   "If I had the chance, I'd ask the world to dance, and I'll be dancing with my pants"
 * authors: v52+ github | v51- www.ghacks.net
 * url: https://github.com/ghacksuserjs/ghacks-user.js
 * license: MIT: https://github.com/ghacksuserjs/ghacks-user.js/blob/master/LICENSE.txt
@@ -106,17 +106,18 @@ user_pref("browser.newtab.preload", false);
 user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
 user_pref("browser.newtabpage.activity-stream.telemetry", false);
 user_pref("browser.newtabpage.activity-stream.telemetry.ping.endpoint", "");
-/* 0105b: disable AS Snippets
+/* 0105b: disable Activity Stream Snippets
  * Runs code received from a server (aka Remote Code Execution) and sends information back to a metrics server
  * [1] https://abouthome-snippets-service.readthedocs.io/ ***/
+user_pref("browser.aboutHomeSnippets.updateUrl", "");
+user_pref("browser.newtabpage.activity-stream.asrouter.providers.snippets", "");
 user_pref("browser.newtabpage.activity-stream.disableSnippets", true);
 user_pref("browser.newtabpage.activity-stream.feeds.snippets", false);
-user_pref("browser.aboutHomeSnippets.updateUrl", "");
-/* 0105c: disable AS Top Stories, Pocket-based and/or sponsored content ***/
+/* 0105c: disable Activity Stream Top Stories, Pocket-based and/or sponsored content ***/
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket", false);
 user_pref("browser.newtabpage.activity-stream.showSponsored", false);
-/* 0105d: disable AS recent Highlights in the Library [FF57+] ***/
+/* 0105d: disable Activity Stream recent Highlights in the Library [FF57+] ***/
    // user_pref("browser.library.activity-stream.enabled", false);
 /* 0110: start Firefox in PB (Private Browsing) mode
  * [NOTE] In this mode *all* windows are "private windows" and the PB mode icon is not displayed
@@ -127,7 +128,8 @@ user_pref("browser.newtabpage.activity-stream.showSponsored", false);
  * new instance. Closing all Private Windows clears all traces. Repeat as required. PB also does
  * not allow indexedDB which breaks many Extensions that use it including uBlock Origin and uMatrix
  * [SETTING] Privacy & Security>History>Custom Settings>Always use private browsing mode
- * [1] https://wiki.mozilla.org/Private_Browsing ***/
+ * [1] https://wiki.mozilla.org/Private_Browsing
+ * [2] https://spreadprivacy.com/is-private-browsing-really-private/ ***/
    // user_pref("browser.privatebrowsing.autostart", true);
 
 /*** [SECTION 0200]: GEOLOCATION ***/
@@ -191,7 +193,8 @@ user_pref("app.update.staging.enabled", false);
  * This is the update available, downloaded, error and success information ***/
 user_pref("app.update.silent", false);
 /* 0306: disable extension metadata updating
- * sends daily pings to Mozilla about extensions and recent startups ***/
+ * sends daily pings to Mozilla about extensions and recent startups
+ * [NOTE] blocks any expanded text description, if it exists, when you "show more details about an addon" ***/
 user_pref("extensions.getAddons.cache.enabled", false);
 /* 0307: disable auto updating of personas (themes) ***/
 user_pref("lightweightThemes.update.enabled", false);
@@ -232,10 +235,11 @@ user_pref("datareporting.healthreport.uploadEnabled", false);
  * If disabled, no policy is shown or upload takes place, ever
  * [1] https://bugzilla.mozilla.org/1195552 ***/
 user_pref("datareporting.policy.dataSubmissionEnabled", false);
-/* 0335: disable Telemetry Coverage [FF64+]
+/* 0335: disable Telemetry Coverage
  * [1] https://blog.mozilla.org/data/2018/08/20/effectively-measuring-search-in-firefox/ ***/
+user_pref("toolkit.telemetry.coverage.opt-out", true); // [HIDDEN PREF]
+user_pref("toolkit.coverage.opt-out", true); // [FF64+] [HIDDEN PREF]
 user_pref("toolkit.coverage.endpoint.base", "");
-user_pref("toolkit.coverage.opt-out", true); // [HIDDEN PREF]
 /* 0350: disable crash reports ***/
 user_pref("breakpad.reportURL", "");
 /* 0351: disable sending of crash reports ***/
@@ -460,6 +464,9 @@ user_pref("network.dns.disableIPv6", true);
 /* 0702: disable HTTP2 (which was based on SPDY which is now deprecated)
  * HTTP2 raises concerns with "multiplexing" and "server push", does nothing to enhance
  * privacy, and in fact opens up a number of server-side fingerprinting opportunities
+ * [SETUP-PERF] Relax this if you have FPI enabled (see 4000) *AND* you understand the
+ * consequences. FPI isolates these, but it was designed with the Tor protocol in mind,
+ * and the Tor Browser has extra protection, including enhanced sanitizing per Identity.
  * [1] https://http2.github.io/faq/
  * [2] https://blog.scottlogic.com/2014/11/07/http-2-a-quick-look.html
  * [3] https://queue.acm.org/detail.cfm?id=2716278
@@ -468,6 +475,9 @@ user_pref("network.http.spdy.enabled", false);
 user_pref("network.http.spdy.enabled.deps", false);
 user_pref("network.http.spdy.enabled.http2", false);
 /* 0703: disable HTTP Alternative Services [FF37+]
+ * [SETUP-PERF] Relax this if you have FPI enabled (see 4000) *AND* you understand the
+ * consequences. FPI isolates these, but it was designed with the Tor protocol in mind,
+ * and the Tor Browser has extra protection, including enhanced sanitizing per Identity.
  * [1] https://tools.ietf.org/html/rfc7838#section-9
  * [2] https://www.mnot.net/blog/2016/03/09/alt-svc ***/
 user_pref("network.http.altsvc.enabled", false);
@@ -643,6 +653,13 @@ user_pref("signon.formlessCapture.enabled", false);
  * [2] https://bugzilla.mozilla.org/buglist.cgi?bug_id=1217152,1319119 ***/
 user_pref("signon.autofillForms.http", false);
 user_pref("security.insecure_field_warning.contextual.enabled", true);
+/* 0912: limit (or disable) HTTP authentication credentials dialogs triggered by sub-resources [FF41+]
+ * hardens against potential credentials phishing
+ * 0=don't allow sub-resources to open HTTP authentication credentials dialogs
+ * 1=don't allow cross-origin sub-resources to open HTTP authentication credentials dialogs
+ * 2=allow sub-resources to open HTTP authentication credentials dialogs (default)
+ * [1] https://www.fxsitecompat.com/en-CA/docs/2015/http-auth-dialog-can-no-longer-be-triggered-by-cross-origin-resources/ ***/
+user_pref("network.auth.subresource-http-auth-allow", 1);
 
 /*** [SECTION 1000]: CACHE / SESSION (RE)STORE / FAVICONS [SETUP-CHROME]
      ETAG [1] and other [2][3] cache tracking/fingerprinting techniques can be averted by
@@ -747,11 +764,13 @@ user_pref("security.ssl.require_safe_negotiation", true);
    // user_pref("security.tls.version.min", 3);
 user_pref("security.tls.version.max", 4);
 /* 1203: disable SSL session tracking [FF36+]
- * SSL Session IDs speed up HTTPS connections (no need to renegotiate) and last for 24hrs.
- * Since the ID is unique, web servers can (and do) use it for tracking. If set to true,
- * this disables sending SSL Session IDs and TLS Session Tickets to prevent session tracking
+ * SSL Session IDs are unique, last up to 24hrs in Firefox, and can be used for tracking
+ * [SETUP-PERF] Relax this if you have FPI enabled (see 4000) *AND* you understand the
+ * consequences. FPI isolates these, but it was designed with the Tor protocol in mind,
+ * and the Tor Browser has extra protection, including enhanced sanitizing per Identity.
  * [1] https://tools.ietf.org/html/rfc5077
- * [2] https://bugzilla.mozilla.org/967977 ***/
+ * [2] https://bugzilla.mozilla.org/967977
+ * [3] https://arxiv.org/abs/1810.07304 ***/
 user_pref("security.ssl.disable_session_identifiers", true); // [HIDDEN PREF]
 /* 1204: disable SSL Error Reporting
  * [1] https://firefox-source-docs.mozilla.org/browser/base/sslerrorreport/preferences.html ***/
@@ -1171,7 +1190,7 @@ user_pref("dom.allow_cut_copy", false); // [HIDDEN PREF]
 user_pref("dom.disable_beforeunload", true);
 /* 2414: disable shaking the screen ***/
 user_pref("dom.vibrator.enabled", false);
-/* 2420: disable asm.js [FF22+]
+/* 2420: disable asm.js [FF22+] [SETUP-PERF]
  * [1] http://asmjs.org/
  * [2] https://www.mozilla.org/security/advisories/mfsa2015-29/
  * [3] https://www.mozilla.org/security/advisories/mfsa2015-50/
@@ -1184,7 +1203,7 @@ user_pref("javascript.options.asmjs", false);
  * [1] https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-0817 ***/
    // user_pref("javascript.options.ion", false);
    // user_pref("javascript.options.baselinejit", false);
-/* 2422: disable WebAssembly [FF52+]
+/* 2422: disable WebAssembly [FF52+] [SETUP-PERF]
  * [1] https://developer.mozilla.org/docs/WebAssembly ***/
 user_pref("javascript.options.wasm", false);
 /* 2426: disable Intersection Observer API [FF53+]
@@ -1289,7 +1308,7 @@ user_pref("middlemouse.contentLoadURL", false);
 user_pref("network.http.redirection-limit", 10);
 /* 2615: disable websites overriding Firefox's keyboard shortcuts [FF58+]
  * 0 (default) or 1=allow, 2=block
- * [NOTE] At the time of writing, causes issues with delete and backspace keys
+ * [NOTE] In FF65 and under, causes issues with delete and backspace keys (see 1445942)
  * [SETTING] to add site exceptions: Page Info>Permissions>Override Keyboard Shortcuts ***/
    // user_pref("permissions.default.shortcuts", 2);
 /* 2616: remove special permissions for certain mozilla domains [FF35+]
@@ -1469,7 +1488,7 @@ user_pref("privacy.clearOnShutdown.history", true); // Browsing & Download Histo
 user_pref("privacy.clearOnShutdown.offlineApps", true); // Offline Website Data
 user_pref("privacy.clearOnShutdown.sessions", true); // Active Logins
 user_pref("privacy.clearOnShutdown.siteSettings", false); // Site Preferences
-/* 2804: reset default history items to clear with Ctrl-Shift-Del (to match above)
+/* 2804: reset default history items to clear with Ctrl-Shift-Del (to match 2803)
  * This dialog can also be accessed from the menu History>Clear Recent History
  * Firefox remembers your last choices. This will reset them when you start Firefox.
  * [NOTE] Regardless of what you set privacy.cpd.downloads to, as soon as the dialog
@@ -1558,6 +1577,7 @@ user_pref("privacy.firstparty.isolate.restrict_opener_access", true); // [DEFAUL
       FF56: The version number will be rounded down to the nearest multiple of 10
       FF57: The version number will match current ESR (1393283, 1418672, 1418162)
       FF59: The OS will be reported as Windows, OSX, Android, or Linux (to reduce breakage) (1404608)
+      FF66: The OS in HTTP Headers will be reduced to Windows or Android (1509829)
  ** 1369319 - disable device sensor API (see 4604) (FF56+)
  ** 1369357 - disable site specific zoom (see 4605) (FF56+)
  ** 1337161 - hide gamepads from content (see 4606) (FF56+)
