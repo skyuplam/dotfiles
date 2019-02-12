@@ -21,3 +21,8 @@ firefox/**/userjs_backups
 
 # i3
 i3/**/*.data
+
+# spacemacs
+spacemacs/**/.spacemacs.env
+
+**/*.pyc
