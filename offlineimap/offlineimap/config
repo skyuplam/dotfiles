@@ -1,0 +1,129 @@
+# Offlineimap sample configuration file
+
+# This file documents *all* possible options and can be quite scary.
+# Looking for a quick start?  Take a look at offlineimap.conf.minimal.
+# More details can be found at http://www.offlineimap.org .
+
+##################################################
+# Overview
+##################################################
+
+# The default configuration file is "~/.offlineimaprc".
+#
+# Offlineimap ships with a file named "offlineimap.conf" that you should copy to
+# that location and then edit.
+#
+# Offlineimap also ships a file named "offlineimap.conf.minimal" that you can
+# also try.  It's useful if you want to get started with the most basic feature
+# set, and you can read about other features later with "offlineimap.conf".
+#
+# If you want to be XDG-compatible, you can put your configuration file into
+# "$XDG_CONFIG_HOME/offlineimap/config".
+
+##################################################
+# General definitions
+##################################################
+
+# NOTE 1: Settings generally support python interpolation. This means
+# values can contain python format strings which refer to other values
+# in the same section, or values in a special DEFAULT section. This
+# allows you for example to use common settings for multiple accounts:
+#
+# [Repository Gmail1]
+# trashfolder: %(gmailtrashfolder)s
+#
+# [Repository Gmail2]
+# trashfolder: %(gmailtrashfolder)s
+#
+# [DEFAULT]
+# gmailtrashfolder = [Gmail]/Papierkorb
+#
+# would set the trashfolder setting for your German Gmail accounts.
+
+# NOTE 2: Above feature implies that any '%' needs to be encoded as '%%'
+
+# NOTE 3: Any variable that is subject to the environment variables
+# ($NAME) and tilde (~username/~) expansions will receive tilde
+# expansion first and only after the environment variable will be
+# expanded in the resulting string. This behaviour is intentional
+# as it coincides with typical shell expansion strategy.
+
+# NOTE 4: multiple same-named sections.
+# The library used to parse the configuration file has known issue when multiple
+# sections have the same name. In such case, only the last section is considered.
+# It is strongly discouraged to have multiple sections with the same name.
+# See https://github.com/OfflineIMAP/offlineimap/issues/143 for more details.
+
+[general]
+
+accounts = skyuplam, terrence
+pythonfile = $XDG_CONFIG_HOME/offlineimap/offlineimap.py
+
+
+[mbnames]
+
+enabled = no
+filename = ~/Mutt/muttrc.mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+incremental = no
+sort_keyfunc = lambda d: (d['accountname'], d['foldername'])
+
+
+###############################################################################
+# Account skyuplam
+###############################################################################
+[Account skyuplam]
+
+localrepository = LocalGmail
+remoterepository = RemoteGmail
+synclabels = yes
+labelsheader = X-Keywords
+
+
+[Repository LocalGmail]
+type = GmailMaildir
+localfolders = ~/mail/skyuplam
+
+
+[Repository RemoteGmail]
+
+type = Gmail
+remoteuser = skyuplam
+remotepasseval = get_pass("Gmail")
+nametrans = lambda foldername: re.sub ('^\[gmail\]', 'bak',
+                               re.sub ('sent_mail', 'sent',
+                               re.sub ('starred', 'flagged',
+                               re.sub (' ', '_', foldername.lower()))))
+folderfilter = lambda foldername: foldername in ['INBOX']
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl_version = tls1_2
+
+###############################################################################
+# Account terrence
+###############################################################################
+[Account terrence]
+
+localrepository = LocalTerrence
+remoterepository = RemoteTerrence
+
+
+[Repository LocalTerrence]
+type = Maildir
+localfolders = ~/mail/terrence
+
+[Repository RemoteTerrence]
+type = IMAP
+remotehost = outlook.office365.com
+remoteuser = terrence@fronteersolutions.com
+remotepasseval = get_pass("Fronteer")
+nametrans = lambda foldername: re.sub ('sent items', 'sent',
+                               re.sub ('starred', 'flagged',
+                               re.sub (' ', '_', foldername.lower())))
+folderfilter = lambda foldername: foldername in ['INBOX']
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl_version = tls1_2
