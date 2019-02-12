@@ -1,0 +1,24 @@
+defaults
+port 587
+tls on
+auth on
+logfile ~/.msmtp.log
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+
+# Gmail
+account gmail
+host smtp.gmail.com
+from skyuplam@gmail.com
+user skyuplam@gmail.com
+port 587
+passwordeval pass Mail/google-smtp
+
+# Office365
+account office365
+host smtp.office365.com
+from terrence@fronteersolutions.com
+user terrence@fronteersolutions.com
+port 587
+passwordeval pass Mail/fronteer-smtp
+
+account default : gmail
