@@ -57,7 +57,7 @@
 [general]
 
 accounts = skyuplam, terrence
-pythonfile = $XDG_CONFIG_HOME/offlineimap/offlineimap.py
+pythonfile = $HOME/.config/offlineimap/offlineimap.py
 
 
 [mbnames]
@@ -81,7 +81,7 @@ localrepository = LocalGmail
 remoterepository = RemoteGmail
 synclabels = yes
 labelsheader = X-Keywords
-
+postsynchook = $HOME/.config/offlineimap/postsync.sh
 
 [Repository LocalGmail]
 type = GmailMaildir
@@ -109,7 +109,7 @@ ssl_version = tls1_2
 
 localrepository = LocalTerrence
 remoterepository = RemoteTerrence
-
+postsynchook = $HOME/.config/offlineimap/postsync.sh
 
 [Repository LocalTerrence]
 type = Maildir
