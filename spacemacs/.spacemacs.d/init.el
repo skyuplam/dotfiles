@@ -498,6 +498,10 @@ before packages are loaded."
   ;; Allow msmtp to use from as the account
   (setq message-sendmail-f-is-evil 't)
   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
+
+  ;; Agenda
+  ;; Setup agenda files
+  (setq org-agenda-files '("~/Dropbox/org"))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
