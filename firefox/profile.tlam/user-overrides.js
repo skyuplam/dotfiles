@@ -3,6 +3,13 @@
  */
 /* 0102: set START page (0=blank, 1=home, 2=last visited page, 3=resume previous session)
  * [SETTING] General>Startup>When Firefox starts ***/
+/* 0302a: disable auto-INSTALLING Firefox updates [NON-WINDOWS FF65+]
+ * [NOTE] In FF65+ on Windows this SETTING (below) is now stored in a file and the pref was removed
+ * [SETTING] General>Firefox Updates>Check for updates but let you choose... ***/
+user_pref("app.update.auto", true);
+/* 0302b: disable auto-INSTALLING extension and theme updates (after the check in 0301b)
+ * [SETTING] about:addons>Extensions>[cog-wheel-icon]>Update Add-ons Automatically (toggle) ***/
+user_pref("extensions.update.autoUpdateDefault", true);
 user_pref("browser.startup.page", 3);
 /* 0707: disable (or setup) DNS-over-HTTPS (DoH) (FF60+)
  * TRR = Trusted Recursive Resolver
