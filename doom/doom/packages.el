@@ -13,3 +13,5 @@
 (package! treemacs-magit
   :recipe
   (:fetcher github :repo "Alexander-Miller/treemacs" :files ("src/extra/treemacs-magit.el")))
+
+(package! elfeed-goodies)

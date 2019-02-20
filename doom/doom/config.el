@@ -1,4 +1,4 @@
-;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
+;;; config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here
 
@@ -40,6 +40,12 @@
   (setq elfeed-search-filter "@2-days-ago +unread"
         elfeed-db-directory "~/Dropbox/org/feeds/db/"
         elfeed-enclosure-default-dir "~/Dropbox/org/feeds/enclosures/"))
+;; elfeed-goodies
+(def-package! elfeed-goodies
+  :when (featurep! :app elfeed)
+  :after elfeed
+  :config
+  (elfeed-goodies/setup))
 
 ;; notmuch
 (setq +notmuch-sync-backend 'offlineimap
