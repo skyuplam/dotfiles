@@ -113,6 +113,10 @@ set colorcolumn=+1
 set relativenumber
 set number
 
+" fuzzy path
+set path+=**
+set wildmenu
+
 " Always use vertical diffs
 set diffopt+=vertical
 
