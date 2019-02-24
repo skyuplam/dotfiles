@@ -52,32 +52,32 @@ export NVM_DIR=$HOME/.nvm
 # Zsh general settings {{{
 # ---------------------------------------------------------
 
-setopt appendhistory autocd beep extendedglob nomatch
-
-# Bindkey to emac mode
-bindkey -e
-
-autoload -Uz compinit #up-line-or-beginning-search down-line-or-beginning-search
-
-compinit
-
-# zle -N up-line-or-beginning-search
-# zle -N down-line-or-beginning-search
-
-[[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
-[[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
-
-setopt MENU_COMPLETE
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-# zstyle ':completion::complete:*' gain-privileges 1
-
-# Directly executing the command (CTRL-X CTRL-R)
-fzf-history-widget-accept() {
-  fzf-history-widget
-  zle accept-line
-}
-zle     -N     fzf-history-widget-accept
-bindkey '^X^R' fzf-history-widget-accept
+# setopt appendhistory autocd beep extendedglob nomatch
+# 
+# # Bindkey to emac mode
+# bindkey -e
+# 
+# autoload -Uz compinit #up-line-or-beginning-search down-line-or-beginning-search
+# 
+# compinit
+# 
+# # zle -N up-line-or-beginning-search
+# # zle -N down-line-or-beginning-search
+# 
+# [[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
+# [[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
+# 
+# setopt MENU_COMPLETE
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+# # zstyle ':completion::complete:*' gain-privileges 1
+# 
+# # Directly executing the command (CTRL-X CTRL-R)
+# fzf-history-widget-accept() {
+#   fzf-history-widget
+#   zle accept-line
+# }
+# zle     -N     fzf-history-widget-accept
+# bindkey '^X^R' fzf-history-widget-accept
 
 # 
 WORDCHARS=''
@@ -87,32 +87,32 @@ WORDCHARS=''
 # Plugins {{{
 # ---------------------------------------------------------
 
-# Wrap antibody
-source <(antibody init)
-
-# From oh-my-zsh's library
-antibody bundle robbyrussell/oh-my-zsh path:plugins/git
-antibody bundle robbyrussell/oh-my-zsh path:plugins/pip
-antibody bundle robbyrussell/oh-my-zsh path:plugins/docker
-antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
-antibody bundle robbyrussell/oh-my-zsh path:plugins/z
-antibody bundle robbyrussell/oh-my-zsh path:plugins/fzf
-antibody bundle robbyrussell/oh-my-zsh path:plugins/colored-man-pages
-antibody bundle robbyrussell/oh-my-zsh path:plugins/command-not-found
-antibody bundle robbyrussell/oh-my-zsh path:plugins/rust
-antibody bundle robbyrussell/oh-my-zsh path:plugins/cargo
-antibody bundle robbyrussell/oh-my-zsh path:plugins/systemd
-
-# Syntax highlighting bundle.
-antibody bundle zsh-users/zsh-syntax-highlighting
-# ZSH port of Fish history search (up arrow)
-antibody bundle zsh-users/zsh-history-substring-search
-# Fish-like auto suggestions
-antibody bundle zsh-users/zsh-autosuggestions
-# Extra zsh completions
-antibody bundle zsh-users/zsh-completions
-# Prompt
-antibody bundle nojhan/liquidprompt
+# # Wrap antibody
+# source <(antibody init)
+# 
+# # From oh-my-zsh's library
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/git
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/pip
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/docker
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/z
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/fzf
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/colored-man-pages
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/command-not-found
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/rust
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/cargo
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/systemd
+# 
+# # Syntax highlighting bundle.
+# antibody bundle zsh-users/zsh-syntax-highlighting
+# # ZSH port of Fish history search (up arrow)
+# antibody bundle zsh-users/zsh-history-substring-search
+# # Fish-like auto suggestions
+# antibody bundle zsh-users/zsh-autosuggestions
+# # Extra zsh completions
+# antibody bundle zsh-users/zsh-completions
+# # Prompt
+# antibody bundle nojhan/liquidprompt
 
 # }}}
 # ---------------------------------------------------------
@@ -156,6 +156,6 @@ export FZF_DEFAULT_OPTS="$FZF_BG $FZF_FG $FZF_MARKER"
 [ -f ~/.zsh/local.zsh ] && source ~/.zsh/local.zsh
 
 # kubectl
-source <(kubectl completion zsh)
+# source <(kubectl completion zsh)
 
 # }}}
