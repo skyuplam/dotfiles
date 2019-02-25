@@ -28,10 +28,16 @@ call plug#begin('~/.local/share/nvim/plugged')
       \ 'for': ['python', 'rust'],
       \ }
 
-  " Plug 'chemzqm/vim-jsx-improve', { 'for': ['javascript', 'javascript.jsx'] }
+  " JS
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
   Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
+
   Plug 'elzr/vim-json', { 'for': 'json' }
+
+  " Typescript
+  Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript'] }
+  Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript'] }
+
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -272,6 +278,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_error_str = '✖'
 let g:ale_echo_msg_warning_str = '⚠'
 let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
+let g:ale_completion_enabled = 1
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
