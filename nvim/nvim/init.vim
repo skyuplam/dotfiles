@@ -35,7 +35,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'elzr/vim-json', { 'for': 'json' }
 
   " Typescript
-  Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript'] }
+  Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescript.tsx'] }
   Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript'] }
 
   Plug 'tpope/vim-surround'
