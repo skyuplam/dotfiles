@@ -11,7 +11,8 @@
   (:fetcher github :repo "Alexander-Miller/treemacs" :files ("src/extra/treemacs-icons-dired.el")))
 
 (package! treemacs-magit
-  :recipe
-  (:fetcher github :repo "Alexander-Miller/treemacs" :files ("src/extra/treemacs-magit.el")))
+  :recipe (:fetcher github :repo "Alexander-Miller/treemacs" :files ("src/extra/treemacs-magit.el")))
 
 (package! elfeed-goodies)
+
+(package! evil-collection)
