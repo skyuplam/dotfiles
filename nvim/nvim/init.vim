@@ -36,7 +36,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   " Typescript
   Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescript.tsx'] }
-  Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript'] }
+  Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript', 'typescript.tsx'] }
 
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
