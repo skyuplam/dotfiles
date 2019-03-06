@@ -214,7 +214,17 @@ interval = 2
 format-prefix = " "
 format-prefix-foreground = #4bffdc
 format-underline = #f90000
+format = <label> <bar-load>
 label = %percentage:2%%
+bar-load-indicator =
+bar-load-width = 20
+bar-load-foreground-0 = #55aa55
+bar-load-foreground-1 = #557755
+bar-load-foreground-2 = #f5a70a
+bar-load-foreground-3 = #ff5555
+bar-load-fill = ▐
+bar-load-empty = ▐
+bar-load-empty-foreground = #444444
 
 [module/memory]
 type = internal/memory
@@ -222,7 +232,18 @@ interval = 2
 format-prefix = " "
 format-prefix-foreground = #4bffdc
 format-underline = #4bffdc
+format = <label> <bar-used>
 label = %percentage_used%%
+
+bar-used-indicator =
+bar-used-width = 20
+bar-used-foreground-0 = #55aa55
+bar-used-foreground-1 = #557755
+bar-used-foreground-2 = #f5a70a
+bar-used-foreground-3 = #ff5555
+bar-used-fill = ▐
+bar-used-empty = ▐
+bar-used-empty-foreground = #444444
 
 ; [module/wlan]
 ; type = internal/network
