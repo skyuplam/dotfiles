@@ -2,6 +2,10 @@
 
 ;; Place your private configuration here
 
+;; Genernal Emacs customization
+;; relative line number
+(setq display-line-numbers-type 'relative)
+
 ;; Email - use offlineimap to sync emails
 (setq +email-backend 'offlineimap)
 
