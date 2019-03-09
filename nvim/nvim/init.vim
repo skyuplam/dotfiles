@@ -130,7 +130,7 @@ set diffopt+=vertical
 set laststatus=2  " appear all the time
 
 " Complete
-set complete+=i,d
+" set complete+=i,d
 
 function! LinterStatus() abort
   let l:counts = ale#statusline#Count(bufnr(''))
