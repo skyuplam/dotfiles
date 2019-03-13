@@ -25,4 +25,8 @@ i3/**/*.data
 # spacemacs
 spacemacs/**/.spacemacs.env
 
+# Python compiled files
 **/*.pyc
+
+# Emacs lisp compiled files
+**/*.elc
