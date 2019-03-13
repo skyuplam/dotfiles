@@ -15,6 +15,4 @@
 
 (package! elfeed-goodies)
 
-(package! evil-collection)
-
 (package! evil-terminal-cursor-changer)

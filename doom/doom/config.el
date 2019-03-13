@@ -95,10 +95,3 @@
         :n "M-h" #'evil-move-left
         :n "M-l" #'evil-move-right
         ))
-
-
-;; evil-collection Keybindings
-(def-package! evil-collection
-  :when (featurep! :feature evil +everywhere)
-  :config
-  (evil-collection-init))
