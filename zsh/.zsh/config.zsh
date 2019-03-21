@@ -82,39 +82,6 @@ export NVM_DIR=$HOME/.nvm
 # 
 WORDCHARS=''
 
-# }}}
-# ---------------------------------------------------------
-# Plugins {{{
-# ---------------------------------------------------------
-
-# # Wrap antibody
-# source <(antibody init)
-# 
-# # From oh-my-zsh's library
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/git
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/pip
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/docker
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/z
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/fzf
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/colored-man-pages
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/command-not-found
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/rust
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/cargo
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/systemd
-# 
-# # Syntax highlighting bundle.
-# antibody bundle zsh-users/zsh-syntax-highlighting
-# # ZSH port of Fish history search (up arrow)
-# antibody bundle zsh-users/zsh-history-substring-search
-# # Fish-like auto suggestions
-# antibody bundle zsh-users/zsh-autosuggestions
-# # Extra zsh completions
-# antibody bundle zsh-users/zsh-completions
-# # Prompt
-# antibody bundle nojhan/liquidprompt
-
-# }}}
 # ---------------------------------------------------------
 # Plugins Configs {{{
 # ---------------------------------------------------------
