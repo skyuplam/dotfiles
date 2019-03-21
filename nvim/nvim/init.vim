@@ -34,6 +34,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   Plug 'elzr/vim-json', { 'for': 'json' }
 
+  " CSS
+  Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+  Plug 'hail2u/vim-css3-syntax'
+  Plug 'tpope/vim-haml'
+
   " Typescript
   Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescript.tsx'] }
   Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript', 'typescript.tsx'] }
@@ -130,7 +135,7 @@ set diffopt+=vertical
 set laststatus=2  " appear all the time
 
 " Complete
-" set complete+=i,d
+set complete+=i,t
 
 function! LinterStatus() abort
   let l:counts = ale#statusline#Count(bufnr(''))
@@ -231,9 +236,12 @@ endif
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-" Use smartcase
-let g:deoplete#enable_smart_case = 1
-set completeopt-=preview
+" deoplete-options
+call deoplete#custom#option({
+\ 'auto_complete_delay': 200,
+\ 'smart_case': v:true,
+\ })
+set completeopt=menuone
 
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
@@ -278,7 +286,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_error_str = '✖'
 let g:ale_echo_msg_warning_str = '⚠'
 let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
-let g:ale_completion_enabled = 1
+" let g:ale_completion_enabled = 1
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
