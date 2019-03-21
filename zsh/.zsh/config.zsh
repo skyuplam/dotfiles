@@ -29,6 +29,7 @@ path=(~/.local/bin /usr/local/opt/make/libexec/gnubin /usr/local/sbin /usr/local
 # Rust
 export RUSTUP_HOME=~/.multirust
 [ -d $HOME/.cargo/bin ] && export PATH=$HOME/.cargo/bin:$PATH
+[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 # Go
 export GOPATH=$XDG_CONFIG_HOME/go
