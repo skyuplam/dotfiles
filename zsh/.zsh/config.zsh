@@ -20,8 +20,8 @@ export QT_IM_MODULE=ibus
 export GPG_TTY=$(tty)
 
 # XDG
-export XDG_CONFIG_HOME=~/.config
-export XDG_DATA_HOME=~/.local/share
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
 
 typeset -U path
 path=(~/.local/bin /usr/local/opt/make/libexec/gnubin /usr/local/sbin /usr/local/bin $path[@])
@@ -42,10 +42,10 @@ export DROPBOX_DIR=~/Dropbox
 export ORG_DIR=$DROPBOX_DIR/org
 
 # nvm
-export NVM_DIR=$HOME/.nvm
+# export NVM_DIR=$HOME/.nvm
 
 # Joplin
-[ -f $HOME/.joplin-bin/bin/joplin ] && export PATH=$HOME/.joplin-bin/bin:$PATH
+# [ -f $HOME/.joplin-bin/bin/joplin ] && export PATH=$HOME/.joplin-bin/bin:$PATH
 
 # }}}
 # ---------------------------------------------------------
@@ -88,10 +88,10 @@ WORDCHARS=''
 
 # ZSH port of Fish history search (up arrow)
 # Key bindings
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
+# bindkey '^[[A' history-substring-search-up
+# bindkey '^[[B' history-substring-search-down
+# bindkey -M emacs '^P' history-substring-search-up
+# bindkey -M emacs '^N' history-substring-search-down
 
 # fzf
 # --files: List files that would be searched but do not search
