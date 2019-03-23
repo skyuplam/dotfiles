@@ -72,9 +72,9 @@
 
 ;; Theme
 (setq doom-theme 'doom-vibrant)
-(setq doom-font (font-spec :family "Knack Nerd Font" :size 13)
-      doom-variable-pitch-font (font-spec :family "Knack Nerd Font")
-      doom-big-font (font-spec :family "Knack Nerd Font" :size 19))
+(setq doom-font (font-spec :family "Hack Nerd Font" :size 13)
+      doom-variable-pitch-font (font-spec :family "Hack Nerd Font")
+      doom-big-font (font-spec :family "Hack Nerd Font" :size 19))
 
 ;; (doom-themes-treemacs-config)
 ;; (doom-themes-org-config)
