@@ -10,6 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'w0rp/ale'
+  Plug 'wellle/tmux-complete.vim'
 
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
@@ -241,6 +242,8 @@ call deoplete#custom#option({
 \ 'auto_complete_delay': 200,
 \ 'smart_case': v:true,
 \ })
+" No trigger needed
+let g:tmuxcomplete#trigger = ''
 set completeopt=menuone
 
 " vim-javascript
