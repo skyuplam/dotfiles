@@ -53,36 +53,13 @@ export ORG_DIR=$DROPBOX_DIR/org
 # Zsh general settings {{{
 # ---------------------------------------------------------
 
-# setopt appendhistory autocd beep extendedglob nomatch
-# 
-# # Bindkey to emac mode
-# bindkey -e
-# 
-# autoload -Uz compinit #up-line-or-beginning-search down-line-or-beginning-search
-# 
-# compinit
-# 
-# # zle -N up-line-or-beginning-search
-# # zle -N down-line-or-beginning-search
-# 
-# [[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
-# [[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
-# 
-# setopt MENU_COMPLETE
-# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-# # zstyle ':completion::complete:*' gain-privileges 1
-# 
-# # Directly executing the command (CTRL-X CTRL-R)
-# fzf-history-widget-accept() {
-#   fzf-history-widget
-#   zle accept-line
-# }
-# zle     -N     fzf-history-widget-accept
-# bindkey '^X^R' fzf-history-widget-accept
+# Bind history substring search to ctrl-p & ctrl-n
+bindkey "^p" history-substring-search-up
+bindkey "^n" history-substring-search-down
 
-# 
+#
 WORDCHARS=''
-
+# }}}
 # ---------------------------------------------------------
 # Plugins Configs {{{
 # ---------------------------------------------------------
