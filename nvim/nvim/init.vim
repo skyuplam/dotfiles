@@ -82,7 +82,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-set guifont=Knack\ Nerd\ Font\ Regular:h12
+set guifont=Hack\ Nerd\ Font\ Mono:h12,\ FantasqueSansMono\ Nerd\ Font\ Mono:h12
 
 set ignorecase                            " Case insensitive search
 set smartcase                             " Smart Case search
