@@ -1,0 +1,7 @@
+{
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.timeout": 500,
+  "suggest.noselect": false,
+  "suggest.minTriggerInputLength": 2,
+  "suggest.acceptSuggestionOnCommitCharacter": true
+}

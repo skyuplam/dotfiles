@@ -7,7 +7,12 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/neco-vim'
+  Plug 'neoclide/coc-neco'
+  Plug 'Shougo/neoinclude.vim'
+  Plug 'jsfaint/coc-neoinclude'
+  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'w0rp/ale'
   Plug 'wellle/tmux-complete.vim'
@@ -22,12 +27,12 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
 
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-  Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
-  Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ 'for': ['python', 'rust'],
-      \ }
+  " Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
+  " Plug 'autozimu/LanguageClient-neovim', {
+  "     \ 'branch': 'next',
+  "     \ 'do': 'bash install.sh',
+  "     \ 'for': ['python', 'rust'],
+  "     \ }
 
   " JS
   Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
@@ -42,7 +47,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   " Typescript
   Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescript.tsx'] }
-  Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript', 'typescript.tsx'] }
+  " Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript', 'typescript.tsx'] }
 
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
@@ -72,10 +77,22 @@ call plug#end()
 " ============================================================================
 set termguicolors
 
+" if hidden is not set, TextEdit might fail.
+set hidden
 
 " Mouse
 set mouse=a
 set mousehide
+
+" Better display for messages
+set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
 
 " Backup and swap
 set nobackup
@@ -98,10 +115,9 @@ set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 " clipboard
-" Workaround for the poor performance of the clipboard provider
-" set clipboard^=unnamed,unnamedplus
+set clipboard+=unnamedplus
 
-set tabpagemax=15               " Only show 15 tabs
+set tabpagemax=15                              " Only show 15 tabs
 
 " Open splits more naturally
 set splitbelow
@@ -138,6 +154,7 @@ set laststatus=2  " appear all the time
 " Complete
 set complete+=i,t
 
+" ALE statusline
 function! LinterStatus() abort
   let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -151,6 +168,20 @@ function! LinterStatus() abort
   \)
 endfunction
 
+" coc statusline
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+  return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
+endfunction
+
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro  = "%{&readonly ? '[RO] ' : ''}"
@@ -160,10 +191,24 @@ function! s:statusline_expr()
   let pos = ' %-12(%l : %c%V%) '
   let pct = ' %P'
   let ale = "%{len(LinterStatus()) ? LinterStatus() : ''}"
+  let coc = "%{StatusDiagnostic()}"
 
-  return ale.'[%n] %f %<'.mod.ro.ft.sep.pos.'%*'.pct
+  return ale.coc.'[%n] %f %<'.mod.ro.ft.sep.pos.'%*'.pct
 endfunction
+
 let &statusline = s:statusline_expr()
+
+" coc extensions
+let g:coc_global_extensions = [
+  \ 'coc-lists', 'coc-omni', 'coc-tag', 'coc-syntax', 'coc-highlight',
+  \ 'coc-tsserver', 'coc-tslint-plugin', 'coc-jest', 'coc-eslint',
+  \ 'coc-svg', 'coc-html',
+  \ 'coc-css', 'coc-stylelint',
+  \ 'coc-json',
+  \ 'coc-yaml',
+  \ 'coc-rls',
+  \ 'coc-python'
+  \]
 
 augroup vimrcEx
   autocmd!
@@ -236,15 +281,15 @@ endif
 " ============================================================================
 
 " Deoplete
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 " deoplete-options
-call deoplete#custom#option({
-\ 'auto_complete_delay': 200,
-\ 'smart_case': v:true,
-\ })
+" call deoplete#custom#option({
+" \ 'auto_complete_delay': 200,
+" \ 'smart_case': v:true,
+" \ })
 " No trigger needed
 let g:tmuxcomplete#trigger = ''
-set completeopt=menuone
+" set completeopt=menuone
 
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
@@ -387,10 +432,54 @@ nnoremap <Leader>ev :tabe $MYINITVIM<CR>
 nnoremap <Leader>rv :source $MYINITVIM<CR>
 
 " LanguageClient-neovim
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> <leader>f :call LanguageClient_textDocument_documentSymbol()<CR>
+" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+" nnoremap <silent> <leader>f :call LanguageClient_textDocument_documentSymbol()<CR>
+
+
+" coc.nvim
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+" use <tab> for trigger completion and navigate to next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+" Use <Tab> and <S-Tab> for navigate completion list:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use <cr> to confirm complete
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Note: \<C-g>u is used to break undo level.
+" To make <cr> select the first completion item and confirm completion when no item have selected:
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" Close preview window when completion is done.
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Scrolling sync
 nnoremap <silent> <F9> :set scb!<CR>
