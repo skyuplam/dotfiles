@@ -60,7 +60,7 @@ font-2 = Noto Sans CJK TC:pixelsize=12;1
 
 modules-left = i3
 modules-center = xwindow
-modules-right = dropbox-isrunning filesystem memory cpu wlan eth xkeyboard date pulseaudio
+modules-right = dropbox-isrunning filesystem memory cpu wlan network xkeyboard date pulseaudio
 
 tray-position = 
 ;tray-padding = 2
@@ -336,21 +336,20 @@ bar-used-empty-foreground = #444444
 ; ramp-signal-4 = 
 ; ramp-signal-foreground = ${colors.foreground-alt}
 
-[module/eth]
+[module/network]
 type = internal/network
 interface = enp5s0
 interval = 1.0
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+; Default: false
+accumulate-stats = true
 
+format-connected = <label-connected>
 format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.good}
-label-connected = %local_ip% %{F#64dd17}%downspeed:7% %{F-} %{F#f44336}%upspeed:7% %{F-}
-
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+label-connected = %local_ip% %{F#64dd17}%downspeed:7% %{F-} %{F#fe522c}%upspeed:7% %{F-}
 
 [module/date]
 type = internal/date
