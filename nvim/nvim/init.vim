@@ -12,7 +12,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'Shougo/neoinclude.vim'
   Plug 'jsfaint/coc-neoinclude'
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'w0rp/ale'
   Plug 'wellle/tmux-complete.vim'
@@ -27,27 +26,25 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
 
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-  " Plug 'sebastianmarkow/deoplete-rust', { 'for': 'rust' }
-  " Plug 'autozimu/LanguageClient-neovim', {
-  "     \ 'branch': 'next',
-  "     \ 'do': 'bash install.sh',
-  "     \ 'for': ['python', 'rust'],
-  "     \ }
 
   " JS
-  Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+  Plug 'pangloss/vim-javascript', { 'for': [
+        \ 'javascript', 'javascript.jsx'] }
   Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
+  " Typescript
+  Plug 'HerringtonDarkholme/yats.vim', { 'for': [
+        \ 'typescript', 'typescript.tsx'] }
 
   Plug 'elzr/vim-json', { 'for': 'json' }
 
   " CSS
-  Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-  Plug 'hail2u/vim-css3-syntax'
-  Plug 'tpope/vim-haml'
+  Plug 'styled-components/vim-styled-components', {
+        \ 'branch': 'main',
+        \ 'for': [
+        \ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
+  Plug 'hail2u/vim-css3-syntax', { 'for': [
+        \ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
 
-  " Typescript
-  Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescript.tsx'] }
-  " Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript', 'typescript.tsx'] }
 
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
@@ -85,7 +82,7 @@ set mouse=a
 set mousehide
 
 " Better display for messages
-set cmdheight=2
+" set cmdheight=2
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
@@ -206,9 +203,13 @@ let g:coc_global_extensions = [
   \ 'coc-css', 'coc-stylelint',
   \ 'coc-json',
   \ 'coc-yaml',
+  \ 'coc-prettier',
   \ 'coc-rls',
   \ 'coc-python'
   \]
+
+" coc-prettier:: Enable command :Prettier to format current buffer
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 augroup vimrcEx
   autocmd!
@@ -431,19 +432,14 @@ nnoremap Y y$
 nnoremap <Leader>ev :tabe $MYINITVIM<CR>
 nnoremap <Leader>rv :source $MYINITVIM<CR>
 
-" LanguageClient-neovim
-" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-" nnoremap <silent> <leader>f :call LanguageClient_textDocument_documentSymbol()<CR>
-
-
 " coc.nvim
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+vmap <leader> f <Plug>(coc-format-selected)
+vmap <leader> f <Plug>(coc-format-selected)
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>

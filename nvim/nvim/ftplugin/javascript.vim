@@ -1,15 +1,19 @@
-" setlocal omnifunc=javascriptcomplete#CompleteJS
-" 
-" let g:ale_fixers['javascript'] = ['prettier']
-" let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
-" 
-" let g:javascript_plugin_jsdoc = 1
-" let g:javascript_plugin_ngdoc = 1
-" let g:javascript_plugin_flow = 1
-" if executable('javascript-typescript-langserver')
-"   let g:LanguageClient_serverCommands = {
-"         \ 'javascript': ['javascript-typescript-langserver'],
-"         \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-"         \ }
-"   autocmd FileType javascript setlocal omnifunc=LanguageClient#complete
-" endif
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
+
+if exists("b:did_ftplugin_javascript")
+  finish
+endif
+
+let b:did_ftplugin_javascript = 1 " Don't load twice in one buffer
+
+" ============================================================================
+" ALE Fixing {{{
+" ============================================================================
+
+let b:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'javascript.jsx': ['prettier', 'eslint'],
+      \}
+
+" }}}

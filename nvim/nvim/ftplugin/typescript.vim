@@ -1,10 +1,10 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 
-if exists("b:did_ftplugin_javascript_jsx")
+if exists("b:did_ftplugin_typescript")
   finish
 endif
 
-let b:did_ftplugin_javascript_jsx = 1 " Don't load twice in one buffer
+let b:did_ftplugin_typescript = 1 " Don't load twice in one buffer
 
 " ============================================================================
 " ALE Fixing {{{
@@ -12,8 +12,8 @@ let b:did_ftplugin_javascript_jsx = 1 " Don't load twice in one buffer
 
 let b:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'javascript': ['prettier', 'eslint'],
-      \ 'javascript.jsx': ['prettier', 'eslint'],
+      \ 'typescript': ['prettier', 'eslint'],
+      \ 'typescript.tsx': ['prettier', 'eslint'],
       \}
 
 " }}}
