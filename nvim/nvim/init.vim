@@ -423,7 +423,7 @@ nnoremap Y y$
 
 " Terminal keybinding
 " To map <Esc> to exit terminal-mode
-tnoremap <Esc> <C-\><C-N>
+" tnoremap <Esc> <C-\><C-N>
 
 " Vim
 nnoremap <Leader>ev :tabe $MYINITVIM<CR>
