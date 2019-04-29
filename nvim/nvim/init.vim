@@ -62,6 +62,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'vim-scripts/utl.vim'
   Plug 'vim-scripts/taglist.vim'
   Plug 'majutsushi/tagbar'
+  Plug 'ludovicchabant/vim-gutentags'
   Plug 'tpope/vim-speeddating'
   Plug 'chrisbra/NrrwRgn'
   Plug 'mattn/calendar-vim'
@@ -361,6 +362,10 @@ let g:mapleader = ","
 " Explorer Mapping
 nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
+nnoremap <C-t> :Tagbar<CR>
+
+" Terminal
+nnoremap <leader>t :bo 15sp +term<CR>
 
 " Tig
 nnoremap <silent> <Leader>gs :Tig<CR>
