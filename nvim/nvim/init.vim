@@ -14,7 +14,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'w0rp/ale'
-  Plug 'wellle/tmux-complete.vim'
+  " Plug 'wellle/tmux-complete.vim'
 
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
@@ -23,7 +23,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'godlygeek/tabular'
   Plug 'plasticboy/vim-markdown'
 
-  Plug 'christoomey/vim-tmux-navigator'
+  " Plug 'christoomey/vim-tmux-navigator'
 
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
@@ -289,7 +289,7 @@ endif
 " \ 'smart_case': v:true,
 " \ })
 " No trigger needed
-let g:tmuxcomplete#trigger = ''
+" let g:tmuxcomplete#trigger = ''
 " set completeopt=menuone
 
 " vim-javascript
@@ -380,13 +380,6 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-nnoremap <A-Down> :m .+1<CR>==
-nnoremap <A-Up> :m .-2<CR>==
-inoremap <A-Down> <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-Up> <Esc>:m .-2<CR>==gi
-vnoremap <A-Down> :m '>+1<CR>gv=gv
-vnoremap <A-Up> :m '<-2<CR>gv=gv
-
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
@@ -428,6 +421,10 @@ noremap <silent> <F8> :set clipboard+=unnamedplus<CR>
 " yank until EOL (y$) instead of the entire line (yy)
 nnoremap Y y$
 
+" Terminal keybinding
+" To map <Esc> to exit terminal-mode
+tnoremap <Esc> <C-\><C-N>
+
 " Vim
 nnoremap <Leader>ev :tabe $MYINITVIM<CR>
 nnoremap <Leader>rv :source $MYINITVIM<CR>
@@ -438,7 +435,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-vmap <leader> f <Plug>(coc-format-selected)
 vmap <leader> f <Plug>(coc-format-selected)
 
 " Use K for show documentation in preview window
