@@ -28,7 +28,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
   " JS
-  Plug 'pangloss/vim-javascript', { 'for': [
+  " Plug 'pangloss/vim-javascript', { 'for': [
+  "       \ 'javascript', 'javascript.jsx'] }
+  Plug 'othree/yajs.vim', { 'for': [
         \ 'javascript', 'javascript.jsx'] }
   Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
   " Typescript
@@ -230,40 +232,6 @@ augroup vimrcEx
   " Mail
   autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
 augroup END
-
-" -----------------------------------------------
-" Tags
-" -----------------------------------------------
-let g:tagbar_type_typescript = {
-  \ 'ctagstype': 'typescript',
-  \ 'kinds': [
-    \ 'c:classes',
-    \ 'n:modules',
-    \ 'f:functions',
-    \ 'v:variables',
-    \ 'v:varlambdas',
-    \ 'm:members',
-    \ 'i:interfaces',
-    \ 'e:enums',
-  \ ]
-\ }
-
-let g:tagbar_type_javascript = {
-      \ 'ctagstype': 'javascript',
-      \ 'kinds': [
-      \ 'A:arrays',
-      \ 'P:properties',
-      \ 'T:tags',
-      \ 'O:objects',
-      \ 'G:generator functions',
-      \ 'F:functions',
-      \ 'C:constructors/classes',
-      \ 'M:methods',
-      \ 'V:variables',
-      \ 'I:imports',
-      \ 'E:exports',
-      \ 'S:styled components'
-      \ ]}
 
 " -----------------------------------------------
 " Tig
