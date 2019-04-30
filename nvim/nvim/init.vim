@@ -232,6 +232,40 @@ augroup vimrcEx
 augroup END
 
 " -----------------------------------------------
+" Tags
+" -----------------------------------------------
+let g:tagbar_type_typescript = {
+  \ 'ctagstype': 'typescript',
+  \ 'kinds': [
+    \ 'c:classes',
+    \ 'n:modules',
+    \ 'f:functions',
+    \ 'v:variables',
+    \ 'v:varlambdas',
+    \ 'm:members',
+    \ 'i:interfaces',
+    \ 'e:enums',
+  \ ]
+\ }
+
+let g:tagbar_type_javascript = {
+      \ 'ctagstype': 'javascript',
+      \ 'kinds': [
+      \ 'A:arrays',
+      \ 'P:properties',
+      \ 'T:tags',
+      \ 'O:objects',
+      \ 'G:generator functions',
+      \ 'F:functions',
+      \ 'C:constructors/classes',
+      \ 'M:methods',
+      \ 'V:variables',
+      \ 'I:imports',
+      \ 'E:exports',
+      \ 'S:styled components'
+      \ ]}
+
+" -----------------------------------------------
 " Tig
 " -----------------------------------------------
 if has('nvim')
@@ -362,8 +396,9 @@ let g:mapleader = ","
 " Explorer Mapping
 nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
-nnoremap <C-t> :Tagbar<CR>
 
+" Tagbar
+nnoremap <leader>b :Tagbar<CR>
 " Terminal
 nnoremap <leader>t :bo 15sp +term<CR>
 
