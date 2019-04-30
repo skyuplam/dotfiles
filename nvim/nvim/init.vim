@@ -62,9 +62,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   " Plug for orgmode and related/suggested plugins
   Plug 'jceb/vim-orgmode'
   Plug 'vim-scripts/utl.vim'
-  Plug 'vim-scripts/taglist.vim'
-  Plug 'majutsushi/tagbar'
-  Plug 'ludovicchabant/vim-gutentags'
+  " Plug 'vim-scripts/taglist.vim'
+  " Plug 'majutsushi/tagbar'
+  " Plug 'ludovicchabant/vim-gutentags'
   Plug 'tpope/vim-speeddating'
   Plug 'chrisbra/NrrwRgn'
   Plug 'mattn/calendar-vim'
@@ -370,7 +370,7 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
 
 " Tagbar
-nnoremap <leader>b :Tagbar<CR>
+" nnoremap <leader>b :Tagbar<CR>
 " Terminal
 nnoremap <leader>t :bo 15sp +term<CR>
 
