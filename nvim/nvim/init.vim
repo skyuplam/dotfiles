@@ -305,9 +305,13 @@ let g:javascript_plugin_flow = 1
 let g:seoul256_background = 233
 colo seoul256
 
+" Highlight colorcolumn
+hi ColorColumn ctermbg=Gray guibg=#373737
+
 " Transparet BG color
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
+
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 " let g:rg_cmd ='rg --column --line-number --no-heading --fixed-strings
