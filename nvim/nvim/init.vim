@@ -73,6 +73,13 @@ call plug#end()
 
 " }}}
 " ============================================================================
+" Sourcing {{{
+" ============================================================================
+
+exec 'source ~/.config/nvim/osc52.vim'
+
+" }}}
+" ============================================================================
 " BASIC SETTINGS {{{
 " ============================================================================
 set termguicolors
@@ -431,7 +438,8 @@ noremap <plug>(slash-after) zz
 noremap <silent> <F8> :set clipboard+=unnamedplus<CR>
 
 " yank until EOL (y$) instead of the entire line (yy)
-nnoremap Y y$
+" nnoremap Y y$
+nnoremap Y :call SendViaOSC52(getreg('"'))<CR>
 
 " Terminal keybinding
 " To map <Esc> to exit terminal-mode
