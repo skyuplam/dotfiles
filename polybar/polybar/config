@@ -54,9 +54,16 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = Knack Nerd Font:pixelsize=10;1
-font-1 = Hack Nerd Font:pixelsize=12;1
-font-2 = Noto Sans CJK TC:pixelsize=12;1
+; Fonts are defined using <font-name>;<vertical-offset>
+; Font names are specified using a fontconfig pattern.
+;   font-0 = NotoSans-Regular:size=8;2
+;   font-1 = MaterialIcons:size=10
+;   font-2 = Termsynu:size=8;-1
+;   font-3 = FontAwesome:size=10
+; See the Fonts wiki page for more details
+font-0 = mononoki Nerd Font:size=11;2
+font-1 = Hack Nerd Font:size=11;2
+font-2 = Noto Sans CJK TC:size=11;2
 
 modules-left = i3
 modules-center = xwindow
@@ -64,8 +71,7 @@ modules-right = dropbox-isrunning filesystem memory cpu wlan network xkeyboard d
 
 tray-position = 
 ;tray-padding = 2
-;tray-transparent = true
-;tray-background = #0063ff
+tray-background = #000063ff
 
 ;wm-restack = bspwm
 ;wm-restack = i3
@@ -369,10 +375,17 @@ label = %date% %time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_0b_00.1.hdmi-stereo-extra2
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
+; Interval for volume increase/decrease (in percent points)
+; Default: 5
+interval = 5
 
 format-volume = <ramp-volume> <bar-volume>
-; label-volume =  %percentage%%
-; label-volume-foreground = ${root.foreground}
 
 label-muted = 
 label-muted-foreground = #666
@@ -381,7 +394,6 @@ ramp-volume-1 = 
 ramp-volume-2 = 
 ramp-volume-3 = 
 ramp-volume-4 = 
-
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
