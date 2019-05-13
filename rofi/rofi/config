@@ -7,7 +7,7 @@ rofi.modi:                             window,run,ssh,drun,combi,windowcd,keys
 ! "Number of columns" Set from: Default
 ! rofi.columns:                        1
 ! "Font to use" Set from: Default
-rofi.font:                           Knack Nerd Font 12
+rofi.font:                             FantasqueSansMono Nerd Font Mono 14
 ! "Border width" Set from: Default
 ! rofi.bw:                             1
 ! "Location on screen" Set from: Default
