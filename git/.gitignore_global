@@ -35,6 +35,3 @@ tags
 ### Python ###
 .mypy_cache
 .ropeproject
-
-### Javascript ###
-yarn.lock
