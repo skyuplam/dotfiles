@@ -11,7 +11,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'neoclide/coc-neco'
   Plug 'Shougo/neoinclude.vim'
   Plug 'jsfaint/coc-neoinclude'
-  Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+  Plug 'neoclide/coc.nvim', {'tag': '*'}
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'w0rp/ale'
   " Plug 'wellle/tmux-complete.vim'
