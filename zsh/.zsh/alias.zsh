@@ -16,9 +16,9 @@ if type docker-compose > /dev/null; then
 fi
 
 # Emacs
-if type emacs > /dev/null; then
-  alias emacs='emacs -nw'
-fi
+# if type emacs > /dev/null; then
+#   alias emacs='emacs -nw'
+# fi
 
 
 if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
