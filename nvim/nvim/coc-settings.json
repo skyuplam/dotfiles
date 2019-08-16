@@ -4,6 +4,8 @@
   "suggest.noselect": false,
   "suggest.minTriggerInputLength": 2,
   "suggest.acceptSuggestionOnCommitCharacter": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "prettier.bracketSpacing": true,
   "prettier.singleQuote": true,
   "prettier.jsxSingleQuote": false,
   "prettier.trailingComma": "all",

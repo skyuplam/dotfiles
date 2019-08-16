@@ -47,6 +47,8 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'hail2u/vim-css3-syntax', { 'for': [
         \ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
 
+  " TOML
+  Plug 'cespare/vim-toml'
 
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
