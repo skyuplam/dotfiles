@@ -3,15 +3,15 @@
 
 ;;; Examples:
 ;; (package! some-package)
-;; (package! another-package :recipe (:fetcher github :repo "username/repo"))
+;; (package! another-package :recipe (:host github :repo "username/repo"))
 ;; (package! builtin-package :disable t)
 
 (package! treemacs-icons-dired
   :recipe
-  (:fetcher github :repo "Alexander-Miller/treemacs" :files ("src/extra/treemacs-icons-dired.el")))
+  (:host github :repo "Alexander-Miller/treemacs" :files ("src/extra/treemacs-icons-dired.el")))
 
 (package! treemacs-magit
-  :recipe (:fetcher github :repo "Alexander-Miller/treemacs" :files ("src/extra/treemacs-magit.el")))
+  :recipe (:host github :repo "Alexander-Miller/treemacs" :files ("src/extra/treemacs-magit.el")))
 
 (package! elfeed-goodies)
 
