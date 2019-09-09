@@ -80,12 +80,12 @@
 ;; (doom-themes-org-config)
 
 ;; Enable cursor change in terminal
-(def-package! evil-terminal-cursor-changer
-  :if (not (display-graphic-p))
-  :init (setq evil-visual-state-cursor 'box
-              evil-insert-state-cursor 'bar
-              evil-emacs-state-cursor 'hbar)
-  :config (evil-terminal-cursor-changer-activate))
+;; (def-package! evil-terminal-cursor-changer
+;;   :if (not (display-graphic-p))
+;;   :init (setq evil-visual-state-cursor 'box
+;;               evil-insert-state-cursor 'bar
+;;               evil-emacs-state-cursor 'hbar)
+;;   :config (evil-terminal-cursor-changer-activate))
 
 ;; Keybindings
 
