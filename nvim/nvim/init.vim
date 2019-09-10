@@ -14,6 +14,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'w0rp/ale'
+  Plug 'vim-scripts/vis'
   " Plug 'wellle/tmux-complete.vim'
   Plug 'sheerun/vim-polyglot'
 
