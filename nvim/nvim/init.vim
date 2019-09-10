@@ -11,44 +11,45 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'neoclide/coc-neco'
   Plug 'Shougo/neoinclude.vim'
   Plug 'jsfaint/coc-neoinclude'
-  Plug 'neoclide/coc.nvim', {'tag': '*'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'w0rp/ale'
   " Plug 'wellle/tmux-complete.vim'
+  Plug 'sheerun/vim-polyglot'
 
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
 
   Plug 'godlygeek/tabular'
-  Plug 'plasticboy/vim-markdown'
+  " Plug 'plasticboy/vim-markdown'
 
   " Plug 'christoomey/vim-tmux-navigator'
 
-  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+  " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
   " JS
   " Plug 'pangloss/vim-javascript', { 'for': [
   "       \ 'javascript', 'javascript.jsx'] }
-  Plug 'othree/yajs.vim', { 'for': [
-        \ 'javascript', 'javascript.jsx'] }
-  Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
+  " Plug 'othree/yajs.vim', { 'for': [
+  "       \ 'javascript', 'javascript.jsx'] }
+  " Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
   " Typescript
-  Plug 'HerringtonDarkholme/yats.vim', { 'for': [
-        \ 'typescript', 'typescript.tsx'] }
+  " Plug 'HerringtonDarkholme/yats.vim', { 'for': [
+  "       \ 'typescript', 'typescript.tsx'] }
 
-  Plug 'elzr/vim-json', { 'for': 'json' }
+  " Plug 'elzr/vim-json', { 'for': 'json' }
 
   " CSS
-  Plug 'styled-components/vim-styled-components', {
-        \ 'branch': 'main',
-        \ 'for': [
-        \ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
-  Plug 'hail2u/vim-css3-syntax', { 'for': [
+  " Plug 'styled-components/vim-styled-components', {
+  "       \ 'branch': 'main',
+  "       \ 'for': [
+  "       \ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
+  " Plug 'hail2u/vim-css3-syntax', { 'for': [
         \ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
 
   " TOML
-  Plug 'cespare/vim-toml'
+  " Plug 'cespare/vim-toml'
 
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
@@ -62,7 +63,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'junegunn/seoul256.vim'
 
   " Plug for orgmode and related/suggested plugins
-  Plug 'jceb/vim-orgmode'
+  " Plug 'jceb/vim-orgmode'
   Plug 'vim-scripts/utl.vim'
   " Plug 'vim-scripts/taglist.vim'
   " Plug 'majutsushi/tagbar'
