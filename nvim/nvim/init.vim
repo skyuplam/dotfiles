@@ -21,6 +21,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
+  Plug 'jreybert/vimagit'
 
   Plug 'godlygeek/tabular'
   " Plug 'plasticboy/vim-markdown'
