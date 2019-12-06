@@ -204,8 +204,9 @@ function! s:statusline_expr()
   let pct = ' %P'
   let ale = "%{len(LinterStatus()) ? LinterStatus() : ''}"
   let coc = "%{StatusDiagnostic()}"
+  let cocgit = "%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"
 
-  return ale.coc.'[%n] %f %<'.mod.ro.ft.sep.pos.'%*'.pct
+  return ale.coc.'[%n] %f %<'.mod.ro.ft.cocgit.sep.pos.'%*'.pct
 endfunction
 
 let &statusline = s:statusline_expr()
@@ -220,7 +221,8 @@ let g:coc_global_extensions = [
   \ 'coc-yaml',
   \ 'coc-prettier',
   \ 'coc-rls',
-  \ 'coc-python'
+  \ 'coc-python',
+  \ 'coc-git'
   \]
 
 " coc-prettier:: Enable command :Prettier to format current buffer
