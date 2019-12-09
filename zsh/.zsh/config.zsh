@@ -56,6 +56,8 @@ export ORG_DIR=$DROPBOX_DIR/org
 # Bind history substring search to ctrl-p & ctrl-n
 bindkey "^p" history-substring-search-up
 bindkey "^n" history-substring-search-down
+bindkey "∫" backward-word
+bindkey "ƒ" forward-word
 
 #
 WORDCHARS=''
