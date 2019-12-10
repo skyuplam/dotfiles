@@ -17,6 +17,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'vim-scripts/vis'
   " Plug 'wellle/tmux-complete.vim'
   Plug 'sheerun/vim-polyglot'
+  Plug 'editorconfig/editorconfig-vim'
 
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
