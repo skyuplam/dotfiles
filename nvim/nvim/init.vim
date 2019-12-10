@@ -22,7 +22,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
-  Plug 'jreybert/vimagit'
+  Plug 'tpope/vim-fugitive'
 
   Plug 'godlygeek/tabular'
   " Plug 'plasticboy/vim-markdown'
@@ -316,6 +316,9 @@ let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
 " vim-json
 let g:vim_json_syntax_conceal = 0
 
+" Editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 " vim-markdown
 " Disable folding
 let g:vim_markdown_folding_disabled = 1
@@ -343,8 +346,8 @@ nnoremap <C-p> :Files<CR>
 " Terminal
 nnoremap <leader>t :bo 15sp +term<CR>
 
-" Magit
-nnoremap <silent> <Leader>gs :Magit<CR>
+" Git mapping
+nnoremap <silent> <Leader>gs :G<CR>
 
 " Mappings to move lines
 nnoremap ∆ :m .+1<CR>==
