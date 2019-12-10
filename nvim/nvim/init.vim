@@ -98,7 +98,7 @@ set mouse=a
 set mousehide
 
 " Better display for messages
-" set cmdheight=2
+set cmdheight=2
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
@@ -212,6 +212,10 @@ endfunction
 
 let &statusline = s:statusline_expr()
 
+function! s:refresh()
+  let &statusline = s:statusline_expr()
+endfunction
+
 " coc extensions
 let g:coc_global_extensions = [
   \ 'coc-lists', 'coc-omni', 'coc-tag', 'coc-syntax', 'coc-highlight',
@@ -246,6 +250,9 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile {Dockerfile,*.docker} set filetype=dockerfile
   " Mail
   autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
+
+  autocmd User CocStatusChange,CocGitStatusChange call s:refresh()
+  autocmd User CocDiagnosticChange call s:refresh()
 augroup END
 
 " }}}
