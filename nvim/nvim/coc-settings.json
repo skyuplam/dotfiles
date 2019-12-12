@@ -5,11 +5,6 @@
   "suggest.minTriggerInputLength": 2,
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
-  "prettier.bracketSpacing": true,
-  "prettier.singleQuote": true,
-  "prettier.jsxSingleQuote": false,
-  "prettier.trailingComma": "all",
-  "prettier.arrowParens": "always",
   "languageserver": {
     "rust": {
       "command": "ra_lsp_server",
@@ -17,6 +12,7 @@
       "rootPatterns": ["Cargo.toml"]
     }
   },
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "javascript"],
   "git.addGBlameToVirtualText": true,
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
