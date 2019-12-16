@@ -12,7 +12,6 @@
       "rootPatterns": ["Cargo.toml"]
     }
   },
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "javascript"],
   "git.addGBlameToVirtualText": true,
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
