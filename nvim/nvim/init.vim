@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker foldlevel=0 nomodeline:
+" vim: set foldmethod=marker foldlevel=0 nomodelive:
 
 " ============================================================================
 " VIM-PLUG BLOCK {{{
@@ -15,7 +15,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
   Plug 'w0rp/ale'
   Plug 'vim-scripts/vis'
-  " Plug 'wellle/tmux-complete.vim'
   Plug 'sheerun/vim-polyglot'
   Plug 'editorconfig/editorconfig-vim'
 
@@ -27,7 +26,8 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'godlygeek/tabular'
   " Plug 'plasticboy/vim-markdown'
 
-  " Plug 'christoomey/vim-tmux-navigator'
+  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'wellle/tmux-complete.vim'
 
   " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
