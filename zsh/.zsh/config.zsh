@@ -42,6 +42,9 @@ export MYINITVIM=$XDG_CONFIG_HOME/nvim/init.vim
 export DROPBOX_DIR=~/Dropbox
 export ORG_DIR=$DROPBOX_DIR/org
 
+# Nix
+[ -d $NIX_USER_PROFILE_DIR/profile ] && export PATH=$NIX_USER_PROFILE_DIR/profile/bin:$PATH
+
 # nvm
 # export NVM_DIR=$HOME/.nvm
 
