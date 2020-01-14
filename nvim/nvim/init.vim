@@ -1,4 +1,4 @@
-" vim: set foldmethod=marker foldlevel=0 nomodelive:
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
 
 " ============================================================================
 " VIM-PLUG BLOCK {{{
@@ -56,8 +56,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
+  Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+  Plug 'lotabout/skim.vim'
   Plug 'ryanoasis/vim-devicons'
   Plug 'chrisbra/Colorizer'
 
@@ -298,16 +298,23 @@ hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
 
 
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-" let g:rg_cmd ='rg --column --line-number --no-heading --fixed-strings
-"   \ --ignore-case --color "always" --no-ignore --hidden --follow
-"   \ --glob "!.git/*" '
-" command! -bang -nargs=* Rg
-"   \ call fzf#vim#grep(g:rg_cmd .shellescape(<q-args>), 1,
-"   \ <bang>0 ? fzf#vim#with_preview('up:60%')
-"   \         : fzf#vim#with_preview('right:50%:hidden', '?'),
-"   \ <bang>0)
+"let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let g:fzf_layout = { 'down': '~40%' }
+" Customize fzf colors to match your color scheme
+let g:skim_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " NerdTree
 let NERDTreeIgnore=['\.py[cd]$',
