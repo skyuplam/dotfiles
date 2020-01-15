@@ -7,6 +7,7 @@
         coreutils
         jq
         skim
+        bat
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
     };
