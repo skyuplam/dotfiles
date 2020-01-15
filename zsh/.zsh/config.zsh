@@ -96,12 +96,15 @@ FZF_FG='--color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07'
 FZF_MARKER='--color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07'
 export FZF_DEFAULT_OPTS="$FZF_BG $FZF_FG $FZF_MARKER"
 
+# [bat](https://github.com/sharkdp/bat)
+# colorizing pager for man
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 # }}}
 # ---------------------------------------------------------
 # Sourcing other configs {{{
 # ---------------------------------------------------------
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 [ -f ~/.zsh/local.zsh ] && source ~/.zsh/local.zsh
 
