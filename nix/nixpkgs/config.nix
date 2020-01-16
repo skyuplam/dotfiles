@@ -8,6 +8,8 @@
         jq
         skim
         bat
+        xclip
+        pass
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
     };
