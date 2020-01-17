@@ -100,6 +100,9 @@ export FZF_DEFAULT_OPTS="$FZF_BG $FZF_FG $FZF_MARKER"
 # colorizing pager for man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# skim
+export SKIM_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
 # }}}
 # ---------------------------------------------------------
 # Sourcing other configs {{{
