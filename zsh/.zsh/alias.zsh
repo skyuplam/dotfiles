@@ -36,3 +36,11 @@ if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
   alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
   alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 fi
+
+# skim with preview
+function skk() {
+  if [ -n "$1" ]
+  then
+    sk --ansi -i -c "rg --line-number --column --color \"always\" $1" --preview "$FZF_PREVIEW_SH {}"
+  fi
+}
