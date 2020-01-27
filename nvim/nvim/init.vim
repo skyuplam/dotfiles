@@ -29,6 +29,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'wellle/tmux-complete.vim'
 
+  Plug 'iberianpig/tig-explorer.vim'
+  Plug 'rbgrouleff/bclose.vim'
+
   " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
   " JS
@@ -371,7 +374,7 @@ nnoremap <C-p> :Files<CR>
 nnoremap <leader>t :bo 15sp +term<CR>
 
 " Git mapping
-nnoremap <silent> <Leader>gs :G<CR>
+nnoremap <silent> <Leader>gs :TigStatus<CR>
 
 " Mappings to move lines
 nnoremap ∆ :m .+1<CR>==
