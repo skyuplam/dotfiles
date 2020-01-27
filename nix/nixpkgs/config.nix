@@ -14,6 +14,11 @@
         bat
         xclip
         pass
+        elmPackages.elm
+        elmPackages.elm-format
+        elmPackages.elm-test
+        elmPackages.elm-analyse
+        elmPackages.elm-language-server
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
