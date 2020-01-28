@@ -23,8 +23,8 @@ zmodule fasd
 #
 # Exposes git repository status information to prompts.
 zmodule git-info
-# powerlevel9k prompt
-zmodule bhilburn/powerlevel9k
+# powerlevel10k prompt
+zmodule romkatv/powerlevel10k
 
 # Additional completion definitions for Zsh.
 zmodule zsh-users/zsh-completions
