@@ -1,7 +1,14 @@
 # exa or ls
-if type exa > /dev/null; then
-  alias ll="exa -lgm --group-directories-first -s modified $argv"
-  alias ls="exa $argv"
+# if type exa > /dev/null; then
+#   alias ll="exa -lgm --group-directories-first -s modified $argv"
+#   alias ls="exa $argv"
+# fi
+
+# lsd to ls
+if type lsd > /dev/null; then
+  alias ls="lsd"
+  alias ll="ls -l"
+  alias lt="ls --tree"
 fi
 
 # vim or nvim
