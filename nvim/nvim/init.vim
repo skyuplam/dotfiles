@@ -32,6 +32,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'iberianpig/tig-explorer.vim'
   Plug 'rbgrouleff/bclose.vim'
 
+  " https://github.com/andys8/vim-elm-syntax#note-about-vim-polyglot
+  Plug 'andys8/vim-elm-syntax'
+
   " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
   " JS
@@ -66,13 +69,15 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   Plug 'junegunn/vim-slash'
 
-  Plug 'junegunn/seoul256.vim'
+  " Plug 'junegunn/seoul256.vim'
+  Plug 'morhetz/gruvbox'
 
   " Plug for orgmode and related/suggested plugins
   " Plug 'jceb/vim-orgmode'
   Plug 'vim-scripts/utl.vim'
   " Plug 'vim-scripts/taglist.vim'
-  " Plug 'majutsushi/tagbar'
+  Plug 'majutsushi/tagbar'
+  Plug 'janko/vim-test'
   " Plug 'ludovicchabant/vim-gutentags'
   Plug 'tpope/vim-speeddating'
   Plug 'chrisbra/NrrwRgn'
@@ -284,14 +289,19 @@ augroup END
 " set completeopt=menuone
 
 " vim-javascript
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
+" let g:javascript_plugin_jsdoc = 1
+" let g:javascript_plugin_flow = 1
 " vim-jsx
 " let g:jsx_ext_required = 0
 
 " Seoul256
-let g:seoul256_background = 233
-colo seoul256
+" let g:seoul256_background = 233
+" colo seoul256
+
+" Gruvbox
+set background=dark
+let g:gruvbox_contrast_dark="hard"
+colorscheme gruvbox
 
 " Highlight colorcolumn
 hi ColorColumn ctermbg=Gray guibg=#373737
@@ -338,6 +348,9 @@ let g:ale_echo_msg_error_str = '✖'
 let g:ale_echo_msg_warning_str = '⚠'
 let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
 " let g:ale_completion_enabled = 1
+let g:ale_linters = {
+  \ 'elm': ['elm_ls']
+  \}
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
@@ -352,8 +365,25 @@ let g:vim_markdown_folding_disabled = 1
 " Disable conceal
 let g:vim_markdown_conceal = 0
 
+" vim-polyglot
+let g:polyglot_disabled = ['elm']
+
 " vim-orgmode
 let g:org_agenda_files = ['~/Dropbox/org/home-tasks.org', '~/Dropbox/org/work-tasks.org']
+
+" tagbar
+let g:tagbar_type_elm = {
+      \ 'kinds' : [
+      \ 'f:function:0:0',
+      \ 'm:modules:0:0',
+      \ 'i:imports:1:0',
+      \ 't:types:1:0',
+      \ 'a:type aliases:0:0',
+      \ 'c:type constructors:0:0',
+      \ 'p:ports:0:0',
+      \ 's:functions:0:0',
+      \ ]
+      \}
 
 " }}}
 " ============================================================================
@@ -369,7 +399,7 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
 
 " Tagbar
-" nnoremap <leader>b :Tagbar<CR>
+nnoremap <leader>b :Tagbar<CR>
 " Terminal
 nnoremap <leader>t :bo 15sp +term<CR>
 
@@ -536,6 +566,14 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Scrolling sync
 nnoremap <silent> <F9> :set scb!<CR>
+
+" vim-test
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
 
 " }}}
 " ============================================================================
