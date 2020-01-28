@@ -9,11 +9,23 @@
       paths = [
         aspell
         coreutils
+        gnupg
+        curl
+        git
         jq
         skim
         bat
+        exa
+        tig
+        ripgrep
+        fd
+        tree
+        neovim
+        stow
         xclip
         pass
+        tmux
+        alacritty
         elmPackages.elm
         elmPackages.elm-format
         elmPackages.elm-test
