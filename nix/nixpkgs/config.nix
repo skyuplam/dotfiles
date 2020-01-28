@@ -16,6 +16,7 @@
         skim
         bat
         exa
+        lsd
         tig
         ripgrep
         fd
