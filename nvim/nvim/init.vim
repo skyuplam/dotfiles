@@ -310,6 +310,8 @@ hi ColorColumn ctermbg=Gray guibg=#373737
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
 
+" vim-test
+let test#strategy = "neovim"
 
 "let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let g:fzf_layout = { 'down': '~40%' }
