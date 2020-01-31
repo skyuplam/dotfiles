@@ -20,7 +20,6 @@
       }
     }
   },
-  "codeLens.enable": true,
   "git.addGBlameToVirtualText": true,
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
