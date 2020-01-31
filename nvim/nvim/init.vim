@@ -302,9 +302,13 @@ augroup END
 set background=dark
 let g:gruvbox_contrast_dark="hard"
 colorscheme gruvbox
-
-" Highlight colorcolumn
-hi ColorColumn ctermbg=Gray guibg=#373737
+" Highlight overriding
+" Gruvbox Dark mode palette
+" bg2=#504945
+" bg3=#665c54
+" bg4=#7c6f64
+hi ColorColumn ctermbg=Gray guibg=#504945
+hi NonText ctermfg=12 gui=bold guifg=#7c6f64
 
 " Transparet BG color
 hi! Normal ctermbg=NONE guibg=NONE
