@@ -33,7 +33,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'rbgrouleff/bclose.vim'
 
   " https://github.com/andys8/vim-elm-syntax#note-about-vim-polyglot
-  Plug 'andys8/vim-elm-syntax'
+  Plug 'andys8/vim-elm-syntax', { 'for': 'elm' }
 
   " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
