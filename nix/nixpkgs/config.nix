@@ -32,6 +32,8 @@
         elmPackages.elm-test
         elmPackages.elm-analyse
         elmPackages.elm-language-server
+        nodejs-13_x
+        yarn
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
