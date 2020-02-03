@@ -34,6 +34,7 @@
         elmPackages.elm-language-server
         nodejs-13_x
         yarn
+        emacs
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
