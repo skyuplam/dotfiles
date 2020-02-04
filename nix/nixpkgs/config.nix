@@ -35,6 +35,7 @@
         nodejs-13_x
         yarn
         emacs
+        htop
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
