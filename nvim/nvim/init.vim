@@ -263,6 +263,7 @@ augroup vimrcEx
 
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile *.md set filetype=markdown
+  autocmd BufRead,BufNewFile *.json set filetype=json5
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
   autocmd BufRead,BufNewFile {Dockerfile,*.docker} set filetype=dockerfile
   " Mail
