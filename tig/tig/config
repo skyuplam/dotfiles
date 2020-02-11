@@ -5,16 +5,26 @@
 # Add keybinding to quickly jump to the next diff chunk in the stage view
 bind stage <Enter> :/^@@
 
-# User-defined external command to amend the last commit
-bind status + !git commit --amend
 
 # User-defined internal command that reloads tigrc
 bind generic S :source ~/.config/tig/config
 
-# bind generic D !git difftool --trust-exit-code %(commit)^!
-
-bind status D !git difftool --trust-exit-code %(commit) %(file)
-
 bind generic R !git rebase -i %(commit)
 
+# Enter Git’s interactive add for fine-grained staging of file content
+bind generic I !git add -i %(file)
+
+# Copy the commit ID to clipboard
+bind generic 9 !@sh -c "echo -n %(commit) | xclip -selection c"
+
+# Add patch from selected file
 bind status p ?git add --patch %(file)
+
+# User-defined external command to amend the last commit
+bind status + !git commit --amend
+
+# Pick up back the commit editing message
+# https://github.com/jorisroovers/gitlint/issues/90#issuecomment-511432519
+bind status - !git commit --edit --file $(git rev-parse --git-path COMMIT_EDITMSG)
+
+bind status D !git difftool --trust-exit-code %(commit) %(file)
