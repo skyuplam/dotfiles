@@ -271,6 +271,9 @@ augroup vimrcEx
 
   autocmd User CocStatusChange,CocGitStatusChange call s:refresh()
   autocmd User CocDiagnosticChange call s:refresh()
+
+  autocmd InsertLeave,WinEnter * set cursorline
+  autocmd InsertEnter,WinLeave * set nocursorline
 augroup END
 
 " }}}
@@ -581,6 +584,10 @@ nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+
+" Saner command-line history
+cnoremap <c-n>  <down>
+cnoremap <c-p>  <up>
 
 " }}}
 " ============================================================================
