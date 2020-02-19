@@ -21,21 +21,18 @@
         ripgrep
         fd
         tree
-        neovim
+        python3Packages.pynvim
         stow
         xclip
         pass
         tmux
         alacritty
-        elmPackages.elm
-        elmPackages.elm-format
-        elmPackages.elm-test
-        elmPackages.elm-analyse
-        elmPackages.elm-language-server
         nodejs-13_x
         yarn
         emacs
         htop
+        bandwhich
+        broot
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
