@@ -235,7 +235,8 @@ let g:coc_global_extensions = [
   \ 'coc-prettier',
   \ 'coc-rls',
   \ 'coc-python',
-  \ 'coc-git'
+  \ 'coc-git',
+  \ 'coc-yank', 'coc-markdownlint', 'coc-spell-checker'
   \]
 
 " coc-prettier:: Enable command :Prettier to format current buffer
@@ -322,6 +323,7 @@ hi! NonText ctermbg=NONE guibg=NONE
 let test#strategy = "neovim"
 
 "let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+let $SKIM_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let g:fzf_layout = { 'down': '~40%' }
 " Customize fzf colors to match your color scheme
 let g:skim_colors =
@@ -490,6 +492,13 @@ nmap <silent> gr <Plug>(coc-references)
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" Remap for do codeAction of selected region
+vmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)
+
+" Map coc-yank to open yank list
+nnoremap <leader> y :<c-u>CocList -A --normal yank<CR>
 
 augroup mygroup
   autocmd!
