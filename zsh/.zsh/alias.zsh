@@ -27,6 +27,11 @@ fi
 #   alias emacs='emacs -nw'
 # fi
 
+if type tmux > /dev/null; then
+  # Create a new tmux session with splitted windows accordingly
+  alias tm="tmux new-session \; split-window -v -p 30 \; split-window -h \; attach"
+fi
+
 
 if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
   function man-preview() {
