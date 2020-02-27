@@ -28,8 +28,9 @@ fi
 # fi
 
 if type tmux > /dev/null; then
-  # Create a new tmux session with splitted windows accordingly
-  alias tm="tmux new-session \; split-window -v -p 30 \; split-window -h \; select-pane -U \; attach"
+  # Create a new tmux session with main-vertical layout with session named as
+  # the current dir name
+  alias tm="tmux new-session -s $(basename \"`pwd`\") \; split-window -v -p 30 \; split-window -h \; select-pane -U \; attach"
 fi
 
 
