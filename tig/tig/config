@@ -25,6 +25,6 @@ bind status + !git commit --amend
 
 # Pick up back the commit editing message
 # https://github.com/jorisroovers/gitlint/issues/90#issuecomment-511432519
-bind status - !git commit --edit --file $(git rev-parse --git-path COMMIT_EDITMSG)
+bind status - !git commit --edit --file .git/COMMIT_EDITMSG
 
 bind status D !git difftool --trust-exit-code %(commit) %(file)
