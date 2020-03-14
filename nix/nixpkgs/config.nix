@@ -33,6 +33,7 @@
         htop
         bandwhich
         broot
+        gawk
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
