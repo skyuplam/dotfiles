@@ -45,11 +45,8 @@ export ORG_DIR=$DROPBOX_DIR/org
 # Nix
 [ -d $NIX_USER_PROFILE_DIR/profile ] && export PATH=$NIX_USER_PROFILE_DIR/profile/bin:$PATH
 
-# nvm
-# export NVM_DIR=$HOME/.nvm
-
-# Joplin
-# [ -f $HOME/.joplin-bin/bin/joplin ] && export PATH=$HOME/.joplin-bin/bin:$PATH
+# Git
+export REVIEW_BASE=master
 
 # }}}
 # ---------------------------------------------------------
