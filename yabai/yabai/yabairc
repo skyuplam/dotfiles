@@ -46,8 +46,8 @@ yabai -m config --space 7 layout             float
 # yabai -m rule --add app=Mail space=2
 # yabai -m rule --add app=Safari space=3
 # yabai -m rule --add app=Notes space=4
-yabai -m rule --add app=Transmission space=5
-yabai -m rule --add app=Slack space=2
+# yabai -m rule --add app=Transmission space=5
+# yabai -m rule --add app=Slack space=2
 # yabai -m rule --add app=Spotify space=6
 # yabai -m rule --add app=Discord space=7 grid=6:6:1:1:3:3
 # yabai -m rule --add app=Steam space=7

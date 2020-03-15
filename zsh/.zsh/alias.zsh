@@ -39,8 +39,8 @@ fi
 
 
 if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
-  man -t "$@" | open -f -a Preview
   function man-preview() {
+    man -t "$@" | open -f -a Preview
   }
 
   function quick-look() {
