@@ -22,11 +22,6 @@ if type docker-compose > /dev/null; then
   alias dc='docker-compose'
 fi
 
-# Emacs
-# if type emacs > /dev/null; then
-#   alias emacs='emacs -nw'
-# fi
-
 if type tmux > /dev/null; then
   # Create a new tmux session with main-vertical layout with session named as
   # the current dir name
@@ -36,10 +31,16 @@ if type tmux > /dev/null; then
   alias tm="tmux-layout"
 fi
 
+if type yabai > /dev/null; then
+  # Quickly restart yabai launch agent
+  # https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks#quickly-restart-the-yabai-launch-agent
+  alias ry="launchctl kickstart -k \"gui/${UID}/homebrew.mxcl.yabai\""
+fi
+
 
 if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
+  man -t "$@" | open -f -a Preview
   function man-preview() {
-    man -t "$@" | open -f -a Preview
   }
 
   function quick-look() {
