@@ -177,6 +177,7 @@
 default                                 < ctrl - space      ; focus
 focus, grid, swap, warp, warpnf, resize < ctrl - space      ; default
 focus, grid, swap, warp, warpnf, resize < escape            ; default
+focus, grid, swap, warp, warpnf, resize < ctrl - 0x21       ; default  # ctrl - [ same as escape
 
 # Global hotkeys
 default                                 < cmd - return      : open -na alacritty   # Launch Alacritty
