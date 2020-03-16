@@ -158,8 +158,8 @@
 #                               t    Toggle float
 #                               b    Toggle border
 #                               a    Toggle sticky
-#                               h    Mirror horizontal
-#                               v    Mirror vertical
+#                               x    Mirror horizontal
+#                               y    Mirror vertical
 #                           space    Rotate desktop 90
 #                   shift - space    Rotate desktop 270
 
@@ -196,8 +196,8 @@ focus, grid, swap, warp, warpnf, resize < shift - w         ; warpnf
 # The following keybindngs are available in all modes.
 focus, grid, swap, warp, warpnf, resize < space             : yabai -m space --rotate 90
 focus, grid, swap, warp, warpnf, resize < shift - space     : yabai -m space --rotate 270
-focus, grid, swap, warp, warpnf, resize < v                 : yabai -m space --mirror y-axis
-focus, grid, swap, warp, warpnf, resize < h                 : yabai -m space --mirror x-axis
+focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --mirror y-axis
+focus, grid, swap, warp, warpnf, resize < x                 : yabai -m space --mirror x-axis
 focus, grid, swap, warp, warpnf, resize < o                 : yabai -m space --toggle padding;\
                                                               yabai -m space --toggle gap  # Toggle Offset
 focus, grid, swap, warp, warpnf, resize < ctrl - 0x18       : yabai -m space --balance  # Balance space: =
