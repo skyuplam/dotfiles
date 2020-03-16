@@ -24,7 +24,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
 
 typeset -U path
-path=(~/.local/bin /usr/local/opt/make/libexec/gnubin /usr/local/sbin /usr/local/bin $path[@])
+path=(/usr/local/opt/make/libexec/gnubin /usr/local/sbin /usr/local/bin $path[@])
 
 # Rust
 export RUSTUP_HOME=~/.multirust
@@ -44,6 +44,9 @@ export ORG_DIR=$DROPBOX_DIR/org
 
 # Nix
 [ -d $NIX_USER_PROFILE_DIR/profile ] && export PATH=$NIX_USER_PROFILE_DIR/profile/bin:$PATH
+
+# Local bin
+export PATH=~/.local/bin:$PATH
 
 # Git
 export REVIEW_BASE=master

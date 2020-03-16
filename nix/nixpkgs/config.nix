@@ -26,7 +26,6 @@
         xclip
         pass
         tmux
-        alacritty
         nodejs-13_x
         yarn
         emacs
