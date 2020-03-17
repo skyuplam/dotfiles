@@ -4,20 +4,11 @@
   "suggest.noselect": false,
   "suggest.minTriggerInputLength": 2,
   "suggest.acceptSuggestionOnCommitCharacter": true,
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "languageserver": {
     "rust": {
       "command": "ra_lsp_server",
       "filetypes": ["rust"],
       "rootPatterns": ["Cargo.toml"]
-    },
-    "elmLS": {
-      "command": "elm-language-server",
-      "filetypes": ["elm"],
-      "rootPatterns": ["elm.json"],
-      "initializationOptions": {
-        "elmAnalyseTrigger": "change"
-      }
     }
   },
   "git.addGBlameToVirtualText": true,
@@ -27,10 +18,15 @@
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
   "cSpell.userWords": [
+    "Lifecycle",
     "PREFS",
+    "Unmount",
     "audioinput",
     "audiooutput",
+    "pwexip",
     "sandboxed",
+    "tsdoc",
+    "uncheck",
     "videoinput"
   ]
 }
