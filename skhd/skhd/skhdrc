@@ -131,9 +131,10 @@
 # The following is a high-level summary of the keybindngs:
 #
 # GLOBAL KEYBINDINGS:
-#                    ctrl - space    Enter FOCUS mode
-#                   ctrl - return    Open an iTerm
-#                    cmd - return    Open a floating iTerm
+#                    ctrl - space    Enter/Exit FOCUS mode
+#                        ctrl - [    Exit any mode
+#                   ctrl - escape    Exit any mode
+#                   ctrl - return    Open an Alacritty
 #
 #
 # KEYBINDINGS AVAILABLE IN ALL MODES:
@@ -146,7 +147,8 @@
 #                       shift - w    Enter WARP NO FOLLOW mode
 #
 #                               q    Close window
-#                        ctrl - =    Balance window sizes
+#                        ctrl - =    Balance window sizes: [ | ]
+#                        ctrl - -    Main-and-side windows layout: [  | ]
 #                        ctrl - x    Delete focused space
 #                        ctrl - c    Create a new space on active display
 #                        ctrl - f    Change space layout to float
@@ -211,7 +213,10 @@ focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --m
 focus, grid, swap, warp, warpnf, resize < x                 : yabai -m space --mirror x-axis
 focus, grid, swap, warp, warpnf, resize < o                 : yabai -m space --toggle padding;\
                                                               yabai -m space --toggle gap  # Toggle Offset
-focus, grid, swap, warp, warpnf, resize < ctrl - 0x18       : yabai -m space --balance  # Balance space: =
+focus, grid, swap, warp, warpnf, resize < ctrl - 0x18       : yabai -m space --balance  # Balance space: ctrl - =
+focus, grid, swap, warp, warpnf, resize < ctrl - 0x1B       : yabai -m space --balance;\
+                                                              yabai -m window --focus first;\
+                                                              yabai -m window --resize right:200:0 # Main-side layout: ctrl - -
 focus, grid, swap, warp, warpnf, resize < ctrl - c          : yabai -m space --create
 focus, grid, swap, warp, warpnf, resize < ctrl - x          : yabai -m space --destroy
 focus, grid, swap, warp, warpnf, resize < ctrl - f          : yabai -m space --layout float
