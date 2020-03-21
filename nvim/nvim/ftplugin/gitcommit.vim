@@ -10,3 +10,4 @@ setlocal textwidth=72
 
 " Autocompolete with dictoinary words when spell check is on
 setlocal complete+=kspell
+setlocal wrap
