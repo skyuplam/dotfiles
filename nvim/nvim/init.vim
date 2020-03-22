@@ -32,33 +32,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'iberianpig/tig-explorer.vim'
   Plug 'rbgrouleff/bclose.vim'
 
-  " https://github.com/andys8/vim-elm-syntax#note-about-vim-polyglot
-  Plug 'andys8/vim-elm-syntax', { 'for': 'elm' }
-
-  " Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-
-  " JS
-  " Plug 'pangloss/vim-javascript', { 'for': [
-  "       \ 'javascript', 'javascript.jsx'] }
-  " Plug 'othree/yajs.vim', { 'for': [
-  "       \ 'javascript', 'javascript.jsx'] }
-  " Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx'] }
-  " Typescript
-  " Plug 'HerringtonDarkholme/yats.vim', { 'for': [
-  "       \ 'typescript', 'typescript.tsx'] }
-
-  " Plug 'elzr/vim-json', { 'for': 'json' }
-
-  " CSS
-  " Plug 'styled-components/vim-styled-components', {
-  "       \ 'branch': 'main',
-  "       \ 'for': [
-  "       \ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
-  " Plug 'hail2u/vim-css3-syntax', { 'for': [
-        \ 'javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'] }
-
-  " TOML
-  " Plug 'cespare/vim-toml'
+  " A vim script to provide CamelCase motion through words (fork of inkarkat's
+  " camelcasemotion script)
+  Plug 'bkad/CamelCaseMotion'
 
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
@@ -69,11 +45,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
   Plug 'junegunn/vim-slash'
 
-  " Plug 'junegunn/seoul256.vim'
   Plug 'morhetz/gruvbox'
 
-  " Plug for orgmode and related/suggested plugins
-  " Plug 'jceb/vim-orgmode'
   Plug 'vim-scripts/utl.vim'
   " Plug 'vim-scripts/taglist.vim'
   Plug 'majutsushi/tagbar'
@@ -176,46 +149,56 @@ set laststatus=2  " appear all the time
 set complete+=i,t
 
 " ALE statusline
-function! LinterStatus() abort
+" function! LinterStatus() abort
+"   let l:counts = ale#statusline#Count(bufnr(''))
+"
+"   let l:all_errors = l:counts.error + l:counts.style_error
+"   let l:all_non_errors = l:counts.total - l:all_errors
+"
+"   return l:counts.total == 0 ? '' : printf(
+"   \   '[%d⚠ %d✖]',
+"   \   all_non_errors,
+"   \   all_errors
+"   \)
+" endfunction
+
+" coc & ale statusline
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
   let l:counts = ale#statusline#Count(bufnr(''))
+
+  if empty(info) && l:counts.total == 0 | return '' | endif
 
   let l:all_errors = l:counts.error + l:counts.style_error
   let l:all_non_errors = l:counts.total - l:all_errors
 
-  return l:counts.total == 0 ? '' : printf(
-  \   '[%d⚠ %d✖]',
-  \   all_non_errors,
-  \   all_errors
-  \)
-endfunction
+  let msgs = []
+  let errors = get(info, 'error', 0) + l:all_errors
+  let warnings = get(info, 'warning', 0) + l:all_non_errors
 
-" coc statusline
-" function! StatusDiagnostic() abort
-"   let info = get(b:, 'coc_diagnostic_info', {})
-"   if empty(info) | return '' | endif
-"   let msgs = []
-"   if get(info, 'error', 0)
-"     call add(msgs, 'E' . info['error'])
-"   endif
-"   if get(info, 'warning', 0)
-"     call add(msgs, 'W' . info['warning'])
-"   endif
-"   return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
-" endfunction
+  if errors
+    call add(msgs, errors . '✖')
+  endif
+  if warnings
+    call add(msgs, warnings . '⚠')
+  endif
+  let msgFmt = empty(msgs) ? '' : '[' . join(msgs, ' '). '] '
+  return msgFmt . get(g:, 'coc_status', '')
+endfunction
 
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro  = "%{&readonly ? '[RO] ' : ''}"
   let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
-"  let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+  " let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
   let sep = ' %= '
   let pos = ' %-12(%l : %c%V%) '
   let pct = ' %P'
-  let ale = "%{len(LinterStatus()) ? LinterStatus() : ''}"
-  let coc = "%{coc#status()}%{get(b:,'coc_current_function','')}"
-  let cocgit = "%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"
+  " let ale = "%{len(LinterStatus()) ? LinterStatus() : ''}"
+  let coc = "%{StatusDiagnostic()}"
+  let coc_git = "%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"
 
-  return ale.coc.'[%n] %f %<'.mod.ro.ft.cocgit.sep.pos.'%*'.pct
+  return coc.'[%n] %f %<'.mod.ro.ft.coc_git.sep.pos.'%*'.pct
 endfunction
 
 let &statusline = s:statusline_expr()
@@ -281,27 +264,6 @@ augroup END
 " PLUGIN SETTINGS {{{
 " ============================================================================
 
-" Deoplete
-" let g:deoplete#enable_at_startup = 1
-" deoplete-options
-" call deoplete#custom#option({
-" \ 'auto_complete_delay': 200,
-" \ 'smart_case': v:true,
-" \ })
-" No trigger needed
-" let g:tmuxcomplete#trigger = ''
-" set completeopt=menuone
-
-" vim-javascript
-" let g:javascript_plugin_jsdoc = 1
-" let g:javascript_plugin_flow = 1
-" vim-jsx
-" let g:jsx_ext_required = 0
-
-" Seoul256
-" let g:seoul256_background = 233
-" colo seoul256
-
 " Gruvbox
 set background=dark
 let g:gruvbox_contrast_dark="hard"
@@ -358,10 +320,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_error_str = '✖'
 let g:ale_echo_msg_warning_str = '⚠'
 let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
-" let g:ale_completion_enabled = 1
-let g:ale_linters = {
-  \ 'elm': ['elm_ls']
-  \}
+let g:ale_completion_enabled = 1
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
@@ -376,25 +335,8 @@ let g:vim_markdown_folding_disabled = 1
 " Disable conceal
 let g:vim_markdown_conceal = 0
 
-" vim-polyglot
-let g:polyglot_disabled = ['elm']
-
 " vim-orgmode
 let g:org_agenda_files = ['~/Dropbox/org/home-tasks.org', '~/Dropbox/org/work-tasks.org']
-
-" tagbar
-let g:tagbar_type_elm = {
-      \ 'kinds' : [
-      \ 'f:function:0:0',
-      \ 'm:modules:0:0',
-      \ 'i:imports:1:0',
-      \ 't:types:1:0',
-      \ 'a:type aliases:0:0',
-      \ 'c:type constructors:0:0',
-      \ 'p:ports:0:0',
-      \ 's:functions:0:0',
-      \ ]
-      \}
 
 " }}}
 " ============================================================================
@@ -416,6 +358,28 @@ nnoremap <leader>t :bo 15sp +term<CR>
 
 " Git mapping
 nnoremap <silent> <Leader>gs :TigStatus<CR>
+
+" CamelCaseMotion
+let g:camelcasemotion_key = '<leader>'
+
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+map <silent> ge <Plug>CamelCaseMotion_ge
+sunmap w
+sunmap b
+sunmap e
+sunmap ge
+
+omap <silent> iw <Plug>CamelCaseMotion_iw
+xmap <silent> iw <Plug>CamelCaseMotion_iw
+omap <silent> ib <Plug>CamelCaseMotion_ib
+xmap <silent> ib <Plug>CamelCaseMotion_ib
+omap <silent> ie <Plug>CamelCaseMotion_ie
+xmap <silent> ie <Plug>CamelCaseMotion_ie
+
+imap <silent> <S-Left> <C-o><Plug>CamelCaseMotion_b
+imap <silent> <S-Right> <C-o><Plug>CamelCaseMotion_w
 
 " Mappings to move lines
 nnoremap ∆ :m .+1<CR>==
