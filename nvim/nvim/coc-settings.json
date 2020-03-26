@@ -18,6 +18,7 @@
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
   "cSpell.userWords": [
+    "DATETIME",
     "Lifecycle",
     "PREFS",
     "Unmount",
@@ -25,6 +26,7 @@
     "audiooutput",
     "pwexip",
     "sandboxed",
+    "timeslot",
     "tsdoc",
     "uncheck",
     "videoinput"
