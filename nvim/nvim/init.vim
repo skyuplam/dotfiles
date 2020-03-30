@@ -13,7 +13,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'jsfaint/coc-neoinclude'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-  Plug 'w0rp/ale'
+  Plug 'dense-analysis/ale'
   Plug 'vim-scripts/vis'
   Plug 'sheerun/vim-polyglot'
   Plug 'editorconfig/editorconfig-vim'
@@ -267,6 +267,11 @@ augroup END
 " Gruvbox
 set background=dark
 let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_bold=1
+let g:gruvbox_italic=1
+let g:gruvbox_italicize_comments=1
+let g:gruvbox_italicize_strings=1
+let g:gruvbox_improved_warnings=1
 colorscheme gruvbox
 " Highlight overriding
 " Gruvbox Dark mode palette
@@ -275,6 +280,7 @@ colorscheme gruvbox
 " bg4=#7c6f64
 hi ColorColumn ctermbg=Gray guibg=#504945
 hi NonText ctermfg=12 gui=bold guifg=#7c6f64
+" hi Comment cterm=italic
 
 " Transparet BG color
 hi! Normal ctermbg=NONE guibg=NONE
