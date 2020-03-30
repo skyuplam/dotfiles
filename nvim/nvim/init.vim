@@ -24,7 +24,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'tpope/vim-fugitive'
 
   Plug 'godlygeek/tabular'
-  " Plug 'plasticboy/vim-markdown'
 
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'wellle/tmux-complete.vim'
@@ -217,13 +216,12 @@ let g:coc_global_extensions = [
   \ 'coc-yaml',
   \ 'coc-prettier',
   \ 'coc-rls',
-  \ 'coc-python',
   \ 'coc-git',
-  \ 'coc-markdownlint', 'coc-spell-checker'
+  \ 'coc-markdownlint',
   \]
 
 " coc-prettier:: Enable command :Prettier to format current buffer
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -271,7 +269,6 @@ let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 let g:gruvbox_italicize_comments=1
 let g:gruvbox_italicize_strings=1
-let g:gruvbox_improved_warnings=1
 colorscheme gruvbox
 " Highlight overriding
 " Gruvbox Dark mode palette
@@ -327,21 +324,9 @@ let g:ale_echo_msg_error_str = '✖'
 let g:ale_echo_msg_warning_str = '⚠'
 let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
 
-" vim-json
-let g:vim_json_syntax_conceal = 0
-
 " Editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:EditorConfig_disable_rules = ['indent_size', 'tab_width']
-
-" vim-markdown
-" Disable folding
-let g:vim_markdown_folding_disabled = 1
-" Disable conceal
-let g:vim_markdown_conceal = 0
-
-" vim-orgmode
-let g:org_agenda_files = ['~/Dropbox/org/home-tasks.org', '~/Dropbox/org/work-tasks.org']
 
 " }}}
 " ============================================================================
@@ -494,18 +479,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" " Use <Tab> and <S-Tab> for navigate completion list:
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Use <c-space> to trigger completion.
-" inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> to confirm complete
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Note: \<C-g>u is used to break undo level.
@@ -522,15 +495,6 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
-" show chunk diff at current position
-" nmap gs <Plug>(coc-git-chunkinfo)
-" show commit contains current position
-" nmap gc <Plug>(coc-git-commit)
-" create text object for git chunks
-" omap ig <Plug>(coc-git-chunk-inner)
-" xmap ig <Plug>(coc-git-chunk-inner)
-" omap ag <Plug>(coc-git-chunk-outer)
-" xmap ag <Plug>(coc-git-chunk-outer)
 
 " Using CocList
 " Show all diagnostics
