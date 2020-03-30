@@ -208,7 +208,8 @@ endfunction
 
 " coc extensions
 let g:coc_global_extensions = [
-  \ 'coc-lists', 'coc-omni', 'coc-tag', 'coc-syntax', 'coc-highlight',
+  \ 'coc-dictionary', 'coc-word',
+  \ 'coc-lists', 'coc-tag', 'coc-syntax', 'coc-highlight',
   \ 'coc-tsserver', 'coc-jest', 'coc-eslint',
   \ 'coc-svg', 'coc-html',
   \ 'coc-css', 'coc-stylelint',
@@ -243,6 +244,8 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
+  " Correct comment highlight for JSON filetype
+  autocmd FileType json syntax match Comment +\/\/.\+$+
   " Set syntax highlighting for specific file types
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json

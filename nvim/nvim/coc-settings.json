@@ -1,9 +1,9 @@
 {
   "suggest.triggerAfterInsertEnter": true,
   "suggest.timeout": 500,
-  "suggest.noselect": false,
   "suggest.minTriggerInputLength": 2,
   "suggest.acceptSuggestionOnCommitCharacter": true,
+  "suggest.snippetIndicator": "►",
   "languageserver": {
     "rust": {
       "command": "ra_lsp_server",
@@ -16,20 +16,5 @@
   "git.changedSign.hlGroup": "GitGutterChange",
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
-  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "cSpell.userWords": [
-    "DATETIME",
-    "Lifecycle",
-    "PREFS",
-    "Unmount",
-    "audioinput",
-    "audiooutput",
-    "pwexip",
-    "sandboxed",
-    "timeslot",
-    "timeslots",
-    "tsdoc",
-    "uncheck",
-    "videoinput"
-  ]
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete"
 }
