@@ -208,17 +208,17 @@ endfunction
 
 " coc extensions
 let g:coc_global_extensions = [
-  \ 'coc-dictionary', 'coc-word',
+  \ 'coc-dictionary', 'coc-word', 'coc-actions',
   \ 'coc-lists', 'coc-tag', 'coc-syntax', 'coc-highlight',
   \ 'coc-tsserver', 'coc-jest', 'coc-eslint',
   \ 'coc-svg', 'coc-html',
-  \ 'coc-css', 'coc-stylelint',
+  \ 'coc-css', 'coc-stylelint', 'coc-cssmodules',
   \ 'coc-json',
   \ 'coc-yaml',
   \ 'coc-prettier',
   \ 'coc-rls',
   \ 'coc-git',
-  \ 'coc-markdownlint',
+  \ 'coc-markdownlint', 'coc-spell-checker',
   \]
 
 " coc-prettier:: Enable command :Prettier to format current buffer
@@ -226,10 +226,8 @@ let g:coc_global_extensions = [
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
-
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
@@ -271,7 +269,6 @@ let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 let g:gruvbox_italicize_comments=1
-let g:gruvbox_italicize_strings=1
 colorscheme gruvbox
 " Highlight overriding
 " Gruvbox Dark mode palette
@@ -288,6 +285,7 @@ hi! NonText ctermbg=NONE guibg=NONE
 
 " vim-test
 let test#strategy = "neovim"
+let test#neovim#term_position = "vert"
 
 "let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let $SKIM_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
@@ -347,7 +345,7 @@ nnoremap <C-p> :Files<CR>
 " Tagbar
 nnoremap <leader>b :Tagbar<CR>
 " Terminal
-nnoremap <leader>t :bo 15sp +term<CR>
+nnoremap <leader>nt :bo 15sp +term<CR>
 
 " Git mapping
 nnoremap <silent> <Leader>gs :TigStatus<CR>
@@ -476,19 +474,38 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 " use <tab> for trigger completion and navigate to next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <cr> to confirm complete
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use <c-space> to trigger completion.
+" inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
 " Note: \<C-g>u is used to break undo level.
 " To make <cr> select the first completion item and confirm completion when no item have selected:
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 " Close preview window when completion is done.
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -522,15 +539,15 @@ nnoremap <silent> <F9> :set scb!<CR>
 
 " vim-test
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
 " Saner command-line history
-cnoremap <c-n>  <down>
-cnoremap <c-p>  <up>
+cnoremap <c-n> <down>
+cnoremap <c-p> <up>
 
 " }}}
 " ============================================================================
