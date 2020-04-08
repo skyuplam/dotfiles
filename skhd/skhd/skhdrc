@@ -150,7 +150,8 @@
 #                        ctrl - =    Balance window sizes: [ | ]
 #                        ctrl - -    Main-and-side windows layout: [  | ]
 #                        ctrl - x    Delete focused space
-#                        ctrl - c    Create a new space on active display
+#                        ctrl - c    Create a new space on active display, and change focus to the space
+#                shift + ctrl - c    Create a new space, move the active window and follow
 #                        ctrl - f    Change space layout to float
 #                        ctrl - t    Change space layout to bsp
 #                               m    Toggle fullscreen
@@ -221,7 +222,15 @@ focus, grid, swap, warp, warpnf, resize < ctrl - 0x18       : yabai -m space --b
 focus, grid, swap, warp, warpnf, resize < ctrl - 0x1B       : yabai -m space --balance;\
                                                               yabai -m window --focus first;\
                                                               yabai -m window --resize right:200:0 # Main-side layout: ctrl - -
-focus, grid, swap, warp, warpnf, resize < ctrl - c          : yabai -m space --create
+# # create desktop and follow focus
+focus, grid, swap, warp, warpnf, resize < ctrl - c          : yabai -m space --create\
+                                                              id=$(yabai -m query --displays --display | grep "spaces");\
+                                                              yabai -m space --focus $(echo ${id:10:${#id}-10})
+# create desktop, move window and follow focus
+focus, grid, swap, warp, warpnf, resize < shift + ctrl - c  : yabai -m space --create;\
+                                                              id=$(yabai -m query --displays --display | grep "spaces");\
+                                                              yabai -m window --space $(echo ${id:10:${#id}-10});\
+                                                              yabai -m space --focus $(echo ${id:10:${#id}-10})
 focus, grid, swap, warp, warpnf, resize < ctrl - x          : yabai -m space --destroy
 focus, grid, swap, warp, warpnf, resize < ctrl - f          : yabai -m space --layout float
 focus, grid, swap, warp, warpnf, resize < ctrl - t          : yabai -m space --layout bsp
@@ -354,17 +363,7 @@ resize < shift - l : yabai -m window --resize right:-20:0
 # 
 # # make floating window fill right-half of screen
 # shift + alt - right  : yabai -m window --grid 1:2:1:0:1:1
-# 
-# # create desktop, move window and follow focus
-# shift + cmd - n : yabai -m space --create;\
-#                   id=$(yabai -m query --displays --display | grep "spaces");\
-#                   yabai -m window --space $(echo ${id:10:${#id}-10});\
-#                   yabai -m space --focus $(echo ${id:10:${#id}-10})
-# 
-# # create desktop and follow focus
-# cmd + alt - n : yabai -m space --create;\
-#                 id=$(yabai -m query --displays --display | grep "spaces");\
-#                 yabai -m space --focus $(echo ${id:10:${#id}-10})
+#
 # # move window
 # shift + ctrl - a : yabai -m window --move rel:-20:0
 # shift + ctrl - s : yabai -m window --move rel:0:20
