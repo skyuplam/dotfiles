@@ -171,20 +171,20 @@
 :: focus  @  : yabai -m config window_border on;\
                yabai -m config active_window_border_color 0xff448AFF;\
                yabai -m config normal_window_border_color 0xff82B1FF;\
-               yabai -m config insert_window_border_color 0xff42A5F5;
+               yabai -m config insert_feedback_color      0xff42A5F5;
 :: grid   @  # Floating window layout
 :: swap   @  : yabai -m config active_window_border_color 0xff40C4FF;\
                yabai -m config normal_window_border_color 0xff80D8FF;\
-               yabai -m config insert_window_border_color 0xff29B6F6;
+               yabai -m config insert_feedback_color      0xff29B6F6;
 :: warp   @  : yabai -m config active_window_border_color 0xff3D5AFE;\
                yabai -m config normal_window_border_color 0xff8C9EFF;\
-               yabai -m config insert_window_border_color 0xff5C6BC0;
+               yabai -m config insert_feedback_color      0xff5C6BC0;
 :: warpnf @  : yabai -m config active_window_border_color 0xff7E57C2;\
                yabai -m config normal_window_border_color 0xffB388FF;\
-               yabai -m config insert_window_border_color 0xff7E57C2;
+               yabai -m config insert_feedback_color      0xff7E57C2;
 :: resize @  : yabai -m config active_window_border_color 0xff00E676;\
                yabai -m config normal_window_border_color 0xffB9F6CA;\
-               yabai -m config insert_window_border_color 0xff66BB6A;
+               yabai -m config insert_feedback_color      0xff66BB6A;
 
 # CTRL-SPACE is the global hotkey to toggle in/out of modal mode. Entry is
 # always to FOCUS mode. Getting out of any mode can also be done with ESCAPE.
