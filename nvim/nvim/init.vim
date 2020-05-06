@@ -343,7 +343,7 @@ nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
 
 " Tagbar
-nnoremap <leader>b :Tagbar<CR>
+nnoremap <leader>b :TagbarToggle<CR>
 " Terminal
 nnoremap <leader>nt :bo 15sp +term<CR>
 
@@ -539,11 +539,11 @@ nnoremap <silent> <F9> :set scb!<CR>
 
 " vim-test
 " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
+nmap <silent> <leader>tt :TestNearest<CR>
+nmap <silent> <leader>tT :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
 
 " Saner command-line history
 cnoremap <c-n> <down>
