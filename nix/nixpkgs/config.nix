@@ -34,6 +34,7 @@
         broot
         gawk
         nnn
+        go
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
