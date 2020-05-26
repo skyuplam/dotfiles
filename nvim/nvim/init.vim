@@ -216,7 +216,7 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-yaml',
   \ 'coc-prettier',
-  \ 'coc-rls',
+  \ 'coc-rust-analyzer',
   \ 'coc-git',
   \ 'coc-markdownlint', 'coc-spell-checker',
   \]
@@ -421,9 +421,14 @@ nnoremap <Leader>rv :source $MYINITVIM<CR>
 " coc.nvim
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD <Plug>(coc-declaration)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gS :call CocAction('jumpDefinition', 'split')<CR>
+nmap <silent> gV :call CocAction('jumpDefinition', 'vsplit')<CR>
+nnoremap <silent> <leader>r :call CocAction('runCommand')<CR>
+
 " Remap for format selected region
 xmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format-selected)
@@ -471,6 +476,7 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync("getCurrentFunctionSymbol")
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
