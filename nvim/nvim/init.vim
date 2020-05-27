@@ -210,7 +210,7 @@ endfunction
 let g:coc_global_extensions = [
   \ 'coc-dictionary', 'coc-word', 'coc-actions',
   \ 'coc-lists', 'coc-tag', 'coc-syntax', 'coc-highlight',
-  \ 'coc-tsserver', 'coc-jest', 'coc-eslint',
+  \ 'coc-tsserver', 'coc-jest', 'coc-eslint', 'coc-deno',
   \ 'coc-svg', 'coc-html',
   \ 'coc-css', 'coc-stylelint', 'coc-cssmodules',
   \ 'coc-json',
