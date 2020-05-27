@@ -135,6 +135,9 @@
   autocrlf = false
   editor = nvim
   excludesfile = ~/.gitignore_global
+  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+[interactive]
+    diffFilter = delta --color-only
 [advice]
   statusHints = false
 [diff]
