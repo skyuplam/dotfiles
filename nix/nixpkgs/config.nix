@@ -35,6 +35,7 @@
         gawk
         nnn
         go
+        gitAndTools.delta
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
