@@ -210,7 +210,7 @@ endfunction
 let g:coc_global_extensions = [
   \ 'coc-dictionary', 'coc-word', 'coc-actions',
   \ 'coc-lists', 'coc-tag', 'coc-syntax', 'coc-highlight',
-  \ 'coc-tsserver', 'coc-jest', 'coc-eslint', 'coc-deno',
+  \ 'coc-tsserver', 'coc-jest', 'coc-eslint',
   \ 'coc-svg', 'coc-html',
   \ 'coc-css', 'coc-stylelint', 'coc-cssmodules',
   \ 'coc-json',
@@ -406,9 +406,8 @@ noremap <plug>(slash-after) zz
 " Enable clipboard
 noremap <silent> <F8> :set clipboard+=unnamedplus<CR>
 
-" yank until EOL (y$) instead of the entire line (yy)
-" nnoremap Y y$
-nnoremap Y :call SendViaOSC52(getreg('"'))<CR>
+" Select the text in visual mode then `y` to copy them to clipboard
+vmap y y:call SendViaOSC52(getreg('"'))<CR>
 
 " Terminal keybinding
 " To map <Esc> to exit terminal-mode
