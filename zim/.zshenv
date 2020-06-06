@@ -7,3 +7,4 @@
 # Define Zim location
 : ${ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim}
 # }}} End configuration added by Zim install
+if [ -e /Users/terrencelam/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/terrencelam/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
