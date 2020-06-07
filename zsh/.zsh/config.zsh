@@ -76,6 +76,9 @@ WORDCHARS=''
 # bindkey -M emacs '^P' history-substring-search-up
 # bindkey -M emacs '^N' history-substring-search-down
 
+# skim
+export SKIM_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
 # fzf
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
