@@ -287,9 +287,17 @@ hi! NonText ctermbg=NONE guibg=NONE
 let test#strategy = "neovim"
 let test#neovim#term_position = "vert"
 
-"let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-let $SKIM_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-let g:fzf_layout = { 'down': '~40%' }
+let g:skim_layout = { 'down': '~40%' }
+" Preview window for skim/fzf :Files
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" Rg with preview for skim/fzf
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+
 " Customize fzf colors to match your color scheme
 let g:skim_colors =
   \ { 'fg':      ['fg', 'Normal'],
