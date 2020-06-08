@@ -76,9 +76,6 @@ WORDCHARS=''
 # bindkey -M emacs '^P' history-substring-search-up
 # bindkey -M emacs '^N' history-substring-search-down
 
-# skim
-export SKIM_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-
 # fzf
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
@@ -104,7 +101,8 @@ export FZF_DEFAULT_OPTS="$FZF_BG $FZF_FG $FZF_MARKER"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # skim
-export SKIM_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# Default: 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
+export SKIM_DEFAULT_COMMAND='fd --type -H f || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob "!.git/*" || find .'
 
 # }}}
 # ---------------------------------------------------------
