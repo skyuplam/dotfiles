@@ -17,3 +17,13 @@ let b:ale_fixers = {
       \}
 
 " }}}
+
+" ============================================================================
+" TSC compiler {{{
+" ============================================================================
+
+let g:typescript_compiler_binary = 'yarn -s tsc'
+" Project-wise compilation
+let g:typescript_compiler_options = '-p tsconfig.json --noEmit'
+
+" }}}

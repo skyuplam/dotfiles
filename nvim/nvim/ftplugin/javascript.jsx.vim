@@ -10,10 +10,6 @@ let b:did_ftplugin_javascript_jsx = 1 " Don't load twice in one buffer
 " ALE Fixing {{{
 " ============================================================================
 
-let b:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'javascript': ['prettier', 'eslint'],
-      \ 'javascript.jsx': ['prettier', 'eslint'],
-      \}
+source <sfile>:h/javascript.vim
 
 " }}}
