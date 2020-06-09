@@ -18,6 +18,8 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'sheerun/vim-polyglot'
   Plug 'editorconfig/editorconfig-vim'
 
+  Plug 'mbbill/undotree'
+
   Plug 'airblade/vim-gitgutter'
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
@@ -87,12 +89,28 @@ set shortmess+=c
 " always show signcolumns
 "set signcolumn=yes
 
-" Backup and swap
-set nobackup
-set nowritebackup
-set noswapfile
+" Protect changes between writes. Default values of
+" updatecount (200 keystrokes) and updatetime
+" (4 seconds) are fine
+set swapfile
+set directory^=$XDG_CONFIG_HOME/nvim/swap//
 
-" set guifont=mononoki_Nerd_Font:h12,FantasqueSansMono_Nerd_Font:h12
+" protect against crash-during-write
+set writebackup
+" but do not persist backup after successful write
+set nobackup
+" use rename-and-write-new method whenever safe
+set backupcopy=auto
+" patch required to honor double slash at end
+if has("patch-8.1.0251")
+  " consolidate the writebackups -- not a big
+  " deal either way, since they usually get deleted
+  set backupdir^=$XDG_CONFIG_HOME/backup//
+end
+
+" persist the undo tree for each file
+set undofile
+set undodir^=$XDG_CONFIG_HOME/undo//
 
 set ignorecase                            " Case insensitive search
 set smartcase                             " Smart Case search
@@ -140,6 +158,9 @@ set wildmenu
 
 " Always use vertical diffs
 set diffopt+=vertical
+if has("patch-8.1.0360")
+  set diffopt+=internal,algorithm:patience
+endif
 
 " Statusline
 set laststatus=2  " appear all the time
@@ -380,9 +401,8 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <leader><leader> <c-^>
 
 " ALE keymapping
-nmap <silent> <Leader><Space>p <Plug>(ale_previous_wrap)
-nmap <silent> <Leader><Space>n <Plug>(ale_next_wrap)
-nmap <silent> <Leader><Space>l :lopen<CR>
+nmap [l <Plug>(ale_previous_wrap)
+nmap ]l <Plug>(ale_next_wrap)
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -455,6 +475,11 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
+" shortcuts for 3-way merge
+" map <Leader>1 :diffget LOCAL<CR>
+" map <Leader>2 :diffget BASE<CR>
+" map <Leader>3 :diffget REMOTE<CR>
+
 " Use <TAB> for selections ranges.
 " NOTE: Requires 'textDocument/selectionRange' support from the language server.
 " coc-tsserver, coc-python are the examples of servers that support it.
@@ -520,14 +545,14 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 " Close preview window when completion is done.
 " autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Use `[c` and `]c` to navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+" Navigate coc diagnostics
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " coc-git mapping
 " navigate chunks of current buffer
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
+nmap [c <Plug>(coc-git-prevchunk)
+nmap ]c <Plug>(coc-git-nextchunk)
 
 " Using CocList
 " Show all diagnostics
@@ -561,6 +586,28 @@ nmap <silent> <leader>tg :TestVisit<CR>
 " Saner command-line history
 cnoremap <c-n> <down>
 cnoremap <c-p> <up>
+
+" Quickfix
+nmap ]q :cnext<CR>
+nmap ]Q :clast<CR>
+nmap [q :cprev<CR>
+nmap [Q :cfirst<CR>
+
+" Diff and merge tool
+" +-----------+------------+------------+
+" |           |            |            |
+" |           |            |            |
+" |   LOCAL   |    BASE    |   REMOTE   |
+" +-----------+------------+------------+
+" |                                     |
+" |                                     |
+" |             (edit me)               |
+" +-------------------------------------+
+" shortcuts for 3-way merge
+map <Leader>1 :diffget LOCAL<CR>
+map <Leader>2 :diffget BASE<CR>
+map <Leader>3 :diffget REMOTE<CR>
+
 
 " }}}
 " ============================================================================
