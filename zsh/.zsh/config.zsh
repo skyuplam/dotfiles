@@ -102,7 +102,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # skim
 # Default: 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
-export SKIM_DEFAULT_COMMAND='fd --type -H f || git ls-tree -r --name-only HEAD || rg --files --hidden --follow --glob "!.git/*" || find .'
+export SKIM_DEFAULT_COMMAND='fd --type f -H -L -E ".git/*" || rg --files --hidden --follow --glob "!.git/*"'
 
 # }}}
 # ---------------------------------------------------------
