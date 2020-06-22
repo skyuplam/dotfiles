@@ -36,6 +36,7 @@
         nnn
         go
         gitAndTools.delta
+        nmap
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
