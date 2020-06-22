@@ -1,65 +1,70 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 
 " ============================================================================
-" VIM-PLUG BLOCK {{{
+" Minpac https://github.com/k-takata/minpac {{{
 " ============================================================================
-call plug#begin('~/.local/share/nvim/plugged')
-  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+function! PackInit() abort
+  packadd minpac
 
-  Plug 'Shougo/neco-vim'
-  Plug 'neoclide/coc-neco'
-  Plug 'Shougo/neoinclude.vim'
-  Plug 'jsfaint/coc-neoinclude'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-  Plug 'dense-analysis/ale'
-  Plug 'vim-scripts/vis'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'editorconfig/editorconfig-vim'
+  call minpac#init()
+  call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-  Plug 'mbbill/undotree'
+  " Additional plugins here.
+  call minpac#add('vim-jp/syntax-vim-ex')
+  call minpac#add('tyru/open-browser.vim')
+  call minpac#add('scrooloose/nerdtree')
+  call minpac#add('Xuyuanp/nerdtree-git-plugin')
 
-  Plug 'airblade/vim-gitgutter'
-  Plug 'mhinz/vim-signify'
-  Plug 'tpope/vim-git'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-sleuth'
+  call minpac#add('Shougo/neco-vim')
+  call minpac#add('neoclide/coc-neco')
+  call minpac#add('Shougo/neoinclude.vim')
+  call minpac#add('jsfaint/coc-neoinclude')
+  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+  call minpac#add('Shougo/vimproc.vim', {'do' : 'silent! !make'})
+  call minpac#add('dense-analysis/ale')
+  call minpac#add('vim-scripts/vis')
+  call minpac#add('sheerun/vim-polyglot')
+  call minpac#add('editorconfig/editorconfig-vim')
 
-  Plug 'godlygeek/tabular'
+  call minpac#add('mbbill/undotree')
 
-  Plug 'christoomey/vim-tmux-navigator'
-  Plug 'wellle/tmux-complete.vim'
+  call minpac#add('airblade/vim-gitgutter')
+  call minpac#add('mhinz/vim-signify')
+  call minpac#add('tpope/vim-git')
+  call minpac#add('tpope/vim-fugitive')
+  call minpac#add('tpope/vim-sleuth')
 
-  Plug 'iberianpig/tig-explorer.vim'
-  Plug 'rbgrouleff/bclose.vim'
+  call minpac#add('godlygeek/tabular')
+
+  call minpac#add('christoomey/vim-tmux-navigator')
+  call minpac#add('wellle/tmux-complete.vim')
+
+  call minpac#add('iberianpig/tig-explorer.vim')
+  call minpac#add('rbgrouleff/bclose.vim')
 
   " A vim script to provide CamelCase motion through words (fork of inkarkat's
   " camelcasemotion script)
-  Plug 'bkad/CamelCaseMotion'
+  call minpac#add('bkad/CamelCaseMotion')
 
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-repeat'
-  Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-  Plug 'lotabout/skim.vim'
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'chrisbra/Colorizer'
+  call minpac#add('tpope/vim-surround')
+  call minpac#add('tpope/vim-repeat')
+  call minpac#add('lotabout/skim', { 'do': 'silent! !./install' })
+  call minpac#add('lotabout/skim.vim')
+  call minpac#add('ryanoasis/vim-devicons')
+  call minpac#add('chrisbra/Colorizer')
 
-  Plug 'junegunn/vim-slash'
+  call minpac#add('junegunn/vim-slash')
 
-  Plug 'morhetz/gruvbox'
+  call minpac#add('gruvbox-community/gruvbox' , { 'type': 'opt' })
 
-  Plug 'vim-scripts/utl.vim'
-  " Plug 'vim-scripts/taglist.vim'
-  Plug 'majutsushi/tagbar'
-  Plug 'janko/vim-test'
-  " Plug 'ludovicchabant/vim-gutentags'
-  Plug 'tpope/vim-speeddating'
-  Plug 'chrisbra/NrrwRgn'
-  Plug 'mattn/calendar-vim'
-  Plug 'inkarkat/vim-SyntaxRange'
-call plug#end()
-
+  call minpac#add('vim-scripts/utl.vim')
+  call minpac#add('majutsushi/tagbar')
+  call minpac#add('janko/vim-test')
+  call minpac#add('tpope/vim-speeddating')
+  call minpac#add('chrisbra/NrrwRgn')
+  call minpac#add('mattn/calendar-vim')
+  call minpac#add('inkarkat/vim-SyntaxRange')
+endfunction
 " }}}
 " ============================================================================
 " Sourcing {{{
@@ -286,24 +291,34 @@ augroup END
 " ============================================================================
 
 " Gruvbox
-set background=dark
+" set background=dark
 let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 let g:gruvbox_italicize_comments=1
 colorscheme gruvbox
-" Highlight overriding
-" Gruvbox Dark mode palette
-" bg2=#504945
-" bg3=#665c54
-" bg4=#7c6f64
-hi ColorColumn ctermbg=Gray guibg=#504945
-hi NonText ctermfg=12 gui=bold guifg=#7c6f64
-" hi Comment cterm=italic
 
-" Transparet BG color
-hi! Normal ctermbg=NONE guibg=NONE
-hi! NonText ctermbg=NONE guibg=NONE
+augroup gruvbox
+  autocmd!
+  " Override gruvbox for Transparet BG color
+  autocmd ColorScheme * :hi ColorColumn ctermbg=Gray guibg=#504945
+  autocmd ColorScheme * :hi NonText ctermfg=12 gui=bold guifg=#7c6f64
+  autocmd ColorScheme * :hi! Normal ctermbg=NONE guibg=NONE
+  autocmd ColorScheme * :hi! NonText ctermbg=NONE guibg=NONE
+augroup END
+
+
+" function! s:overrideColorscheme()
+"   " Highlight overriding
+"   " Gruvbox Dark mode palette
+"   " bg2=#504945
+"   " bg3=#665c54
+"   " bg4=#7c6f64
+"   hi ColorColumn ctermbg=Gray guibg=#504945
+"   hi NonText ctermfg=12 gui=bold guifg=#7c6f64
+"   " hi Comment cterm=italic
+" 
+" endfunction
 
 " vim-test
 let test#strategy = "neovim"
@@ -609,6 +624,10 @@ map <Leader>1 :diffget LOCAL<CR>
 map <Leader>2 :diffget BASE<CR>
 map <Leader>3 :diffget REMOTE<CR>
 
+" Minpac mappings
+command! PackUpdate call PackInit() | call minpac#update('', {'do': 'call minpac#status()'})
+command! PackClean  call PackInit() | call minpac#clean()
+command! PackStatus call PackInit() | call minpac#status()
 
 " }}}
 " ============================================================================
