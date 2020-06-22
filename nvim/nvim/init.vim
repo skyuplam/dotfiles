@@ -24,6 +24,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'mhinz/vim-signify'
   Plug 'tpope/vim-git'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-sleuth'
 
   Plug 'godlygeek/tabular'
 
@@ -551,8 +552,8 @@ nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " coc-git mapping
 " navigate chunks of current buffer
-nmap [c <Plug>(coc-git-prevchunk)
-nmap ]c <Plug>(coc-git-nextchunk)
+" nmap [c <Plug>(coc-git-prevchunk)
+" nmap ]c <Plug>(coc-git-nextchunk)
 
 " Using CocList
 " Show all diagnostics
