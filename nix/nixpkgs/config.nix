@@ -21,7 +21,6 @@
         ripgrep
         fd
         tree
-        python3Packages.pynvim
         stow
         xclip
         pass
@@ -37,6 +36,7 @@
         go
         gitAndTools.delta
         nmap
+        shellcheck
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
