@@ -271,11 +271,6 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  " Correct comment highlight for JSON filetype
-  autocmd FileType json syntax match Comment +\/\/.\+$+
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile .{jscs,jshint,eslint,babel}rc set filetype=json
-  autocmd BufRead,BufNewFile {Dockerfile,*.docker} set filetype=dockerfile
   " Mail
   autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
 
