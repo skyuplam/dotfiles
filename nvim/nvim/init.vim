@@ -57,6 +57,8 @@ function! PackInit() abort
 
   call minpac#add('gruvbox-community/gruvbox' , { 'type': 'opt' })
 
+  call minpac#add('iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()} })
+
   call minpac#add('vim-scripts/utl.vim')
   call minpac#add('majutsushi/tagbar')
   call minpac#add('janko/vim-test')
