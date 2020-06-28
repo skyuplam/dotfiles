@@ -138,6 +138,10 @@ set clipboard+=unnamedplus
 
 set tabpagemax=15                              " Only show 15 tabs
 
+" set grep to rg
+set grepprg=rg\ --vimgrep
+set grepformat=%f:%l:%c:%m
+
 " Open splits more naturally
 set splitbelow
 set splitright
