@@ -13,7 +13,7 @@
         curl
         git
         jq
-        skim
+        fzf
         bat
         exa
         lsd
