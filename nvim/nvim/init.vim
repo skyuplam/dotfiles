@@ -275,6 +275,15 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
+function! OnTabEnter(path)
+  if isdirectory(a:path)
+    let dirname = a:path
+  else
+    let dirname = fnamemodify(a:path, ":h")
+  endif
+  execute "tcd ". dirname
+endfunction
+
 augroup vimrcEx
   autocmd!
 
@@ -294,6 +303,9 @@ augroup vimrcEx
 
   autocmd InsertLeave,WinEnter * set cursorline
   autocmd InsertEnter,WinLeave * set nocursorline
+
+  " Change working directory on tab change
+  autocmd TabNewEntered * call OnTabEnter(expand("<amatch>"))
 
   " FZF Hide statusline
   autocmd! FileType fzf set laststatus=0 noshowmode noruler
