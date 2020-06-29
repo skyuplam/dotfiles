@@ -168,11 +168,10 @@ set number
 set path+=**
 set wildmenu
 
-" Always use vertical diffs
+" Diffs
 set diffopt+=vertical
-if has("patch-8.1.0360")
-  set diffopt+=internal,algorithm:patience
-endif
+set diffopt+=internal,algorithm:patience
+set diffopt+=indent-heuristic
 
 " Statusline
 set laststatus=2  " appear all the time
