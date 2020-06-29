@@ -43,7 +43,7 @@ export DROPBOX_DIR=~/Dropbox
 export ORG_DIR=$DROPBOX_DIR/org
 
 # Nix
-[ -d $NIX_USER_PROFILE_DIR/profile ] && export PATH=$NIX_USER_PROFILE_DIR/profile/bin:$PATH
+[ -d ~/.nix-profile ] && export PATH=~/.nix-profile/bin:$PATH
 
 # Local bin
 export PATH=~/.local/bin:$PATH
@@ -84,6 +84,12 @@ WORDCHARS=''
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
+# Gruvbox Dark
+export FZF_DEFAULT_OPTS='
+  --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+  --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
+'
+
 # [bat](https://github.com/sharkdp/bat)
 # colorizing pager for man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -95,6 +101,14 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 [ -f ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 [ -f ~/.zsh/local.zsh ] && source ~/.zsh/local.zsh
+
+# FZF
+if [ -d ~/.nix-profile/share/fzf ]; then
+  source ~/.nix-profile/share/fzf/key-bindings.zsh
+  source ~/.nix-profile/share/fzf/completion.zsh
+fi
+
+
 
 # kubectl
 # source <(kubectl completion zsh)
