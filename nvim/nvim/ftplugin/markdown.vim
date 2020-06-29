@@ -7,3 +7,4 @@ endif
 let b:did_ftplugin_markdown = 1 " Don't load twice in one buffer
 
 setlocal textwidth=0
+setlocal suffixesadd+=.md

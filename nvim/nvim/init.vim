@@ -49,8 +49,8 @@ function! PackInit() abort
 
   call minpac#add('tpope/vim-surround')
   call minpac#add('tpope/vim-repeat')
-  call minpac#add('lotabout/skim', { 'do': 'silent! !./install' })
-  call minpac#add('lotabout/skim.vim')
+  call minpac#add('junegunn/fzf', { 'do': {-> fzf#install()} })
+  call minpac#add('junegunn/fzf.vim')
   call minpac#add('ryanoasis/vim-devicons')
   call minpac#add('chrisbra/Colorizer')
 
@@ -241,7 +241,7 @@ function! s:statusline_expr()
   let coc_git = "%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"
   let git_status = "%{GitStatus()}"
 
-  return git_status.coc.'[%n] %f %<'.mod.ro.ft.coc_git.sep.pos.'%*'.pct
+  return coc.'[%n] %f %<'.mod.ro.ft.coc_git.git_status.sep.pos.'%*'.pct
 endfunction
 
 let &statusline = s:statusline_expr()
@@ -294,6 +294,10 @@ augroup vimrcEx
 
   autocmd InsertLeave,WinEnter * set cursorline
   autocmd InsertEnter,WinLeave * set nocursorline
+
+  " FZF Hide statusline
+  autocmd! FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
 " }}}
@@ -335,33 +339,6 @@ augroup END
 let test#strategy = "neovim"
 let test#neovim#term_position = "vert"
 
-let g:skim_layout = { 'down': '~40%' }
-" Preview window for skim/fzf :Files
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-" Rg with preview for skim/fzf
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-
-" Customize fzf colors to match your color scheme
-let g:skim_colors =
-  \ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
 " NerdTree
 let NERDTreeIgnore=['\.py[cd]$',
     \ '\~$', '\.swo$', '\.swp$', '^\.git$',
@@ -384,6 +361,47 @@ let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
 " Editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:EditorConfig_disable_rules = ['indent_size', 'tab_width']
+
+" ----------------------------------------------------------------------------
+" FZF Config
+" ----------------------------------------------------------------------------
+
+" Interactive mode of Rg
+function! RipgrepFzf(query, fullscreen)
+  let spec = {}
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec.options = ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]
+
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" See `man fzf-tmux` for available options
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,60%' }
+else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+endif
+
+" Customize fzf colors to match your color scheme
+" - fzf#wrap translates this to a set of `--color` options
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
 " }}}
 " ============================================================================
@@ -639,6 +657,30 @@ map <Leader>3 :diffget REMOTE<CR>
 command! PackUpdate call PackInit() | call minpac#update('', {'do': 'call minpac#status()'})
 command! PackClean  call PackInit() | call minpac#clean()
 command! PackStatus call PackInit() | call minpac#status()
+
+" FZF completion mappings
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+
+" ----------------------------------------------------------------------------
+" Notes
+" ----------------------------------------------------------------------------
+command! -nargs=* Zet call local#zettel#edit(<f-args>)
+" New note
+nmap <expr><leader>nz ':Zet '
+" Search note file names
+nmap <expr><leader>nf ':Files ' . expand(g:zettel_note_dir). '<CR>'
+" Rg note contents
+nmap <expr><leader>ng ':RG ' . expand(g:zettel_note_dir). '<CR>'
+" inoremap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
 
 " }}}
 " ============================================================================
