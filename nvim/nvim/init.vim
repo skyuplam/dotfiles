@@ -366,6 +366,22 @@ let g:EditorConfig_disable_rules = ['indent_size', 'tab_width']
 " FZF Config
 " ----------------------------------------------------------------------------
 
+let $FZF_DEFAULT_COMMAND = 'rg --files --follow --glob "!.git/*"'
+let $FZF_DEFAULT_OPTS .= ' --inline-info'
+
+" Fzf actions
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-y': {lines -> setreg('*', join(lines, "\n"))}}
+
+" All files
+command! -nargs=? -complete=dir AF
+  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+  \ })))
+
 " Interactive mode of Rg
 function! RipgrepFzf(query, fullscreen)
   let spec = {}
@@ -380,11 +396,11 @@ endfunction
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 " See `man fzf-tmux` for available options
-if exists('$TMUX')
-  let g:fzf_layout = { 'tmux': '-p90%,60%' }
-else
-  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-endif
+" if exists('$TMUX')
+"   let g:fzf_layout = { 'tmux': '-p90%,60%' }
+" else
+"   let g:fzf_layout = { 'down': '~40%' }
+" endif
 
 " Customize fzf colors to match your color scheme
 " - fzf#wrap translates this to a set of `--color` options
@@ -628,6 +644,9 @@ nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
 
+" Change the current working directory to the filepath of current buffer
+nnoremap <leader>cd :cd %:p:h<CR>
+
 " Saner command-line history
 cnoremap <c-n> <down>
 cnoremap <c-p> <up>
@@ -669,7 +688,6 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-
 " ----------------------------------------------------------------------------
 " Notes
 " ----------------------------------------------------------------------------
@@ -678,9 +696,19 @@ command! -nargs=* Zet call local#zettel#edit(<f-args>)
 nmap <expr><leader>nz ':Zet '
 " Search note file names
 nmap <expr><leader>nf ':Files ' . expand(g:zettel_note_dir). '<CR>'
-" Rg note contents
-nmap <expr><leader>ng ':RG ' . expand(g:zettel_note_dir). '<CR>'
-" inoremap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
+" Rg note contents with fzf
+function! RgFzfZettel(query, fullscreen)
+  let spec = {}
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec.options = ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]
+  let spec.dir = expand(g:zettel_note_dir)
+
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(fzf#wrap(spec)), a:fullscreen)
+endfunction
+command! -nargs=* -bang ZG call RgFzfZettel(<q-args>, <bang>0)
+nmap <expr><leader>ng ':ZG '
 
 " }}}
 " ============================================================================
