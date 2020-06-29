@@ -32,6 +32,7 @@ function! PackInit() abort
   call minpac#add('mhinz/vim-signify')
   call minpac#add('tpope/vim-git')
   call minpac#add('tpope/vim-fugitive')
+  call minpac#add('tpope/vim-rhubarb')
   call minpac#add('tpope/vim-sleuth')
 
   call minpac#add('godlygeek/tabular')
