@@ -54,9 +54,11 @@ function! PackInit() abort
   call minpac#add('chrisbra/Colorizer')
 
   call minpac#add('junegunn/vim-slash')
+  call minpac#add('junegunn/gv.vim')
 
   call minpac#add('gruvbox-community/gruvbox' , { 'type': 'opt' })
 
+  call minpac#add('mzlogin/vim-markdown-toc')
   call minpac#add('iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()} })
 
   call minpac#add('vim-scripts/utl.vim')
@@ -173,6 +175,9 @@ set diffopt+=vertical
 set diffopt+=internal,algorithm:patience
 set diffopt+=indent-heuristic
 
+" Highlight git commit merge conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
 " Statusline
 set laststatus=2  " appear all the time
 
@@ -217,6 +222,11 @@ function! StatusDiagnostic() abort
   return msgFmt . get(g:, 'coc_status', '')
 endfunction
 
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
+
 function! s:statusline_expr()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro  = "%{&readonly ? '[RO] ' : ''}"
@@ -228,8 +238,9 @@ function! s:statusline_expr()
   " let ale = "%{len(LinterStatus()) ? LinterStatus() : ''}"
   let coc = "%{StatusDiagnostic()}"
   let coc_git = "%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"
+  let git_status = "%{GitStatus()}"
 
-  return coc.'[%n] %f %<'.mod.ro.ft.coc_git.sep.pos.'%*'.pct
+  return git_status.coc.'[%n] %f %<'.mod.ro.ft.coc_git.sep.pos.'%*'.pct
 endfunction
 
 let &statusline = s:statusline_expr()
