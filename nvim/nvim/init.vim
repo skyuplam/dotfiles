@@ -378,7 +378,7 @@ let g:EditorConfig_disable_rules = ['indent_size', 'tab_width']
 " FZF Config
 " ----------------------------------------------------------------------------
 
-let $FZF_DEFAULT_COMMAND = 'rg --files --follow --glob "!.git/*"'
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
 
 " Fzf actions
