@@ -386,7 +386,7 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit',
-  \ 'ctrl-y': {lines -> setreg('*', join(lines, "\n"))}}
+  \ 'ctrl-y': {lines -> setreg('*', split(join(lines, "\n"), ":")[0])}}
 
 " All files
 command! -nargs=? -complete=dir AF
