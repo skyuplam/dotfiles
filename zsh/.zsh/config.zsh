@@ -82,27 +82,11 @@ WORDCHARS=''
 # --hidden: Search hidden files and folders
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-export FZF_LEGACY_KEYBINDINGS=0
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-FZF_PREVIEW="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-FZF_SELECT="--select-1 --exit-0"
-export FZF_CTRL_T_OPTS="$FZF_PREVIEW $FZF_SELECT"
-export FZF_CTRL_R_OPTS="--sort --exact --preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-# Use Tmux split pane
-export FZF_TMUX=1
-FZF_BG='--color=bg+:#073642,bg:#002b36,spinner:#719e07,hl:#586e75'
-FZF_FG='--color=fg:#839496,header:#586e75,info:#cb4b16,pointer:#719e07'
-FZF_MARKER='--color=marker:#719e07,fg+:#839496,prompt:#719e07,hl+:#719e07'
-export FZF_DEFAULT_OPTS="$FZF_BG $FZF_FG $FZF_MARKER"
 
 # [bat](https://github.com/sharkdp/bat)
 # colorizing pager for man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# skim
-# Default: 'fd --type f || git ls-tree -r --name-only HEAD || rg --files || find .'
-export SKIM_DEFAULT_COMMAND='fd --type f -H -L -E ".git/*" || rg --files --hidden --follow --glob "!.git/*"'
 
 # }}}
 # ---------------------------------------------------------
