@@ -61,3 +61,10 @@ fi
 #     sk --ansi -i -c "rg --line-number --column --color \"always\" $1" --preview "$FZF_PREVIEW_SH {}"
 #   fi
 # }
+
+# new Zettelkasten note
+function zet() {
+  if [ -n "$1" ]; then
+    nvim "+Zet $*"
+  fi
+}
