@@ -55,9 +55,9 @@ if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
 fi
 
 # skim with preview
-function skk() {
-  if [ -n "$1" ]
-  then
-    sk --ansi -i -c "rg --line-number --column --color \"always\" $1" --preview "$FZF_PREVIEW_SH {}"
-  fi
-}
+# function skk() {
+#   if [ -n "$1" ]
+#   then
+#     sk --ansi -i -c "rg --line-number --column --color \"always\" $1" --preview "$FZF_PREVIEW_SH {}"
+#   fi
+# }
