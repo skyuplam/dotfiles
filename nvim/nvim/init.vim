@@ -40,6 +40,8 @@ function! PackInit() abort
   call minpac#add('christoomey/vim-tmux-navigator')
   call minpac#add('wellle/tmux-complete.vim')
 
+  call minpac#add('SirVer/ultisnips')
+
   call minpac#add('iberianpig/tig-explorer.vim')
   call minpac#add('rbgrouleff/bclose.vim')
 
@@ -59,6 +61,7 @@ function! PackInit() abort
 
   call minpac#add('gruvbox-community/gruvbox' , { 'type': 'opt' })
 
+  call minpac#add('plasticboy/vim-markdown')
   call minpac#add('mzlogin/vim-markdown-toc')
   call minpac#add('iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()} })
 
@@ -407,13 +410,6 @@ endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
-" See `man fzf-tmux` for available options
-" if exists('$TMUX')
-"   let g:fzf_layout = { 'tmux': '-p90%,60%' }
-" else
-"   let g:fzf_layout = { 'down': '~40%' }
-" endif
-
 " Customize fzf colors to match your color scheme
 " - fzf#wrap translates this to a set of `--color` options
 let g:fzf_colors =
@@ -430,6 +426,37 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+" ----------------------------------------------------------------------------
+" vim-markdown
+" ----------------------------------------------------------------------------
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_math = 1
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_fenced_languages = [
+      \ 'viml=vim', 'javascript', 'typescript', 'rust', 'bash=sh', 'zsh']
+" Syntax
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+
+" ----------------------------------------------------------------------------
+" UltiSnips
+" ----------------------------------------------------------------------------
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "ftsnippets"]
+" Trigger configuration.
+let g:UltiSnipsExpandTrigger='<tab>'
+" shortcut to go to next position
+let g:UltiSnipsJumpForwardTrigger='<c-j>'
+" shortcut to go to previous position
+let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 
 " }}}
 " ============================================================================
