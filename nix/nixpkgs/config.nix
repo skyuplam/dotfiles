@@ -37,6 +37,9 @@
         gitAndTools.delta
         nmap
         shellcheck
+        hadolint
+        shfmt
+        starship
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
