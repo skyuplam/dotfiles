@@ -58,8 +58,7 @@ fi
 # function skk() {
 #   if [ -n "$1" ]
 #   then
-#     sk --ansi -i -c "rg --line-number --column --color \"always\" $1" --preview "$FZF_PREVIEW_SH {}"
-#   fi
+#     sk --ansi -i -c "rg --line-number --column --color \"always\" $1" --preview "$FZF_PREVIEW_SH {}" fi
 # }
 
 # new Zettelkasten note
@@ -67,4 +66,9 @@ function zet() {
   if [ -n "$1" ]; then
     nvim "+Zet $*"
   fi
+}
+
+# edit Zettel note with nvim
+function lz() {
+  nvim $(fd --hidden --follow --exclude '.git' . $NOTES_DIR | fzf --preview 'bat --style=numbers --color=always --line-range :500 {}')
 }
