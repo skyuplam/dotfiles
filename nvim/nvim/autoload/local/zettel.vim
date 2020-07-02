@@ -1,22 +1,23 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 
-" Create atimstamped file in notes directory
+" Create a timstamped file in notes directory
 func! local#zettel#edit(...)
 
-  " build the file name
+  " Build the file name
   let l:sep = ''
   if len(a:000) > 0
     let l:sep = '-'
   endif
-  let l:fname = expand(g:zettel_note_dir) . strftime("%F-%H%M") . l:sep . join(a:000, '-') . '.md'
+  let l:slug = strftime("%F-%H%M") . l:sep . tolower(join(a:000, '-'))
+  let l:fname = expand(g:zettel_note_dir) . l:slug . '.md'
 
-  " edit the new file
+  " Edit the new file
   exec "e " . l:fname
 
-  " enter the title and timestamp (using ultisnips) in the new file
-  if len(a:000) > 0
-    exec "normal ggO\<c-r>=strftime('%Y-%m-%d %H:%M')\<cr> " . join(a:000) . "\<cr>\<esc>G"
-  else
-    exec "normal ggO\<c-r>=strftime('%Y-%m-%d %H:%M')\<cr>\<cr>\<esc>G"
-  endif
+  " Create front matter vars
+  let l:title = len(a:000) > 0 ? join(a:000) : ''
+  let l:datetime = strftime('%Y-%m-%d %H:%M')
+
+  " Use UltiSnips to add TOM front matter, matadata for the notes
+  exec "normal ggOtomfm\<tab>".l:title."\<c-j>".l:datetime."\<c-j>".l:slug."\<c-j>\<esc>G"
 endfunc

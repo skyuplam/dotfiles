@@ -137,4 +137,17 @@ snippet "tb([1-9][1-9])" "Fancy table" br
 `!p snip.rv = match.group(1)`
 endsnippet
 
+snippet tomfm "TOM Front Matter"
++++
+title = "${1}"
+date = "${2}"
+slug = "${3}"
+isCJKLanguage = true
+tags = []
+linkNotes = []
+references = []
++++
+${0}
+endsnippet
+
 # vim:ft=snippets:
