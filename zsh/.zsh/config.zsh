@@ -108,6 +108,8 @@ if [ -d ~/.nix-profile/share/fzf ]; then
   source ~/.nix-profile/share/fzf/completion.zsh
 fi
 
+# Starship: https://starship.rs
+eval "$(starship init zsh)"
 
 
 # kubectl
