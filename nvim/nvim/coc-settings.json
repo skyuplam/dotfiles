@@ -12,5 +12,20 @@
   "git.changedSign.hlGroup": "GitGutterChange",
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
-  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete"
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "cSpell.userWords": [
+    "pexip",
+    "preso",
+    "webrtc"
+  ],
+  "tsserver.disableAutomaticTypeAcquisition": true,
+  "typescript.format.enabled": true,
+  "javascript.format.enabled": true,
+  "languageserver": {
+    "efm": {
+      "command": "efm-langserver",
+      "args": [],
+      "filetypes": ["vim", "make", "yaml", "zsh", "dockerfile"]
+    }
+  }
 }
