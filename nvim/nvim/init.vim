@@ -687,9 +687,21 @@ nmap <silent> <leader>tg :TestVisit<CR>
 " Change the current working directory to the filepath of current buffer
 nnoremap <leader>cd :cd %:p:h<CR>
 
-" Saner command-line history
-cnoremap <c-n> <down>
-cnoremap <c-p> <up>
+" Map common terminal mappings
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-d> <Delete>
+
+cnoremap <M-f> <S-Right>
+cnoremap <M-b> <S-Left>
+
+" OSX specific
+cnoremap ƒ <S-Right>
+cnoremap ∫ <S-Left>
 
 " Quickfix
 nmap ]q :cnext<CR>
