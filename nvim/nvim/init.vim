@@ -58,6 +58,7 @@ function! PackInit() abort
 
   call minpac#add('junegunn/vim-slash')
   call minpac#add('junegunn/gv.vim')
+  call minpac#add('junegunn/vim-peekaboo')
 
   call minpac#add('gruvbox-community/gruvbox' , { 'type': 'opt' })
 
@@ -116,7 +117,7 @@ set nobackup
 " use rename-and-write-new method whenever safe
 set backupcopy=auto
 " patch required to honor double slash at end
-if has("patch-8.1.0251")
+if has('patch-8.1.0251')
   " consolidate the writebackups -- not a big
   " deal either way, since they usually get deleted
   set backupdir^=$XDG_CONFIG_HOME/backup//
@@ -266,6 +267,7 @@ let g:coc_global_extensions = [
   \ 'coc-rust-analyzer',
   \ 'coc-git',
   \ 'coc-markdownlint', 'coc-spell-checker',
+  \ 'coc-vimlsp',
   \]
 
 " coc-prettier:: Enable command :Prettier to format current buffer
