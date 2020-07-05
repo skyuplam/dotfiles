@@ -13,11 +13,7 @@
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "cSpell.userWords": [
-    "pexip",
-    "preso",
-    "webrtc"
-  ],
+  "cSpell.userWords": ["pexip", "preso", "webrtc"],
   "tsserver.disableAutomaticTypeAcquisition": true,
   "typescript.format.enabled": true,
   "javascript.format.enabled": true,
@@ -26,6 +22,34 @@
       "command": "efm-langserver",
       "args": [],
       "filetypes": ["vim", "make", "yaml", "zsh", "dockerfile"]
+    },
+    "vimls": {
+      "module": "../coc/extensions/node_modules/coc-vimlsp",
+      "args": ["--node-ipc"],
+      "initializationOptions": {
+        "iskeyword": "@,48-57,_,192-255,-#", // vim iskeyword option
+        "vimruntime": "", // $VIMRUNTIME option
+        "runtimepath": "", // vim runtime path separate by `,`
+        "diagnostic": {
+          "enable": true
+        },
+        "indexes": {
+          "runtimepath": true, // if index runtimepath's vim files this will effect the suggest
+          "gap": 100, // index time gap between next file
+          "count": 3, // count of files index at the same time
+          "projectRootPatterns": [
+            "strange-root-pattern",
+            ".git",
+            "autoload",
+            "plugin"
+          ] // Names of files used as the mark of project root. If empty, the default value [".git", "autoload", "plugin"] will be used
+        },
+        "suggest": {
+          "fromVimruntime": true, // completionItems from vimruntime's vim files
+          "fromRuntimepath": false // completionItems from runtimepath's vim files, if this is true that fromVimruntime is true
+        }
+      },
+      "filetypes": ["vim"]
     }
   }
 }
