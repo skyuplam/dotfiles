@@ -207,23 +207,6 @@ augroup END
 " PLUGIN SETTINGS {{{
 " ============================================================================
 
-" Gruvbox
-" set background=dark
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_bold=1
-let g:gruvbox_italic=1
-let g:gruvbox_italicize_comments=1
-colorscheme gruvbox
-
-augroup gruvbox
-  autocmd!
-  " Override gruvbox for Transparet BG color
-  autocmd ColorScheme * :hi ColorColumn ctermbg=Gray guibg=#504945
-  autocmd ColorScheme * :hi NonText ctermfg=12 gui=bold guifg=#7c6f64
-  autocmd ColorScheme * :hi! Normal ctermbg=NONE guibg=NONE
-  autocmd ColorScheme * :hi! NonText ctermbg=NONE guibg=NONE
-augroup END
-
 " vim-test
 let test#strategy = 'neovim'
 let test#neovim#term_position = 'vert'
