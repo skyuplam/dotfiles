@@ -217,9 +217,9 @@ function! OnTabEnter(path)
   if isdirectory(a:path)
     let dirname = a:path
   else
-    let dirname = fnamemodify(a:path, ":h")
+    let dirname = fnamemodify(a:path, ':h')
   endif
-  execute "tcd ". dirname
+  execute 'tcd '. dirname
 endfunction
 
 augroup vimrcEx
@@ -257,7 +257,7 @@ augroup END
 
 " Gruvbox
 " set background=dark
-let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_bold=1
 let g:gruvbox_italic=1
 let g:gruvbox_italicize_comments=1
@@ -286,8 +286,8 @@ augroup END
 " endfunction
 
 " vim-test
-let test#strategy = "neovim"
-let test#neovim#term_position = "vert"
+let test#strategy = 'neovim'
+let test#neovim#term_position = 'vert'
 
 " NerdTree
 let NERDTreeIgnore=['\.py[cd]$',
@@ -386,7 +386,7 @@ let g:vim_markdown_strikethrough = 1
 " ----------------------------------------------------------------------------
 " UltiSnips
 " ----------------------------------------------------------------------------
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "ftsnippets"]
+let g:UltiSnipsSnippetDirectories=['UltiSnips', 'ftsnippets']
 " Trigger configuration.
 let g:UltiSnipsExpandTrigger='<tab>'
 " shortcut to go to next position
@@ -400,8 +400,8 @@ let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 " ============================================================================
 
 " Set mapleader
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = ','
+let g:mapleader = ','
 
 " Explorer Mapping
 nnoremap <C-e> :NERDTreeToggle<CR>
@@ -435,10 +435,6 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
-
-" ALE keymapping
-nmap [l <Plug>(ale_previous_wrap)
-nmap ]l <Plug>(ale_next_wrap)
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -543,8 +539,10 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd CursorHold * silent call CocActionAsync("getCurrentFunctionSymbol")
+augroup cocGroup
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')
+augroup end
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -580,10 +578,6 @@ endif
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 " Close preview window when completion is done.
 " autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" Navigate coc diagnostics
-nmap <silent> [d <Plug>(coc-diagnostic-prev)
-nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " coc-git mapping
 " navigate chunks of current buffer
@@ -638,11 +632,17 @@ cnoremap <M-b> <S-Left>
 cnoremap ƒ <S-Right>
 cnoremap ∫ <S-Left>
 
-" Quickfix
+" Quickfix list navigation
 nmap ]q :cnext<CR>
 nmap ]Q :clast<CR>
 nmap [q :cprev<CR>
 nmap [Q :cfirst<CR>
+
+" Location list navigation
+nmap ]l :lnext<CR>
+nmap ]L :lfirst<CR>
+nmap [l :lprev<CR>
+nmap [L :llast<CR>
 
 " Diff and merge tool
 " +-----------+------------+------------+
