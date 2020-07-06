@@ -309,18 +309,7 @@ command! -nargs=? -complete=dir AF
   \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
   \ })))
 
-" Interactive mode of Rg
-function! RipgrepFzf(query, fullscreen)
-  let spec = {}
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec.options = ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]
-
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+command! -nargs=* -bang RG call local#fzf#RipgrepFzf(<q-args>, <bang>0)
 
 " Customize fzf colors to match your color scheme
 " - fzf#wrap translates this to a set of `--color` options
@@ -659,17 +648,7 @@ nmap <expr><leader>nz ':Zet '
 " Search note file names
 nmap <expr><leader>nf ':Files ' . expand(g:zettel_note_dir). '<CR>'
 " Rg note contents with fzf
-function! RgFzfZettel(query, fullscreen)
-  let spec = {}
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec.options = ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]
-  let spec.dir = expand(g:zettel_note_dir)
-
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(fzf#wrap(spec)), a:fullscreen)
-endfunction
-command! -nargs=* -bang ZG call RgFzfZettel(<q-args>, <bang>0)
+command! -nargs=* -bang ZG call local#zettel#RgFzfZettel(<q-args>, <bang>0)
 nmap <expr><leader>ng ':ZG '
 " note tag completion with fzf
 inoremap <expr> <c-x><c-z> fzf#vim#complete('rg tags $NOTES_DIR \| teip -og "\".\w+\",*" -v -- sed "s/.*//g" \| tr , "\n" \| sort \| uniq')
