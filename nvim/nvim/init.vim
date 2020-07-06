@@ -200,116 +200,8 @@ augroup vimrcEx
 
   autocmd InsertLeave,WinEnter * set cursorline
   autocmd InsertEnter,WinLeave * set nocursorline
+
 augroup END
-
-" }}}
-" ============================================================================
-" PLUGIN SETTINGS {{{
-" ============================================================================
-
-" vim-test
-let test#strategy = 'neovim'
-let test#neovim#term_position = 'vert'
-
-" NerdTree
-let NERDTreeIgnore=['\.py[cd]$',
-    \ '\~$', '\.swo$', '\.swp$', '^\.git$',
-    \ '^\.hg$', '^\.svn$', '\.bzr$', '\.DS_Store$']
-let NERDTreeChDirMode=0
-let NERDTreeQuitOnOpen=1
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
-let NERDTreeKeepTreeInNewTab=1
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-" ALE
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-" custom echos message
-let g:ale_echo_msg_error_str = '✖'
-let g:ale_echo_msg_warning_str = '⚠'
-let g:ale_echo_msg_format = '[%linter%][%severity%]%[code]: %%s'
-
-" Editorconfig
-let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
-let g:EditorConfig_disable_rules = ['indent_size', 'tab_width']
-
-" ----------------------------------------------------------------------------
-" FZF Config
-" ----------------------------------------------------------------------------
-
-" Use fzf from nixpkgs
-set runtimepath+=$HOME/.nix-profile/share/vim-plugins/fzf/
-
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-let $FZF_DEFAULT_OPTS .= ' --inline-info'
-
-" Use window layout
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-
-" Fzf actions
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit',
-  \ 'ctrl-y': {lines -> setreg('*', split(join(lines, "\n"), ":")[0])}}
-
-" All files
-command! -nargs=? -complete=dir AF
-  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
-  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
-  \ })))
-
-command! -nargs=* -bang RG call local#fzf#RipgrepFzf(<q-args>, <bang>0)
-
-" Customize fzf colors to match your color scheme
-" - fzf#wrap translates this to a set of `--color` options
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-" ----------------------------------------------------------------------------
-" vim-markdown
-" ----------------------------------------------------------------------------
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_toc_autofit = 1
-let g:vim_markdown_conceal = 2
-let g:vim_markdown_conceal_code_blocks = 0
-let g:vim_markdown_math = 1
-let g:vim_markdown_follow_anchor = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_toml_frontmatter = 1
-let g:vim_markdown_fenced_languages = [
-      \ 'viml=vim', 'javascript', 'typescript', 'rust', 'bash=sh', 'zsh']
-" Syntax
-let g:vim_markdown_new_list_item_indent = 2
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_toml_frontmatter = 1
-" let g:vim_markdown_json_frontmatter = 1
-let g:vim_markdown_strikethrough = 1
-
-" ----------------------------------------------------------------------------
-" UltiSnips
-" ----------------------------------------------------------------------------
-let g:UltiSnipsSnippetDirectories=['UltiSnips', 'ftsnippets']
-" Trigger configuration.
-let g:UltiSnipsExpandTrigger='<tab>'
-" shortcut to go to next position
-let g:UltiSnipsJumpForwardTrigger='<c-j>'
-" shortcut to go to previous position
-let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 
 " }}}
 " ============================================================================
@@ -324,8 +216,6 @@ let g:mapleader = ','
 nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
 
-" Tagbar
-nnoremap <leader>b :TagbarToggle<CR>
 " Terminal
 nnoremap <leader>nt :bo 15sp +term<CR>
 
