@@ -203,9 +203,6 @@ let g:coc_global_extensions = [
   \ 'coc-vimlsp',
   \]
 
-" coc-prettier:: Enable command :Prettier to format current buffer
-" command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
@@ -233,9 +230,6 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  " Mail
-  autocmd BufRead,BufNewFile *mutt-*              setfiletype mail
-
   autocmd User CocStatusChange,CocGitStatusChange call local#statusline#RefreshStatusline()
   autocmd User CocDiagnosticChange call local#statusline#RefreshStatusline()
 
@@ -244,10 +238,6 @@ augroup vimrcEx
 
   " Change working directory on tab change
   autocmd TabNewEntered * call OnTabEnter(expand("<amatch>"))
-
-  " FZF Hide statusline
-  autocmd! FileType fzf set laststatus=0 noshowmode noruler
-    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
 " }}}
@@ -271,19 +261,6 @@ augroup gruvbox
   autocmd ColorScheme * :hi! Normal ctermbg=NONE guibg=NONE
   autocmd ColorScheme * :hi! NonText ctermbg=NONE guibg=NONE
 augroup END
-
-
-" function! s:overrideColorscheme()
-"   " Highlight overriding
-"   " Gruvbox Dark mode palette
-"   " bg2=#504945
-"   " bg3=#665c54
-"   " bg4=#7c6f64
-"   hi ColorColumn ctermbg=Gray guibg=#504945
-"   hi NonText ctermfg=12 gui=bold guifg=#7c6f64
-"   " hi Comment cterm=italic
-" 
-" endfunction
 
 " vim-test
 let test#strategy = 'neovim'
@@ -520,8 +497,6 @@ xmap <silent> <TAB> <Plug>(coc-range-select)
 
 augroup mygroup
   autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end

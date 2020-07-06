@@ -6,6 +6,8 @@ endif
 
 let b:did_ftplugin_javascript = 1 " Don't load twice in one buffer
 
+setlocal formatexpr=CocAction('formatSelected')
+
 " ============================================================================
 " ALE Fixing {{{
 " ============================================================================

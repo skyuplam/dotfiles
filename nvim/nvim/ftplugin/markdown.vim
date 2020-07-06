@@ -12,3 +12,5 @@ setlocal spell
 setlocal spelllang=en_us
 setlocal tabstop=2
 setlocal shiftwidth=2
+
+setlocal formatexpr=CocAction('formatSelected')
