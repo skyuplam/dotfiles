@@ -52,7 +52,7 @@ function! PackInit() abort
 
   call minpac#add('tpope/vim-surround')
   call minpac#add('tpope/vim-repeat')
-  call minpac#add('junegunn/fzf', { 'do': {-> fzf#install()} })
+  " call minpac#add('junegunn/fzf', { 'do': {-> fzf#install()} })
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('ryanoasis/vim-devicons')
   call minpac#add('chrisbra/Colorizer')
@@ -293,8 +293,14 @@ let g:EditorConfig_disable_rules = ['indent_size', 'tab_width']
 " FZF Config
 " ----------------------------------------------------------------------------
 
+" Use fzf from nixpkgs
+set runtimepath+=$HOME/.nix-profile/share/vim-plugins/fzf/
+
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
+
+" Use window layout
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " Fzf actions
 let g:fzf_action = {
