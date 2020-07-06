@@ -82,6 +82,9 @@ endfunction
 
 exec 'source ~/.config/nvim/osc52.vim'
 
+" Use fzf from nixpkgs
+set runtimepath^=$HOME/.nix-profile/share/vim-plugins/fzf/
+
 " }}}
 " ============================================================================
 " BASIC SETTINGS {{{

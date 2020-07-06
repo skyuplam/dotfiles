@@ -1,6 +1,3 @@
-" Use fzf from nixpkgs
-set runtimepath+=$HOME/.nix-profile/share/vim-plugins/fzf/
-
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
 
