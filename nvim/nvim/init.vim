@@ -310,7 +310,7 @@ nmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Use K for show documentation in preview window
-nmap K <Plug>(show-doc)
+nmap <silent> K <Plug>(show-doc)
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -411,7 +411,7 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-nmap <leader>z <Plug>(zoom)
+nmap <silent> <leader>z <Plug>(zoom)
 
 " ----------------------------------------------------------------------------
 " Notes

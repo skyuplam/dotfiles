@@ -21,7 +21,17 @@
     "efm": {
       "command": "efm-langserver",
       "args": [],
-      "filetypes": ["vim", "make", "yaml", "zsh", "dockerfile"]
+      "filetypes": [
+        "vim",
+        "make",
+        "css",
+        "scss",
+        "sass",
+        "less",
+        "yaml",
+        "zsh",
+        "dockerfile"
+      ]
     }
   }
 }

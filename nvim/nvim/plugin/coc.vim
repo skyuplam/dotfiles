@@ -4,14 +4,15 @@ let g:coc_global_extensions = [
   \ 'coc-lists', 'coc-tag', 'coc-syntax', 'coc-highlight',
   \ 'coc-tsserver', 'coc-jest', 'coc-eslint',
   \ 'coc-svg', 'coc-html',
-  \ 'coc-css', 'coc-stylelint', 'coc-cssmodules',
+  \ 'coc-css', 'coc-cssmodules',
   \ 'coc-json',
   \ 'coc-yaml',
   \ 'coc-prettier',
   \ 'coc-rust-analyzer',
   \ 'coc-git',
-  \ 'coc-markdownlint', 'coc-spell-checker',
   \ 'coc-vimlsp',
+  \ 'coc-spell-checker',
+  \ 'coc-markdownlint',
   \]
 
 " Use `:Format` to format current buffer
