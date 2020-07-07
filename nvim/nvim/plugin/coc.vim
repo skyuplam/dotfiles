@@ -42,4 +42,4 @@ function s:show_documentation()
   endif
 endfunction
 
-nnoremap <Plug>ShowDoc :<C-U>call <SID>show_documentation()<CR>
+nnoremap <Plug>(show-doc) :<C-U>call <SID>show_documentation()<CR>

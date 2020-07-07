@@ -8,4 +8,4 @@ function! s:Zoom()
   endif
 endfunction
 
-nnoremap <Plug>Zoom :<C-U>call <SID>Zoom()<CR>
+nnoremap <Plug>(zoom) :<C-U>call <SID>Zoom()<CR>
