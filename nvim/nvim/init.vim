@@ -425,7 +425,7 @@ nmap <expr><leader>nf ':Files ' . expand(g:zettel_note_dir). '<CR>'
 command! -nargs=* -bang ZG call local#zettel#RgFzfZettel(<q-args>, <bang>0)
 nmap <expr><leader>ng ':ZG '
 " note tag completion with fzf
-inoremap <expr> <c-x><c-z> fzf#vim#complete('rg tags $NOTES_DIR \| teip -og "\".\w+\",*" -v -- sed "s/.*//g" \| tr , "\n" \| sort \| uniq')
+inoremap <expr> <c-x><c-z> fzf#vim#complete('rg tags $NOTES_DIR \| teip -og "\".\w+\",*" -v -- sed "s/.*//g" \| tr , "\n" \| sort -u')
 
 " }}}
 " ============================================================================
