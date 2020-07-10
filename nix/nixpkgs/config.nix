@@ -40,6 +40,7 @@
         hadolint
         shfmt
         starship
+        passff-host
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
