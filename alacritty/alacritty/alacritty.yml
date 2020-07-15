@@ -176,28 +176,48 @@ font:
 
   # Cursor colors
   #
-  # Colors which should be used to draw the terminal cursor. If these are unset,
-  # the cursor color will be the inverse of the cell color.
+  # Colors which should be used to draw the terminal cursor.
+  #
+  # Allowed values are CellForeground and CellBackground, which reference the
+  # affected cell, or hexadecimal colors like #ff00ff.
   #cursor:
-  #  text: '#000000'
-  #  cursor: '#ffffff'
+  #  text: CellBackground
+  #  cursor: CellForeground
 
   # Vi mode cursor colors
   #
-  # Colors for the cursor when the vi mode is active. If these are unset, the
-  # cursor color will be the inverse of the cell color.
+  # Colors for the cursor when the vi mode is active.
+  #
+  # Allowed values are CellForeground and CellBackground, which reference the
+  # affected cell, or hexadecimal colors like #ff00ff.
   #vi_mode_cursor:
-  #  text: '#000000'
-  #  cursor: '#ffffff'
+  #  text: CellBackground
+  #  cursor: CellForeground
 
   # Selection colors
   #
-  # Colors which should be used to draw the selection area. If selection
-  # background is unset, selection color will be the inverse of the cell colors.
-  # If only text is unset the cell text color will remain the same.
+  # Colors which should be used to draw the selection area.
+  #
+  # Allowed values are CellForeground and CellBackground, which reference the
+  # affected cell, or hexadecimal colors like #ff00ff.
   #selection:
-  #  text: '#eaeaea'
-  #  background: '#404040'
+  #  text: CellBackground
+  #  background: CellForeground
+
+  # Search colors
+  #
+  # Colors used for the search bar and match highlighting.
+  #
+  # Allowed values are CellForeground and CellBackground, which reference the
+  # affected cell, or hexadecimal colors like #ff00ff.
+  #search:
+  #  matches:
+  #    foreground: '#000000'
+  #    background: '#ffffff'
+  #
+  #  bar:
+  #    background: CellForeground
+  #    foreground: CellBackground
 
   # Normal colors
   #normal:
@@ -245,31 +265,46 @@ font:
   #
   #indexed_colors: []
 
-# Visual Bell
+# Bell
 #
-# Any time the BEL code is received, Alacritty "rings" the visual bell. Once
-# rung, the terminal background will be set to white and transition back to the
-# default background color. You can control the rate of this transition by
-# setting the `duration` property (represented in milliseconds). You can also
-# configure the transition function by setting the `animation` property.
-#
-# Values for `animation`:
-#   - Ease
-#   - EaseOut
-#   - EaseOutSine
-#   - EaseOutQuad
-#   - EaseOutCubic
-#   - EaseOutQuart
-#   - EaseOutQuint
-#   - EaseOutExpo
-#   - EaseOutCirc
-#   - Linear
-#
-# Specifying a `duration` of `0` will disable the visual bell.
-#visual_bell:
-#  animation: EaseOutExpo
-#  duration: 0
-#  color: '#ffffff'
+# The bell is rung every time the BEL control character is received.
+#bell:
+  # Visual Bell Animation
+  #
+  # Animation effect for flashing the screen when the visual bell is rung.
+  #
+  # Values for `animation`:
+  #   - Ease
+  #   - EaseOut
+  #   - EaseOutSine
+  #   - EaseOutQuad
+  #   - EaseOutCubic
+  #   - EaseOutQuart
+  #   - EaseOutQuint
+  #   - EaseOutExpo
+  #   - EaseOutCirc
+  #   - Linear
+  #animation: EaseOutExpo
+
+  # Duration of the visual bell flash. A `duration` of `0` will disable the
+  # visual bell animation.
+  #duration: 0
+
+  # Visual bell animation color.
+  #color: '#ffffff'
+
+  # Bell Command
+  #
+  # This program is executed whenever the bell is rung.
+  #
+  # When set to `command: None`, no command will be executed.
+  #
+  # Example:
+  #   command:
+  #     program: notify-send
+  #     args: ["Hello, World!"]
+  #
+  #command: None
 
 # Background opacity
 #
@@ -445,6 +480,8 @@ background_opacity: 0.9
 # - `action`: Execute a predefined action
 #
 #   - ToggleViMode
+#   - Search
+#   - SearchReverse
 #   - Copy
 #   - Paste
 #   - PasteSelection
@@ -495,6 +532,10 @@ background_opacity: 0.9
 #   - ToggleLineSelection
 #   - ToggleBlockSelection
 #   - ToggleSemanticSelection
+#   - SearchNext
+#   - SearchPrevious
+#   - SearchEndNext
+#   - SearchEndPrevious
 #
 #   (macOS only):
 #   - ToggleSimpleFullscreen: Enters fullscreen without occupying another space
@@ -595,6 +636,10 @@ key_bindings:
   - { key: W,      mods: Shift,         mode: Vi, action: WordRight               }
   - { key: E,      mods: Shift,         mode: Vi, action: WordRightEnd            }
   #- { key: Key5,   mods: Shift,         mode: Vi, action: Bracket                 }
+  #- { key: Slash,                       mode: Vi, action: Search                  }
+  #- { key: Slash,  mods: Shift,         mode: Vi, action: SearchReverse           }
+  #- { key: N,                           mode: Vi, action: SearchNext              }
+  #- { key: N,      mods: Shift,         mode: Vi, action: SearchPrevious          }
 
   # (Windows, Linux, and BSD only)
   #- { key: V,        mods: Control|Shift,           action: Paste            }
