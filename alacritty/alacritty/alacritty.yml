@@ -157,7 +157,7 @@ font:
   #use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
-#draw_bold_text_with_bright_colors: true
+#draw_bold_text_with_bright_colors: false
 
 # Colors (Gruvbox dark)
 #colors:
@@ -373,7 +373,7 @@ background_opacity: 0.9
 #
 # Alacritty defaults to using the newer ConPTY backend if it is available,
 # since it resolves a lot of bugs and is quite a bit faster. If it is not
-# available, the the WinPTY backend will be used instead.
+# available, the WinPTY backend will be used instead.
 #
 # Setting this option to `true` makes Alacritty use the legacy WinPTY backend,
 # even if the ConPTY backend is available.
@@ -480,8 +480,8 @@ background_opacity: 0.9
 # - `action`: Execute a predefined action
 #
 #   - ToggleViMode
-#   - Search
-#   - SearchReverse
+#   - SearchForward
+#   - SearchBackward
 #   - Copy
 #   - Paste
 #   - PasteSelection
@@ -534,8 +534,8 @@ background_opacity: 0.9
 #   - ToggleSemanticSelection
 #   - SearchNext
 #   - SearchPrevious
-#   - SearchEndNext
-#   - SearchEndPrevious
+#   - SearchStart
+#   - SearchEnd
 #
 #   (macOS only):
 #   - ToggleSimpleFullscreen: Enters fullscreen without occupying another space
@@ -582,7 +582,7 @@ background_opacity: 0.9
 # a no-op if you do not wish to receive input characters for that binding.
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
-# at once.
+# in the order they were defined in.
 key_bindings:
   - { key: Paste,                                action: Paste          }
   - { key: Copy,                                 action: Copy           }
@@ -636,14 +636,16 @@ key_bindings:
   - { key: W,      mods: Shift,         mode: Vi, action: WordRight               }
   - { key: E,      mods: Shift,         mode: Vi, action: WordRightEnd            }
   #- { key: Key5,   mods: Shift,         mode: Vi, action: Bracket                 }
-  #- { key: Slash,                       mode: Vi, action: Search                  }
-  #- { key: Slash,  mods: Shift,         mode: Vi, action: SearchReverse           }
+  #- { key: Slash,                       mode: Vi, action: SearchForward           }
+  #- { key: Slash,  mods: Shift,         mode: Vi, action: SearchBackward          }
   #- { key: N,                           mode: Vi, action: SearchNext              }
   #- { key: N,      mods: Shift,         mode: Vi, action: SearchPrevious          }
 
   # (Windows, Linux, and BSD only)
   #- { key: V,        mods: Control|Shift,           action: Paste            }
   #- { key: C,        mods: Control|Shift,           action: Copy             }
+  #- { key: F,        mods: Control|Shift,           action: SearchForward    }
+  #- { key: B,        mods: Control|Shift,           action: SearchBackward   }
   #- { key: C,        mods: Control|Shift, mode: Vi, action: ClearSelection   }
   #- { key: Insert,   mods: Shift,                   action: PasteSelection   }
   #- { key: Key0,     mods: Control,                 action: ResetFontSize    }
@@ -671,6 +673,8 @@ key_bindings:
   - { key: W,      mods: Command,            action: Quit             }
   - { key: N,      mods: Command,            action: SpawnNewInstance }
   - { key: F,      mods: Command|Control,    action: ToggleFullscreen }
+  - { key: F,      mods: Command,            action: SearchForward    }
+  - { key: B,      mods: Command,            action: SearchBackward   }
 
 #debug:
   # Display the time it takes to redraw each frame.
