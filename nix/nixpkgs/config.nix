@@ -41,6 +41,7 @@
         shfmt
         starship
         passff-host
+        ncdu
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
