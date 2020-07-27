@@ -25,7 +25,7 @@
         xclip
         pass
         tmux
-        nodejs-13_x
+        nodejs-14_x
         yarn
         emacs
         htop
