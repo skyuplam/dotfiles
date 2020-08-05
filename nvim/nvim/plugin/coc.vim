@@ -30,8 +30,8 @@ augroup cocAUG
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
   " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-  autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')
+  " autocmd CursorHold * silent call CocActionAsync('highlight')
+  " autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')
 augroup end
 
 " Show documentation
