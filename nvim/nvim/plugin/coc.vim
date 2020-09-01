@@ -22,17 +22,17 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-augroup cocAUG
-  autocmd!
-  autocmd User CocStatusChange,CocGitStatusChange call local#statusline#RefreshStatusline()
-  autocmd User CocDiagnosticChange call local#statusline#RefreshStatusline()
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
-  " Highlight symbol under cursor on CursorHold
-  " autocmd CursorHold * silent call CocActionAsync('highlight')
-  " autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')
-augroup end
+" augroup cocAUG
+"   autocmd!
+"   autocmd User CocStatusChange,CocGitStatusChange call local#statusline#RefreshStatusline()
+"   autocmd User CocDiagnosticChange call local#statusline#RefreshStatusline()
+"   " Update signature help on jump placeholder
+"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" 
+"   " Highlight symbol under cursor on CursorHold
+"   " autocmd CursorHold * silent call CocActionAsync('highlight')
+"   " autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')
+" augroup end
 
 " Show documentation
 function s:show_documentation()

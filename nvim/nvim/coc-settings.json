@@ -1,4 +1,5 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "markdown", "javascript"],
   "suggest.triggerAfterInsertEnter": true,
   "suggest.timeout": 500,
   "suggest.minTriggerInputLength": 2,
@@ -16,6 +17,8 @@
   "cSpell.userWords": ["pexip", "preso", "webrtc"],
   "tsserver.disableAutomaticTypeAcquisition": true,
   "typescript.format.enabled": true,
+  "eslint.autoFix": true,
+  "eslint.autoFixOnSave": true,
   "javascript.format.enabled": true,
   "languageserver": {
     "efm": {

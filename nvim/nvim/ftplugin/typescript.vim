@@ -16,16 +16,10 @@ let b:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
       \ 'typescript': ['prettier', 'eslint'],
       \ 'typescript.tsx': ['prettier', 'eslint'],
+      \ 'typescriptreact': ['prettier', 'eslint'],
       \}
 
 " }}}
 
-" ============================================================================
-" TSC compiler {{{
-" ============================================================================
-
-let g:typescript_compiler_binary = 'yarn -s tsc'
-" Project-wise compilation
-let g:typescript_compiler_options = '-p tsconfig.json --noEmit'
-
-" }}}
+" Set compiler to tsc
+compiler tsc

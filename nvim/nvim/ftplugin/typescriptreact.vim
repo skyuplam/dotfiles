@@ -12,8 +12,7 @@ let b:did_ftplugin_typescriptreact = 1 " Don't load twice in one buffer
 
 let b:ale_fixers = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'typescript': ['prettier', 'eslint'],
-      \ 'typescript.tsx': ['prettier', 'eslint'],
+      \ 'typescriptreact': ['prettier', 'eslint'],
       \}
 
 " }}}
