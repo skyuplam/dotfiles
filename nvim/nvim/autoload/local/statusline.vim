@@ -1,25 +1,21 @@
 scriptencoding utf-8
 
 " coc & ale statusline
-function local#statusline#DiagnosticCocAleStatus() abort
+function local#statusline#DiagnosticCocStatus() abort
   let info = get(b:, 'coc_diagnostic_info', {})
-  let l:counts = ale#statusline#Count(bufnr(''))
 
-  if empty(info) && l:counts.total == 0 | return '' | endif
-
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
+  if empty(info) | return '' | endif
 
   let msgs = []
-  let errors = get(info, 'error', 0) + l:all_errors
-  let warnings = get(info, 'warning', 0) + l:all_non_errors
 
-  if errors
-    call add(msgs, errors . '✖')
+  if get(info, 'error', 0)
+    call add(msgs, info['error'] . '✖')
   endif
-  if warnings
-    call add(msgs, warnings . '⚠')
+
+  if get(info, 'warning', 0)
+    call add(msgs, info['warning'] . '⚠')
   endif
+
   let msgFmt = empty(msgs) ? '' : '[' . join(msgs, ' '). '] '
   return msgFmt . get(g:, 'coc_status', '')
 endfunction
@@ -33,12 +29,10 @@ function local#statusline#ConstructStatusline()
   let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
   let ro  = "%{&readonly ? '[RO] ' : ''}"
   let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
-  " let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
   let sep = ' %= '
   let pos = ' %-12(%l : %c%V%) '
   let pct = ' %P'
-  " let ale = "%{len(LinterStatus()) ? LinterStatus() : ''}"
-  let coc = '%{local#statusline#DiagnosticCocAleStatus()}'
+  let coc = '%{local#statusline#DiagnosticCocStatus()}'
   let coc_git = "%{get(g:,'coc_git_status','')}%{get(b:,'coc_git_status','')}%{get(b:,'coc_git_blame','')}"
   let git_status = '%{local#statusline#SummarizeGitStatus()}'
 

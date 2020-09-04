@@ -8,15 +8,4 @@ let b:did_ftplugin_javascript = 1 " Don't load twice in one buffer
 
 setlocal formatexpr=CocAction('formatSelected')
 
-" ============================================================================
-" ALE Fixing {{{
-" ============================================================================
-
-let b:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'javascript': ['prettier', 'eslint'],
-      \ 'javascript.tsx': ['prettier', 'eslint'],
-      \ 'javascriptreact': ['prettier', 'eslint'],
-      \}
-
 " }}}

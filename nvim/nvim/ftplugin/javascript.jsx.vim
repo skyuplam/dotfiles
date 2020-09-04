@@ -6,10 +6,6 @@ endif
 
 let b:did_ftplugin_javascript_jsx = 1 " Don't load twice in one buffer
 
-" ============================================================================
-" ALE Fixing {{{
-" ============================================================================
-
 source <sfile>:h/javascript.vim
 
 " }}}

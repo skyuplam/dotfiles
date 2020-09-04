@@ -22,7 +22,6 @@ function! PackInit() abort
   call minpac#add('jsfaint/coc-neoinclude')
   call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
   call minpac#add('Shougo/vimproc.vim', {'do' : 'silent! !make'})
-  call minpac#add('dense-analysis/ale')
   call minpac#add('vim-scripts/vis')
   call minpac#add('sheerun/vim-polyglot')
   call minpac#add('editorconfig/editorconfig-vim')
