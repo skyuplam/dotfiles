@@ -13,7 +13,7 @@ function! PackInit() abort
   " Additional plugins here.
   call minpac#add('vim-jp/syntax-vim-ex')
   call minpac#add('tyru/open-browser.vim')
-  call minpac#add('scrooloose/nerdtree')
+  call minpac#add('preservim/nerdtree')
   call minpac#add('Xuyuanp/nerdtree-git-plugin')
 
   call minpac#add('Shougo/neco-vim')
@@ -257,9 +257,6 @@ vnoremap <silent> # :<C-U>
 " vim-slash
 " Places the current match at the center of the window
 noremap <plug>(slash-after) zz
-
-" Enable clipboard
-noremap <silent> <F8> :set clipboard+=unnamedplus<CR>
 
 " Select the text in visual mode then `y` to copy them to clipboard
 vmap y y:call SendViaOSC52(getreg('"'))<CR>
