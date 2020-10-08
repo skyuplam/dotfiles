@@ -54,7 +54,7 @@ function! PackInit() abort
   " call minpac#add('junegunn/fzf', { 'do': {-> fzf#install()} })
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('ryanoasis/vim-devicons')
-  call minpac#add('chrisbra/Colorizer')
+  call minpac#add('norcalli/nvim-colorizer.lua')
 
   call minpac#add('junegunn/vim-slash')
   call minpac#add('junegunn/gv.vim')
