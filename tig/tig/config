@@ -15,7 +15,7 @@ bind generic R !git rebase -i %(commit)
 bind generic I !git add -i %(file)
 
 # Copy the commit ID to clipboard
-bind generic 9 !@sh -c "echo -n %(commit) | xclip -selection c"
+bind generic Y !@sh -c "printf %(commit) | pbcopy"
 
 # Add patch from selected file
 bind status p ?git add --patch %(file)
