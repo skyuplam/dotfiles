@@ -24,11 +24,10 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
 
 typeset -U path
-path=(/usr/local/opt/make/libexec/gnubin /usr/local/sbin /usr/local/bin $path[@])
+path=(/usr/local/sbin /usr/local/bin $path[@])
 
 # Rust
 export RUSTUP_HOME=~/.multirust
-[ -d $HOME/.cargo/bin ] && export PATH=$HOME/.cargo/bin:$PATH
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 # Go
@@ -41,9 +40,6 @@ export MYINITVIM=$XDG_CONFIG_HOME/nvim/init.vim
 # Dropbox
 export DROPBOX_DIR=~/Dropbox
 export ORG_DIR=$DROPBOX_DIR/org
-
-# Nix
-[ -d ~/.nix-profile ] && export PATH=~/.nix-profile/bin:$PATH
 
 # Local bin
 export PATH=~/.local/bin:$PATH
