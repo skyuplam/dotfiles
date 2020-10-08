@@ -4,11 +4,6 @@ endif
 
 let b:did_ftplugin_rust = 1 " Don't load twice in one buffer
 
-" Check Rust files with rls
-let b:ale_linters = ['rls', 'cargo']
-" Fix Python files with autopep8 and yapf.
-let b:ale_fixers = ['rustfmt']
-
 " LanguageServer-neovim
 if executable('rls')
   let g:LanguageClient_serverCommands = { "rust": "rls" }
