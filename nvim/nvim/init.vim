@@ -217,6 +217,7 @@ let g:mapleader = ','
 " Explorer Mapping
 nnoremap <C-e> :NERDTreeToggle<CR>
 nnoremap <C-p> :Files<CR>
+nnoremap <silent> <space>t :TagbarToggle<CR>
 
 " Terminal
 nnoremap <leader>nt :bo 15sp +term<CR>
