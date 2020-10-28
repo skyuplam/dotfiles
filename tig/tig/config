@@ -5,11 +5,19 @@
 # Add keybinding to quickly jump to the next diff chunk in the stage view
 bind stage <Enter> :/^@@
 
+bind generic G move-last-line
+bind generic g none
+bind generic gg move-first-line
 
 # User-defined internal command that reloads tigrc
 bind generic S :source ~/.config/tig/config
 
-bind generic R !git rebase -i %(commit)
+# Rebase -i
+bind main R ?git rebase -i %(commit)
+
+# Fetch
+bind generic F ?git fetch
+bind main F ?git fetch
 
 # Enter Git’s interactive add for fine-grained staging of file content
 bind generic I !git add -i %(file)
