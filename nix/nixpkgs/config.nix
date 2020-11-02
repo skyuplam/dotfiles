@@ -40,7 +40,7 @@
         nnn
         go
         gitAndTools.delta
-        gitAndTools.gitui
+        # gitAndTools.gitui
         nmap
         shellcheck
         hadolint
