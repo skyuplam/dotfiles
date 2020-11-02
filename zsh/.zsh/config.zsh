@@ -33,6 +33,7 @@ export RUSTUP_HOME=~/.multirust
 # Go
 export GOPATH=$XDG_CONFIG_HOME/go
 [ -d $GOPATH/bin ] && export PATH=$GOPATH/bin:$PATH
+export GO111MODULE=on
 
 # Neovim
 export MYINITVIM=$XDG_CONFIG_HOME/nvim/init.vim
@@ -53,8 +54,6 @@ export REVIEW_BASE=master
 # ---------------------------------------------------------
 
 # Bind history substring search to ctrl-p & ctrl-n
-bindkey "^p" history-substring-search-up
-bindkey "^n" history-substring-search-down
 bindkey "∫" backward-word
 bindkey "ƒ" forward-word
 
