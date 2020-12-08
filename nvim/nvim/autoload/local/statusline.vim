@@ -17,7 +17,7 @@ function local#statusline#DiagnosticCocStatus() abort
   endif
 
   let msgFmt = empty(msgs) ? '' : '[' . join(msgs, ' '). '] '
-  return msgFmt . get(g:, 'coc_status', '')
+  return msgFmt . get(g:, 'coc_status', '') . get(b:,'coc_current_function','')
 endfunction
 
 function local#statusline#SummarizeGitStatus()

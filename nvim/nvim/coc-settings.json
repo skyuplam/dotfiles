@@ -14,7 +14,13 @@
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "cSpell.userWords": ["pexip", "preso", "webrtc"],
+  "cSpell.userWords": [
+    "Worklet",
+    "pexip",
+    "preso",
+    "webrtc",
+    "worklets"
+  ],
   "tsserver.disableAutomaticTypeAcquisition": true,
   "typescript.format.enabled": true,
   "eslint.autoFix": true,
