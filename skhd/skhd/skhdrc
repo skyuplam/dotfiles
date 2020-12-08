@@ -195,11 +195,8 @@ focus, grid, swap, warp, warpnf, resize < ctrl - 0x21       ; default  # ctrl - 
 focus, grid, swap, warp, warpnf, resize < return            ; default  # ctrl - [ same as escape
 
 # Global hotkeys
-default                                 < cmd - return      : open -na alacritty   # Launch Alacritty
-default                                 < ctrl - 0x21       : skhd --key "escape"  # Map ctrl - [ to escape
-default                                 < ctrl + cmd - 0x18 : cliclick kp:volume-up
-default                                 < ctrl + cmd - 0x1B : cliclick kp:volume-down
-default                                 < ctrl + cmd - 0    : cliclick kp:mute
+default                                 < shift + cmd - return      : open -na alacritty   # Launch Alacritty
+default                                 < ctrl - 0x21               : skhd --key "escape"  # Map ctrl - [ to escape
 
 # Once in FOCUS mode (or any other mode other than default), you can switch
 # modes with single keystroke. (mnemonic: letter corresponds to first letter of
