@@ -28,7 +28,9 @@
         tree
         stow
         xclip
-        pass
+        passff-host
+        passExtensions.pass-import
+        (pass.withExtensions (exts: [ exts.pass-otp ]))
         tmux
         nodejs-14_x
         yarn
@@ -46,9 +48,11 @@
         hadolint
         shfmt
         starship
-        passff-host
         ncdu
         universal-ctags
+        kitty
+        stack
+        darcs
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
