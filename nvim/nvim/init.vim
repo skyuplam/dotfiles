@@ -25,6 +25,7 @@ function! PackInit() abort
   call minpac#add('vim-scripts/vis')
   call minpac#add('sheerun/vim-polyglot')
   call minpac#add('editorconfig/editorconfig-vim')
+  call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
 
   call minpac#add('mbbill/undotree')
 
@@ -55,6 +56,10 @@ function! PackInit() abort
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('ryanoasis/vim-devicons')
   call minpac#add('norcalli/nvim-colorizer.lua')
+
+  " Switches off the 'viminfo', 'backup', 'writebackup', 'swapfile', and
+  " 'undofile' options globally when editing a password in pass(1).
+  call minpac#add('https://sanctum.geek.nz/code/vim-redact-pass.git', {'depth': 0})
 
   call minpac#add('junegunn/vim-slash')
   call minpac#add('junegunn/gv.vim')
@@ -139,7 +144,7 @@ set whichwrap=b,s,<,>,[,]
 set scrolljump=5
 set scrolloff=3
 
-set synmaxcol=200
+set synmaxcol=300
 
 " "split"	 : Also shows partial off-screen results in a preview window.
 " Works for |:substitute|, |:smagic|, |:snomagic|. |hl-Substitute|
@@ -267,10 +272,6 @@ noremap <plug>(slash-after) zz
 " Select the text in visual mode then `y` to copy them to clipboard
 vmap y y:call SendViaOSC52(getreg('"'))<CR>
 
-" Terminal keybinding
-" To map <Esc> to exit terminal-mode
-" tnoremap <Esc> <C-\><C-N>
-
 " Vim
 nnoremap <Leader>ev :tabe $MYINITVIM<CR>
 nnoremap <Leader>rv :source $MYINITVIM<CR>
@@ -357,7 +358,6 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 nnoremap <silent> <F9> :set scb!<CR>
 
 " vim-test
-" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
 nmap <silent> <leader>tt :TestNearest<CR>
 nmap <silent> <leader>tT :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
