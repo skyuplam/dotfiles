@@ -62,6 +62,11 @@ yabai -m rule --add app="^.*Installer$" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
 yabai -m rule --add app="^Vorta$" manage=off
 yabai -m rule --add app="^Outlook$" manage=off
+yabai -m rule --add app="^Books$" manage=off
+yabai -m rule --add app="^Kindle$" manage=off
+yabai -m rule --add app="^calibre$" manage=off
+yabai -m rule --add app="^App Store$" manage=off
+yabai -m rule --add app="^Logi Options$" manage=off
 
 # signals
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
