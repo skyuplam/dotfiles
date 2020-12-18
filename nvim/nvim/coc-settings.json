@@ -1,5 +1,10 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "markdown", "javascript"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "typescript",
+    "typescriptreact",
+    "markdown",
+    "javascript"
+  ],
   "suggest.triggerAfterInsertEnter": true,
   "suggest.timeout": 500,
   "suggest.minTriggerInputLength": 2,
@@ -14,13 +19,7 @@
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "cSpell.userWords": [
-    "Worklet",
-    "pexip",
-    "preso",
-    "webrtc",
-    "worklets"
-  ],
+  "cSpell.userWords": ["Worklet", "pexip", "preso", "webrtc", "worklets"],
   "tsserver.disableAutomaticTypeAcquisition": true,
   "typescript.format.enabled": true,
   "eslint.autoFix": true,
@@ -41,6 +40,19 @@
         "zsh",
         "dockerfile"
       ]
+    },
+    "haskell": {
+      "command": "ghcide-via-stack-exec",
+      "args": [""],
+      "rootPatterns": [
+        "*.cabal",
+        "cabal.config",
+        "cabal.project",
+        "package.yaml",
+        "stack.yaml"
+      ],
+      "filetypes": ["hs", "lhs", "haskell"],
+      "initializationOptions": { "languageServerHaskell": { "hlintOn": true } }
     }
   }
 }
