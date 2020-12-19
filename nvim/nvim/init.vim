@@ -1,90 +1,13 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 scriptencoding utf-8
 
-" ============================================================================
-" Minpac https://github.com/k-takata/minpac {{{
-" ============================================================================
-function! PackInit() abort
-  packadd minpac
+lua require('plugins')
 
-  call minpac#init()
-  call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-  " Additional plugins here.
-  call minpac#add('vim-jp/syntax-vim-ex')
-  call minpac#add('tyru/open-browser.vim')
-  call minpac#add('preservim/nerdtree')
-  call minpac#add('Xuyuanp/nerdtree-git-plugin')
-
-  call minpac#add('Shougo/neco-vim')
-  call minpac#add('neoclide/coc-neco')
-  call minpac#add('Shougo/neoinclude.vim')
-  call minpac#add('jsfaint/coc-neoinclude')
-  call minpac#add('neoclide/coc.nvim', {'branch': 'release', 'do': {-> coc#util#install()}})
-  call minpac#add('Shougo/vimproc.vim', {'do' : 'silent! !make'})
-  call minpac#add('vim-scripts/vis')
-  call minpac#add('sheerun/vim-polyglot')
-  call minpac#add('editorconfig/editorconfig-vim')
-  call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
-
-  call minpac#add('mbbill/undotree')
-
-  call minpac#add('airblade/vim-gitgutter')
-  call minpac#add('mhinz/vim-signify')
-  call minpac#add('tpope/vim-git')
-  call minpac#add('tpope/vim-fugitive')
-  call minpac#add('tpope/vim-rhubarb')
-  call minpac#add('tpope/vim-sleuth')
-
-  call minpac#add('godlygeek/tabular')
-
-  call minpac#add('christoomey/vim-tmux-navigator')
-  call minpac#add('wellle/tmux-complete.vim')
-
-  call minpac#add('SirVer/ultisnips')
-
-  call minpac#add('iberianpig/tig-explorer.vim')
-  call minpac#add('rbgrouleff/bclose.vim')
-
-  " A vim script to provide CamelCase motion through words (fork of inkarkat's
-  " camelcasemotion script)
-  call minpac#add('bkad/CamelCaseMotion')
-
-  call minpac#add('tpope/vim-surround')
-  call minpac#add('tpope/vim-repeat')
-  " call minpac#add('junegunn/fzf', { 'do': {-> fzf#install()} })
-  call minpac#add('junegunn/fzf.vim')
-  call minpac#add('ryanoasis/vim-devicons')
-  call minpac#add('norcalli/nvim-colorizer.lua')
-
-  " Switches off the 'viminfo', 'backup', 'writebackup', 'swapfile', and
-  " 'undofile' options globally when editing a password in pass(1).
-  call minpac#add('https://sanctum.geek.nz/code/vim-redact-pass.git', {'depth': 0})
-
-  call minpac#add('junegunn/vim-slash')
-  call minpac#add('junegunn/gv.vim')
-  call minpac#add('junegunn/vim-peekaboo')
-
-  call minpac#add('gruvbox-community/gruvbox' , { 'type': 'opt' })
-
-  call minpac#add('plasticboy/vim-markdown')
-  call minpac#add('mzlogin/vim-markdown-toc')
-  call minpac#add('iamcco/markdown-preview.nvim', {'do': {-> mkdp#util#install()} })
-
-  call minpac#add('vim-scripts/utl.vim')
-  call minpac#add('majutsushi/tagbar')
-  call minpac#add('janko/vim-test')
-  call minpac#add('tpope/vim-speeddating')
-  call minpac#add('chrisbra/NrrwRgn')
-  call minpac#add('mattn/calendar-vim')
-  call minpac#add('inkarkat/vim-SyntaxRange')
-endfunction
-" }}}
 " ============================================================================
 " Sourcing {{{
 " ============================================================================
 
-exec 'source ~/.config/nvim/osc52.vim'
+exec 'source $XDG_CONFIG_HOME/nvim/osc52.vim'
 
 " Use fzf from nixpkgs
 set runtimepath^=$HOME/.nix-profile/share/vim-plugins/fzf/
@@ -125,16 +48,13 @@ set writebackup
 set nobackup
 " use rename-and-write-new method whenever safe
 set backupcopy=auto
-" patch required to honor double slash at end
-if has('patch-8.1.0251')
-  " consolidate the writebackups -- not a big
-  " deal either way, since they usually get deleted
-  set backupdir^=$XDG_CONFIG_HOME/backup//
-end
+" consolidate the writebackups -- not a big
+" deal either way, since they usually get deleted
+set backupdir^=$XDG_CONFIG_HOME/nvim/backup//
 
 " persist the undo tree for each file
 set undofile
-set undodir^=$XDG_CONFIG_HOME/undo//
+set undodir^=$XDG_CONFIG_HOME/nvim/undo//
 
 set ignorecase                            " Case insensitive search
 set smartcase                             " Smart Case search
@@ -197,7 +117,7 @@ set diffopt+=indent-heuristic
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Complete
-set complete+=i,t
+"set complete+=i,t
 
 augroup vimrcEx
   autocmd!
@@ -265,7 +185,7 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-" vim-slash
+" vim-slash https://github.com/junegunn/vim-slash
 " Places the current match at the center of the window
 noremap <plug>(slash-after) zz
 
@@ -410,11 +330,6 @@ map <Leader>1 :diffget LOCAL<CR>
 map <Leader>2 :diffget BASE<CR>
 map <Leader>3 :diffget REMOTE<CR>
 
-" Minpac mappings
-command! PackUpdate call PackInit() | call minpac#update()
-command! PackClean  call PackInit() | call minpac#clean()
-command! PackStatus call PackInit() | call minpac#status()
-
 " FZF completion mappings
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -446,8 +361,8 @@ inoremap <expr> <c-x><c-z> fzf#vim#complete('rg tags $NOTES_DIR \| teip -og "\".
 " ============================================================================
 " SOURCE LOCAL SETTINGS {{{
 " ============================================================================
-if filereadable(expand('~/.config/nvim/local.vim'))
-  exec 'source ~/.config/nvim/local.vim'
+if filereadable(expand('$XDG_CONFIG_HOME/nvim/local.vim'))
+  exec 'source $XDG_CONFIG_HOME/nvim/local.vim'
 endif
 
 " }}}
