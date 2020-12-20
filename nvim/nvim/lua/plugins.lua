@@ -1,7 +1,9 @@
+-- vim: set foldmethod=marker foldlevel=0 nomodeline:
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
---
--- Bootstrap for packer
---
+
+-- ============================================================================
+--  Bootstrap for packer {{{
+-- ============================================================================
 -- Note that this will install packer as an opt plugin; if you want packer to be
 -- a start plugin, you must modify the value of install_path in the above
 -- snippet.
@@ -14,6 +16,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
     execute 'packadd packer.nvim'
 end
+
+-- }}}
+-- ============================================================================
+--  Plugins {{{
+-- ============================================================================
 
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
@@ -39,11 +46,36 @@ return require('packer').startup(function()
   use {'preservim/nerdtree'}
   use {'Xuyuanp/nerdtree-git-plugin'}
 
-  use {'Shougo/neco-vim'}
-  use {'neoclide/coc-neco'}
-  use {'Shougo/neoinclude.vim'}
-  use {'jsfaint/coc-neoinclude'}
-  use {'neoclide/coc.nvim', branch = 'release'}
+  -- use {'Shougo/neco-vim'}
+  -- use {'neoclide/coc-neco'}
+  -- use {'Shougo/neoinclude.vim'}
+  -- use {'jsfaint/coc-neoinclude'}
+  use {
+    'neoclide/coc.nvim',
+    branch = 'release',
+    ft = {
+      'typescript',
+      'typescriptreact',
+      'javascript',
+      'javascriptreact',
+      'html',
+      'json',
+      'css',
+      'rust',
+      'markdown',
+      'haskell',
+      'vim',
+      'make',
+      'css',
+      'scss',
+      'sass',
+      'less',
+      'yaml',
+      'zsh',
+      'dockerfile'
+    },
+    config = function() require('coc').setup() end
+  }
   use {'Shougo/vimproc.vim', run = ':silent! !make'}
   use {'vim-scripts/vis'}
   use {'editorconfig/editorconfig-vim'}
@@ -71,7 +103,10 @@ return require('packer').startup(function()
   use {'tpope/vim-repeat'}
   use {'junegunn/fzf.vim'}
   use {'ryanoasis/vim-devicons'}
-  use {'norcalli/nvim-colorizer.lua'}
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function() require('colorizer').setup() end
+  }
 
   use {'~/dev/vim-redact-pass', opt = true, event = 'VimEnter /private$TMPDIR/pass.?*/?*.txt'}
 
@@ -90,3 +125,4 @@ return require('packer').startup(function()
   use {'mattn/calendar-vim'}
   use {'inkarkat/vim-SyntaxRange'}
 end)
+---}}}
