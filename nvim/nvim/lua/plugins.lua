@@ -36,9 +36,12 @@ return require('packer').startup(function()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    opt = true,
-    ft = {'css', 'go', 'haskell', 'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'nix', 'json', 'lua', 'python', 'rust', 'toml', 'yaml'},
-    cmd = {'TSBufEnable', 'TSEnableAll', 'TSModuleInfo'}
+    requires = {
+      {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'},
+      {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'},
+      config = 'require("treesitter")',
+      event = 'VimEnter *'
+    },
   }
   use {'ghifarit53/tokyonight-vim'}
   use {'vim-jp/syntax-vim-ex'}
@@ -46,63 +49,42 @@ return require('packer').startup(function()
   use {'preservim/nerdtree'}
   use {'Xuyuanp/nerdtree-git-plugin'}
 
-  -- use {'Shougo/neco-vim'}
-  -- use {'neoclide/coc-neco'}
-  -- use {'Shougo/neoinclude.vim'}
-  -- use {'jsfaint/coc-neoinclude'}
   use {
     'neoclide/coc.nvim',
     branch = 'release',
-    ft = {
-      'typescript',
-      'typescriptreact',
-      'javascript',
-      'javascriptreact',
-      'html',
-      'json',
-      'css',
-      'rust',
-      'markdown',
-      'haskell',
-      'vim',
-      'make',
-      'css',
-      'scss',
-      'sass',
-      'less',
-      'yaml',
-      'zsh',
-      'dockerfile'
-    },
     config = function() require('coc').setup() end
   }
   use {'Shougo/vimproc.vim', run = ':silent! !make'}
-  use {'vim-scripts/vis'}
-  use {'editorconfig/editorconfig-vim'}
+  use 'vim-scripts/vis'
+  use 'editorconfig/editorconfig-vim'
 
-  use {'mbbill/undotree'}
+  use 'mbbill/undotree'
 
-  use {'airblade/vim-gitgutter'}
-  use {'mhinz/vim-signify'}
-  use {'tpope/vim-git'}
-  use {'tpope/vim-fugitive'}
-  use {'tpope/vim-rhubarb'}
-  use {'tpope/vim-sleuth'}
+  use 'airblade/vim-gitgutter'
+  use 'mhinz/vim-signify'
+  use 'tpope/vim-git'
+  use 'tpope/vim-fugitive'
+  use 'tpope/vim-rhubarb'
+  use 'tpope/vim-sleuth'
 
-  use {'godlygeek/tabular'}
+  use 'godlygeek/tabular'
 
-  use {'christoomey/vim-tmux-navigator'}
-  use {'wellle/tmux-complete.vim'}
+  use 'christoomey/vim-tmux-navigator'
+  use 'wellle/tmux-complete.vim'
 
-  use {'SirVer/ultisnips'}
+  use 'SirVer/ultisnips'
 
-  use {'iberianpig/tig-explorer.vim'}
-  use {'rbgrouleff/bclose.vim'}
+  use 'iberianpig/tig-explorer.vim'
+  use 'rbgrouleff/bclose.vim'
+  -- Marks
+  use 'kshenoy/vim-signature'
+  -- Quickfix
+  use {'Olical/vim-enmasse', cmd = 'EnMasse'}
 
-  use {'tpope/vim-surround'}
-  use {'tpope/vim-repeat'}
-  use {'junegunn/fzf.vim'}
-  use {'ryanoasis/vim-devicons'}
+  use 'tpope/vim-surround'
+  use 'tpope/vim-repeat'
+  use 'junegunn/fzf.vim'
+  use 'ryanoasis/vim-devicons'
   use {
     'norcalli/nvim-colorizer.lua',
     config = function() require('colorizer').setup() end
@@ -110,19 +92,20 @@ return require('packer').startup(function()
 
   use {'~/dev/vim-redact-pass', opt = true, event = 'VimEnter /private$TMPDIR/pass.?*/?*.txt'}
 
-  use {'junegunn/vim-slash'}
-  use {'junegunn/gv.vim'}
-  use {'junegunn/vim-peekaboo'}
+  use 'junegunn/vim-slash'
+  use 'junegunn/gv.vim'
+  use 'junegunn/vim-peekaboo'
+  use 'junegunn/vim-easy-align'
 
-  use {'plasticboy/vim-markdown'}
-  use {'mzlogin/vim-markdown-toc'}
+  use 'plasticboy/vim-markdown'
+  use 'mzlogin/vim-markdown-toc'
 
-  use {'vim-scripts/utl.vim'}
-  use {'majutsushi/tagbar'}
-  use {'janko/vim-test'}
-  use {'tpope/vim-speeddating'}
-  use {'chrisbra/NrrwRgn'}
-  use {'mattn/calendar-vim'}
-  use {'inkarkat/vim-SyntaxRange'}
+  use 'vim-scripts/utl.vim'
+  use 'majutsushi/tagbar'
+  use 'janko/vim-test'
+  use 'tpope/vim-speeddating'
+  use 'chrisbra/NrrwRgn'
+  use 'mattn/calendar-vim'
+  use 'inkarkat/vim-SyntaxRange'
 end)
 ---}}}
