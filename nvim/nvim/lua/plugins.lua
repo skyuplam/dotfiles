@@ -90,7 +90,10 @@ return require('packer').startup(function()
     config = function() require('colorizer').setup() end
   }
 
-  use {'~/dev/vim-redact-pass', opt = true, event = 'VimEnter /private$TMPDIR/pass.?*/?*.txt'}
+  use {
+    '~/dev/vim-redact-pass',
+    event = 'VimEnter /private$TMPDIR/pass.?*/?*.txt,/dev/shm/pass.?*/?*.txt'
+  }
 
   use 'junegunn/vim-slash'
   use 'junegunn/gv.vim'
