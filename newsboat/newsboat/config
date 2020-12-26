@@ -1,0 +1,27 @@
+browser "/usr/bin/xdg-open"
+player "mpv"
+reload-threads 10
+save-path "~/Downloads/rss/"
+
+# Key-binding
+bind-key j next
+bind-key k prev
+bind-key J next-feed
+bind-key K prev-feed
+bind-key j down article
+bind-key k up article
+bind-key J next article
+bind-key K prev article
+
+# Macros
+macro , open-in-browser
+macro w set browser "lynx" ; open-in-browser ; set browser "/usr/bin/xdg-open"
+macro o set browser "xdg-open %u" ; open-in-browser ; set browser "/usr/bin/xdg-open"
+macro y set browser "mpv >/dev/null 2>&1" ; open-in-browser ; set browser "/usr/bin/xdg-open"
+macro Y set browser "youtube-dl" ; open-in-browser ; set browser "/usr/bin/xdg-open"
+macro a set browser "youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser "/usr/bin/xdg-open"
+macro c set browser "youtube-viewer --comments=%u" ; open-in-browser ; set browser "/usr/bin/xdg-open"
+macro i set browser "imv %u"; open-in-browser ; set browser "/usr/bin/xdg-open"
+
+# Colorscheme
+include /usr/share/doc/newsboat/contrib/colorschemes/solarized-dark
