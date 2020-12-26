@@ -242,7 +242,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command /usr/bin/i3status-rs $XDG_CONFIG_HOME/i3status-rust/config.toml
+    status_command /usr/bin/i3status-rs
 
     colors {
         separator #666666
