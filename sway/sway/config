@@ -27,17 +27,6 @@ font pango:Hack Nerd Font 11
 
 gaps inner 10
 
-set $wspace1  "1: <span font_family='FontAwesome'></span>"
-set $wspace2  "2: <span font_family='FontAwesome'></span>"
-set $wspace3  "3: <span font_family='FontAwesome'></span>"
-set $wspace4  "4"
-set $wspace5  "5"
-set $wspace6  "6"
-set $wspace7  "7"
-set $wspace8  "8: <span font_family='FontAwesome'></span>"
-set $wspace9  "9: <span font_family='FontAwesome'></span>"
-set $wspace10 "10: <span font_family='FontAwesome'></span>"
-
 # Disable Xwayland
 xwayland disable
 
