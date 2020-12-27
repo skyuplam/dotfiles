@@ -47,6 +47,7 @@ xwayland disable
 
 # Scale for HiDPI
 output DP-3 scale 1.5
+output DP-3 pos 0 0
 
 #
 # Example configuration:
