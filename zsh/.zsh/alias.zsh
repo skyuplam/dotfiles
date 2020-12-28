@@ -11,12 +11,6 @@ if type lsd > /dev/null; then
   alias lt="ls --tree"
 fi
 
-# vim or nvim
-if type nvim > /dev/null; then
-  alias vim="nvim"
-  alias vi="nvim"
-fi
-
 # Docker
 if type docker-compose > /dev/null; then
   alias dc='docker-compose'
@@ -92,8 +86,8 @@ function tmuxkillf() {
     done
 }
 
-unalias v
-function v() {
+# Edit recent edited files with vim and fzf
+function er() {
   [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
   local file
   file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort -m)" && ${EDITOR:-vim} "${file}" || return 1
@@ -154,11 +148,11 @@ _gr() {
 
 # Key-binding
 #
-# CTRL-GCTRL-F for files
-# CTRL-GCTRL-B for branches
-# CTRL-GCTRL-T for tags
-# CTRL-GCTRL-R for remotes
-# CTRL-GCTRL-H for commit hashes
+# CTRL-G CTRL-F for files
+# CTRL-G CTRL-B for branches
+# CTRL-G CTRL-T for tags
+# CTRL-G CTRL-R for remotes
+# CTRL-G CTRL-H for commit hashes
 
 join-lines() {
   local item
