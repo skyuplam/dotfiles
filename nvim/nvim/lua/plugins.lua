@@ -70,7 +70,7 @@ return require('packer').startup(function()
   use 'godlygeek/tabular'
 
   use 'christoomey/vim-tmux-navigator'
-  use 'wellle/tmux-complete.vim'
+  -- use 'wellle/tmux-complete.vim'
 
   use 'SirVer/ultisnips'
 
