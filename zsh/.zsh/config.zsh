@@ -101,6 +101,9 @@ fi
 # Starship: https://starship.rs
 eval "$(starship init zsh)"
 
+# https://github.com/ajeetdsouza/zoxide
+eval "$(zoxide init zsh)"
+
 
 # kubectl
 # source <(kubectl completion zsh)
