@@ -1,0 +1,2 @@
+# vim: set foldmethod=marker foldlevel=0 ft=config nomodeline:
+exec_always pgrep settimed | xargs kill 2>/dev/null ; settimed ~/.config/sway/mojave-timed.stw &

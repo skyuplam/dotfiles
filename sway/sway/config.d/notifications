@@ -1,1 +1,2 @@
-exec --no-startup-id mako
+# vim: set foldmethod=marker foldlevel=0 ft=config nomodeline:
+exec mako
