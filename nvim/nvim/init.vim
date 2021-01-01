@@ -66,6 +66,9 @@ set whichwrap=b,s,<,>,[,]
 set scrolljump=5
 set scrolloff=3
 
+set formatoptions+=1
+set formatoptions+=j
+
 set synmaxcol=300
 
 " "split"	 : Also shows partial off-screen results in a preview window.
