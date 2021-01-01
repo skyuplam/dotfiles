@@ -53,6 +53,7 @@
         kitty
         stack
         darcs
+        vim
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
