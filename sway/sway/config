@@ -35,10 +35,10 @@ xwayland disable
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 
 # Scale for HiDPI
-output DP-3 scale 1.5
-output DP-3 pos 0 0
+output DP-1 scale 1.5
+output DP-1 pos 0 0
 
-exec ~/.config/sway/bg.sh
+exec_always ~/.config/sway/bg.sh
 
 ### Input configuration
 #
