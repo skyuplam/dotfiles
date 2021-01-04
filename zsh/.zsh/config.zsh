@@ -99,10 +99,14 @@ if [ -d ~/.nix-profile/share/fzf ]; then
 fi
 
 # Starship: https://starship.rs
-eval "$(starship init zsh)"
+if type starship > /dev/null; then
+  eval "$(starship init zsh)"
+fi
 
 # https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init zsh)"
+if type zoxide > /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
 
 
 # kubectl
