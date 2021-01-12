@@ -39,7 +39,6 @@
         bandwhich
         broot
         gawk
-        nnn
         go
         gitAndTools.delta
         # gitAndTools.gitui
@@ -54,6 +53,11 @@
         stack
         darcs
         vim
+        zoxide
+        broot
+        mpv
+        fontconfig
+        units
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
