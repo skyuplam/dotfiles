@@ -23,7 +23,7 @@ set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
 # disable follow focus by mouse
 focus_follows_mouse no
 
-font pango:Hack Nerd Font 11
+font pango:Noto Sans CJK HK 11
 
 gaps inner 10
 
