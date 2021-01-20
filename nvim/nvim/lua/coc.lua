@@ -22,7 +22,7 @@ function M.setup()
   vim.cmd([[autocmd User CocDiagnosticChange call local#statusline#RefreshStatusline()]])
   vim.cmd([[autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')]])
   vim.cmd([[autocmd CursorHold * silent call CocActionAsync('highlight')]])
-  vim.cmd([[autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')]])
+  -- vim.cmd([[autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')]])
   vim.cmd([[augroup end]])
 
   vim.fn.execute([[
