@@ -207,11 +207,16 @@ input type:keyboard {
     xkb_numlock enabled
 
     # Alt is swapped with Win
-    xkb_options altwin:swap_alt_win
+    # xkb_options altwin:swap_alt_win
 
     # Repeat faster
     repeat_delay 250
     repeat_rate 45
+}
+
+input "1204:4621:Majestouch_Convertible_2" {
+    # Alt is swapped with Win
+    xkb_options altwin:swap_alt_win
 }
 
 #
