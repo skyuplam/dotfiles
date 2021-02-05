@@ -1,6 +1,5 @@
-let g:tokyonight_style = 'night'
-let g:tokyonight_enable_italic = 1
-let g:tokyonight_transparent_background = 1
-let g:tokyonight_current_word = 'underline'
+let g:solarized_italics = 1
+let g:solarized_termtrans = 1
+let g:solarized_extra_hi_groups = 1
 
-colorscheme tokyonight
+colorscheme solarized8_high

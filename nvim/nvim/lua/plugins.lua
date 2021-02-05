@@ -43,7 +43,7 @@ return require('packer').startup(function()
       event = 'VimEnter *'
     },
   }
-  use {'ghifarit53/tokyonight-vim'}
+  use {'lifepillar/vim-solarized8'}
   use {'vim-jp/syntax-vim-ex'}
 
   use {'preservim/nerdtree'}
