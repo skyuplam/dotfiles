@@ -43,7 +43,7 @@ return require('packer').startup(function()
       event = 'VimEnter *'
     },
   }
-  use {'lifepillar/vim-solarized8'}
+  use {'gruvbox-community/gruvbox'}
   use {'vim-jp/syntax-vim-ex'}
 
   use {'preservim/nerdtree'}
