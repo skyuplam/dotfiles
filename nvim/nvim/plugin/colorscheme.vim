@@ -1,6 +1,9 @@
-let g:tokyonight_style = 'night'
-let g:tokyonight_enable_italic = 1
-let g:tokyonight_transparent_background = 1
-let g:tokyonight_current_word = 'underline'
+let g:gruvbox_italic = 1
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_italicize_comments = 1
+let g:gruvbox_italicize_strings = 1
 
-colorscheme tokyonight
+set background=dark
+colorscheme gruvbox
+
+hi Normal guibg=NONE ctermbg=NONE
