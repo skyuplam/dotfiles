@@ -12,52 +12,55 @@
     myPackages = pkgs.buildEnv {
       name = "my-packages";
       paths = [
-        aspell
-        coreutils
-        gnupg
-        curl
-        git
-        jq
-        fzf
-        bat
-        exa
-        lsd
-        tig
-        ripgrep
-        fd
-        tree
-        stow
-        xclip
-        passff-host
-        passExtensions.pass-import
         (pass.withExtensions (exts: [ exts.pass-otp ]))
-        tmux
-        nodejs-14_x
-        yarn
-        emacs
-        htop
+        aspell
         bandwhich
+        bat
+        borgbackup
         broot
-        gawk
-        go
-        gitAndTools.delta
-        # gitAndTools.gitui
-        nmap
-        shellcheck
-        hadolint
-        shfmt
-        starship
-        ncdu
-        universal-ctags
-        kitty
-        stack
+        broot
+        coreutils
+        curl
         darcs
-        vim
-        zoxide
-        broot
-        mpv
+        emacs
+        exa
+        fd
         fontconfig
+        fzf
+        gawk
+        git
+        gitAndTools.delta
+        gnupg
+        go
+        hadolint
+        htop
+        jq
+        kitty
+        lsd
+        mpv
+        ncdu
+        nmap
+        nodejs-14_x
+        passExtensions.pass-import
+        passff-host
+        python3
+        ripgrep
+        shellcheck
+        shfmt
+        skhd
+        stack
+        starship
+        stow
+        tig
+        tmux
+        tree
         units
+        universal-ctags
+        vim
+        xclip
+        yabai
+        yarn
+        zoxide
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
