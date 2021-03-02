@@ -207,9 +207,6 @@ input type:keyboard {
     # Enable numlock
     xkb_numlock enabled
 
-    # Alt is swapped with Win
-    # xkb_options altwin:swap_alt_win
-
     # Repeat faster
     repeat_delay 250
     repeat_rate 45
