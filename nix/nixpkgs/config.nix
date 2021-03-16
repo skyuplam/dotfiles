@@ -44,6 +44,7 @@
         passExtensions.pass-import
         passff-host
         python3
+        python38Packages.pip
         ripgrep
         shellcheck
         shfmt
@@ -52,7 +53,6 @@
         starship
         stow
         tig
-        tmux
         tree
         units
         universal-ctags
