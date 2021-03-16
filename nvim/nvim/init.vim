@@ -42,7 +42,7 @@ set signcolumn=number
 " updatecount (200 keystrokes) and updatetime
 " (4 seconds) are fine
 set swapfile
-set directory^=$XDG_CONFIG_HOME/nvim/swap//
+set directory^=$XDG_DATA_HOME/nvim/swap//
 
 " protect against crash-during-write
 set writebackup
@@ -52,11 +52,11 @@ set nobackup
 set backupcopy=auto
 " consolidate the writebackups -- not a big
 " deal either way, since they usually get deleted
-set backupdir^=$XDG_CONFIG_HOME/nvim/backup//
+set backupdir^=$XDG_DATA_HOME/nvim/backup
 
 " persist the undo tree for each file
 set undofile
-set undodir^=$XDG_CONFIG_HOME/nvim/undo//
+set undodir^=$XDG_DATA_HOME/nvim/undo
 
 set ignorecase                            " Case insensitive search
 set smartcase                             " Smart Case search
