@@ -164,6 +164,7 @@
 [user]
   email = skyuplam@gmail.com
   name = Terrence Lam
+	signingkey = D400A663D09CB107
 [delta]
   features = side-by-side line-numbers decorations
   whitespace-error-style = 22 reverse
