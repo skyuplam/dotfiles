@@ -4,7 +4,9 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
-    [ pkgs.vim
+    [
+      pkgs.yabai
+      pkgs.skhd
     ];
 
   # Use a custom configuration.nix location.
@@ -26,9 +28,9 @@
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
-    enableScriptingAddition = true;
+    enableScriptingAddition = false;
     config = {
-      focus_follows_mouse          = "autoraise";
+      focus_follows_mouse          = "off";
       mouse_follows_focus          = "off";
       window_placement             = "second_child";
       window_opacity               = "off";
@@ -72,5 +74,10 @@
         yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
         yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
       '';
+    };
+
+    services.skhd = {
+      enable = true;
+      package = pkgs.skhd;
     };
 }
