@@ -41,7 +41,7 @@ export ORG_DIR=$DROPBOX_DIR/org
 export PATH=~/.local/bin:$PATH
 
 # Git
-export REVIEW_BASE=master
+export REVIEW_BASE=main
 
 # }}}
 # ---------------------------------------------------------
