@@ -35,7 +35,6 @@
 
   # commit
   c = commit -m                     # commit with message
-  ca = commit -am                   # commit all with message
   ci = commit                       # commit
   amend = commit --amend            # ammend your last commit
   ammend = commit --amend           # ammend your last commit
@@ -52,7 +51,7 @@
   dc = diff --cached                # diff staged changes
   last = diff HEAD^                 # diff last committed change
   # list files which have changed since REVIEW_BASE
-  # (REVIEW_BASE defaults to 'master' in my zshrc)
+  # (REVIEW_BASE defaults to 'main' in my zshrc)
   files = !git diff --name-only $(git merge-base HEAD $REVIEW_BASE)
   stat = !git diff --stat $(git merge-base HEAD $REVIEW_BASE)
   # Open all files changed since REVIEW_BASE in Vim tabs

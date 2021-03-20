@@ -1,11 +1,16 @@
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 let $FZF_DEFAULT_OPTS .= ' --inline-info'
 
-" Use window layout
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" An action can be a reference to a function that processes selected lines
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
 
 " Fzf actions
 let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit',
@@ -36,3 +41,9 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+" See `man fzf-tmux` for available options
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,60%' }
+else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+endif
