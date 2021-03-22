@@ -1,0 +1,5 @@
+# vim: set foldmethod=marker foldlevel=0 ft=config nomodeline:
+
+# Right now it is not possible to directly select the output for the screen
+# sharing in the browser. Here is a workaround
+bindsym $mod+Alt+1 exec ~/.config/sway/screenshare.sh
