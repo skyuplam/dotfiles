@@ -94,6 +94,10 @@ is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
 
+git_repo_url() {
+  git config remote.origin.url | sed -e "s/:/\//" -e "s/git@/https:\/\//" -e "s/\.git$//"
+}
+
 fzf-down() {
   fzf --height 50% "$@" --border
 }
@@ -139,6 +143,26 @@ _gr() {
   cut -d$'\t' -f1
 }
 
+# Extract Gitlab merge request URL
+_gm() {
+  is_in_git_repo || return
+
+  git log --merges --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an) %B" --graph --color=always |
+  rg "Merge branch" |
+  fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+    --header 'Press CTRL-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --format=%b --color=always | head -'$LINES |
+  grep -o "[a-f0-9]\{7,\}" |
+  xargs git show --format=%b |
+  rg -o "![0-9]+" |
+  sed -e "s/\s//g" |
+  tr -d "!" | read ref
+
+  git_repo_url | read url
+
+  echo "$url/-/merge_requests/$ref"
+}
+
 # Key-binding
 #
 # CTRL-G CTRL-F for files
@@ -146,6 +170,7 @@ _gr() {
 # CTRL-G CTRL-T for tags
 # CTRL-G CTRL-R for remotes
 # CTRL-G CTRL-H for commit hashes
+# CTRL-G CTRL-M for Gitlab MR URL
 
 join-lines() {
   local item
@@ -162,5 +187,5 @@ bind-git-helper() {
     eval "bindkey '^g^$c' fzf-g$c-widget"
   done
 }
-bind-git-helper f b t r h
+bind-git-helper f b t r h m
 unset -f bind-git-helper
