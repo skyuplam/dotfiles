@@ -22,8 +22,10 @@ bind main F ?git fetch
 # Enter Git’s interactive add for fine-grained staging of file content
 bind generic I !git add -i %(file)
 
-# Copy the commit ID to clipboard
-bind generic Y !@sh -c "printf %(commit) | pbcopy"
+# Copy the commit Hash to clipboard
+bind generic Y none
+bind generic YH !@sh -c "git rev-parse --short %(commit) | $COPY_CMD"
+bind generic YB !@sh -c "git show -s --format=%b $(commit) | $COPY_CMD"
 
 # Add patch from selected file
 bind status p ?git add --patch %(file)
