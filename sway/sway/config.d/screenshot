@@ -1,0 +1,40 @@
+# vim: set foldmethod=marker foldlevel=0 ft=config nomodeline:
+
+set $mode_screenshot "Screenshot"
+
+set $grimshot /usr/share/sway/scripts/grimshot
+
+# Targets:
+# 1:  :active:  Currently active window.
+# 2:  :screen:  All visible outputs.
+# 3:  :output:  Currently active output.
+# 4:  :area:    Manually select a region.
+# 5:  :window:  Manually select a window.
+
+mode $mode_screenshot {
+    # Target Currently active window.
+    bindsym 1 exec $grimshot --notify copy active
+    bindsym Shift+1 exec $grimshot --notify save active
+
+    # All visible outputs.
+    bindsym 2 exec $grimshot --notify copy screen
+    bindsym Shift+2 exec $grimshot --notify save screen
+
+    # Currently active output.
+    bindsym 3 exec $grimshot --notify copy output
+    bindsym Shift+3 exec $grimshot --notify save output
+
+    # Manually select a region.
+    bindsym 4 exec $grimshot --notify copy area
+    bindsym Shift+4 exec $grimshot --notify save area
+
+    # Manually select a window.
+    bindsym 5 exec $grimshot --notify copy window
+    bindsym Shift+5 exec $grimshot --notify save window
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+s mode $mode_screenshot

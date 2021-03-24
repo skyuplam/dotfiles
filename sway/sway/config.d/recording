@@ -1,0 +1,30 @@
+# vim: set foldmethod=marker foldlevel=0 ft=config nomodeline:
+
+set $mode_recording "Recording"
+set $mode_recording_on "Recording ON"
+
+# Targets:
+# 1:  :active:  Currently active window.
+# 2:  :screen:  All visible outputs.
+# 3:  :output:  Currently active output.
+# 4:  :area:    Manually select a region.
+# 5:  :window:  Manually select a window.
+
+mode $mode_recording_on {
+    bindsym Escape exec killall -s SIGINT wf-recorder, \
+        exec notify-send -t 1000 "Recording Finished", mode "default"
+}
+
+mode $mode_recording {
+    # Target Currently active window
+    bindsym 1 exec killall -s SIGINT wf-recorder || \
+        wf-recorder --audio \
+        -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') \
+        -f ~/Recordings/$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+r mode $mode_recording

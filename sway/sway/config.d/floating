@@ -2,6 +2,7 @@
 # Auto float app based
 # Float Thunar
 for_window [app_id="thunar"] floating enable
+for_window [app_id="nemo"] floating enable
 
 # Float Firefox Picture-in-Picture
 for_window [app_id="firefox" title="^Picture-in-Picture$"] \
