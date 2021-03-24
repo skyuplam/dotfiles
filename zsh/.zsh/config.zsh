@@ -59,14 +59,10 @@ WORDCHARS=''
 # Plugins Configs {{{
 # ---------------------------------------------------------
 
-# ZSH port of Fish history search (up arrow)
-# Key bindings
-# bindkey '^[[A' history-substring-search-up
-# bindkey '^[[B' history-substring-search-down
-# bindkey -M emacs '^P' history-substring-search-up
-# bindkey -M emacs '^N' history-substring-search-down
-
+# ---------------------------------------------------------
 # fzf
+# ---------------------------------------------------------
+
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
@@ -79,8 +75,17 @@ export FZF_DEFAULT_OPTS='
   --color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
   --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
 '
+export FZF_CTRL_T_OPTS="--preview='(bat --color=always --line-range :100 {} 2> /dev/null || lsd --tree -l --depth=2 --color=always {} | head -200)'"
+# Full command on preview window
+# Commands that are too long are not fully visible on screen. We can use
+# --preview option to display the full command on the preview window. In the
+# following example, we bind ? key for toggling the preview window.
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always -l --depth=2 {} | head -200'"
 
+# ---------------------------------------------------------
 # [bat](https://github.com/sharkdp/bat)
+# ---------------------------------------------------------
 # colorizing pager for man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
@@ -92,24 +97,32 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 [ -f ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 [ -f ~/.zsh/local.zsh ] && source ~/.zsh/local.zsh
 
+# ---------------------------------------------------------
 # FZF
+# ---------------------------------------------------------
+# Nix
 if [ -d ~/.nix-profile/share/fzf ]; then
   source ~/.nix-profile/share/fzf/key-bindings.zsh
   source ~/.nix-profile/share/fzf/completion.zsh
 fi
+# Arch Linux
+if [ -d /usr/share/fzf ]; then
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+fi
 
+# ---------------------------------------------------------
 # Starship: https://starship.rs
+# ---------------------------------------------------------
 if type starship > /dev/null; then
   eval "$(starship init zsh)"
 fi
 
-# https://github.com/ajeetdsouza/zoxide
+# ---------------------------------------------------------
+# zoxide: https://github.com/ajeetdsouza/zoxide
+# ---------------------------------------------------------
 if type zoxide > /dev/null; then
   eval "$(zoxide init zsh)"
 fi
-
-
-# kubectl
-# source <(kubectl completion zsh)
 
 # }}}
