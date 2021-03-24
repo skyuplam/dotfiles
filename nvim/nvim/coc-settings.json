@@ -3,7 +3,8 @@
     "typescript",
     "typescriptreact",
     "markdown",
-    "javascript"
+    "javascript",
+    "rust"
   ],
   "suggest.triggerAfterInsertEnter": true,
   "suggest.timeout": 500,

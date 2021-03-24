@@ -16,13 +16,17 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit',
   \ 'ctrl-y': {lines -> setreg('*', split(join(lines, "\n"), ":")[0])}}
 
-" All files
+" All files (:AF)
 command! -nargs=? -complete=dir AF
   \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
   \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
   \ })))
 
 command! -nargs=* -bang RG call local#fzf#RipgrepFzf(<q-args>, <bang>0)
+
+" Fuzzy search the arglist (:Args)
+command! -bang Args call fzf#run(fzf#wrap('args',
+    \ {'source': map([argidx()]+(argidx()==0?[]:range(argc())[0:argidx()-1])+range(argc())[argidx()+1:], 'argv(v:val)')}, <bang>0))
 
 " Customize fzf colors to match your color scheme
 " - fzf#wrap translates this to a set of `--color` options
