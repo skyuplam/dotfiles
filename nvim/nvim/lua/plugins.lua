@@ -46,8 +46,8 @@ return require('packer').startup(function()
   use {'gruvbox-community/gruvbox'}
   use {'vim-jp/syntax-vim-ex'}
 
-  use {'preservim/nerdtree'}
-  use {'Xuyuanp/nerdtree-git-plugin'}
+  -- use {'preservim/nerdtree'}
+  -- use {'Xuyuanp/nerdtree-git-plugin'}
 
   use {
     'neoclide/coc.nvim',
@@ -93,6 +93,10 @@ return require('packer').startup(function()
   use {
     '~/dev/vim-redact-pass',
     event = 'VimEnter /private$TMPDIR/pass.?*/?*.txt,/dev/shm/pass.?*/?*.txt'
+  }
+
+  use {
+    '~/dev/broot.vim',
   }
 
   use 'junegunn/vim-slash'

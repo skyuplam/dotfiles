@@ -150,7 +150,7 @@ let mapleader = ','
 let g:mapleader = ','
 
 " Explorer Mapping
-nnoremap <C-e> :NERDTreeToggle<CR>
+nnoremap <C-e> :Broot<CR>
 nnoremap <C-p> :Files<CR>
 nnoremap <silent> <space>t :TagbarToggle<CR>
 
