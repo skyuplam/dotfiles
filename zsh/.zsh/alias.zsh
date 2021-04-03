@@ -25,13 +25,6 @@ if type tmux > /dev/null; then
   alias tm="tmux-layout"
 fi
 
-if type yabai > /dev/null; then
-  # Quickly restart yabai launch agent
-  # https://github.com/koekeishiya/yabai/wiki/Tips-and-tricks#quickly-restart-the-yabai-launch-agent
-  alias ry="launchctl kickstart -k \"gui/${UID}/homebrew.mxcl.yabai\""
-fi
-
-
 if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
   function man-preview() {
     man -t "$@" | open -f -a Preview
