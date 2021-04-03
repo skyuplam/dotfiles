@@ -161,7 +161,7 @@
   smudge = git-lfs smudge -- %f
   required = true
 [user]
-  email = skyuplam@gmail.com
+  email = terrence@tlam.dev
   name = Terrence Lam
 	signingkey = D400A663D09CB107
 [delta]
