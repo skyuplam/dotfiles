@@ -69,9 +69,6 @@ return require('packer').startup(function()
 
   use 'godlygeek/tabular'
 
-  use 'christoomey/vim-tmux-navigator'
-  -- use 'wellle/tmux-complete.vim'
-
   use 'SirVer/ultisnips'
 
   use 'iberianpig/tig-explorer.vim'
@@ -96,7 +93,8 @@ return require('packer').startup(function()
   }
 
   use {
-    '~/dev/broot.vim',
+    '~/dev/broot.nvim',
+    config = 'vim.g.broot_replace_netrw = 1'
   }
 
   use 'junegunn/vim-slash'
