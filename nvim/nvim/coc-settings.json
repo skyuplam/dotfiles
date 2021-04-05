@@ -52,6 +52,36 @@
         "dockerfile"
       ]
     },
+    "lua": {
+      "command": "lua-language-server",
+      "args": ["-E", "/usr/share/lua-language-server/main.lua"],
+      "filetypes": ["lua"],
+      "rootPatterns": [".git/"],
+      "settings": {
+        "lua": {
+          "workspace": {
+            "library": {
+              "/usr/share/nvim/runtime/lua": true
+            }
+          },
+          "runtime": {
+            "version": "LuaJIT"
+          },
+          "diagnostics": {
+            "enable": true,
+            "globals": [
+              "hs",
+              "vim",
+              "it",
+              "describe",
+              "before_each",
+              "after_each"
+            ],
+            "disable": ["lowercase-global"]
+          }
+        }
+      }
+    },
     "haskell": {
       "command": "ghcide-via-stack-exec",
       "args": [""],
