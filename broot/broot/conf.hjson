@@ -135,12 +135,12 @@
 		# }
 
 		# Exemple 2: creating a new file without leaving broot
-		# {
-		# 	name: touch
-		# 	invocation: touch {new_file}
-		# 	execution: "touch {directory}/{new_file}"
-		# 	leave_broot: false
-		# }
+		{
+			name: touch
+			invocation: touch {new_file}
+			execution: "touch {directory}/{new_file}"
+			leave_broot: false
+		}
 
 		# A standard recommended command for editing files, that you
 		# can customize.
