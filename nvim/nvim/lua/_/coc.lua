@@ -1,31 +1,26 @@
 local M = {}
 
 function M.setup()
-  vim.g.coc_global_extensions = {
-    'coc-dictionary', 'coc-word', 'coc-actions',
-    'coc-lists', 'coc-tag', 'coc-syntax', 'coc-highlight',
-    'coc-tsserver', 'coc-jest', 'coc-eslint',
-    'coc-svg', 'coc-html',
-    'coc-css', 'coc-cssmodules',
-    'coc-json',
-    'coc-yaml',
-    'coc-prettier',
-    'coc-rust-analyzer',
-    'coc-git',
-    'coc-vimlsp',
-    'coc-spell-checker',
-    'coc-markdownlint',
-  }
+    vim.g.coc_global_extensions = {
+        'coc-dictionary', 'coc-word', 'coc-actions', 'coc-lists', 'coc-tag',
+        'coc-syntax', 'coc-highlight', 'coc-tsserver', 'coc-jest', 'coc-eslint',
+        'coc-svg', 'coc-html', 'coc-css', 'coc-cssmodules', 'coc-json',
+        'coc-yaml', 'coc-prettier', 'coc-rust-analyzer', 'coc-git',
+        'coc-vimlsp', 'coc-spell-checker', 'coc-markdownlint'
+    }
 
-  vim.cmd([[augroup cocAUG]])
-  vim.cmd([[autocmd User CocStatusChange,CocGitStatusChange call local#statusline#RefreshStatusline()]])
-  vim.cmd([[autocmd User CocDiagnosticChange call local#statusline#RefreshStatusline()]])
-  vim.cmd([[autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')]])
-  vim.cmd([[autocmd CursorHold * silent call CocActionAsync('highlight')]])
-  -- vim.cmd([[autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')]])
-  vim.cmd([[augroup end]])
+    vim.cmd([[augroup cocAUG]])
+    vim.cmd(
+        [[autocmd User CocStatusChange,CocGitStatusChange call local#statusline#RefreshStatusline()]])
+    vim.cmd(
+        [[autocmd User CocDiagnosticChange call local#statusline#RefreshStatusline()]])
+    vim.cmd(
+        [[autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')]])
+    vim.cmd([[autocmd CursorHold * silent call CocActionAsync('highlight')]])
+    -- vim.cmd([[autocmd CursorHold * silent call CocActionAsync('getCurrentFunctionSymbol')]])
+    vim.cmd([[augroup end]])
 
-  vim.fn.execute([[
+    vim.fn.execute([[
     function! s:show_documentation()
       if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -90,7 +85,6 @@ function M.setup()
     nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
     nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-    command! -nargs=0  Format :call CocAction('format')<CR>
     command! -nargs=?  Fold :call     CocAction('fold', <f-args>)
     command! -nargs=0  OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
     ]], "")

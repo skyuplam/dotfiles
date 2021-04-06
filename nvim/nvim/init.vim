@@ -1,7 +1,7 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 scriptencoding utf-8
 
-lua require('init')
+lua require('_.init')
 
 " ============================================================================
 " Sourcing {{{

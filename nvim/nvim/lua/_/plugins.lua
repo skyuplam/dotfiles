@@ -39,7 +39,7 @@ return require('packer').startup(function()
     requires = {
       {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'},
       {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'},
-      config = 'require("treesitter")',
+      config = 'require("_.treesitter")',
       event = 'VimEnter *'
     },
   }
@@ -52,7 +52,7 @@ return require('packer').startup(function()
   use {
     'neoclide/coc.nvim',
     branch = 'release',
-    config = function() require('coc').setup() end
+    config = function() require('_.coc').setup() end
   }
   use {'Shougo/vimproc.vim', run = ':silent! !make'}
   use 'vim-scripts/vis'
@@ -95,6 +95,10 @@ return require('packer').startup(function()
   use {
     '~/dev/broot.nvim',
     config = 'vim.g.broot_replace_netrw = 1'
+  }
+
+  use {'mhartington/formatter.nvim',
+    config = function() require('_.formatter').setup() end
   }
 
   use 'junegunn/vim-slash'
