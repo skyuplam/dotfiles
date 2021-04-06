@@ -49,11 +49,6 @@ return require('packer').startup(function()
   -- use {'preservim/nerdtree'}
   -- use {'Xuyuanp/nerdtree-git-plugin'}
 
-  use {
-    'neoclide/coc.nvim',
-    branch = 'release',
-    config = function() require('_.coc').setup() end
-  }
   use {'Shougo/vimproc.vim', run = ':silent! !make'}
   use 'vim-scripts/vis'
   use 'editorconfig/editorconfig-vim'
