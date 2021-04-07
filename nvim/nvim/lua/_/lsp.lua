@@ -1,3 +1,4 @@
+local language = require 'vim.treesitter.language'
 -- for debugging
 -- :lua require('vim.lsp.log').set_level("debug")
 -- :lua print(vim.inspect(vim.lsp.buf_get_clients()))
@@ -19,12 +20,12 @@ require'_.completion'.setup()
 
 if has_lspstatus then
   lspstatus.config({
-    indicator_errors = '',
-    indicator_warnings = '',
-    indicator_info = '',
-    indicator_hint = '',
-    indicator_ok = '﫠',
-    })
+    indicator_errors='',
+    indicator_warnings='',
+    indicator_info='',
+    indicator_hint='',
+    indicator_ok='﫠'
+  })
 
   lspstatus.register_progress()
 end
@@ -181,11 +182,31 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require('nlua.lsp.nvim').setup(nvim_lsp, {on_attach=on_attach, globals={'vim'}})
 
+local eslint_d = {
+  lintCommand='eslint_d -f unix --stdin --stdin-filename ${INPUT}',
+  lintIgnoreExitCode=true,
+  lintStdin=true,
+  lintFormats={'%f:%l:%c: %m'}
+}
+
 local servers = {
   cssls={},
   jsonls={},
   html={},
-  efm={},
+  efm={
+    rootMarkers={'.git/'},
+    filetypes={'javascript', 'typescript', 'typescriptreact', 'javascriptreact'},
+    init_options={codeAction=true},
+    settings={
+      rootMarkers={'.eslintrc', 'package.json', '.git/'},
+      languages={
+        typescript={eslint_d},
+        javascript={eslint_d},
+        javascriptreact={eslint_d},
+        typescriptreact={eslint_d}
+      }
+    }
+  },
   vimls={},
   rust_analyzer={},
   tsserver={
