@@ -1,6 +1,5 @@
 -- vim: set foldmethod=marker foldlevel=0 nomodeline:
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
 -- ============================================================================
 --  Bootstrap for packer {{{
 -- ============================================================================
@@ -10,11 +9,12 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local install_path = fn.stdpath('data')..'/site/pack/packer/opt/packer.nvim'
+local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-	execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-    execute 'packadd packer.nvim'
+  execute(
+      '!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+  execute 'packadd packer.nvim'
 end
 
 -- }}}
@@ -25,23 +25,33 @@ end
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function()
-  use {'wbthomason/packer.nvim', opt = true}
+_G._ = {}
 
-  use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
-  use {'andymass/vim-matchup', event = 'VimEnter *'}
-  use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+return require('packer').startup(function()
+  use {'wbthomason/packer.nvim', opt=true}
+
+  use {
+    'tpope/vim-dispatch',
+    opt=true,
+    cmd={'Dispatch', 'Make', 'Focus', 'Start'}
+  }
+  use {'andymass/vim-matchup', event='VimEnter *'}
+  use {
+    'iamcco/markdown-preview.nvim',
+    run='cd app && yarn install',
+    cmd='MarkdownPreview'
+  }
 
   use {'sheerun/vim-polyglot'}
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    requires = {
-      {'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'},
-      {'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'},
-      config = 'require("_.treesitter")',
-      event = 'VimEnter *'
-    },
+    run=':TSUpdate',
+    requires={
+      {'nvim-treesitter/nvim-treesitter-refactor', after='nvim-treesitter'},
+      {'nvim-treesitter/nvim-treesitter-textobjects', after='nvim-treesitter'},
+      config='require("_.treesitter")',
+      event='VimEnter *'
+    }
   }
   use {'gruvbox-community/gruvbox'}
   use {'vim-jp/syntax-vim-ex'}
@@ -49,7 +59,7 @@ return require('packer').startup(function()
   -- use {'preservim/nerdtree'}
   -- use {'Xuyuanp/nerdtree-git-plugin'}
 
-  use {'Shougo/vimproc.vim', run = ':silent! !make'}
+  use {'Shougo/vimproc.vim', run=':silent! !make'}
   use 'vim-scripts/vis'
   use 'editorconfig/editorconfig-vim'
 
@@ -71,7 +81,7 @@ return require('packer').startup(function()
   -- Marks
   use 'kshenoy/vim-signature'
   -- Quickfix
-  use {'Olical/vim-enmasse', cmd = 'EnMasse'}
+  use {'Olical/vim-enmasse', cmd='EnMasse'}
 
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
@@ -79,21 +89,19 @@ return require('packer').startup(function()
   use 'ryanoasis/vim-devicons'
   use {
     'norcalli/nvim-colorizer.lua',
-    config = function() require('colorizer').setup() end
+    config=function() require('colorizer').setup() end
   }
 
   use {
     '~/dev/vim-redact-pass',
-    event = 'VimEnter /private$TMPDIR/pass.?*/?*.txt,/dev/shm/pass.?*/?*.txt'
+    event='VimEnter /private$TMPDIR/pass.?*/?*.txt,/dev/shm/pass.?*/?*.txt'
   }
+
+  use {'~/dev/broot.nvim', config='vim.g.broot_replace_netrw = 1'}
 
   use {
-    '~/dev/broot.nvim',
-    config = 'vim.g.broot_replace_netrw = 1'
-  }
-
-  use {'mhartington/formatter.nvim',
-    config = function() require('_.formatter').setup() end
+    'mhartington/formatter.nvim',
+    config=function() require('_.formatter').setup() end
   }
 
   use 'junegunn/vim-slash'
@@ -111,5 +119,35 @@ return require('packer').startup(function()
   use 'chrisbra/NrrwRgn'
   use 'mattn/calendar-vim'
   use 'inkarkat/vim-SyntaxRange'
+
+  -- LSP/Completion
+  use {
+    'neovim/nvim-lspconfig',
+    config=function() require '_.lsp' end,
+    requires={
+      {
+        'tjdevries/lsp_extensions.nvim',
+        config=function() require'_.statusline'.activate() end
+      },
+      {'tjdevries/nlua.nvim'},
+      {'glepnir/lspsaga.nvim'},
+      {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end}
+    }
+  }
+
+  use {
+    'hrsh7th/nvim-compe',
+    requires={
+      {'andersevenrud/compe-tmux'},
+      {'hrsh7th/vim-vsnip'},
+      {'hrsh7th/vim-vsnip-integ'}
+    }
+  }
+
+  use {'p00f/nvim-ts-rainbow'}
+
+  -- Linter
+  use {'dense-analysis/ale'}
+
 end)
 ---}}}
