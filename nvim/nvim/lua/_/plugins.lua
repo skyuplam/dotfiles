@@ -146,9 +146,5 @@ return require('packer').startup(function()
   }
 
   use {'p00f/nvim-ts-rainbow'}
-
-  -- Linter
-  use {'dense-analysis/ale'}
-
 end)
 ---}}}
