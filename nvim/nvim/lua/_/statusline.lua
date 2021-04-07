@@ -187,9 +187,9 @@ function M.active()
   line = line .. [[%5* %{luaeval("require'_.statusline'.readonly()")} %w %*]]
   line = line .. '%9*%=%*'
   line = line .. [[ %{luaeval("require'_.statusline'.mode()")} %*]]
-  line = line .. [[%#ErrorMsg# %{luaeval("require'_.statusline'.paste()")} %*]]
+  line = line .. [[%#ErrorMsg#%{luaeval("require'_.statusline'.paste()")}%*]]
   line =
-      line .. [[%#WarningMsg# %{luaeval("require'_.statusline'.spell()")} %*]]
+      line .. [[%#WarningMsg#%{luaeval("require'_.statusline'.spell()")}%*]]
   line = line .. [[%4* %{luaeval("require'_.statusline'.file_info()")} %*]]
   line = line .. [[%4* %{luaeval("require'_.statusline'.rhs()")} %*]]
 

@@ -62,7 +62,7 @@ local default_mappings = {
   ['[d']={'<cmd>lua vim.lsp.diagnostic.goto_next()<cr>'},
   [']d']={'<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'},
   ['<C-]>']={'<Cmd>lua vim.lsp.buf.definition()<CR>'},
-  ['<leader>D']={'<Cmd>lua vim.lsp.buf.declaration()<CR>'},
+  ['<leader>d']={'<Cmd>lua vim.lsp.buf.declaration()<CR>'},
   ['<leader>i']={'<cmd>lua vim.lsp.buf.implementation()<CR>'}
 }
 
@@ -89,8 +89,8 @@ local lspsaga_mappings = {
     '<cmd>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>'
   },
   ['K']={'<cmd>lua require(\'lspsaga.hover\').render_hover_doc()<cr>'},
-  ['<C-f>']={'<cmd>lua require(\'lspsaga.hover\').smart_scroll_hover(1)<cr>'},
-  ['<C-b>']={'<cmd>lua require(\'lspsaga.hover\').smart_scroll_hover(-1)<CR>'}
+  ['<C-f>']={'<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'},
+  ['<C-b>']={'<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'}
 }
 
 local mappings = vim.tbl_extend('force', default_mappings,
