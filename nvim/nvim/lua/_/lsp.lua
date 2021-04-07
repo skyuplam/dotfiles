@@ -9,12 +9,25 @@ if not has_lsp then return end
 
 local has_lspsaga, lspsaga = pcall(require, 'lspsaga')
 local has_extensions = pcall(require, 'lsp_extensions')
+local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
 local utils = require '_.utils'
 local map_opts = {noremap=true, silent=true}
 
 lspsaga.init_lsp_saga()
 
 require'_.completion'.setup()
+
+if has_lspstatus then
+  lspstatus.config({
+    indicator_errors = '',
+    indicator_warnings = '',
+    indicator_info = '',
+    indicator_hint = '',
+    indicator_ok = '﫠',
+    })
+
+  lspstatus.register_progress()
+end
 
 utils.augroup('COMPLETION', function()
   if has_extensions then
@@ -89,8 +102,12 @@ local lspsaga_mappings = {
     '<cmd>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>'
   },
   ['K']={'<cmd>lua require(\'lspsaga.hover\').render_hover_doc()<cr>'},
-  ['<C-f>']={'<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'},
-  ['<C-b>']={'<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'}
+  ['<C-f>']={
+    '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'
+  },
+  ['<C-b>']={
+    '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
+  }
 }
 
 local mappings = vim.tbl_extend('force', default_mappings,
@@ -98,6 +115,8 @@ local mappings = vim.tbl_extend('force', default_mappings,
 
 local on_attach = function(client)
   client.config.flags.allow_incremental_sync = true
+
+  if has_lspstatus then lspstatus.on_attach(client) end
 
   for lhs, rhs in pairs(mappings) do
     if lhs == 'K' then
@@ -132,6 +151,17 @@ local on_attach = function(client)
   end)
 end
 
+local select_symbol = function(cursor_pos, symbol)
+  if symbol.valueRange then
+    local value_range = {
+      ['start']={character=0, line=vim.fn.byte2line(symbol.valueRange[1])},
+      ['end']={character=0, line=vim.fn.byte2line(symbol.valueRange[2])}
+    }
+
+    return require('lsp-status.util').in_range(cursor_pos, value_range)
+  end
+end
+
 -- https://github.com/nvim-lua/diagnostic-nvim/issues/73
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -146,7 +176,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] =
     })
 
 -- Enable (broadcasting) snippet capability for completion
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = lspstatus.capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require('nlua.lsp.nvim').setup(nvim_lsp, {on_attach=on_attach, globals={'vim'}})
@@ -154,14 +184,11 @@ require('nlua.lsp.nvim').setup(nvim_lsp, {on_attach=on_attach, globals={'vim'}})
 local servers = {
   cssls={},
   jsonls={},
-  html={
-    capabilities=capabilities,
-  },
+  html={},
   efm={},
   vimls={},
-  rust_analyzer={capabilities=capabilities},
+  rust_analyzer={},
   tsserver={
-    capabilities=capabilities,
     root_dir=function(fname)
       return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
                  or nvim_lsp.util.root_pattern('package.json', 'jsconfig.json',
@@ -174,7 +201,10 @@ for server, config in pairs(servers) do
   local server_disabled = (config.disabled ~= nil and config.disabled) or false
 
   if not server_disabled then
-    nvim_lsp[server].setup(vim.tbl_deep_extend('force', {on_attach=on_attach},
-                                               config))
+    nvim_lsp[server].setup(vim.tbl_deep_extend('force', {
+      on_attach=on_attach,
+      capabilities=capabilities,
+      select_symbol=select_symbol
+    }, config))
   end
 end

@@ -131,7 +131,8 @@ return require('packer').startup(function()
       },
       {'tjdevries/nlua.nvim'},
       {'glepnir/lspsaga.nvim'},
-      {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end}
+      {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
+      {'nvim-lua/lsp-status.nvim'},
     }
   }
 

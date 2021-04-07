@@ -39,6 +39,18 @@ end
 -- Main functions
 ---------------------------------------------------------------------------------
 
+function M.lsp_status()
+  if not vim.tbl_isempty(vim.lsp.buf_get_clients()) then
+    local errors = require('lsp-status').status_errors()
+    local warnings = require('lsp-status').status_warnings()
+    local hints = require('lsp-status').status_hints()
+    local info = require('lsp-status').status_info()
+    return ('[%s %s %s %s]'):format(info, hints, warnings, errors)
+  end
+
+  return ''
+end
+
 function M.git_info()
   if not vim.g.loaded_fugitive then return '' end
 
@@ -186,10 +198,10 @@ function M.active()
   line = line .. [[%4* %{luaeval("require'_.statusline'.word_count()")} %*]]
   line = line .. [[%5* %{luaeval("require'_.statusline'.readonly()")} %w %*]]
   line = line .. '%9*%=%*'
+  line = line .. [[%{luaeval("require'_.statusline'.lsp_status()")}%*]]
   line = line .. [[ %{luaeval("require'_.statusline'.mode()")} %*]]
   line = line .. [[%#ErrorMsg#%{luaeval("require'_.statusline'.paste()")}%*]]
-  line =
-      line .. [[%#WarningMsg#%{luaeval("require'_.statusline'.spell()")}%*]]
+  line = line .. [[%#WarningMsg#%{luaeval("require'_.statusline'.spell()")}%*]]
   line = line .. [[%4* %{luaeval("require'_.statusline'.file_info()")} %*]]
   line = line .. [[%4* %{luaeval("require'_.statusline'.rhs()")} %*]]
 
