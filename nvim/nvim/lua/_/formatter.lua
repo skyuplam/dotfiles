@@ -2,6 +2,8 @@ local has_config, formatter = pcall(require, 'formatter')
 
 if not has_config then return end
 
+local utils = require '_.utils'
+
 local M = {}
 
 local function prettier()
@@ -76,6 +78,13 @@ local commonPrettierFTs = {
 
 for _, ft in ipairs(commonPrettierFTs) do ftConfigs[ft] = {prettier} end
 
-function M.setup() formatter.setup({logging=true, filetype=ftConfigs}) end
+local function setup()
+  utils.augroup('FormatAU', function()
+    vim.api.nvim_command('autocmd BufWritePost * FormatWrite')
+  end)
+  return {logging=true, filetype=ftConfigs}
+end
+
+function M.setup() formatter.setup(setup()) end
 
 return M
