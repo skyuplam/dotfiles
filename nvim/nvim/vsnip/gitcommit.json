@@ -1,0 +1,42 @@
+{
+  "fix": {
+    "prefix": "fi",
+    "body": ["fix(${0:module}): ${1:message}", ""],
+    "description": "fix: a commit of the type fix patches a bug in your codebase"
+  },
+  "feat": {
+    "prefix": "fe",
+    "body": ["feat(${0:module}): ${1:message}", ""],
+    "description": "feat: a commit of the type feat introduces a new feature to the codebase"
+  },
+  "test": {
+    "prefix": "te",
+    "body": ["test(${0:module}): ${1:message}", ""],
+    "description": "Adding missing tests or correcting existing tests"
+  },
+  "docs": {
+    "prefix": "do",
+    "body": ["docs(${0:module}): ${1:message}", ""],
+    "description": "Documentation only changes"
+  },
+  "refactor": {
+    "prefix": "re",
+    "body": ["refactor(${0:module}): ${1:message}", ""],
+    "description": "A code change that neither fixes a bug nor adds a feature"
+  },
+  "style": {
+    "prefix": "st",
+    "body": ["style(${0:module}): ${1:message}", ""],
+    "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+  },
+  "build": {
+    "prefix": "bu",
+    "body": ["build(${0:module}): ${1:message}", ""],
+    "description": "Changes that affect the build system or external dependencies"
+  },
+  "perf": {
+    "prefix": "pe",
+    "body": ["perf(${0:module}): ${1:message}", ""],
+    "description": "A code change that improves performance"
+  }
+}
