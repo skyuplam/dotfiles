@@ -19,14 +19,13 @@ function M.get_icon(icon_name)
   local ICONS = {
     paste = "⍴",
     spell = "✎",
-    branch = " ",
-    error = "",
+    branch = "",
+    error = "",
     info = "",
-    warn = "",
-    hint = "›",
-    lock = "",
+    warn = "𥉉",
+    hint = "ﯧ",
+    lock = "",
     success = ""
-    -- success = ' '
   }
 
   return ICONS[icon_name] or ""
