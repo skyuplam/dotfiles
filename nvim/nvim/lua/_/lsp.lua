@@ -32,7 +32,7 @@ end
 utils.augroup('COMPLETION', function()
   if has_extensions then
     vim.api.nvim_command(
-        'au CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost * lua require\'lsp_extensions\'.inlay_hints()')
+        'au CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs lua require\'lsp_extensions\'.inlay_hints()')
   end
 end)
 
@@ -68,30 +68,30 @@ vim.api.nvim_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 local default_mappings = {
   ['<leader>a']={'<Cmd>lua vim.lsp.buf.code_action()<CR>'},
-  ['<leader>f']={'<cmd>lua vim.lsp.buf.references()<CR>'},
-  ['<leader>r']={'<cmd>lua vim.lsp.buf.rename()<CR>'},
+  ['gr']={'<cmd>lua vim.lsp.buf.references()<CR>'},
+  ['<leader>rn']={'<cmd>lua vim.lsp.buf.rename()<CR>'},
   ['K']={'<Cmd>lua vim.lsp.buf.hover()<CR>'},
   ['<leader>ld']={'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'},
   ['[d']={'<cmd>lua vim.lsp.diagnostic.goto_next()<cr>'},
   [']d']={'<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'},
   ['<C-]>']={'<Cmd>lua vim.lsp.buf.definition()<CR>'},
-  ['<leader>d']={'<Cmd>lua vim.lsp.buf.declaration()<CR>'},
-  ['<leader>i']={'<cmd>lua vim.lsp.buf.implementation()<CR>'}
+  ['gd']={'<Cmd>lua vim.lsp.buf.declaration()<CR>'},
+  ['gi']={'<cmd>lua vim.lsp.buf.implementation()<CR>'}
 }
 
 local lspsaga_mappings = {
-  ['<leader>d']={
+  ['<C-]>']={
     '<Cmd>lua require\'lspsaga.provider\'.preview_definition()<CR>'
   },
   ['<leader>a']={
     '<Cmd>lua require\'lspsaga.codeaction\'.code_action()<CR>',
     '<Cmd>\'<,\'>lua require\'lspsaga.codeaction\'.range_code_action()<CR>'
   },
-  ['<leader>f']={'<cmd>lua require\'lspsaga.provider\'.lsp_finder()<CR>'},
+  ['gr']={'<cmd>lua require\'lspsaga.provider\'.lsp_finder()<CR>'},
   ['<leader>s']={
     '<cmd>lua require\'lspsaga.signaturehelp\'.signature_help()<CR>'
   },
-  ['<leader>r']={'<cmd>lua require\'lspsaga.rename\'.rename()<CR>'},
+  ['<leader>rn']={'<cmd>lua require\'lspsaga.rename\'.rename()<CR>'},
   ['<leader>ld']={
     '<cmd>lua require\'lspsaga.diagnostic\'.show_line_diagnostics()<CR>'
   },
@@ -105,7 +105,7 @@ local lspsaga_mappings = {
   ['<C-f>']={
     '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'
   },
-  ['<C-b>']={
+  ['<C-j>']={
     '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
   }
 }
@@ -127,6 +127,13 @@ local on_attach = function(client)
       utils.bmap('n', lhs, rhs[1], map_opts)
       if #rhs == 2 then utils.bmap('v', lhs, rhs[2], map_opts) end
     end
+  end
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    utils.bmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", map_opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    utils.bmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", map_opts)
   end
 
   if client.resolved_capabilities.document_highlight then
@@ -196,8 +203,15 @@ local servers = {
   jsonls={},
   html={},
   efm={
-    filetypes={'javascript', 'typescript', 'typescriptreact', 'javascriptreact'},
-    init_options={codeAction=true},
+    filetypes={
+      'javascript',
+      'javascriptreact',
+      'javascript.jsx',
+      'typescript',
+      'typescriptreact',
+      'typescript.tsx'
+    },
+    init_options={codeAction=true, documentFormatting=true},
     root_dir=nvim_lsp.util.root_pattern('.git', vim.fn.getcwd()),
     settings={
       rootMarkers={'package.json', '.git/'},
@@ -212,6 +226,11 @@ local servers = {
   vimls={},
   rust_analyzer={},
   tsserver={
+    on_attach=function(client)
+      on_attach(client)
+      -- formating is done via formatter.nvim
+      client.resolved_capabilities.document_formatting = false
+    end,
     root_dir=function(fname)
       return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
                  or nvim_lsp.util.root_pattern('package.json', 'jsconfig.json',
