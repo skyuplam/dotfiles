@@ -48,7 +48,7 @@ function M.lsp_status()
     return line
   end
 
-  return ''
+  return [[%*]]
 end
 
 function M.git_info()

@@ -1,4 +1,3 @@
-local language = require 'vim.treesitter.language'
 -- for debugging
 -- :lua require('vim.lsp.log').set_level("debug")
 -- :lua print(vim.inspect(vim.lsp.buf_get_clients()))
@@ -180,13 +179,15 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] =
 local capabilities = lspstatus.capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-require('nlua.lsp.nvim').setup(nvim_lsp, {on_attach=on_attach, globals={'vim'}})
+require('nlua.lsp.nvim').setup(nvim_lsp, {on_attach=on_attach, globals={'vim', 'use'}})
 
-local eslint_d = {
+local eslint = {
   lintCommand='eslint_d -f unix --stdin --stdin-filename ${INPUT}',
-  lintIgnoreExitCode=true,
   lintStdin=true,
-  lintFormats={'%f:%l:%c: %m'}
+  lintFormats={'%f:%l:%c: %m'},
+  lintIgnoreExitCode=true,
+  formatCommand='eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
+  formatStdin=true
 }
 
 local servers = {
@@ -194,16 +195,16 @@ local servers = {
   jsonls={},
   html={},
   efm={
-    rootMarkers={'.git/'},
     filetypes={'javascript', 'typescript', 'typescriptreact', 'javascriptreact'},
     init_options={codeAction=true},
+    root_dir=nvim_lsp.util.root_pattern('.git', vim.fn.getcwd()),
     settings={
-      rootMarkers={'.eslintrc', 'package.json', '.git/'},
+      rootMarkers={'package.json', '.git/'},
       languages={
-        typescript={eslint_d},
-        javascript={eslint_d},
-        javascriptreact={eslint_d},
-        typescriptreact={eslint_d}
+        javascript={eslint},
+        typescript={eslint},
+        javascriptreact={eslint},
+        typescriptreact={eslint}
       }
     }
   },

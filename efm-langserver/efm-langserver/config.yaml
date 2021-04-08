@@ -44,6 +44,14 @@ tools:
     format-command: './node_modules/.bin/prettier ${INPUT}'
     format-stdin: false
 
+  javascript-eslint: &javascript-eslint
+    lint-command: 'eslint -f visualstudio --stdin --stdin-filename ${INPUT}'
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    lint-formats:
+      - "%f(%l,%c): %tarning %m"
+      - "%f(%l,%c): %rror %m"
+
 languages:
   vim:
     - <<: *vim-vint
@@ -77,4 +85,16 @@ languages:
   less:
     - <<: *css-stylelint
     - <<: *prettier-format
+
+  javascript:
+    - <<: *javascript-eslint
+
+  javascriptreact:
+    - <<: *javascript-eslint
+
+  typescript:
+    - <<: *javascript-eslint
+
+  typescriptreact:
+    - <<: *javascript-eslint
 ---
