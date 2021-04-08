@@ -191,14 +191,14 @@ function M.filetype() return vim.bo.filetype end
 ---------------------------------------------------------------------------------
 
 function M.active()
-  local line = [[%6*%{luaeval("require'_.statusline'.git_info()")} %*]]
+  local line = M.lsp_status() .. ' %*'
 
+  line = line .. [[%6*%{luaeval("require'_.statusline'.git_info()")} %*]]
   line = line .. '%<'
   line = line .. '%4*' .. M.filepath() .. '%*'
   line = line .. [[%4* %{luaeval("require'_.statusline'.word_count()")} %*]]
   line = line .. [[%5* %{luaeval("require'_.statusline'.readonly()")} %w %*]]
   line = line .. '%9*%=%*'
-  line = line .. M.lsp_status() .. '%*'
   line = line .. [[ %{luaeval("require'_.statusline'.mode()")} %*]]
   line = line .. [[%#ErrorMsg#%{luaeval("require'_.statusline'.paste()")}%*]]
   line = line .. [[%#WarningMsg#%{luaeval("require'_.statusline'.spell()")}%*]]
