@@ -1,0 +1,11 @@
+# Config for the integration with nvim to override enter key
+{
+	verbs: [
+		{
+			invocation: terminal
+			key: enter
+			execution: ":print_path"
+			apply_to: file
+		}
+	]
+}
