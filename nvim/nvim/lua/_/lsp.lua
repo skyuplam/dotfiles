@@ -19,11 +19,11 @@ require'_.completion'.setup()
 
 if has_lspstatus then
   lspstatus.config({
-    indicator_errors='',
-    indicator_warnings='',
-    indicator_info='',
-    indicator_hint='',
-    indicator_ok='﫠'
+    indicator_errors=utils.get_icon('error'),
+    indicator_warnings=utils.get_icon('warn'),
+    indicator_info=utils.get_icon('info'),
+    indicator_hint=utils.get_icon('hint'),
+    indicator_ok=utils.get_icon('success')
   })
 
   lspstatus.register_progress()
@@ -179,7 +179,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] =
 local capabilities = lspstatus.capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-require('nlua.lsp.nvim').setup(nvim_lsp, {on_attach=on_attach, globals={'vim', 'use'}})
+require('nlua.lsp.nvim').setup(nvim_lsp,
+                               {on_attach=on_attach, globals={'vim', 'use'}})
 
 local eslint = {
   lintCommand='eslint_d -f unix --stdin --stdin-filename ${INPUT}',

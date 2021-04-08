@@ -20,12 +20,12 @@ function M.get_icon(icon_name)
     paste = "⍴",
     spell = "✎",
     branch = " ",
-    error = "×",
-    info = "●",
-    warn = "!",
+    error = "",
+    info = "",
+    warn = "",
     hint = "›",
     lock = "",
-    success = " "
+    success = ""
     -- success = ' '
   }
 
