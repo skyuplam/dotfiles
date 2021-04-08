@@ -132,7 +132,7 @@ return require('packer').startup(function()
       {'tjdevries/nlua.nvim'},
       {'glepnir/lspsaga.nvim'},
       {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
-      {'nvim-lua/lsp-status.nvim'},
+      {'nvim-lua/lsp-status.nvim'}
     }
   }
 
@@ -140,7 +140,7 @@ return require('packer').startup(function()
     'hrsh7th/nvim-compe',
     requires={
       {'andersevenrud/compe-tmux'},
-      {'hrsh7th/vim-vsnip'},
+      {'hrsh7th/vim-vsnip', config=function() require('_.vsnip') end},
       {'hrsh7th/vim-vsnip-integ'}
     }
   }

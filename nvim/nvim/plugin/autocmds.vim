@@ -17,4 +17,10 @@ augroup MyAutoCmds
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 
+  " http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+  autocmd User fugitive
+        \ if get(b:, 'fugitive_type', '') =~# '^\%(tree\|blob\)$' |
+        \   nnoremap <buffer> .. :edit %:h<CR> |
+        \ endif
 augroup END

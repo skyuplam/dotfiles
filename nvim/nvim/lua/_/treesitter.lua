@@ -1,4 +1,6 @@
-local ts_configs = require('nvim-treesitter.configs')
+local has_config, ts_configs = pcall(require, 'nvim-treesitter.configs')
+
+if not has_config then return end
 
 ts_configs.setup {
   ensure_installed={
@@ -36,6 +38,7 @@ ts_configs.setup {
     highlight_definitions={enable=true}
     -- highlight_current_scope = { enable = true }
   },
+  rainbow={enable=true, extended_mode=true},
   textobjects={
     select={
       enable=true,

@@ -80,9 +80,7 @@ local default_mappings = {
 }
 
 local lspsaga_mappings = {
-  ['<C-]>']={
-    '<Cmd>lua require\'lspsaga.provider\'.preview_definition()<CR>'
-  },
+  ['<C-]>']={'<Cmd>lua require\'lspsaga.provider\'.preview_definition()<CR>'},
   ['<leader>a']={
     '<Cmd>lua require\'lspsaga.codeaction\'.code_action()<CR>',
     '<Cmd>\'<,\'>lua require\'lspsaga.codeaction\'.range_code_action()<CR>'
@@ -131,9 +129,11 @@ local on_attach = function(client)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    utils.bmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", map_opts)
+    utils.bmap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>',
+               map_opts)
   elseif client.resolved_capabilities.document_range_formatting then
-    utils.bmap("n", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", map_opts)
+    utils.bmap('n', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
+               map_opts)
   end
 
   if client.resolved_capabilities.document_highlight then
