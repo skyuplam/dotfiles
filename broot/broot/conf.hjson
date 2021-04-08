@@ -170,13 +170,6 @@
 		}
 
 		{
-			invocation: terminal
-			key: ctrl-o
-			execution: ":print_path"
-			apply_to: file
-		}
-
-		{
 			invocation: git_diff
 			shortcut: gd
 			leave_broot: false
@@ -217,6 +210,10 @@
 		{
 			key: ctrl-d
 			execution: ":page_down"
+		}
+		{
+			key: ctrl-o
+			execution: ":parent"
 		}
 
 		# If you develop using git, you might like to often switch
