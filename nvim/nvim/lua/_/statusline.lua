@@ -39,18 +39,6 @@ end
 -- Main functions
 ---------------------------------------------------------------------------------
 
-function M.lsp_status()
-  if not vim.tbl_isempty(vim.lsp.buf_get_clients()) then
-    local line = [[%5*%{luaeval("require'lsp-status'.status_errors()")}]]
-    line = line .. [[ %6*%{luaeval("require'lsp-status'.status_warnings()")}]]
-    line = line .. [[ %7*%{luaeval("require'lsp-status'.status_hints()")}]]
-    line = line .. [[ %8*%{luaeval("require'lsp-status'.status_info()")}]]
-    return line
-  end
-
-  return [[%*]]
-end
-
 function M.git_info()
   if not vim.g.loaded_fugitive then return '' end
 
@@ -191,7 +179,13 @@ function M.filetype() return vim.bo.filetype end
 ---------------------------------------------------------------------------------
 
 function M.active()
-  local line = M.lsp_status() .. ' %*'
+  local line = '%*'
+
+  -- LSP Status
+  line = line .. [[%5*%{luaeval("require'lsp-status'.status_errors()")} %*]]
+  line = line .. [[%6*%{luaeval("require'lsp-status'.status_warnings()")} %*]]
+  line = line .. [[%7*%{luaeval("require'lsp-status'.status_hints()")} %*]]
+  line = line .. [[%8*%{luaeval("require'lsp-status'.status_info()")} %*]]
 
   line = line .. [[%6*%{luaeval("require'_.statusline'.git_info()")} %*]]
   line = line .. '%<'
