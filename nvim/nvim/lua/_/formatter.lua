@@ -80,7 +80,8 @@ for _, ft in ipairs(commonPrettierFTs) do ftConfigs[ft] = {prettier} end
 
 local function setup()
   utils.augroup('FormatAU', function()
-    vim.api.nvim_command('autocmd BufWritePost * FormatWrite')
+    vim.api.nvim_command(
+        'autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx,*.rs,*.md,*.json FormatWrite')
   end)
   return {logging=true, filetype=ftConfigs}
 end
