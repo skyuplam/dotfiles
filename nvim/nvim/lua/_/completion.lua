@@ -17,82 +17,73 @@ end
 --- jump to prev/next snippet's placeholder
 _G._.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
-    return utils.t "<C-n>"
-  elseif vim.fn.call("vsnip#available", {1}) == 1 then
-    return utils.t "<Plug>(vsnip-expand-or-jump)"
+    return utils.t '<C-n>'
+  elseif vim.fn.call('vsnip#available', {1}) == 1 then
+    return utils.t '<Plug>(vsnip-expand-or-jump)'
   elseif check_back_space() then
-    return utils.t "<Tab>"
+    return utils.t '<Tab>'
   else
-    return vim.fn["compe#complete"]()
+    return vim.fn['compe#complete']()
   end
 end
 
 _G._.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
-    return utils.t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return utils.t "<Plug>(vsnip-jump-prev)"
+    return utils.t '<C-p>'
+  elseif vim.fn.call('vsnip#jumpable', {-1}) == 1 then
+    return utils.t '<Plug>(vsnip-jump-prev)'
   else
-    return utils.t "<S-Tab>"
+    return utils.t '<S-Tab>'
   end
 end
 
 M.setup = function()
   if has_completion then
-    completion.setup {
-      enabled = true,
-      min_length = 2,
-      debug = false,
-      preselect = "always",
-      source = {
-        path = true,
-        tmux = true,
-        buffer = true,
-        spell = true,
-        tags = true,
-        vsnip = true,
-        nvim_lsp = true,
-        nvim_lua = true
+    completion.setup({
+      enabled=true,
+      min_length=2,
+      debug=false,
+      preselect='enable',
+      throttle_time=80,
+      source_timeout=200,
+      incomplete_delay=400,
+      max_abbr_width=100,
+      max_kind_width=100,
+      max_menu_width=100,
+      documentation=true,
+
+      source={
+        path=true,
+        buffer=true,
+        tags=true,
+        spell=true,
+        omni=true,
+        emoji=true,
+        nvim_lsp=true,
+        nvim_lua=true,
+        vsnip=true,
+        tmux=true,
+        nvim_treesitter=true
       }
-    }
+    })
 
-    utils.gmap("i", "<Tab>", "v:lua._.tab_complete()", {expr = true})
-    utils.gmap("s", "<Tab>", "v:lua._.tab_complete()", {expr = true})
-    utils.gmap("i", "<S-Tab>", "v:lua._.s_tab_complete()", {expr = true})
-    utils.gmap("s", "<S-Tab>", "v:lua._.s_tab_complete()", {expr = true})
-    utils.gmap(
-      "i",
-      "<c-space>",
-      "compe#complete()",
-      {expr = true, noremap = true, silent = true}
-    )
-    utils.gmap(
-      "i",
-      "<CR>",
-      "compe#confirm('<CR>')",
-      {expr = true, noremap = true, silent = true}
-    )
+    utils.gmap('i', '<Tab>', 'v:lua._.tab_complete()', {expr=true})
+    utils.gmap('s', '<Tab>', 'v:lua._.tab_complete()', {expr=true})
+    utils.gmap('i', '<S-Tab>', 'v:lua._.s_tab_complete()', {expr=true})
+    utils.gmap('s', '<S-Tab>', 'v:lua._.s_tab_complete()', {expr=true})
+    utils.gmap('i', '<c-space>', 'compe#complete()',
+               {expr=true, noremap=true, silent=true})
+    utils.gmap('i', '<CR>', 'compe#confirm(\'<CR>\')',
+               {expr=true, noremap=true, silent=true})
 
-    utils.gmap(
-      "i",
-      "<C-e>",
-      "compe#close('<C-e>')",
-      {expr = true, noremap = true, silent = true}
-    )
+    utils.gmap('i', '<C-e>', 'compe#close(\'<C-e>\')',
+               {expr=true, noremap=true, silent=true})
 
-    utils.gmap(
-      "i",
-      "<C-f>",
-      "compe#scroll({ 'delta': +4 })",
-      {expr = true, noremap = true, silent = true}
-    )
+    utils.gmap('i', '<C-f>', 'compe#scroll({ \'delta\': +4 })',
+               {expr=true, noremap=true, silent=true})
 
-    utils.gmap(
-      "i",
-      "<C-d>",
-      "compe#scroll({ 'delta': -4 })",
-      {expr = true, noremap = true, silent = true}
-    )
+    utils.gmap('i', '<C-d>', 'compe#scroll({ \'delta\': -4 })',
+               {expr=true, noremap=true, silent=true})
   end
 end
 

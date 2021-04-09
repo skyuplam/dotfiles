@@ -25,6 +25,7 @@ end
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
 
+-- Global Variable
 _G._ = {}
 
 return require('packer').startup(function()
@@ -141,9 +142,13 @@ return require('packer').startup(function()
     requires={
       {'andersevenrud/compe-tmux'},
       {'hrsh7th/vim-vsnip', config=function() require('_.vsnip') end},
-      {'hrsh7th/vim-vsnip-integ'}
+      {'hrsh7th/vim-vsnip-integ'},
+      {'nvim-lua/plenary.nvim'},
+      {'tamago324/compe-zsh'}
     }
   }
+
+  use {'Shougo/deol.nvim'}
 
   use {'p00f/nvim-ts-rainbow'}
 end)

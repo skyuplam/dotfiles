@@ -178,13 +178,29 @@ function M.filetype() return bo.filetype end
 function M.lsp_status(key)
   if next(vim.lsp.buf_get_clients()) ~= nil then
     if key == 'error' then
-      return require('lsp-status').status_errors() .. ' '
+      local s = require('lsp-status').status_errors()
+      if s ~= nil then
+        return s .. ' '
+      end
+      return ''
     elseif key == 'warn' then
-      return require('lsp-status').status_warnings() .. ' '
+      local s = require('lsp-status').status_warnings()
+      if s ~= nil then
+        return s .. ' '
+      end
+      return ''
     elseif key == 'hints' then
-      return require('lsp-status').status_hints() .. ' '
+      local s = require('lsp-status').status_hints()
+      if s ~= nil then
+        return s .. ' '
+      end
+      return ''
     elseif key == 'info' then
-      return require('lsp-status').status_info() .. ' '
+      local s = require('lsp-status').status_info()
+      if s ~= nil then
+        return s .. ' '
+      end
+      return ''
     end
   end
 

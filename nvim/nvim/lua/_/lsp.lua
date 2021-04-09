@@ -13,7 +13,7 @@ local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
 local utils = require '_.utils'
 local map_opts = {noremap=true, silent=true}
 
-lspsaga.init_lsp_saga()
+if has_lspsaga then lspsaga.init_lsp_saga() end
 
 require'_.completion'.setup()
 
@@ -183,7 +183,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] =
     })
 
 -- Enable (broadcasting) snippet capability for completion
-local capabilities = lspstatus.capabilities
+local capabilities = has_lspstatus and lspstatus.capabilities
+                         or vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require('nlua.lsp.nvim').setup(nvim_lsp,
@@ -200,7 +201,69 @@ local eslint = {
 
 local servers = {
   cssls={},
-  jsonls={},
+  jsonls={
+    filetypes={'json', 'jsonc'},
+    settings={
+      json={
+        -- Schemas https://www.schemastore.org
+        schemas={
+          {
+            fileMatch={'package.json'},
+            url='https://json.schemastore.org/package.json'
+          },
+          {
+            fileMatch={'tsconfig*.json'},
+            url='https://json.schemastore.org/tsconfig.json'
+          },
+          {
+            fileMatch={
+              '.prettierrc',
+              '.prettierrc.json',
+              'prettier.config.json'
+            },
+            url='https://json.schemastore.org/prettierrc.json'
+          },
+          {
+            fileMatch={'.eslintrc', '.eslintrc.json'},
+            url='https://json.schemastore.org/eslintrc.json'
+          },
+          {
+            fileMatch={'.babelrc', '.babelrc.json', 'babel.config.json'},
+            url='https://json.schemastore.org/babelrc.json'
+          },
+          {
+            fileMatch={'lerna.json'},
+            url='https://json.schemastore.org/lerna.json'
+          },
+          {
+            fileMatch={
+              '.stylelintrc',
+              '.stylelintrc.json',
+              'stylelint.config.json'
+            },
+            url='http://json.schemastore.org/stylelintrc.json'
+          }
+        }
+      }
+    }
+  },
+  yamlls={
+    settings={
+      yaml={
+        -- Schemas https://www.schemastore.org
+        schemas={
+          ['http://json.schemastore.org/gitlab-ci.json']={'.gitlab-ci.yml'},
+          ['https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json']={
+            'docker-compose*.{yml,yaml}'
+          },
+          ['http://json.schemastore.org/github-workflow.json']='.github/workflows/*.{yml,yaml}',
+          ['http://json.schemastore.org/github-action.json']='.github/action.{yml,yaml}',
+          ['http://json.schemastore.org/prettierrc.json']='.prettierrc.{yml,yaml}',
+          ['http://json.schemastore.org/stylelintrc.json']='.stylelintrc.{yml,yaml}'
+        }
+      }
+    }
+  },
   html={},
   efm={
     filetypes={
