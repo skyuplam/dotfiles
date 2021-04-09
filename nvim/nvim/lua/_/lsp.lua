@@ -67,44 +67,50 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
 vim.api.nvim_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 local default_mappings = {
-  ['<leader>a']={'<Cmd>lua vim.lsp.buf.code_action()<CR>'},
-  ['gr']={'<cmd>lua vim.lsp.buf.references()<CR>'},
-  ['<leader>rn']={'<cmd>lua vim.lsp.buf.rename()<CR>'},
-  ['K']={'<Cmd>lua vim.lsp.buf.hover()<CR>'},
-  ['<leader>ld']={'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'},
-  ['[d']={'<cmd>lua vim.lsp.diagnostic.goto_next()<cr>'},
-  [']d']={'<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'},
+  ['<leader>a']={'<CMD>lua vim.lsp.buf.code_action()<CR>'},
+  ['gr']={'<CMD>lua vim.lsp.buf.references()<CR>'},
+  ['<leader>rn']={'<CMD>lua vim.lsp.buf.rename()<CR>'},
+  ['K']={'<CMD>lua vim.lsp.buf.hover()<CR>'},
+  ['<leader>dl']={'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'},
+  ['<leader>s']={'<cmd>lua vim.lsp.buf.signature_help()<CR>'},
+  ['[d']={'<CMD>lua vim.lsp.diagnostic.goto_next()<cr>'},
+  [']d']={'<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>'},
   ['<C-]>']={'<Cmd>lua vim.lsp.buf.definition()<CR>'},
-  ['gd']={'<Cmd>lua vim.lsp.buf.declaration()<CR>'},
-  ['gi']={'<cmd>lua vim.lsp.buf.implementation()<CR>'}
+  ['gD']={'<CMD>lua vim.lsp.buf.declaration()<CR>'},
+  ['gy']={'<CMD>lua vim.lsp.buf.type_definition()<CR>'},
+  ['gi']={'<CMD>lua vim.lsp.buf.implementation()<CR>'},
+  ['<leader>q']={'<CMD>lua vim.lsp.diagnostics.set_loclist()<CR>'}
 }
 
 local lspsaga_mappings = {
-  ['<C-]>']={'<Cmd>lua require\'lspsaga.provider\'.preview_definition()<CR>'},
+  ['<C-]>']={'<CMD>lua require\'lspsaga.provider\'.preview_definition()<CR>'},
   ['<leader>a']={
-    '<Cmd>lua require\'lspsaga.codeaction\'.code_action()<CR>',
-    '<Cmd>\'<,\'>lua require\'lspsaga.codeaction\'.range_code_action()<CR>'
+    '<CMD>lua require\'lspsaga.codeaction\'.code_action()<CR>',
+    '<CMD>\'<,\'>lua require\'lspsaga.codeaction\'.range_code_action()<CR>'
   },
-  ['gr']={'<cmd>lua require\'lspsaga.provider\'.lsp_finder()<CR>'},
+  ['gr']={'<CMD>lua require\'lspsaga.provider\'.lsp_finder()<CR>'},
   ['<leader>s']={
-    '<cmd>lua require\'lspsaga.signaturehelp\'.signature_help()<CR>'
+    '<CMD>lua require\'lspsaga.signaturehelp\'.signature_help()<CR>'
   },
-  ['<leader>rn']={'<cmd>lua require\'lspsaga.rename\'.rename()<CR>'},
-  ['<leader>ld']={
-    '<cmd>lua require\'lspsaga.diagnostic\'.show_line_diagnostics()<CR>'
+  ['<leader>rn']={'<CMD>lua require\'lspsaga.rename\'.rename()<CR>'},
+  ['<leader>dl']={
+    '<CMD>lua require\'lspsaga.diagnostic\'.show_line_diagnostics()<CR>'
+  },
+  ['<leader>dc']={
+    '<CMD>lua require\'lspsaga.diagnostic\'.show_cursor_diagnostics()<CR>'
   },
   ['[d']={
-    '<cmd>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_prev()<CR>'
+    '<CMD>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_prev()<CR>'
   },
   [']d']={
-    '<cmd>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>'
+    '<CMD>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>'
   },
-  ['K']={'<cmd>lua require(\'lspsaga.hover\').render_hover_doc()<cr>'},
+  ['K']={'<CMD>lua require(\'lspsaga.hover\').render_hover_doc()<cr>'},
   ['<C-f>']={
-    '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'
+    '<CMD>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'
   },
-  ['<C-j>']={
-    '<cmd>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
+  ['<C-b>']={
+    '<CMD>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
   }
 }
 
@@ -129,10 +135,10 @@ local on_attach = function(client)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    utils.bmap('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>',
+    utils.bmap('n', '<leader>f', '<CMD>lua vim.lsp.buf.formatting()<CR>',
                map_opts)
   elseif client.resolved_capabilities.document_range_formatting then
-    utils.bmap('n', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>',
+    utils.bmap('v', '<leader>f', '<CMD>lua vim.lsp.buf.range_formatting()<CR>',
                map_opts)
   end
 
