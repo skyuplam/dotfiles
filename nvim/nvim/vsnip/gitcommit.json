@@ -38,5 +38,14 @@
     "prefix": "pe",
     "body": ["perf(${0:module}): ${1:message}", ""],
     "description": "A code change that improves performance"
+  },
+  "chore": {
+    "prefix": "ch",
+    "body": ["chore(${0:module}): ${1:message}", ""]
+  },
+  "breakingChange": {
+    "prefix": "br",
+    "body": ["BREAKING CHANGE: ${0:description}"],
+    "description": " a commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change"
   }
 }

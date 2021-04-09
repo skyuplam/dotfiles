@@ -8,6 +8,6 @@ g.vsnip_filetypes = {
   typescriptreact={'javascript'},
   javascript={'javascript'},
   javascriptreact={'javascript'},
-  gitcommit={'commit'},
+  gitcommit={'gitcommit'},
   rust={'rust'}
 }
