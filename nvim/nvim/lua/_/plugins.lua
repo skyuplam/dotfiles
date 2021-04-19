@@ -75,6 +75,9 @@ return require('packer').startup(function()
 
   use 'godlygeek/tabular'
 
+  use 'kamykn/spelunker.vim'
+  use 'kamykn/popup-menu.nvim'
+
   use 'SirVer/ultisnips'
 
   use 'iberianpig/tig-explorer.vim'
