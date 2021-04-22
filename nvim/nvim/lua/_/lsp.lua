@@ -205,6 +205,11 @@ local eslint = {
   formatStdin=true
 }
 
+local prettier = {
+  formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}",
+  formatStdin = true
+}
+
 local servers = {
   cssls={},
   jsonls={
@@ -285,10 +290,10 @@ local servers = {
     settings={
       rootMarkers={'package.json', '.git/'},
       languages={
-        javascript={eslint},
-        typescript={eslint},
-        javascriptreact={eslint},
-        typescriptreact={eslint}
+        javascript={prettier, eslint},
+        typescript={prettier, eslint},
+        javascriptreact={prettier, eslint},
+        typescriptreact={prettier, eslint}
       }
     }
   },
