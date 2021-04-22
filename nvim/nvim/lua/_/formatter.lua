@@ -19,7 +19,7 @@ local function prettier()
       'all',
       -- Get file
       '--stdin-filepath',
-      vim.fn.shellescape(vim.api.nvim_buf_get_name(0))
+      vim.api.nvim_buf_get_name(0)
     },
     stdin=true
   }
