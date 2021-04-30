@@ -24,4 +24,4 @@ macro c set browser "youtube-viewer --comments=%u" ; open-in-browser ; set brows
 macro i set browser "imv %u"; open-in-browser ; set browser "/usr/bin/xdg-open"
 
 # Colorscheme
-include /usr/share/doc/newsboat/contrib/colorschemes/solarized-dark
+include ~/.config/newsboat/solarized-dark
