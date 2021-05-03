@@ -1,0 +1,20 @@
+#!/bin/sh
+
+[ -z "$1" ] && {
+	"$BROWSER"
+	exit
+}
+
+case "$1" in
+*mkv | *webm | *mp4 | *youtube.com/watch* | *youtube.com/playlist* | *youtu.be*)
+	setsid -f mpv -quiet "$1" >/dev/null 2>&1
+	;;
+*png | *jpg | *jpe | *jpeg | *gif)
+	curl -sL "$1" >"/tmp/$(echo "$1" | sed "s/.*\///")" && viu -a "/tmp/$(echo "$1" | sed "s/.*\///")" >/dev/null 2>&1 &
+	;;
+*)
+	if [ -f "$1" ]; then
+		"$TERMINAL" -e "$EDITOR $1"
+	else setsid -f "$BROWSER" "$1" >/dev/null 2>&1; fi
+	;;
+esac
