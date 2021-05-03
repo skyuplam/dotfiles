@@ -136,7 +136,33 @@ return require('packer').startup(function()
       {'tjdevries/nlua.nvim'},
       {'glepnir/lspsaga.nvim'},
       {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
-      {'nvim-lua/lsp-status.nvim'}
+      {'nvim-lua/lsp-status.nvim'},
+      {'ray-x/lsp_signature.nvim'},
+      {
+        'folke/lsp-trouble.nvim',
+        requires='kyazdani42/nvim-web-devicons',
+        config=function()
+          local utils = require('_.utils')
+
+          require('trouble').setup({
+            signs={
+              -- icons / text used for a diagnostic
+              error=utils.get_icon('error'),
+              warning=utils.get_icon('warn'),
+              hint=utils.get_icon('hint'),
+              information=utils.get_icon('info')
+            },
+            use_lsp_diagnostic_signs=false
+          })
+
+          utils.gmap('n', '<leader>ll', '<cmd>LspTroubleToggle<CR>',
+                     {silent=true, noremap=true})
+          utils.gmap('n', '<leader>lw', '<cmd>LspTroubleWorkspaceToggle<CR>',
+                     {silent=true, noremap=true})
+          utils.gmap('n', '<leader>ld', '<cmd>LspTroubleDocumentToggle<CR>',
+                     {silent=true, noremap=true})
+        end
+      }
     }
   }
 

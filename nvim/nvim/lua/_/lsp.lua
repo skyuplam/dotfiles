@@ -10,6 +10,7 @@ if not has_lsp then return end
 local has_lspsaga, lspsaga = pcall(require, 'lspsaga')
 local has_extensions = pcall(require, 'lsp_extensions')
 local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
+local has_lspsignature, lspsignature = pcall(require 'lsp_signature')
 local utils = require '_.utils'
 local map_opts = {noremap=true, silent=true}
 
@@ -32,7 +33,10 @@ end
 utils.augroup('COMPLETION', function()
   if has_extensions then
     vim.api.nvim_command(
-        'au CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs lua require\'lsp_extensions\'.inlay_hints()')
+        'au CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost '
+            .. '*.rs lua require\'lsp_extensions\'.inlay_hints({ '
+            .. 'prefix = "", ' .. 'highlight = "Comment", '
+            .. 'enabled = {"TypeHint", "ChainingHint", "ParameterHint"} })')
   end
 end)
 
@@ -121,6 +125,7 @@ local on_attach = function(client)
   client.config.flags.allow_incremental_sync = true
 
   if has_lspstatus then lspstatus.on_attach(client) end
+  if has_lspsignature then lspsignature.on_attach() end
 
   for lhs, rhs in pairs(mappings) do
     if lhs == 'K' then
@@ -178,14 +183,20 @@ end
 -- https://github.com/nvim-lua/diagnostic-nvim/issues/73
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text=false,
-      -- virtual_text = {
-      --   spacing = 4,
-      --   prefix = "~"
-      -- },
-      underline=false,
-      signs=true,
-      update_in_insert=false
+      -- Enable underline, use default values
+      underline=true,
+      -- Enable virtual text, override spacing to 4
+      virtual_text={spacing=4, prefix='~'},
+      -- Use a function to dynamically turn signs off
+      -- and on, using buffer local variables
+      signs=function(bufnr, client_id)
+        local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
+        -- No buffer local variable set, so just enable by default
+        if not ok then return true end
+
+        return result
+      end,
+      update_in_insert=true
     })
 
 -- Enable (broadcasting) snippet capability for completion
@@ -206,8 +217,8 @@ local eslint = {
 }
 
 local prettier = {
-  formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}",
-  formatStdin = true
+  formatCommand='./node_modules/.bin/prettier --stdin-filepath ${INPUT}',
+  formatStdin=true
 }
 
 local servers = {
