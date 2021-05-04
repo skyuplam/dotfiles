@@ -89,6 +89,12 @@ export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always -l --depth=2 {} | he
 # colorizing pager for man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# ---------------------------------------------------------
+# GPG
+# ---------------------------------------------------------
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
+
 # }}}
 # ---------------------------------------------------------
 # Sourcing other configs {{{
