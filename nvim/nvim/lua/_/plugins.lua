@@ -138,6 +138,7 @@ return require('packer').startup(function()
       {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
       {'nvim-lua/lsp-status.nvim'},
       {'ray-x/lsp_signature.nvim'},
+      {'folke/lsp-colors.nvim'},
       {
         'folke/lsp-trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',

@@ -138,7 +138,7 @@ local on_attach = function(client)
     end
   end
 
-  -- Set some keybinds conditional on server capabilities
+  -- Set some keybindings conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
     utils.bmap('n', '<leader>f', '<CMD>lua vim.lsp.buf.formatting()<CR>',
                map_opts)
