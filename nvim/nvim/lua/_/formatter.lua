@@ -7,8 +7,11 @@ local utils = require '_.utils'
 local M = {}
 
 local function prettier()
+  local local_prettier = './node_modules/.bin/prettier'
+  local prettier_exe = 'prettier';
+  if vim.fn.executable(local_prettier) then prettier_exe = local_prettier end
   return {
-    exe='prettier',
+    exe=prettier_exe,
     args={
       -- Config prettier
       '--config-precedence',
