@@ -41,6 +41,8 @@ output DP-2 pos 0 0
 
 exec_always ~/.config/sway/bg.sh
 
+exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
 ### Input configuration
 #
 # Example configuration:
