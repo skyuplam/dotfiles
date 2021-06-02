@@ -143,7 +143,6 @@
   followTags = true
 [core]
   autocrlf = false
-  editor = $EDITOR
   excludesfile = ~/.gitignore_global
   pager = delta
 [interactive]
