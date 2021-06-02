@@ -1,13 +1,26 @@
 # ------------------------------------------------------------------------------
-# Key Binding
+# General
 # ------------------------------------------------------------------------------
 
-# Add keybinding to quickly jump to the next diff chunk in the stage view
-bind stage <Enter> :/^@@
+# Settings for speeding up Tig in large repositories
+#
 
-bind generic G move-last-line
-bind generic g none
-bind generic gg move-first-line
+# Use Git's default (reverse chronological) order, never automatically
+# use topo-order for the commit graph
+set commit-order = default
+
+# Limit number of commits loaded by default to 1000
+set main-options = -n 1000
+
+# Don't show staged and unstaged changes in the main view
+set show-changes = no
+
+# Optionally, use the old and faster but less acurate graph renderer
+#set main-view-commit-title-graph = v1
+
+# ------------------------------------------------------------------------------
+# Key Binding
+# ------------------------------------------------------------------------------
 
 # User-defined internal command that reloads tigrc
 bind generic S :source ~/.config/tig/config
@@ -38,3 +51,74 @@ bind status + !git commit --amend
 bind status - !git commit --edit --file .git/COMMIT_EDITMSG
 
 bind status D !git difftool --trust-exit-code %(commit) %(file)
+
+# Vim-style keybindings for Tig
+bind generic h scroll-left
+bind generic j move-down
+bind generic k move-up
+bind generic l scroll-right
+
+bind generic g  none
+bind generic gg move-first-line
+bind generic gj next
+bind generic gk previous
+bind generic gp parent
+bind generic gP back
+bind generic gn view-next
+
+bind main    G move-last-line
+bind generic G move-last-line
+
+bind generic <C-f> move-page-down
+bind generic <C-b> move-page-up
+
+bind generic v  none
+bind generic vm view-main
+bind generic vd view-diff
+bind generic vl view-log
+bind generic vt view-tree
+bind generic vb view-blob
+bind generic vx view-blame
+bind generic vr view-refs
+bind generic vs view-status
+bind generic vu view-stage
+bind generic vy view-stash
+bind generic vg view-grep
+bind generic vp view-pager
+bind generic vh view-help
+
+bind generic o  none
+bind generic oo :toggle sort-order
+bind generic os :toggle sort-field
+bind generic on :toggle line-number
+bind generic od :toggle date
+bind generic oa :toggle author
+bind generic og :toggle line-graphics
+bind generic of :toggle file-name
+bind generic op :toggle ignore-space
+bind generic oi :toggle id
+bind generic ot :toggle commit-title-overflow
+bind generic oF :toggle file-filter
+bind generic or :toggle commit-title-refs
+
+bind generic @  none
+bind generic @j :/^@@
+bind generic @k :?^@@
+bind generic @- :toggle diff-context -1
+bind generic @+ :toggle diff-context +1
+
+bind status  u  none
+bind stage   u  none
+bind generic uu status-update
+bind generic ur status-revert
+bind generic um status-merge
+bind generic ul stage-update-line
+bind generic up stage-update-part
+bind generic us stage-split-chunk
+
+bind generic c  none
+bind generic cc !git commit
+bind generic ca !?@git commit --amend --no-edit
+
+bind generic K view-help
+bind generic <C-w><C-w> view-next
