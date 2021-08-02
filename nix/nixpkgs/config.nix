@@ -14,12 +14,11 @@
       paths = [
         (pass.withExtensions (exts: [ exts.pass-otp ]))
         aspell
-        bandwhich
         bat
         borgbackup
         broot
         broot
-        coreutils
+        # coreutils
         curl
         darcs
         emacs
@@ -32,7 +31,7 @@
         gitAndTools.delta
         gnupg
         go
-        hadolint
+        # hadolint
         htop
         jq
         kitty
@@ -55,12 +54,17 @@
         tig
         tree
         units
-        universal-ctags
+        # universal-ctags
         vim
         xclip
         yabai
         yarn
         zoxide
+        rsync
+        nodePackages.typescript-language-server
+        nodePackages.vscode-json-languageserver-bin
+        nodePackages.vscode-css-languageserver-bin
+        nodePackages.vscode-html-languageserver-bin
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
