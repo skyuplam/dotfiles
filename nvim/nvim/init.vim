@@ -20,7 +20,7 @@ let g:loaded_rrhelper           = 1
 " Set them directly if they are installed, otherwise disable them. To avoid the
 " runtime check cost, which can be slow.
 if has('nvim')
-  " Python This must be here becasue it makes loading vim VERY SLOW otherwise
+  " Python This must be here because it makes loading vim VERY SLOW otherwise
   let g:python_host_skip_check = 1
   " Disable python2 provider
   let g:loaded_python_provider = 0
