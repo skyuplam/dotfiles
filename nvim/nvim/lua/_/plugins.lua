@@ -134,7 +134,7 @@ return require('packer').startup(function()
         config=function() require'_.statusline'.activate() end
       },
       {'tjdevries/nlua.nvim'},
-      {'glepnir/lspsaga.nvim'},
+      -- {'glepnir/lspsaga.nvim'},
       {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
       {'nvim-lua/lsp-status.nvim'},
       {'ray-x/lsp_signature.nvim'},

@@ -7,14 +7,14 @@ local has_lsp, nvim_lsp = pcall(require, 'lspconfig')
 
 if not has_lsp then return end
 
-local has_lspsaga, lspsaga = pcall(require, 'lspsaga')
+-- local has_lspsaga, lspsaga = pcall(require, 'lspsaga')
 local has_extensions = pcall(require, 'lsp_extensions')
 local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
 local has_lspsignature, lspsignature = pcall(require 'lsp_signature')
 local utils = require '_.utils'
 local map_opts = {noremap=true, silent=true}
 
-if has_lspsaga then lspsaga.init_lsp_saga() end
+-- if has_lspsaga then lspsaga.init_lsp_saga() end
 
 require'_.completion'.setup()
 
@@ -86,40 +86,40 @@ local default_mappings = {
   ['<leader>q']={'<CMD>lua vim.lsp.diagnostics.set_loclist()<CR>'}
 }
 
-local lspsaga_mappings = {
-  ['<C-]>']={'<CMD>lua require\'lspsaga.provider\'.preview_definition()<CR>'},
-  ['<leader>a']={
-    '<CMD>lua require\'lspsaga.codeaction\'.code_action()<CR>',
-    '<CMD>\'<,\'>lua require\'lspsaga.codeaction\'.range_code_action()<CR>'
-  },
-  ['gr']={'<CMD>lua require\'lspsaga.provider\'.lsp_finder()<CR>'},
-  ['<leader>s']={
-    '<CMD>lua require\'lspsaga.signaturehelp\'.signature_help()<CR>'
-  },
-  ['<leader>rn']={'<CMD>lua require\'lspsaga.rename\'.rename()<CR>'},
-  ['<leader>dl']={
-    '<CMD>lua require\'lspsaga.diagnostic\'.show_line_diagnostics()<CR>'
-  },
-  ['<leader>dc']={
-    '<CMD>lua require\'lspsaga.diagnostic\'.show_cursor_diagnostics()<CR>'
-  },
-  ['[d']={
-    '<CMD>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_prev()<CR>'
-  },
-  [']d']={
-    '<CMD>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>'
-  },
-  ['K']={'<CMD>lua require(\'lspsaga.hover\').render_hover_doc()<cr>'},
-  ['<C-f>']={
-    '<CMD>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'
-  },
-  ['<C-b>']={
-    '<CMD>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
-  }
-}
+-- local lspsaga_mappings = {
+--   ['<C-]>']={'<CMD>lua require\'lspsaga.provider\'.preview_definition()<CR>'},
+--   ['<leader>a']={
+--     '<CMD>lua require\'lspsaga.codeaction\'.code_action()<CR>',
+--     '<CMD>\'<,\'>lua require\'lspsaga.codeaction\'.range_code_action()<CR>'
+--   },
+--   ['gr']={'<CMD>lua require\'lspsaga.provider\'.lsp_finder()<CR>'},
+--   ['<leader>s']={
+--     '<CMD>lua require\'lspsaga.signaturehelp\'.signature_help()<CR>'
+--   },
+--   ['<leader>rn']={'<CMD>lua require\'lspsaga.rename\'.rename()<CR>'},
+--   ['<leader>dl']={
+--     '<CMD>lua require\'lspsaga.diagnostic\'.show_line_diagnostics()<CR>'
+--   },
+--   ['<leader>dc']={
+--     '<CMD>lua require\'lspsaga.diagnostic\'.show_cursor_diagnostics()<CR>'
+--   },
+--   ['[d']={
+--     '<CMD>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_prev()<CR>'
+--   },
+--   [']d']={
+--     '<CMD>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>'
+--   },
+--   ['K']={'<CMD>lua require(\'lspsaga.hover\').render_hover_doc()<cr>'},
+--   ['<C-f>']={
+--     '<CMD>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'
+--   },
+--   ['<C-b>']={
+--     '<CMD>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
+--   }
+-- }
 
-local mappings = vim.tbl_extend('force', default_mappings,
-                                has_lspsaga and lspsaga_mappings or {})
+local mappings = vim.tbl_extend('force', default_mappings, {})
+-- has_lspsaga and lspsaga_mappings or {})
 
 local on_attach = function(client)
   client.config.flags.allow_incremental_sync = true
@@ -318,8 +318,9 @@ local servers = {
     end,
     root_dir=function(fname)
       return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
-                 or nvim_lsp.util.root_pattern('package.json', 'jsconfig.json',
-                                               '.git')(fname) or vim.fn.getcwd()
+                 or nvim_lsp.util
+                     .root_pattern('package.json', 'jsconfig.json', '.git')(
+                     fname) or vim.fn.getcwd()
     end
   }
 }
