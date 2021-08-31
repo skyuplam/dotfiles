@@ -11,6 +11,7 @@ if not has_lsp then return end
 local has_extensions = pcall(require, 'lsp_extensions')
 local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
 local has_lspsignature, lspsignature = pcall(require 'lsp_signature')
+local has_lightbulb = pcall(require 'nvim-lightbulb')
 local utils = require '_.utils'
 local map_opts = {noremap=true, silent=true}
 
@@ -158,6 +159,10 @@ local on_attach = function(client)
   utils.augroup('LSP', function()
     vim.api.nvim_command(
         'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
+    if has_lightbulb then
+      vim.api.nvim_command(
+          'autocmd CursorHold,CursorHoldI * lua require\'nvim-lightbulb\'.update_lightbulb()')
+    end
     if client.resolved_capabilities.document_highlight then
       vim.api.nvim_command(
           'autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()')

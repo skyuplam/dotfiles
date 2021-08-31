@@ -179,27 +179,19 @@ function M.lsp_status(key)
   if next(vim.lsp.buf_get_clients()) ~= nil then
     if key == 'error' then
       local s = require('lsp-status').status_errors()
-      if s ~= nil then
-        return s .. ' '
-      end
+      if s ~= nil then return s .. ' ' end
       return ''
     elseif key == 'warn' then
       local s = require('lsp-status').status_warnings()
-      if s ~= nil then
-        return s .. ' '
-      end
+      if s ~= nil then return s .. ' ' end
       return ''
     elseif key == 'hints' then
       local s = require('lsp-status').status_hints()
-      if s ~= nil then
-        return s .. ' '
-      end
+      if s ~= nil then return s .. ' ' end
       return ''
     elseif key == 'info' then
       local s = require('lsp-status').status_info()
-      if s ~= nil then
-        return s .. ' '
-      end
+      if s ~= nil then return s .. ' ' end
       return ''
     end
   end

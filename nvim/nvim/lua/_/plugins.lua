@@ -57,8 +57,8 @@ return require('packer').startup(function()
   use {'gruvbox-community/gruvbox'}
   use {'vim-jp/syntax-vim-ex'}
 
-  -- use {'preservim/nerdtree'}
-  -- use {'Xuyuanp/nerdtree-git-plugin'}
+  use {'kevinhwang91/nvim-bqf'}
+  use {'ms-jpq/chadtree', branch='chad', run='python -m chadtree deps'}
 
   use {'Shougo/vimproc.vim', run=':silent! !make'}
   use 'vim-scripts/vis'
@@ -66,10 +66,6 @@ return require('packer').startup(function()
 
   use 'mbbill/undotree'
 
-  use 'airblade/vim-gitgutter'
-  use 'mhinz/vim-signify'
-  use 'tpope/vim-git'
-  use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'tpope/vim-sleuth'
 
@@ -80,8 +76,6 @@ return require('packer').startup(function()
 
   use 'SirVer/ultisnips'
 
-  use 'iberianpig/tig-explorer.vim'
-  use 'rbgrouleff/bclose.vim'
   -- Marks
   use 'kshenoy/vim-signature'
   -- Quickfix
@@ -100,8 +94,6 @@ return require('packer').startup(function()
     '~/dev/vim-redact-pass',
     event='VimEnter /private$TMPDIR/pass.?*/?*.txt,/dev/shm/pass.?*/?*.txt'
   }
-
-  use {'~/dev/broot.nvim', config='vim.g.broot_replace_netrw = 1'}
 
   use {
     'mhartington/formatter.nvim',
@@ -139,6 +131,7 @@ return require('packer').startup(function()
       {'nvim-lua/lsp-status.nvim'},
       {'ray-x/lsp_signature.nvim'},
       {'folke/lsp-colors.nvim'},
+      {'kosayoda/nvim-lightbulb'},
       {
         'folke/lsp-trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',
@@ -176,6 +169,89 @@ return require('packer').startup(function()
       {'nvim-lua/plenary.nvim'},
       {'tamago324/compe-zsh'}
     }
+  }
+
+  use {
+    {'tpope/vim-fugitive', cmd={'Git'}},
+    {
+      'lewis6991/gitsigns.nvim',
+      requires={'nvim-lua/plenary.nvim'},
+      config=function()
+        require('gitsigns').setup({
+          signs={
+            add={
+              hl='GitSignsAdd',
+              text='│',
+              numhl='GitSignsAddNr',
+              linehl='GitSignsAddLn'
+            },
+            change={
+              hl='GitSignsChange',
+              text='│',
+              numhl='GitSignsChangeNr',
+              linehl='GitSignsChangeLn'
+            },
+            delete={
+              hl='GitSignsDelete',
+              text='_',
+              numhl='GitSignsDeleteNr',
+              linehl='GitSignsDeleteLn'
+            },
+            topdelete={
+              hl='GitSignsDelete',
+              text='‾',
+              numhl='GitSignsDeleteNr',
+              linehl='GitSignsDeleteLn'
+            },
+            changedelete={
+              hl='GitSignsChange',
+              text='~',
+              numhl='GitSignsChangeNr',
+              linehl='GitSignsChangeLn'
+            }
+          },
+          signcolumn=true, -- Toggle with `:Gitsigns toggle_signs`
+          numhl=false, -- Toggle with `:Gitsigns toggle_numhl`
+          linehl=false, -- Toggle with `:Gitsigns toggle_linehl`
+          word_diff=false, -- Toggle with `:Gitsigns toggle_word_diff`
+          keymaps={
+            -- Default keymap options
+            noremap=true,
+
+            ['n ]c']={
+              expr=true,
+              '&diff ? \']c\' : \'<cmd>lua require"gitsigns.actions".next_hunk()<CR>\''
+            },
+            ['n [c']={
+              expr=true,
+              '&diff ? \'[c\' : \'<cmd>lua require"gitsigns.actions".prev_hunk()<CR>\''
+            },
+
+            ['n <leader>hs']='<cmd>lua require"gitsigns".stage_hunk()<CR>',
+            ['v <leader>hs']='<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+            ['n <leader>hu']='<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+            ['n <leader>hr']='<cmd>lua require"gitsigns".reset_hunk()<CR>',
+            ['v <leader>hr']='<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+            ['n <leader>hR']='<cmd>lua require"gitsigns".reset_buffer()<CR>',
+            ['n <leader>hp']='<cmd>lua require"gitsigns".preview_hunk()<CR>',
+            ['n <leader>hb']='<cmd>lua require"gitsigns".blame_line(true)<CR>',
+            ['n <leader>hS']='<cmd>lua require"gitsigns".stage_buffer()<CR>',
+            ['n <leader>hU']='<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
+
+            -- Text objects
+            ['o ih']=':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+            ['x ih']=':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+          },
+          sign_priority=6
+        })
+      end
+    },
+    {
+      'iberianpig/tig-explorer.vim',
+      cmd={'Tig', 'TigStatus'},
+      requires='rbgrouleff/bclose.vim'
+    },
+    {'TimUntersberger/neogit', cmd={'Neogit'}, requires='nvim-lua/plenary.nvim'}
   }
 
   use {'Shougo/deol.nvim'}

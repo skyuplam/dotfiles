@@ -7,9 +7,9 @@ local utils = require '_.utils'
 local M = {}
 
 local function prettier()
-  local local_prettier = './node_modules/.bin/prettier'
+  local local_prettier = 'yarn'
   local prettier_exe = 'prettier';
-  if vim.fn.executable(local_prettier) then prettier_exe = local_prettier end
+  if vim.fn.executable(local_prettier) > 0 then prettier_exe = 'yarn prettier' end
   return {
     exe=prettier_exe,
     args={

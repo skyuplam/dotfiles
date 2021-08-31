@@ -9,7 +9,7 @@ let mapleader = ','
 let g:mapleader = ','
 
 " Explorer Mapping
-nnoremap <C-e> :Broot<CR>
+nnoremap <C-e> :CHADopen<CR>
 nnoremap <C-p> :Files<CR>
 nnoremap <silent> <space>t :TagbarToggle<CR>
 
