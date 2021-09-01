@@ -18,7 +18,7 @@
         borgbackup
         broot
         broot
-        # coreutils
+        coreutils
         curl
         darcs
         emacs
@@ -65,6 +65,8 @@
         nodePackages.vscode-json-languageserver-bin
         nodePackages.vscode-css-languageserver-bin
         nodePackages.vscode-html-languageserver-bin
+        neovim
+        tmux
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
