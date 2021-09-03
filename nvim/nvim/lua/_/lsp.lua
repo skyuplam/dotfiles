@@ -87,38 +87,6 @@ local default_mappings = {
   ['<leader>q']={'<CMD>lua vim.lsp.diagnostics.set_loclist()<CR>'}
 }
 
--- local lspsaga_mappings = {
---   ['<C-]>']={'<CMD>lua require\'lspsaga.provider\'.preview_definition()<CR>'},
---   ['<leader>a']={
---     '<CMD>lua require\'lspsaga.codeaction\'.code_action()<CR>',
---     '<CMD>\'<,\'>lua require\'lspsaga.codeaction\'.range_code_action()<CR>'
---   },
---   ['gr']={'<CMD>lua require\'lspsaga.provider\'.lsp_finder()<CR>'},
---   ['<leader>s']={
---     '<CMD>lua require\'lspsaga.signaturehelp\'.signature_help()<CR>'
---   },
---   ['<leader>rn']={'<CMD>lua require\'lspsaga.rename\'.rename()<CR>'},
---   ['<leader>dl']={
---     '<CMD>lua require\'lspsaga.diagnostic\'.show_line_diagnostics()<CR>'
---   },
---   ['<leader>dc']={
---     '<CMD>lua require\'lspsaga.diagnostic\'.show_cursor_diagnostics()<CR>'
---   },
---   ['[d']={
---     '<CMD>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_prev()<CR>'
---   },
---   [']d']={
---     '<CMD>lua require\'lspsaga.diagnostic\'.lsp_jump_diagnostic_next()<CR>'
---   },
---   ['K']={'<CMD>lua require(\'lspsaga.hover\').render_hover_doc()<cr>'},
---   ['<C-f>']={
---     '<CMD>lua require(\'lspsaga.action\').smart_scroll_with_saga(1)<cr>'
---   },
---   ['<C-b>']={
---     '<CMD>lua require(\'lspsaga.action\').smart_scroll_with_saga(-1)<CR>'
---   }
--- }
-
 local mappings = vim.tbl_extend('force', default_mappings, {})
 -- has_lspsaga and lspsaga_mappings or {})
 
@@ -194,7 +162,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] =
       virtual_text={spacing=4, prefix='~'},
       -- Use a function to dynamically turn signs off
       -- and on, using buffer local variables
-      signs=function(bufnr, client_id)
+      signs=function(bufnr)
         local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
         -- No buffer local variable set, so just enable by default
         if not ok then return true end
@@ -213,16 +181,14 @@ require('nlua.lsp.nvim').setup(nvim_lsp,
                                {on_attach=on_attach, globals={'vim', 'use'}})
 
 local eslint = {
-  lintCommand='eslint_d -f unix --stdin --stdin-filename ${INPUT}',
+  lintCommand='yarn eslint -f unix --stdin --stdin-filename ${INPUT}',
   lintStdin=true,
-  lintFormats={'%f:%l:%c: %m'},
   lintIgnoreExitCode=true,
-  formatCommand='eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}',
-  formatStdin=true
+  lintFormats={'%f:%l:%c: %m'}
 }
 
 local prettier = {
-  formatCommand='./node_modules/.bin/prettier --stdin-filepath ${INPUT}',
+  formatCommand='yarn prettier --stdin-filepath ${INPUT}',
   formatStdin=true
 }
 
@@ -301,10 +267,13 @@ local servers = {
       'typescriptreact',
       'typescript.tsx'
     },
-    init_options={codeAction=true, documentFormatting=true},
-    root_dir=nvim_lsp.util.root_pattern('.git', vim.fn.getcwd()),
+    init_options={documentFormatting=true},
+    root_dir=function(fname)
+      return nvim_lsp.util.root_pattern('.yarn/')(fname)
+                 or nvim_lsp.util.root_pattern('tsconfig.json')(fname)
+    end,
     settings={
-      rootMarkers={'package.json', '.git/'},
+      rootMarkers={'.yarn/', '.git/'},
       languages={
         javascript={prettier, eslint},
         typescript={prettier, eslint},
@@ -318,7 +287,7 @@ local servers = {
   tsserver={
     on_attach=function(client)
       on_attach(client)
-      -- formating is done via formatter.nvim
+      -- formatting is done via formatter.nvim
       client.resolved_capabilities.document_formatting = false
     end,
     root_dir=function(fname)

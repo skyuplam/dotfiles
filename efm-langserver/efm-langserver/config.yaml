@@ -1,5 +1,11 @@
 ---
 version: 2
+root-markers:
+  - .git/
+  - tsconfig.json
+  - package.json
+  - .eslintrc.js
+lint-debounce: 1s
 
 tools:
   vim-vint: &vim-vint
@@ -33,7 +39,7 @@ tools:
     format-stdin: true
 
   css-stylelint: &css-stylelint
-    lint-command: "./node_modules/.bin/stylelint --formatter unix --stdin --stdin-filename ${INPUT}"
+    lint-command: "yarn stylelint --formatter unix --stdin --stdin-filename ${INPUT}"
     lint-ignore-exit-code: false
     lint-stdin: true
     lint-formats:
@@ -41,11 +47,11 @@ tools:
       - "%f:%l:%c: %m [%tarning]"
 
   prettier-format: &prettier-format
-    format-command: './node_modules/.bin/prettier ${INPUT}'
+    format-command: 'yarn prettier ${INPUT}'
     format-stdin: false
 
   javascript-eslint: &javascript-eslint
-    lint-command: 'eslint -f visualstudio --stdin --stdin-filename ${INPUT}'
+    lint-command: 'yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}'
     lint-ignore-exit-code: true
     lint-stdin: true
     lint-formats:
