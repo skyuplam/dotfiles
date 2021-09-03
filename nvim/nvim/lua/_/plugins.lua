@@ -58,7 +58,10 @@ return require('packer').startup(function()
   use {'vim-jp/syntax-vim-ex'}
 
   use {'kevinhwang91/nvim-bqf'}
-  use {'ms-jpq/chadtree', branch='chad', run='python -m chadtree deps'}
+  use {
+      'kyazdani42/nvim-tree.lua',
+      requires = 'kyazdani42/nvim-web-devicons'
+  }
 
   use {'Shougo/vimproc.vim', run=':silent! !make'}
   use 'vim-scripts/vis'
