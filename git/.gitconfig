@@ -55,13 +55,13 @@
   files = !git diff --name-only $(git merge-base HEAD $REVIEW_BASE)
   stat = !git diff --stat $(git merge-base HEAD $REVIEW_BASE)
   # Open all files changed since REVIEW_BASE in Vim tabs
-  # Then, run fugitive's :Gdiff in each tab, and finally
+  # Then, run fugitive's :Git diff in each tab, and finally
   # tell vim-gitgutter to show +/- for changes since REVIEW_BASE
-  review = !$EDITOR -p $(git files) +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+  review = !$EDITOR -p $(git files) +\"tabdo Gitsigns diffthis '$REVIEW_BASE'\"
   # Same as the above, except specify names of files as arguments,
   # instead of opening all files:
   # git reviewone foo.js bar.js
-  reviewone = !$EDITOR -p +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
+  reviewone = !$EDITOR -p +\"tabdo Gitsigns diffthis '$REVIEW_BASE'\"
 
   # log
   # View abbreviated SHA, description, and history graph of the latest 20 commits
@@ -126,7 +126,7 @@
   trustExitCode = true
   cmd = $EDITOR -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [mergetool "nfugitive"]
-  cmd = $EDITOR -f -c "Gdiff" "$MERGED"
+  cmd = $EDITOR -f -c "Git diff" "$MERGED"
 [commit]
   gpgsign = true
   verbose = true
