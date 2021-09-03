@@ -22,6 +22,13 @@ command! -nargs=? -complete=dir AF
   \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
   \ })))
 
+" Review files
+command! -nargs=? -complete=dir RF
+  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+  \   'source': 'git files',
+  \   'sink': 'e'
+  \ })))
+
 command! -nargs=* -bang RG call local#fzf#RipgrepFzf(<q-args>, <bang>0)
 
 " Fuzzy search the arglist (:Args)
