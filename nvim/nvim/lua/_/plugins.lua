@@ -242,7 +242,16 @@ return require('packer').startup(function()
             ['o ih']=':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
             ['x ih']=':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
           },
-          sign_priority=6
+          sign_priority=6,
+          current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+            current_line_blame_opts = {
+              virt_text = true,
+              virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+              delay = 1000,
+            },
+            current_line_blame_formatter_opts = {
+              relative_time = false
+            },
         })
       end
     },
