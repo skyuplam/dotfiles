@@ -67,6 +67,9 @@
         nodePackages.vscode-html-languageserver-bin
         neovim
         tmux
+        luajitPackages.luarocks
+        gcc
+        cmake
       ];
       pathsToLink = [ "/share" "/bin" "/Applications" ];
       extraOutputsToInstall = [ "man" "doc" ];
