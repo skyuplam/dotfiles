@@ -124,6 +124,7 @@ return require('packer').startup(function()
     'neovim/nvim-lspconfig',
     config=function() require '_.lsp' end,
     requires={
+      {'lbrayner/vim-rzip'}, -- https://yarnpkg.com/getting-started/editor-sdks#supporting-go-to-definition-et-al
       {
         'tjdevries/lsp_extensions.nvim',
         config=function() require'_.statusline'.activate() end
