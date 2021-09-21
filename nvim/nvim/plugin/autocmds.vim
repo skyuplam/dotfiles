@@ -59,5 +59,6 @@ augroup MyAutoCmds
         \ if get(b:, 'fugitive_type', '') =~# '^\%(tree\|blob\)$' |
         \   nnoremap <buffer> .. :edit %:h<CR> |
         \ endif
+  " rzip URI decoding and override for yarn's PnP 'Go to definition'
   autocmd VimEnter * call RzipOverride()
 augroup END
