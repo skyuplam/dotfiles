@@ -76,7 +76,8 @@ local commonPrettierFTs = {
   'typescriptreact',
   'markdown',
   'markdown.mdx',
-  'json'
+  'json',
+  'jsonc'
 }
 
 for _, ft in ipairs(commonPrettierFTs) do ftConfigs[ft] = {prettier} end
