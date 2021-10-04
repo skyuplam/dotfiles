@@ -1,9 +1,18 @@
+local has_nt, nt = pcall(require, 'nvim-tree')
+
+
 local M = {}
-local g = vim.g
 
 M.setup = function()
-  g.nvim_tree_quit_on_open = 1
-  g.nvim_tree_follow = 1
+
+  if not has_nt then return end
+
+  nt.setup {
+      auto_close          = true,
+      update_focused_file = {
+        enable = true,
+      },
+  }
 end
 
 return M
