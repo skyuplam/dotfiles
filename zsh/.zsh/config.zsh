@@ -92,7 +92,9 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # ---------------------------------------------------------
 # GPG
 # ---------------------------------------------------------
-gpg-connect-agent updatestartuptty /bye >/dev/null
+if type gpg-connect-agent > /dev/null; then
+  gpg-connect-agent updatestartuptty /bye >/dev/null
+fi
 
 
 # }}}
