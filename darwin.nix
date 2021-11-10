@@ -1,32 +1,36 @@
-{ config, pkgs, ... }:
-
+{ pkgs, ... }:
 {
+  # Networking
+  networking.computerName = "Terrence Lam’s 💻";
+  networking.hostName = "tlamsmbpro16";
+  networking.knownNetworkServices = [
+    "Wi-Fi"
+    "USB 10/100/1000 LAN"
+  ];
+  networking.dns = [
+    "1.1.1.1"
+    "8.8.8.8"
+  ];
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages =
-    [
-      pkgs.yabai
+  environment.systemPackages = [
+      #pkgs.yabai
       pkgs.skhd
     ];
 
-  # Use a custom configuration.nix location.
-  # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
-  environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
-
   # Auto upgrade nix package and the daemon service.
-  # services.nix-daemon.enable = true;
-  # nix.package = pkgs.nix;
+  services.nix-daemon.enable = true;
 
-  # Create /etc/bashrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;  # default shell on catalina
-  # programs.fish.enable = true;
+  # Enable experimental version of nix with flakes support
+  nix.package = pkgs.nixFlakes;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
   services.yabai = {
-    enable = true;
+    enable = false;
     package = pkgs.yabai;
     enableScriptingAddition = false;
     config = {

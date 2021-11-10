@@ -30,3 +30,6 @@ spacemacs/**/.spacemacs.env
 
 # Emacs lisp compiled files
 **/*.elc
+
+# nix
+result
