@@ -49,6 +49,7 @@
     hyperfine # benchmarking tool
     lsd
     luajitPackages.luarocks
+    neovim-nightly
     ninja
     passExtensions.pass-import
     passff-host
