@@ -64,6 +64,7 @@
     tree
     units
     wget
+    wasm-pack
     xz # extract XZ archives
     yabai
     yarn
