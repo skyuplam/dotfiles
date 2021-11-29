@@ -72,7 +72,11 @@
     # Dev stuff
     cloc # source code line counter
     jq
-    nodePackages.typescript
+    nodePackages.typescript-language-server
+    nodePackages.vscode-json-languageserver-bin
+    nodePackages.vscode-css-languageserver-bin
+    nodePackages.vscode-html-languageserver-bin
+    efm-langserver
     nodejs
     (python3.withPackages (p: with p; [ pip ]))
   ];
