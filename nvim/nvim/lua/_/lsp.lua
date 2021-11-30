@@ -186,10 +186,10 @@ require('nlua.lsp.nvim').setup(nvim_lsp,
                                {on_attach=on_attach, globals={'vim', 'use'}})
 
 local eslint = {
-  lintCommand='yarn eslint -f unix --stdin --stdin-filename ${INPUT}',
+  lintCommand='yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
   lintStdin=true,
   lintIgnoreExitCode=true,
-  lintFormats={'%f:%l:%c: %m'}
+  lintFormats={'%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m'}
 }
 
 local prettier = {
