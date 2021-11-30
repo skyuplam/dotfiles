@@ -29,20 +29,14 @@ vim.cmd [[packadd packer.nvim]]
 _G._ = {}
 
 return require('packer').startup(function()
-  use {
-    'wbthomason/packer.nvim',
-    opt=true
-  }
+  use {'wbthomason/packer.nvim', opt=true}
 
   use {
     'tpope/vim-dispatch',
     opt=true,
     cmd={'Dispatch', 'Make', 'Focus', 'Start'}
   }
-  use {
-    'andymass/vim-matchup',
-    event='VimEnter *'
-  }
+  use {'andymass/vim-matchup', event='VimEnter *'}
   use {
     'iamcco/markdown-preview.nvim',
     run='cd app && yarn install',
@@ -54,14 +48,8 @@ return require('packer').startup(function()
     'nvim-treesitter/nvim-treesitter',
     run=':TSUpdate',
     requires={
-      {
-        'nvim-treesitter/nvim-treesitter-refactor',
-        after='nvim-treesitter'
-      },
-      {
-        'nvim-treesitter/nvim-treesitter-textobjects',
-        after='nvim-treesitter'
-      },
+      {'nvim-treesitter/nvim-treesitter-refactor', after='nvim-treesitter'},
+      {'nvim-treesitter/nvim-treesitter-textobjects', after='nvim-treesitter'},
       config='require("_.treesitter")',
       event='VimEnter *'
     }
@@ -76,10 +64,7 @@ return require('packer').startup(function()
     config=function() require('_.nvimtree').setup() end
   }
 
-  use {
-    'Shougo/vimproc.vim',
-    run=':silent! !make'
-  }
+  use {'Shougo/vimproc.vim', run=':silent! !make'}
   use 'vim-scripts/vis'
   use 'editorconfig/editorconfig-vim'
 
@@ -98,10 +83,7 @@ return require('packer').startup(function()
   -- Marks
   use 'kshenoy/vim-signature'
   -- Quickfix
-  use {
-    'Olical/vim-enmasse',
-    cmd='EnMasse'
-  }
+  use {'Olical/vim-enmasse', cmd='EnMasse'}
 
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
@@ -144,20 +126,18 @@ return require('packer').startup(function()
     config=function() require '_.lsp' end,
     requires={
       {'lbrayner/vim-rzip'}, -- https://yarnpkg.com/getting-started/editor-sdks#supporting-go-to-definition-et-al
+      {'simrat39/rust-tools.nvim'},
       {
         'tjdevries/lsp_extensions.nvim',
         config=function() require'_.statusline'.activate() end
       },
       {'tjdevries/nlua.nvim'},
-      -- {'glepnir/lspsaga.nvim'},
-      {
-        'onsails/lspkind-nvim',
-        config=function() require'lspkind'.init() end
-      },
+      {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
       {'nvim-lua/lsp-status.nvim'},
       {'ray-x/lsp_signature.nvim'},
       {'folke/lsp-colors.nvim'},
       {'kosayoda/nvim-lightbulb'},
+      {'b0o/schemastore.nvim'},
       {
         'folke/lsp-trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',
@@ -175,18 +155,12 @@ return require('packer').startup(function()
             use_lsp_diagnostic_signs=false
           })
 
-          utils.gmap('n', '<leader>ll', '<cmd>LspTroubleToggle<CR>', {
-            silent=true,
-            noremap=true
-          })
-          utils.gmap('n', '<leader>lw', '<cmd>LspTroubleWorkspaceToggle<CR>', {
-            silent=true,
-            noremap=true
-          })
-          utils.gmap('n', '<leader>ld', '<cmd>LspTroubleDocumentToggle<CR>', {
-            silent=true,
-            noremap=true
-          })
+          utils.gmap('n', '<leader>ll', '<cmd>LspTroubleToggle<CR>',
+                     {silent=true, noremap=true})
+          utils.gmap('n', '<leader>lw', '<cmd>LspTroubleWorkspaceToggle<CR>',
+                     {silent=true, noremap=true})
+          utils.gmap('n', '<leader>ld', '<cmd>LspTroubleDocumentToggle<CR>',
+                     {silent=true, noremap=true})
         end
       }
     }
@@ -196,10 +170,7 @@ return require('packer').startup(function()
     'hrsh7th/nvim-compe',
     requires={
       {'andersevenrud/compe-tmux'},
-      {
-        'hrsh7th/vim-vsnip',
-        config=function() require('_.vsnip') end
-      },
+      {'hrsh7th/vim-vsnip', config=function() require('_.vsnip') end},
       {'hrsh7th/vim-vsnip-integ'},
       {'nvim-lua/plenary.nvim'},
       {'tamago324/compe-zsh'}
@@ -207,10 +178,7 @@ return require('packer').startup(function()
   }
 
   use {
-    {
-      'tpope/vim-fugitive',
-      cmd={'Git'}
-    },
+    {'tpope/vim-fugitive', cmd={'Git'}},
     {
       'lewis6991/gitsigns.nvim',
       requires={'nvim-lua/plenary.nvim'},
@@ -287,9 +255,7 @@ return require('packer').startup(function()
             virt_text_pos='eol', -- 'eol' | 'overlay' | 'right_align'
             delay=1000
           },
-          current_line_blame_formatter_opts={
-            relative_time=false
-          }
+          current_line_blame_formatter_opts={relative_time=false}
         })
       end
     },
@@ -298,11 +264,7 @@ return require('packer').startup(function()
       cmd={'Tig', 'TigStatus'},
       requires='rbgrouleff/bclose.vim'
     },
-    {
-      'TimUntersberger/neogit',
-      cmd={'Neogit'},
-      requires='nvim-lua/plenary.nvim'
-    }
+    {'TimUntersberger/neogit', cmd={'Neogit'}, requires='nvim-lua/plenary.nvim'}
   }
 
   use {'Shougo/deol.nvim'}

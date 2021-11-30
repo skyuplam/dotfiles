@@ -11,7 +11,9 @@ if not has_lsp then return end
 local has_extensions = pcall(require, 'lsp_extensions')
 local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
 local has_lspsignature, lspsignature = pcall(require 'lsp_signature')
+local has_rust_tools, rust_tools = pcall(require 'rust-tools')
 local has_lightbulb = pcall(require 'nvim-lightbulb')
+local has_schemastore, schemastore = pcall(require, 'schemastore')
 local utils = require '_.utils'
 local map_opts = {noremap=true, silent=true}
 
@@ -30,6 +32,8 @@ if has_lspstatus then
 
   lspstatus.register_progress()
 end
+
+if has_rust_tools then rust_tools.setup({}); end
 
 utils.augroup('COMPLETION', function()
   if has_extensions then
@@ -71,24 +75,25 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
 
 vim.api.nvim_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+-- Key-mappings
 local default_mappings = {
   ['<leader>a']={'<CMD>lua vim.lsp.buf.code_action()<CR>'},
   ['gr']={'<CMD>lua vim.lsp.buf.references()<CR>'},
   ['<leader>rn']={'<CMD>lua vim.lsp.buf.rename()<CR>'},
-  ['K']={'<CMD>lua vim.lsp.buf.hover()<CR>'},
   ['<leader>dl']={'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'},
-  ['<leader>s']={'<cmd>lua vim.lsp.buf.signature_help()<CR>'},
+  ['<c-k>']={'<cmd>lua vim.lsp.buf.signature_help()<CR>'},
   ['[d']={'<CMD>lua vim.lsp.diagnostic.goto_next()<cr>'},
   [']d']={'<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>'},
   ['<C-]>']={'<Cmd>lua vim.lsp.buf.definition()<CR>'},
   ['gD']={'<CMD>lua vim.lsp.buf.declaration()<CR>'},
+  ['gd']={'<CMD>lua vim.lsp.buf.definition()<CR>'},
+  ['K']={'<CMD>lua vim.lsp.buf.hover()<CR>'},
   ['gy']={'<CMD>lua vim.lsp.buf.type_definition()<CR>'},
   ['gi']={'<CMD>lua vim.lsp.buf.implementation()<CR>'},
   ['<leader>q']={'<CMD>lua vim.lsp.diagnostics.set_loclist()<CR>'}
 }
 
 local mappings = vim.tbl_extend('force', default_mappings, {})
--- has_lspsaga and lspsaga_mappings or {})
 
 local on_attach = function(client)
   client.config.flags.allow_incremental_sync = true
@@ -192,71 +197,39 @@ local prettier = {
   formatStdin=true
 }
 
+local jsons = {}
+local yamls = {}
+
+if has_schemastore then
+  jsons = schemastore.json.schemas({
+    select={
+      '.eslintrc',
+      'package.json',
+      'tsconfig.json',
+      'prettierrc.json',
+      'babelrc.json',
+      'lerna.json',
+      '.stylelintrc'
+    }
+  })
+
+  yamls = schemastore.json.schemas({
+    select={
+      'gitlab-ci',
+      'docker-compose.yml',
+      'GitHub Workflow',
+      'GitHub Workflow Template Properties',
+      'GitHub Action',
+      'prettierrc.json',
+      '.stylelintrc'
+    }
+  })
+end
+
 local servers = {
   cssls={},
-  jsonls={
-    filetypes={'json', 'jsonc'},
-    settings={
-      json={
-        -- Schemas https://www.schemastore.org
-        schemas={
-          {
-            fileMatch={'package.json'},
-            url='https://json.schemastore.org/package.json'
-          },
-          {
-            fileMatch={'tsconfig*.json'},
-            url='https://json.schemastore.org/tsconfig.json'
-          },
-          {
-            fileMatch={
-              '.prettierrc',
-              '.prettierrc.json',
-              'prettier.config.json'
-            },
-            url='https://json.schemastore.org/prettierrc.json'
-          },
-          {
-            fileMatch={'.eslintrc', '.eslintrc.json'},
-            url='https://json.schemastore.org/eslintrc.json'
-          },
-          {
-            fileMatch={'.babelrc', '.babelrc.json', 'babel.config.json'},
-            url='https://json.schemastore.org/babelrc.json'
-          },
-          {
-            fileMatch={'lerna.json'},
-            url='https://json.schemastore.org/lerna.json'
-          },
-          {
-            fileMatch={
-              '.stylelintrc',
-              '.stylelintrc.json',
-              'stylelint.config.json'
-            },
-            url='http://json.schemastore.org/stylelintrc.json'
-          }
-        }
-      }
-    }
-  },
-  yamlls={
-    settings={
-      yaml={
-        -- Schemas https://www.schemastore.org
-        schemas={
-          ['http://json.schemastore.org/gitlab-ci.json']={'.gitlab-ci.yml'},
-          ['https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json']={
-            'docker-compose*.{yml,yaml}'
-          },
-          ['http://json.schemastore.org/github-workflow.json']='.github/workflows/*.{yml,yaml}',
-          ['http://json.schemastore.org/github-action.json']='.github/action.{yml,yaml}',
-          ['http://json.schemastore.org/prettierrc.json']='.prettierrc.{yml,yaml}',
-          ['http://json.schemastore.org/stylelintrc.json']='.stylelintrc.{yml,yaml}'
-        }
-      }
-    }
-  },
+  jsonls={filetypes={'json', 'jsonc'}, settings={json={schemas=jsons}}},
+  yamlls={settings={yaml={schemas=yamls}}},
   html={},
   efm={
     filetypes={
