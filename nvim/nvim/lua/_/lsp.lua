@@ -16,6 +16,7 @@ local has_lightbulb = pcall(require 'nvim-lightbulb')
 local has_schemastore, schemastore = pcall(require, 'schemastore')
 local utils = require '_.utils'
 local map_opts = {noremap=true, silent=true}
+local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 
 -- if has_lspsaga then lspsaga.init_lsp_saga() end
 
@@ -181,6 +182,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] =
 local capabilities = has_lspstatus and lspstatus.capabilities
                          or vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- nvim-cmp
+if has_cmp_lsp then cmp_lsp.update_capabilities(capabilities) end
 
 require('nlua.lsp.nvim').setup(nvim_lsp,
                                {on_attach=on_attach, globals={'vim', 'use'}})

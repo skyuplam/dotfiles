@@ -120,7 +120,7 @@ return require('packer').startup(function()
   use 'mattn/calendar-vim'
   use 'inkarkat/vim-SyntaxRange'
 
-  -- LSP/Completion
+  -- LSP
   use {
     'neovim/nvim-lspconfig',
     config=function() require '_.lsp' end,
@@ -167,13 +167,15 @@ return require('packer').startup(function()
   }
 
   use {
-    'hrsh7th/nvim-compe',
+    'hrsh7th/nvim-cmp',
     requires={
-      {'andersevenrud/compe-tmux'},
-      {'hrsh7th/vim-vsnip', config=function() require('_.vsnip') end},
-      {'hrsh7th/vim-vsnip-integ'},
-      {'nvim-lua/plenary.nvim'},
-      {'tamago324/compe-zsh'}
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-vsnip',
+      'andersevenrud/cmp-tmux',
+      'lukas-reineke/cmp-rg'
     }
   }
 
