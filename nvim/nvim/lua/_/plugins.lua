@@ -79,6 +79,7 @@ return require('packer').startup(function()
   use 'kamykn/popup-menu.nvim'
 
   use 'SirVer/ultisnips'
+  use 'hrsh7th/vim-vsnip'
 
   -- Marks
   use 'kshenoy/vim-signature'
@@ -174,8 +175,7 @@ return require('packer').startup(function()
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-vsnip',
-      'andersevenrud/cmp-tmux',
-      'lukas-reineke/cmp-rg'
+      'andersevenrud/cmp-tmux'
     }
   }
 

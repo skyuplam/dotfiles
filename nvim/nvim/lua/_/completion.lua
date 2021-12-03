@@ -59,8 +59,7 @@ M.setup = function()
         {name='nvim_lsp'},
         {name='vsnip'},
         {name='tmux'},
-        {name='path'},
-        {name='rg'}
+        {name='path'}
       }, {{name='buffer'}})
     })
 
