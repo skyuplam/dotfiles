@@ -57,6 +57,7 @@
     ripgrep # better version of `grep`
     rsync
     skhd
+    slides
     stow
     tealdeer # rust implementation of `tldr`
     tig
@@ -78,6 +79,7 @@
     nodePackages.vscode-html-languageserver-bin
     efm-langserver
     nodejs
+    rust-analyzer
     (python3.withPackages (p: with p; [ pip ]))
   ];
   # }}}
