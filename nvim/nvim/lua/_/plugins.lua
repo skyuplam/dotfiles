@@ -156,11 +156,17 @@ return require('packer').startup(function()
             use_lsp_diagnostic_signs=false
           })
 
-          utils.gmap('n', '<leader>ll', '<cmd>LspTroubleToggle<CR>',
+          utils.gmap('n', '<leader>lx', '<cmd>TroubleToggle<CR>',
                      {silent=true, noremap=true})
-          utils.gmap('n', '<leader>lw', '<cmd>LspTroubleWorkspaceToggle<CR>',
+          utils.gmap('n', '<leader>lw',
+                     '<cmd>TroubleToggle workspace_diagnostics<CR>',
                      {silent=true, noremap=true})
-          utils.gmap('n', '<leader>ld', '<cmd>LspTroubleDocumentToggle<CR>',
+          utils.gmap('n', '<leader>ld',
+                     '<cmd>TroubleToggle document_diagnostics<CR>',
+                     {silent=true, noremap=true})
+          utils.gmap('n', '<leader>lq', '<cmd>TroubleToggle quickfix<CR>',
+                     {silent=true, noremap=true})
+          utils.gmap('n', '<leader>ll', '<cmd>TroubleToggle loclist<CR>',
                      {silent=true, noremap=true})
         end
       }
