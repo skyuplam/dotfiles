@@ -39,7 +39,7 @@ output DP-1 scale 1.5
 output DP-2 scale 1.5
 output DP-2 pos 0 0
 
-exec_always ~/.config/sway/bg.sh
+exec_always swaybg --output "*" --mode fill --image ~/Downloads/wallpaper.jpg
 
 exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
