@@ -218,4 +218,14 @@ bar {
     }
 }
 
+#
+# IM
+#
+# https://wiki.archlinux.org/title/Fcitx#Desktop_Environment_Autostart
+exec --no-startup-id fcitx5 -d
+
+#
+# Include other configs
+#
+
 include ~/.config/sway/config.d/*
