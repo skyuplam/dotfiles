@@ -5,9 +5,9 @@ if not has_config then return end
 ts_configs.setup {
   ensure_installed={
     'bash',
-    'css',
-    'comment',
     'cmake',
+    'comment',
+    'css',
     'go',
     'haskell',
     'html',
@@ -19,8 +19,8 @@ ts_configs.setup {
     'nix',
     'python',
     'regex',
-    'rust',
     'rst',
+    'rust',
     'toml',
     'tsx',
     'typescript',
