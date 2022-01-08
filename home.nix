@@ -69,6 +69,8 @@
     xz # extract XZ archives
     yabai
     yarn
+    zsh
+    bash
 
     # Dev stuff
     cloc # source code line counter
@@ -78,7 +80,7 @@
     nodePackages.vscode-css-languageserver-bin
     nodePackages.vscode-html-languageserver-bin
     efm-langserver
-    nodejs
+    nodejs-16_x
     rust-analyzer
     (python3.withPackages (p: with p; [ pip ]))
   ];
