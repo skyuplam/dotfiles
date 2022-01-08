@@ -6,9 +6,12 @@ ts_configs.setup {
   ensure_installed={
     'bash',
     'css',
+    'comment',
+    'cmake',
     'go',
     'haskell',
     'html',
+    'http',
     'javascript',
     'jsdoc',
     'json',
@@ -17,9 +20,11 @@ ts_configs.setup {
     'python',
     'regex',
     'rust',
+    'rst',
     'toml',
     'tsx',
     'typescript',
+    'vim'
     'yaml'
   },
   highlight={enable=true},
