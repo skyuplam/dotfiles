@@ -49,6 +49,8 @@ export REVIEW_BASE=main
 # Zsh general settings {{{
 # ---------------------------------------------------------
 
+bindkey -e
+
 # Bind history substring search to ctrl-p & ctrl-n
 bindkey "∫" backward-word
 bindkey "ƒ" forward-word
