@@ -3,30 +3,7 @@ local has_config, ts_configs = pcall(require, 'nvim-treesitter.configs')
 if not has_config then return end
 
 ts_configs.setup {
-  ensure_installed={
-    'bash',
-    'cmake',
-    'comment',
-    'css',
-    'go',
-    'haskell',
-    'html',
-    'http',
-    'javascript',
-    'jsdoc',
-    'json',
-    'lua',
-    'nix',
-    'python',
-    'regex',
-    'rst',
-    'rust',
-    'toml',
-    'tsx',
-    'typescript',
-    'vim'
-    'yaml'
-  },
+  ensure_installed='maintained',
   highlight={enable=true},
   indent={enable=true},
   incremental_selection={
