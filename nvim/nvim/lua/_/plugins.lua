@@ -75,8 +75,11 @@ return require('packer').startup(function()
 
   use 'godlygeek/tabular'
 
-  use 'kamykn/spelunker.vim'
-  use 'kamykn/popup-menu.nvim'
+  use {'kamykn/spelunker.vim', requires='kamykn/popup-menu.nvim'}
+  use {
+    'lewis6991/spellsitter.nvim',
+    config=function() require('spellsitter').setup() end
+  }
 
   use 'SirVer/ultisnips'
   use 'hrsh7th/vim-vsnip'
