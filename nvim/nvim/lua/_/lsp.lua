@@ -231,6 +231,7 @@ end
 
 local servers = {
   cssls={},
+  clangd={},
   jsonls={filetypes={'json', 'jsonc'}, settings={json={schemas=jsons}}},
   yamlls={settings={yaml={schemas=yamls}}},
   html={},
