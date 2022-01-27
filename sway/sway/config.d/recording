@@ -5,8 +5,7 @@ set $mode_recording_on "Recording ON"
 
 # Targets:
 # 1:  :active:  Currently active window.
-# 2:  :screen:  All visible outputs.
-# 3:  :output:  Currently active output.
+# 2:  :output:  Currently active output.
 # 4:  :area:    Manually select a region.
 # 5:  :window:  Manually select a window.
 
@@ -19,7 +18,22 @@ mode $mode_recording {
     # Target Currently active window
     bindsym 1 exec killall -s SIGINT wf-recorder || \
         wf-recorder --audio \
+        -g $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name' | jq -r '.rect | "\(.x),\(.y) \(.width)x\(.height)"') \
+        -f ~/Recordings/$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
+
+    bindsym 2 exec killall -s SIGINT wf-recorder || \
+        wf-recorder --audio \
         -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') \
+        -f ~/Recordings/$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
+
+    bindsym 4 exec killall -s SIGINT wf-recorder || \
+        wf-recorder --audio \
+        -g $(slurp -d) \
+        -f ~/Recordings/$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
+
+    bindsym 5 exec killall -s SIGINT wf-recorder || \
+        wf-recorder --audio \
+        -g $(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp) \
         -f ~/Recordings/$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
 
     # Return to default mode
