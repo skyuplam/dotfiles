@@ -18,7 +18,7 @@ mode $mode_recording {
     # Target Currently active window
     bindsym 1 exec killall -s SIGINT wf-recorder || \
         wf-recorder --audio \
-        -g $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name' | jq -r '.rect | "\(.x),\(.y) \(.width)x\(.height)"') \
+        -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" \
         -f ~/Recordings/$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
 
     bindsym 2 exec killall -s SIGINT wf-recorder || \
@@ -28,12 +28,7 @@ mode $mode_recording {
 
     bindsym 4 exec killall -s SIGINT wf-recorder || \
         wf-recorder --audio \
-        -g $(slurp -d) \
-        -f ~/Recordings/$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
-
-    bindsym 5 exec killall -s SIGINT wf-recorder || \
-        wf-recorder --audio \
-        -g $(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp) \
+        -g "$(slurp -d)" \
         -f ~/Recordings/$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
 
     # Return to default mode
