@@ -1,4 +1,5 @@
 local has_cmp, cmp = pcall(require, 'cmp')
+local has_lspkind, lspkind = pcall(require, 'lspkind')
 local utils = require '_.utils'
 
 local M = {}
@@ -37,10 +38,20 @@ _G._.s_tab_complete = function()
   end
 end
 
+local format = {}
+
+if has_lspkind then
+  format = lspkind.cmp_format({
+    mode='symbol', -- show only symbol annotations
+    maxwidth=50 -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+  })
+end
+
 M.setup = function()
   if has_cmp then
 
     cmp.setup({
+      formatting={format=format},
       snippet={
         -- REQUIRED - you must specify a snippet engine
         expand=function(args)

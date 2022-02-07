@@ -136,7 +136,7 @@ return require('packer').startup(function()
         config=function() require'_.statusline'.activate() end
       },
       {'tjdevries/nlua.nvim'},
-      {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
+      -- {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
       {'nvim-lua/lsp-status.nvim'},
       {'ray-x/lsp_signature.nvim'},
       {'folke/lsp-colors.nvim'},
@@ -184,7 +184,8 @@ return require('packer').startup(function()
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-vsnip',
-      'andersevenrud/cmp-tmux'
+      'andersevenrud/cmp-tmux',
+      'onsails/lspkind-nvim'
     }
   }
 
