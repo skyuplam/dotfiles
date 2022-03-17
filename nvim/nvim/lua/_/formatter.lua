@@ -7,7 +7,7 @@ local utils = require '_.utils'
 local M = {}
 
 local function prettier()
-  local local_prettier = 'yarn'
+  local local_prettier = '.yarn/sdks/prettier/index.js'
   local prettier_exe = 'prettier';
   if vim.fn.executable(local_prettier) > 0 then prettier_exe = 'yarn prettier' end
   return {
