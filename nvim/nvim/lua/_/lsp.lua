@@ -229,12 +229,25 @@ if has_schemastore then
   })
 end
 
+local jsonls = 'vscode-json-language-server';
+if vim.fn.executable('vscode-json-languageserver') > 0 then
+  jsonls = 'vscode-json-languageserver'
+end
+local htmlls = 'vscode-html-language-server';
+if vim.fn.executable('vscode-html-languageserver') > 0 then
+  htmlls = 'vscode-html-languageserver'
+end
+
 local servers = {
   cssls={},
   clangd={},
-  jsonls={filetypes={'json', 'jsonc'}, settings={json={schemas=jsons}}},
+  jsonls={
+    cmd={jsonls, '--stdio'},
+    filetypes={'json', 'jsonc'},
+    settings={json={schemas=jsons}}
+  },
   yamlls={settings={yaml={schemas=yamls}}},
-  html={},
+  html={cmd={htmlls, '--stdio'}},
   efm={
     filetypes={
       'javascript',
