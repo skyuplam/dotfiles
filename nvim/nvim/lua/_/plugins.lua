@@ -73,6 +73,8 @@ return require('packer').startup(function()
   use 'tpope/vim-rhubarb'
   use 'tpope/vim-sleuth'
 
+  use 'ggandor/lightspeed.nvim'
+
   use 'godlygeek/tabular'
 
   use {'kamykn/spelunker.vim', requires='kamykn/popup-menu.nvim'}
