@@ -25,7 +25,7 @@
   # Other packages ----------------------------------------------------------------------------- {{{
 
   home.packages = with pkgs; [
-    (pass.withExtensions (exts: [ exts.pass-otp ]))
+    # (pass.withExtensions (exts: [ exts.pass-otp ]))
     abduco # lightweight session management
     aspell
     borgbackup
@@ -51,7 +51,7 @@
     luajitPackages.luarocks
     neovim-nightly
     ninja
-    passExtensions.pass-import
+    # passExtensions.pass-import
     passff-host
     procs # fancy version of `ps`
     ripgrep # better version of `grep`
@@ -69,7 +69,6 @@
     xz # extract XZ archives
     yabai
     yarn
-    zsh
     bash
 
     # Dev stuff
@@ -85,6 +84,20 @@
     (python3.withPackages (p: with p; [ pip ]))
   ];
   # }}}
+
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    enableSyntaxHighlighting = true;
+    initExtraBeforeCompInit = "[ -f $HOME/.zsh/init.zsh ] && source $HOME/.zsh/init.zsh";
+  };
+
+  programs.password-store = {
+    enable = true;
+    package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
+    settings = { PASSWORD_STORE_DIR = "$HOME/.password-store"; };
+  };
 
   # Starship Prompt
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.starship.enable

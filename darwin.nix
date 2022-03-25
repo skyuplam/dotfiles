@@ -19,6 +19,10 @@
       pkgs.skhd
     ];
 
+  environment.pathsToLink = [
+    "/share/zsh"
+    ];
+
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
