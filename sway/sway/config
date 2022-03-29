@@ -37,7 +37,7 @@ xwayland disable
 # Scale for HiDPI
 output DP-1 scale 1.5
 output DP-2 scale 1.5
-output DP-2 pos 0 0
+output DP-1 pos 0 0
 
 exec_always swaybg --output "*" --mode fill --image ~/Downloads/wallpaper.jpg
 
