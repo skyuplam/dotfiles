@@ -200,6 +200,13 @@ local prettier = {
   formatStdin=true
 }
 
+local codespell = {
+  lintCommand='codespell',
+  lintStdin=true,
+  lintIgnoreExitCode=true,
+  lintFormats={'%f:%l:%m'}
+}
+
 local jsons = {}
 local yamls = {}
 
@@ -265,10 +272,10 @@ local servers = {
     settings={
       rootMarkers={'.yarn/', '.git/'},
       languages={
-        javascript={prettier, eslint},
-        typescript={prettier, eslint},
-        javascriptreact={prettier, eslint},
-        typescriptreact={prettier, eslint}
+        javascript={prettier, eslint, codespell},
+        typescript={prettier, eslint, codespell},
+        javascriptreact={prettier, eslint, codespell},
+        typescriptreact={prettier, eslint, codespell}
       }
     }
   },

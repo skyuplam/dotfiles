@@ -148,8 +148,11 @@ set pumblend=10
 set pumheight=50
 
 set spellcapcheck=                            " don't check for capital letters at start of sentence
-set spelllang=en
-set spellsuggest=30
+" Prevent CJK characters from being marked as spell errors
+" https://neovim.io/doc/user/options.html#'spelllang'
+set spelllang=en,cjk
+" Show nine spell checking candidates at most
+set spellsuggest=best,9
 let &spellfile=stdpath("config").'/spell/en.utf-8.add'
 
 
