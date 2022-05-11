@@ -81,17 +81,22 @@ local default_mappings = {
   ['<leader>a']={'<CMD>lua vim.lsp.buf.code_action()<CR>'},
   ['gr']={'<CMD>lua vim.lsp.buf.references()<CR>'},
   ['<leader>rn']={'<CMD>lua vim.lsp.buf.rename()<CR>'},
-  ['<leader>dl']={'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'},
-  ['<c-k>']={'<cmd>lua vim.lsp.buf.signature_help()<CR>'},
-  ['[d']={'<CMD>lua vim.lsp.diagnostic.goto_next()<cr>'},
-  [']d']={'<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>'},
   ['<C-]>']={'<Cmd>lua vim.lsp.buf.definition()<CR>'},
   ['gD']={'<CMD>lua vim.lsp.buf.declaration()<CR>'},
   ['gd']={'<CMD>lua vim.lsp.buf.definition()<CR>'},
   ['K']={'<CMD>lua vim.lsp.buf.hover()<CR>'},
+  ['<c-k>']={'<cmd>lua vim.lsp.buf.signature_help()<CR>'},
+  ['<leader>wa']={'<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'},
+  ['<leader>wr']={'<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>'},
+  ['<leader>wl']={
+    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>'
+  },
   ['gy']={'<CMD>lua vim.lsp.buf.type_definition()<CR>'},
   ['gi']={'<CMD>lua vim.lsp.buf.implementation()<CR>'},
-  ['<leader>q']={'<CMD>lua vim.lsp.diagnostics.set_loclist()<CR>'}
+  ['<leader>e']={'<cmd>lua vim.diagnostic.open_float()<CR>'},
+  ['[d']={'<CMD>lua vim.diagnostic.goto_next()<cr>'},
+  [']d']={'<CMD>lua vim.diagnostic.goto_prev()<CR>'},
+  ['<leader>q']={'<CMD>lua vim.diagnostics.set_loclist()<CR>'}
 }
 
 local mappings = vim.tbl_extend('force', default_mappings, {})
@@ -114,15 +119,16 @@ local on_attach = function(client)
   end
 
   -- Set some keybindings conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
+  if vim.tbl_get(client.server_capabilities, 'documentFormattingProvider') then
     utils.bmap('n', '<leader>f', '<CMD>lua vim.lsp.buf.formatting()<CR>',
                map_opts)
-  elseif client.resolved_capabilities.document_range_formatting then
+  elseif vim.tbl_get(client.server_capabilities,
+                     'documentRangeFormattingProvider') then
     utils.bmap('v', '<leader>f', '<CMD>lua vim.lsp.buf.range_formatting()<CR>',
                map_opts)
   end
 
-  if client.resolved_capabilities.document_highlight then
+  if vim.tbl_get(client.server_capabilities, 'documentHighlightProvider') then
     vim.api.nvim_exec([[
       hi! link LspReferenceRead SpecialKey
       hi! link LspReferenceText SpecialKey
@@ -132,12 +138,12 @@ local on_attach = function(client)
 
   utils.augroup('LSP', function()
     vim.api.nvim_command(
-        'autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
+        'autocmd CursorHold <buffer> lua vim.diagnostic.open_float()')
     if has_lightbulb then
       vim.api.nvim_command(
           'autocmd CursorHold,CursorHoldI * lua require\'nvim-lightbulb\'.update_lightbulb()')
     end
-    if client.resolved_capabilities.document_highlight then
+    if vim.tbl_get(client.server_capabilities, 'documentHighlightProvider') then
       vim.api.nvim_command(
           'autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()')
       vim.api.nvim_command(
@@ -183,7 +189,7 @@ local capabilities = has_lspstatus and lspstatus.capabilities
                          or vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- nvim-cmp
-if has_cmp_lsp then cmp_lsp.update_capabilities(capabilities) end
+if has_cmp_lsp then capabilities = cmp_lsp.update_capabilities(capabilities) end
 
 require('nlua.lsp.nvim').setup(nvim_lsp,
                                {on_attach=on_attach, globals={'vim', 'use'}})
@@ -285,7 +291,7 @@ local servers = {
     on_attach=function(client)
       on_attach(client)
       -- formatting is done via formatter.nvim
-      client.resolved_capabilities.document_formatting = false
+      -- client.server_capabilities.document_formatting = false
     end,
     root_dir=function(fname)
       return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
