@@ -38,7 +38,7 @@
     exa # fancy version of `ls`
     fd # fancy version of `find`
     fontconfig
-    fzf
+    fzy
     gawk
     # gcc
     git
