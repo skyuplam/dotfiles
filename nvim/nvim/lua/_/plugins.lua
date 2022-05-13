@@ -93,7 +93,15 @@ return require('packer').startup(function()
 
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
-  use 'junegunn/fzf.vim'
+  -- use 'junegunn/fzf.vim'
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires={
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-fzy-native.nvim'}
+    },
+    config=function() require('_.telescope').setup() end
+  }
   use 'ryanoasis/vim-devicons'
   use {
     'norcalli/nvim-colorizer.lua',

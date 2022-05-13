@@ -10,8 +10,8 @@ let g:mapleader = ','
 
 " Explorer Mapping
 nnoremap <C-e> :NvimTreeFindFileToggle<CR>
-nnoremap <C-p> :Files<CR>
-nnoremap <A-p> :Buffers<CR>
+" nnoremap <C-p> :Files<CR>
+" nnoremap <A-p> :Buffers<CR>
 nnoremap <silent> <space>t :TagbarToggle<CR>
 
 " Terminal
@@ -130,14 +130,14 @@ map <Leader>3 :diffget REMOTE<CR>
 
 " FZF completion mappings
 " Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+" nmap <leader><tab> <plug>(fzf-maps-n)
+" xmap <leader><tab> <plug>(fzf-maps-x)
+" omap <leader><tab> <plug>(fzf-maps-o)
 
 " Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
-imap <c-x><c-l> <plug>(fzf-complete-line)
+" imap <c-x><c-k> <plug>(fzf-complete-word)
+" imap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
+" imap <c-x><c-l> <plug>(fzf-complete-line)
 
 nmap <silent> <leader>z <Plug>(zoom)
 
@@ -148,11 +148,11 @@ command! -nargs=* Zet call local#zettel#edit(<f-args>)
 " New note
 nmap <expr><leader>nz ':Zet '
 " Search note file names
-nmap <expr><leader>nf ':Files ' . expand(g:zettel_note_dir). '<CR>'
+" nmap <expr><leader>nf ':Files ' . expand(g:zettel_note_dir). '<CR>'
 " Rg note contents with fzf
-command! -nargs=* -bang ZG call local#zettel#RgFzfZettel(<q-args>, <bang>0)
-nmap <expr><leader>ng ':ZG '
+" command! -nargs=* -bang ZG call local#zettel#RgFzfZettel(<q-args>, <bang>0)
+" nmap <expr><leader>ng ':ZG '
 " note tag completion with fzf
-inoremap <expr> <c-x><c-z> fzf#vim#complete('rg tags $NOTES_DIR \| teip -og "\".\w+\",*" -v -- sed "s/.*//g" \| tr , "\n" \| sort -u')
+" inoremap <expr> <c-x><c-z> fzf#vim#complete('rg tags $NOTES_DIR \| teip -og "\".\w+\",*" -v -- sed "s/.*//g" \| tr , "\n" \| sort -u')
 
 " }}}
