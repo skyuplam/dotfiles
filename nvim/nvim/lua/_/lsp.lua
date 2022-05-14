@@ -36,16 +36,6 @@ end
 
 if has_rust_tools then rust_tools.setup({}); end
 
-utils.augroup('COMPLETION', function()
-  if has_extensions then
-    vim.api.nvim_command(
-        'au CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost '
-            .. '*.rs lua require\'lsp_extensions\'.inlay_hints({ '
-            .. 'prefix = "", ' .. 'highlight = "Comment", '
-            .. 'enabled = {"TypeHint", "ChainingHint", "ParameterHint"} })')
-  end
-end)
-
 vim.fn.sign_define('LspDiagnosticsSignError', {
   text=utils.get_icon('error'),
   texthl='LspDiagnosticsDefaultError',
@@ -74,85 +64,43 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
   numhl=''
 })
 
-vim.api.nvim_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
--- Key-mappings
-local default_mappings = {
-  ['<leader>a']={'<CMD>lua vim.lsp.buf.code_action()<CR>'},
-  ['gr']={'<CMD>lua vim.lsp.buf.references()<CR>'},
-  ['<leader>rn']={'<CMD>lua vim.lsp.buf.rename()<CR>'},
-  ['<C-]>']={'<Cmd>lua vim.lsp.buf.definition()<CR>'},
-  ['gD']={'<CMD>lua vim.lsp.buf.declaration()<CR>'},
-  ['gd']={'<CMD>lua vim.lsp.buf.definition()<CR>'},
-  ['K']={'<CMD>lua vim.lsp.buf.hover()<CR>'},
-  ['<c-k>']={'<cmd>lua vim.lsp.buf.signature_help()<CR>'},
-  ['<leader>wa']={'<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'},
-  ['<leader>wr']={'<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>'},
-  ['<leader>wl']={
-    '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>'
-  },
-  ['gy']={'<CMD>lua vim.lsp.buf.type_definition()<CR>'},
-  ['gi']={'<CMD>lua vim.lsp.buf.implementation()<CR>'},
-  ['<leader>e']={'<cmd>lua vim.diagnostic.open_float()<CR>'},
-  ['[d']={'<CMD>lua vim.diagnostic.goto_next()<cr>'},
-  [']d']={'<CMD>lua vim.diagnostic.goto_prev()<CR>'},
-  ['<leader>q']={'<CMD>lua vim.diagnostics.set_loclist()<CR>'}
-}
-
-local mappings = vim.tbl_extend('force', default_mappings, {})
-
-local on_attach = function(client)
-  client.config.flags.allow_incremental_sync = true
+local on_attach = function(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   if has_lspstatus then lspstatus.on_attach(client) end
   if has_lspsignature then lspsignature.on_attach() end
 
-  for lhs, rhs in pairs(mappings) do
-    if lhs == 'K' then
-      if vim.api.nvim_buf_get_option(0, 'filetype') ~= 'vim' then
-        utils.bmap('n', lhs, rhs[1], map_opts)
-      end
-    else
-      utils.bmap('n', lhs, rhs[1], map_opts)
-      if #rhs == 2 then utils.bmap('v', lhs, rhs[2], map_opts) end
-    end
-  end
-
-  -- Set some keybindings conditional on server capabilities
-  if vim.tbl_get(client.server_capabilities, 'documentFormattingProvider') then
-    utils.bmap('n', '<leader>f', '<CMD>lua vim.lsp.buf.formatting()<CR>',
-               map_opts)
-  elseif vim.tbl_get(client.server_capabilities,
-                     'documentRangeFormattingProvider') then
-    utils.bmap('v', '<leader>f', '<CMD>lua vim.lsp.buf.range_formatting()<CR>',
-               map_opts)
-  end
-
-  if vim.tbl_get(client.server_capabilities, 'documentHighlightProvider') then
-    vim.api.nvim_exec([[
-      hi! link LspReferenceRead SpecialKey
-      hi! link LspReferenceText SpecialKey
-      hi! link LspReferenceWrite SpecialKey
-      ]], false)
-  end
-
-  utils.augroup('LSP', function()
-    vim.api.nvim_command(
-        'autocmd CursorHold <buffer> lua vim.diagnostic.open_float()')
-    if has_lightbulb then
-      vim.api.nvim_command(
-          'autocmd CursorHold,CursorHoldI * lua require\'nvim-lightbulb\'.update_lightbulb()')
-    end
-    if vim.tbl_get(client.server_capabilities, 'documentHighlightProvider') then
-      vim.api.nvim_command(
-          'autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()')
-      vim.api.nvim_command(
-          'autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()')
-      vim.api.nvim_command(
-          'autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()')
-    end
-  end)
+  local attach_opts = {silent=true, buffer=bufnr}
+  -- Key Mappings.
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, attach_opts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, attach_opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, attach_opts)
+  vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, attach_opts)
+  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
+                 attach_opts)
+  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
+                 attach_opts)
+  vim.keymap.set('n', '<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, attach_opts)
+  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, attach_opts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, attach_opts)
+  vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references,
+                 attach_opts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, attach_opts)
 end
+
+vim.api.nvim_create_user_command('Format', vim.lsp.buf.format, {})
+
+local handlers = {
+  ['textDocument/hover']=function(...)
+    local bufnr, _ = vim.lsp.handlers.hover(...)
+    if bufnr then
+      vim.keymap.set('n', 'K', '<Cmd>wincmd p<CR>', {silent=true, buffer=bufnr})
+    end
+  end
+}
 
 local select_symbol = function(cursor_pos, symbol)
   if symbol.valueRange then
@@ -164,6 +112,9 @@ local select_symbol = function(cursor_pos, symbol)
     return require('lsp-status.util').in_range(cursor_pos, value_range)
   end
 end
+
+-- Diagnostic settings
+vim.diagnostic.config {virtual_text=true, signs=true, update_in_insert=true}
 
 -- https://github.com/nvim-lua/diagnostic-nvim/issues/73
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
@@ -288,8 +239,8 @@ local servers = {
   vimls={},
   rust_analyzer={},
   tsserver={
-    on_attach=function(client)
-      on_attach(client)
+    on_attach=function(client, bufnr)
+      on_attach(client, bufnr)
       -- formatting is done via formatter.nvim
       -- client.server_capabilities.document_formatting = false
     end,
@@ -309,7 +260,8 @@ for server, config in pairs(servers) do
     nvim_lsp[server].setup(vim.tbl_deep_extend('force', {
       on_attach=on_attach,
       capabilities=capabilities,
-      select_symbol=select_symbol
+      select_symbol=select_symbol,
+      handlers=handlers
     }, config))
   end
 end

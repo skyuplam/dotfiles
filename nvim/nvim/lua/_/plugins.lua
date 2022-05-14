@@ -56,6 +56,10 @@ return require('packer').startup(function()
   }
   use {'gruvbox-community/gruvbox'}
   use {'vim-jp/syntax-vim-ex'}
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config=function() require('_.indent').setup() end
+  }
 
   use {'kevinhwang91/nvim-bqf'}
   use {
