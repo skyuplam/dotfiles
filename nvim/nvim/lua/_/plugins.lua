@@ -156,6 +156,7 @@ return require('packer').startup(function()
       {'folke/lsp-colors.nvim'},
       {'kosayoda/nvim-lightbulb'},
       {'b0o/schemastore.nvim'},
+      {'j-hui/fidget.nvim', config=function() require('fidget').setup() end},
       {
         'folke/lsp-trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',
@@ -173,18 +174,18 @@ return require('packer').startup(function()
             use_lsp_diagnostic_signs=false
           })
 
-          utils.gmap('n', '<leader>lx', '<cmd>TroubleToggle<CR>',
-                     {silent=true, noremap=true})
-          utils.gmap('n', '<leader>lw',
-                     '<cmd>TroubleToggle workspace_diagnostics<CR>',
-                     {silent=true, noremap=true})
-          utils.gmap('n', '<leader>ld',
-                     '<cmd>TroubleToggle document_diagnostics<CR>',
-                     {silent=true, noremap=true})
-          utils.gmap('n', '<leader>lq', '<cmd>TroubleToggle quickfix<CR>',
-                     {silent=true, noremap=true})
-          utils.gmap('n', '<leader>ll', '<cmd>TroubleToggle loclist<CR>',
-                     {silent=true, noremap=true})
+          vim.keymap.set('n', '<leader>lx', '<cmd>TroubleToggle<CR>',
+                         {silent=true, noremap=true})
+          vim.keymap.set('n', '<leader>lw',
+                         '<cmd>TroubleToggle workspace_diagnostics<CR>',
+                         {silent=true, noremap=true})
+          vim.keymap.set('n', '<leader>ld',
+                         '<cmd>TroubleToggle document_diagnostics<CR>',
+                         {silent=true, noremap=true})
+          vim.keymap.set('n', '<leader>lq', '<cmd>TroubleToggle quickfix<CR>',
+                         {silent=true, noremap=true})
+          vim.keymap.set('n', '<leader>ll', '<cmd>TroubleToggle loclist<CR>',
+                         {silent=true, noremap=true})
         end
       }
     }
