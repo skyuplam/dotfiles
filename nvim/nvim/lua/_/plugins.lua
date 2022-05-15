@@ -50,7 +50,8 @@ return require('packer').startup(function()
     requires={
       {'nvim-treesitter/nvim-treesitter-refactor', after='nvim-treesitter'},
       {'nvim-treesitter/nvim-treesitter-textobjects', after='nvim-treesitter'},
-      config='require("_.treesitter")',
+      {'nvim-treesitter/nvim-treesitter-context', after='nvim-treesitter'},
+      config=function() require('_.treesitter').setup() end,
       event='VimEnter *'
     }
   }
@@ -102,7 +103,7 @@ return require('packer').startup(function()
     'nvim-telescope/telescope.nvim',
     requires={
       {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzy-native.nvim'}
+      {'nvim-telescope/telescope-fzy-native.nvim', run='make'}
     },
     config=function() require('_.telescope').setup() end
   }
