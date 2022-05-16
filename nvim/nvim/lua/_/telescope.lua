@@ -17,7 +17,7 @@ local function setup()
     }
   })
 
-  telescope.load_extension('fzy_native')
+  telescope.load_extension('fzf')
 
   -- Key mappings
   vim.keymap.set('n', '<leader>ff',
