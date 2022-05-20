@@ -177,6 +177,9 @@ return require('packer').startup(function()
           vim.keymap.set('n', '<leader>lw',
                          '<cmd>TroubleToggle workspace_diagnostics<CR>',
                          {silent=true, noremap=true})
+          vim.keymap.set('n', '<leader>ld',
+                         '<cmd>TroubleToggle document_diagnostics<CR>',
+                         {silent=true, noremap=true})
         end
       }
     }
