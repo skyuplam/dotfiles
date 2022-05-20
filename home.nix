@@ -33,12 +33,13 @@
     browsh # in terminal browser
     cmake
     coreutils
+    codespell
     curl
     du-dust # fancy version of `du`
     exa # fancy version of `ls`
     fd # fancy version of `find`
     fontconfig
-    fzy
+    fzf
     gawk
     # gcc
     git
@@ -78,6 +79,9 @@
     nodePackages.vscode-json-languageserver-bin
     nodePackages.vscode-css-languageserver-bin
     nodePackages.vscode-html-languageserver-bin
+    nodePackages.vim-language-server
+    nodePackages.vscode-langservers-extracted
+    sumneko-lua-language-server
     efm-langserver
     nodejs-16_x
     rust-analyzer
