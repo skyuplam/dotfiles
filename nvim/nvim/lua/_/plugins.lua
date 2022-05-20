@@ -147,10 +147,6 @@ return require('packer').startup(function()
     requires={
       {'lbrayner/vim-rzip'}, -- https://yarnpkg.com/getting-started/editor-sdks#supporting-go-to-definition-et-al
       {'simrat39/rust-tools.nvim'},
-      {
-        'tjdevries/lsp_extensions.nvim',
-        config=function() require'_.statusline'.activate() end
-      },
       {'tjdevries/nlua.nvim'},
       -- {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
       {'nvim-lua/lsp-status.nvim'},
@@ -180,13 +176,6 @@ return require('packer').startup(function()
                          {silent=true, noremap=true})
           vim.keymap.set('n', '<leader>lw',
                          '<cmd>TroubleToggle workspace_diagnostics<CR>',
-                         {silent=true, noremap=true})
-          vim.keymap.set('n', '<leader>ld',
-                         '<cmd>TroubleToggle document_diagnostics<CR>',
-                         {silent=true, noremap=true})
-          vim.keymap.set('n', '<leader>lq', '<cmd>TroubleToggle quickfix<CR>',
-                         {silent=true, noremap=true})
-          vim.keymap.set('n', '<leader>ll', '<cmd>TroubleToggle loclist<CR>',
                          {silent=true, noremap=true})
         end
       }

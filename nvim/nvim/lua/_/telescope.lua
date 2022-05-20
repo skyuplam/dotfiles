@@ -7,6 +7,7 @@ local M = {}
 local function setup()
 
   telescope.setup({
+    defaults={layout_strategy='center'},
     extensions={
       fzf={
         override_generic_sorter=true, -- override the generic sorter
@@ -50,6 +51,19 @@ local function setup()
   vim.keymap.set('n', '<leader>fh',
                  function() require('telescope.builtin').help_tags() end)
 
+  vim.keymap.set('n', '<leader>ft',
+                 function() require('telescope.builtin').filetypes() end)
+  vim.keymap.set('n', '<leader>fj',
+                 function() require('telescope.builtin').jumplist() end)
+  vim.keymap.set('n', '<leader>fl',
+                 function() require('telescope.builtin').loclist() end)
+  vim.keymap.set('n', '<leader>fq',
+                 function() require('telescope.builtin').quickfix() end)
+  vim.keymap.set('n', '<leader>fc',
+                 function() require('telescope.builtin').command_history() end)
+  vim.keymap.set('n', '<leader>fs',
+                 function() require('telescope.builtin').search_history() end)
+
   vim.keymap.set('n', '<leader>gc',
                  function() require('telescope.builtin').git_commits() end)
   vim.keymap.set('n', '<leader>gb',
@@ -58,9 +72,12 @@ local function setup()
                  function() require('telescope.builtin').git_status() end)
   vim.keymap.set('n', '<leader>gp',
                  function() require('telescope.builtin').git_bcommits() end)
-  vim.keymap.set('n', '<leader>wo', function()
-    require('telescope.builtin').lsp_document_symbols()
-  end)
+
+  vim.keymap.set('n', '<leader>zl',
+                 function() require('telescope.builtin').spell_suggest() end)
+
+  vim.keymap.set('n', '<leader><leader>',
+                 function() require('telescope.builtin').resume() end)
 end
 
 function M.setup() setup() end

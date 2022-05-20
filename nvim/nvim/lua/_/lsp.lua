@@ -84,9 +84,14 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, attach_opts)
+  vim.keymap.set('n', '<leader>wo', function()
+    require('telescope.builtin').lsp_document_symbols()
+  end)
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, attach_opts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, attach_opts)
   vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references,
+                 attach_opts)
+  vim.keymap.set('n', '<leader>ld', require('telescope.builtin').diagnostics,
                  attach_opts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, attach_opts)
 end
