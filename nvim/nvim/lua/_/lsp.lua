@@ -7,15 +7,11 @@ local has_lsp, nvim_lsp = pcall(require, 'lspconfig')
 
 if not has_lsp then return end
 
--- local has_lspsaga, lspsaga = pcall(require, 'lspsaga')
-local has_extensions = pcall(require, 'lsp_extensions')
 local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
 local has_lspsignature, lspsignature = pcall(require 'lsp_signature')
 local has_rust_tools, rust_tools = pcall(require 'rust-tools')
-local has_lightbulb = pcall(require 'nvim-lightbulb')
 local has_schemastore, schemastore = pcall(require, 'schemastore')
 local utils = require '_.utils'
-local map_opts = {noremap=true, silent=true}
 local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 
 -- if has_lspsaga then lspsaga.init_lsp_saga() end
@@ -121,25 +117,6 @@ end
 -- Diagnostic settings
 vim.diagnostic.config {virtual_text=true, signs=true, update_in_insert=true}
 
--- https://github.com/nvim-lua/diagnostic-nvim/issues/73
-vim.lsp.handlers['textDocument/publishDiagnostics'] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-      -- Enable underline, use default values
-      underline=true,
-      -- Enable virtual text, override spacing to 4
-      virtual_text={spacing=4, prefix='~'},
-      -- Use a function to dynamically turn signs off
-      -- and on, using buffer local variables
-      signs=function(bufnr)
-        local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
-        -- No buffer local variable set, so just enable by default
-        if not ok then return true end
-
-        return result
-      end,
-      update_in_insert=true
-    })
-
 -- Enable (broadcasting) snippet capability for completion
 local capabilities = has_lspstatus and lspstatus.capabilities
                          or vim.lsp.protocol.make_client_capabilities()
@@ -150,12 +127,12 @@ if has_cmp_lsp then capabilities = cmp_lsp.update_capabilities(capabilities) end
 require('nlua.lsp.nvim').setup(nvim_lsp,
                                {on_attach=on_attach, globals={'vim', 'use'}})
 
-local eslint = {
-  lintCommand='yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
-  lintStdin=true,
-  lintIgnoreExitCode=true,
-  lintFormats={'%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m'}
-}
+-- local eslint = {
+--   lintCommand='yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
+--   lintStdin=true,
+--   lintIgnoreExitCode=true,
+--   lintFormats={'%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m'}
+-- }
 
 local prettier = {
   formatCommand='yarn prettier --stdin-filepath ${INPUT}',
@@ -213,9 +190,9 @@ local servers = {
   jsonls={
     cmd={jsonls, '--stdio'},
     filetypes={'json', 'jsonc'},
-    settings={json={schemas=jsons}}
+    settings={json={schemas=jsons, validate={enable=true}}}
   },
-  yamlls={settings={yaml={schemas=yamls}}},
+  yamlls={settings={yaml={schemas=yamls, validate={enable=true}}}},
   html={cmd={htmlls, '--stdio'}},
   efm={
     filetypes={
@@ -226,7 +203,7 @@ local servers = {
       'typescriptreact',
       'typescript.tsx'
     },
-    init_options={documentFormatting=true},
+    init_options={documentFormatting=true, publishDiagnostics=true},
     root_dir=function(fname)
       return nvim_lsp.util.root_pattern('.yarn/')(fname)
                  or nvim_lsp.util.root_pattern('tsconfig.json')(fname)
@@ -234,21 +211,67 @@ local servers = {
     settings={
       rootMarkers={'.yarn/', '.git/'},
       languages={
-        javascript={prettier, eslint, codespell},
-        typescript={prettier, eslint, codespell},
-        javascriptreact={prettier, eslint, codespell},
-        typescriptreact={prettier, eslint, codespell}
+        javascript={prettier, codespell},
+        typescript={prettier, codespell},
+        javascriptreact={prettier, codespell},
+        typescriptreact={prettier, codespell}
       }
     }
   },
   vimls={},
-  rust_analyzer={},
+  sumneko_lua={
+    settings={
+      Lua={
+        runtime={
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version='LuaJIT',
+          -- Setup your lua path
+          path=vim.split(package.path, ';')
+        },
+        diagnostics={
+          -- Get the language server to recognize the `vim` global
+          globals={'vim'}
+        },
+        workspace={
+          -- Make the server aware of Neovim runtime files
+          library=vim.api.nvim_get_runtime_file('', true)
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry={enable=false}
+      }
+    }
+  },
+  rust_analyzer={
+    settings={
+      ['rust-analyzer']={
+        checkOnSave={command='clippy'},
+        procMacro={enable=true}
+      }
+    }
+  },
+  eslint={
+    settings={
+      -- `packageManager` and `nodePath` are set to ensure that the eslint LS
+      -- will work with pnp.
+      nodePath='.yarn/sdks',
+      packageManager='yarn',
+      codeActionOnSave={enable=true, mode='all'}
+    }
+  },
   tsserver={
     on_attach=function(client, bufnr)
       on_attach(client, bufnr)
       -- formatting is done via formatter.nvim
-      -- client.server_capabilities.document_formatting = false
+      client.server_capabilities.document_formatting = false
     end,
+    init_options={
+      hostInfo='neovim',
+      preferences={
+        allowIncompleteCompletions=true,
+        includeCompletionsForModuleExports=false
+      }
+    },
+    flags={debounce_text_changes=500, allow_incremental_sync=true},
     root_dir=function(fname)
       return nvim_lsp.util.root_pattern('tsconfig.json')(fname)
                  or nvim_lsp.util
