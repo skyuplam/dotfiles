@@ -7,7 +7,7 @@ local M = {}
 local function setup()
 
   telescope.setup({
-    defaults={layout_strategy='center'},
+    defaults={layout_strategy='vertical'},
     extensions={
       fzf={
         override_generic_sorter=true, -- override the generic sorter
