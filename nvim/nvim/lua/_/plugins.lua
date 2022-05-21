@@ -289,7 +289,6 @@ return require('packer').startup(function()
             -- Text object
             map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
           end,
-          sign_priority=6,
           current_line_blame=true, -- Toggle with `:Gitsigns toggle_current_line_blame`
           current_line_blame_opts={
             virt_text=true,
