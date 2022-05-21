@@ -253,7 +253,8 @@ local servers = {
     settings={
       -- `packageManager` and `nodePath` are set to ensure that the eslint LS
       -- will work with pnp.
-      nodePath='.yarn/sdks',
+      -- https://github.com/neovim/nvim-lspconfig/issues/1872
+      nodePath=vim.fn.getcwd() .. '/.yarn/sdks',
       packageManager='yarn',
       codeActionOnSave={enable=true, mode='all'}
     }
