@@ -204,7 +204,6 @@ return require('packer').startup(function()
   }
 
   use {
-    {'tpope/vim-fugitive', cmd={'Git'}},
     {
       'lewis6991/gitsigns.nvim',
       requires={'nvim-lua/plenary.nvim'},
