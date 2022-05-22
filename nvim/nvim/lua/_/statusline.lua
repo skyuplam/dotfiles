@@ -4,7 +4,6 @@ local M = {}
 local next = next
 local fn = vim.fn
 local bo = vim.bo
-local g = vim.g
 local cmd = vim.cmd
 
 ---------------------------------------------------------------------------------
@@ -45,11 +44,12 @@ end
 ---------------------------------------------------------------------------------
 
 function M.git_info()
-  if not g.loaded_fugitive then return '' end
+  local out = ''
+  local changes = vim.b.gitsigns_status or ''
+  local head = vim.b.gitsigns_head or ''
 
-  local out = fn.FugitiveHead(10)
-
-  if out ~= '' then out = utils.get_icon('branch') .. '  ' .. out end
+  if head ~= '' then out = utils.get_icon('branch') .. '  ' .. head end
+  if changes ~= '' then out = out .. ' ' .. changes end
 
   return out
 end
@@ -246,10 +246,18 @@ function M.activate()
           utils.get_color('Identifier', 'fg', 'gui'),
           utils.get_color('Identifier', 'fg', 'cterm')))
 
-  utils.augroup('MyStatusLine', function()
-    cmd('autocmd WinEnter,BufEnter * lua require\'_.statusline\'.active()')
-    cmd('autocmd WinLeave,BufLeave * lua require\'_.statusline\'.inactive()')
-  end)
+  local statusline_gorup = vim.api.nvim_create_augroup('MyStatusLine',
+                                                       {clear=true})
+  vim.api.nvim_create_autocmd({'WinEnter', 'BufEnter'}, {
+    group=statusline_gorup,
+    pattern='*',
+    callback=function() require('_.statusline').active() end
+  })
+  vim.api.nvim_create_autocmd({'WinLeave', 'BufLeave'}, {
+    group=statusline_gorup,
+    pattern='*',
+    callback=function() require('_.statusline').inactive() end
+  })
 end
 
 return M
