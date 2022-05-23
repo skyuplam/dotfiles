@@ -107,6 +107,7 @@ return require('packer').startup(function(use)
     requires={
       {'nvim-lua/plenary.nvim'},
       {'nvim-telescope/telescope-fzf-native.nvim', run='make'},
+      {'nvim-telescope/telescope-frecency.nvim', requires={'tami5/sqlite.lua'}},
       {'nvim-telescope/telescope-ui-select.nvim'}
     },
     config=function() require('_.telescope').setup() end
@@ -191,6 +192,27 @@ return require('packer').startup(function(use)
         end
       }
     }
+  }
+
+  -- Interactive Repls Over Neovim
+  use {
+    'hkupty/iron.nvim',
+    commands={'IronRepl', 'IronSend', 'IronReplHere'},
+    loaded=false,
+    needs_bufread=false,
+    only_cond=false,
+    config=function()
+      require('iron.core').setup({
+        config={
+          -- If iron should expose `<plug>(...)` mappings for the plugins
+          should_map_plug=false,
+          -- Whether a repl should be discarded or not
+          scratch_repl=true,
+          -- Your repl definitions come here
+          repl_definition={sh={command={'zsh'}}}
+        }
+      })
+    end
   }
 
   use {

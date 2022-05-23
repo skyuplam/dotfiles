@@ -7,9 +7,10 @@ local M = {}
 local function setup()
 
   telescope.setup({
-    defaults={layout_strategy='vertical'},
+    defaults={layout_strategy='flex'},
     extensions={
       fzf={
+        fuzzy=true,
         override_generic_sorter=true, -- override the generic sorter
         override_file_sorter=true, -- override the file sorter
         case_mode='smart_case' -- or "ignore_case" or "respect_case"
@@ -34,10 +35,12 @@ local function setup()
         --      do the following
         --   codeactions = false,
         -- }
-      }
+      },
+      frecency={}
     }
   })
 
+  telescope.load_extension('frecency')
   telescope.load_extension('fzf')
   telescope.load_extension('ui-select')
 
