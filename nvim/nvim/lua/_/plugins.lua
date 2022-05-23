@@ -6,15 +6,18 @@
 -- Note that this will install packer as an opt plugin; if you want packer to be
 -- a start plugin, you must modify the value of install_path in the above
 -- snippet.
-local execute = vim.api.nvim_command
 local fn = vim.fn
-
+local packer_bootstrap
 local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
-
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute(
-      '!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-  execute 'packadd packer.nvim'
+  packer_bootstrap = fn.system({
+    'git',
+    'clone',
+    '--depth',
+    '1',
+    'https://github.com/wbthomason/packer.nvim',
+    install_path
+  })
 end
 
 -- }}}
@@ -23,12 +26,12 @@ end
 -- ============================================================================
 
 -- Only required if you have packer in your `opt` pack
-vim.cmd [[packadd packer.nvim]]
+vim.api.nvim_command('packadd packer.nvim')
 
 -- Global Variable
 _G._ = {}
 
-return require('packer').startup(function()
+return require('packer').startup(function(use)
   use {'wbthomason/packer.nvim', opt=true}
 
   use {
@@ -194,9 +197,14 @@ return require('packer').startup(function()
     'hrsh7th/nvim-cmp',
     requires={
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-document-symbol',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'petertriho/cmp-git',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
+      -- 'hrsh7th/cmp-cmdline',
+      'dmitmel/cmp-cmdline-history',
+      'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-vsnip',
       'andersevenrud/cmp-tmux',
       'onsails/lspkind-nvim'
@@ -323,5 +331,18 @@ return require('packer').startup(function()
   use {'Shougo/deol.nvim'}
 
   use {'p00f/nvim-ts-rainbow'}
+
+  -- configure Neovim to automatically run :PackerCompile whenever plugins.lua is updated
+  local packer_au_group = vim.api.nvim_create_augroup('packer_au_group',
+                                                      {clear=true})
+  vim.api.nvim_create_autocmd('BufWritePost', {
+    pattern='plugins.lua',
+    group=packer_au_group,
+    command='source <afile> | PackerCompile'
+  })
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  if packer_bootstrap then require('packer').sync() end
 end)
 ---}}}
