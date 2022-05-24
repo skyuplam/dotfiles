@@ -41,7 +41,7 @@
     fontconfig
     fzf
     gawk
-    # gcc
+    gcc
     git
     gitAndTools.delta
     gnupg
@@ -59,6 +59,7 @@
     rsync
     skhd
     slides
+    sqlite
     stow
     tealdeer # rust implementation of `tldr`
     tig
