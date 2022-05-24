@@ -44,7 +44,8 @@ local function setup_ts_config()
       'tsx',
       'typescript',
       'vim',
-      'yaml'
+      'yaml',
+      'norg'
     },
     highlight={enable=true},
     indent={enable=true},

@@ -144,6 +144,33 @@ return require('packer').startup(function(use)
   use 'mattn/calendar-vim'
   use 'inkarkat/vim-SyntaxRange'
 
+  use {
+    'nvim-neorg/neorg',
+    config=function()
+      require('neorg').setup({
+        load={
+          ['core.defaults']={},
+          ['core.gtd.base']={config={workspace='home'}},
+          ['core.norg.dirman']={
+            config={
+              workspaces={
+                work='~/Dropbox/notes/work',
+                home='~/Dropbox/notes/home'
+              }
+            }
+          },
+          ['core.presenter']={config={zen_mode='zen-mode'}},
+          ['core.integrations.nvim-cmp']={},
+          ['core.norg.qol.toc']={},
+          ['core.norg.journal']={},
+          ['core.norg.concealer']={},
+          ['core.export']={}
+        }
+      })
+    end,
+    requires='nvim-lua/plenary.nvim'
+  }
+
   -- LSP
   use {
     'neovim/nvim-lspconfig',
