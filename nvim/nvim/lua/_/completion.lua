@@ -81,11 +81,15 @@ M.setup = function()
     })
     -- Set configuration for specific filetype.
     cmp.setup.filetype('gitcommit', {
-      sources=cmp.config.sources({{name='git'}}, {{name='buffer'}})
+      sources=cmp.config.sources({{name='cmp_git'}}, {{name='buffer'}})
     })
     -- Set configuration for specific filetype.
     for _, cmd_type in ipairs({':', '/', '?', '@'}) do
-      cmp.setup.cmdline(cmd_type, {sources={{name='cmdline_history'}}})
+      cmp.setup.cmdline(cmd_type, {
+        mapping=cmp.mapping.preset.cmdline(),
+        sources=cmp.config
+            .sources({{name='cmdline_history'}}, {{name='buffer'}})
+      })
     end
   end
 end
