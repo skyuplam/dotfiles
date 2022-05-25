@@ -4,7 +4,7 @@ if not has_neorg then return end
 
 local M = {}
 
-local note_dir = vim.g.zettel_not_dir or '~/notes'
+local note_dir = vim.g.zettel_note_dir or '~/notes'
 
 function M.setup()
   neorg.setup({
