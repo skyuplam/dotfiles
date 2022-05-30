@@ -54,7 +54,7 @@
     ninja
     # passExtensions.pass-import
     passff-host
-    procs # fancy version of `ps`
+    # procs # fancy version of `ps`
     ripgrep # better version of `grep`
     rsync
     skhd
