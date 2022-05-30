@@ -92,6 +92,12 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, attach_opts)
 end
 
+-- LSP management
+vim.keymap.set('n', '<leader>lr', ':LspRestart<CR>', {silent=true})
+vim.keymap.set('n', '<leader>li', ':LspInfo<CR>', {silent=true})
+vim.keymap.set('n', '<leader>ls', ':LspStart<CR>', {silent=true})
+vim.keymap.set('n', '<leader>lt', ':LspStop<CR>', {silent=true})
+
 vim.api.nvim_create_user_command('Format', vim.lsp.buf.format, {})
 
 local handlers = {
