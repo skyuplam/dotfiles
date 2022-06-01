@@ -87,8 +87,8 @@ M.setup = function()
     for _, cmd_type in ipairs({':', '/', '?', '@'}) do
       cmp.setup.cmdline(cmd_type, {
         mapping=cmp.mapping.preset.cmdline(),
-        sources=cmp.config
-            .sources({{name='cmdline_history'}}, {{name='buffer'}})
+        sources=cmp.config.sources({{name='cmdline_history'}, {name='cmdline'}},
+                                   {{name='buffer'}})
       })
     end
   end
