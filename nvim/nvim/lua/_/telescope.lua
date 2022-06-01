@@ -36,19 +36,24 @@ local function setup()
         --   codeactions = false,
         -- }
       },
-      frecency={}
+      frecency={},
+      live_grep_raw={
+        auto_quoting=true -- enable/disable auto-quoting
+      }
     }
   })
 
   telescope.load_extension('frecency')
   telescope.load_extension('fzf')
   telescope.load_extension('ui-select')
+  telescope.load_extension('live_grep_raw')
 
   -- Key mappings
   vim.keymap.set('n', '<leader>ff',
                  function() require('telescope.builtin').find_files() end)
-  vim.keymap.set('n', '<leader>fg',
-                 function() require('telescope.builtin').live_grep() end)
+  vim.keymap.set('n', '<leader>fg', function()
+    require('telescope').extensions.live_grep_raw.live_grep_raw()
+  end)
   vim.keymap.set('n', '<leader>fb',
                  function() require('telescope.builtin').buffers() end)
   vim.keymap.set('n', '<leader>fh',

@@ -108,7 +108,8 @@ return require('packer').startup(function(use)
       {'nvim-lua/plenary.nvim'},
       {'nvim-telescope/telescope-fzf-native.nvim', run='make'},
       {'nvim-telescope/telescope-frecency.nvim', requires={'tami5/sqlite.lua'}},
-      {'nvim-telescope/telescope-ui-select.nvim'}
+      {'nvim-telescope/telescope-ui-select.nvim'},
+      {'nvim-telescope/telescope-live-grep-raw.nvim'}
     },
     config=function() require('_.telescope').setup() end
   }
