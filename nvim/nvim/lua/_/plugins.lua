@@ -354,7 +354,8 @@ return require('packer').startup(function(use)
       cmd={'Tig', 'TigStatus'},
       requires='rbgrouleff/bclose.vim'
     },
-    {'TimUntersberger/neogit', cmd={'Neogit'}, requires='nvim-lua/plenary.nvim'}
+    {'TimUntersberger/neogit', cmd={'Neogit'}, requires='nvim-lua/plenary.nvim'},
+    {'sindrets/diffview.nvim', requires='nvim-lua/plenary.nvim'}
   }
 
   use {'Shougo/deol.nvim'}
