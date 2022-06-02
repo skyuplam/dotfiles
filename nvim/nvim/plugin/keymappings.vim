@@ -17,9 +17,6 @@ nnoremap <silent> <space>t :TagbarToggle<CR>
 " Terminal
 nnoremap <leader>nt :bo 15sp +term<CR>
 
-" Git mapping
-nnoremap <silent> <Leader>gs :TigStatus<CR>
-
 " CamelCaseMotion
 let g:camelcasemotion_key = '<leader>'
 

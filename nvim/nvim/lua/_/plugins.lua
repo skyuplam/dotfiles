@@ -350,11 +350,11 @@ return require('packer').startup(function(use)
         })
       end
     },
-    {
-      'iberianpig/tig-explorer.vim',
-      cmd={'Tig', 'TigStatus'},
-      requires='rbgrouleff/bclose.vim'
-    },
+    -- {
+    --   'iberianpig/tig-explorer.vim',
+    --   cmd={'Tig', 'TigStatus'},
+    --   requires='rbgrouleff/bclose.vim'
+    -- },
     {
       'TimUntersberger/neogit',
       cmd={'Neogit'},
