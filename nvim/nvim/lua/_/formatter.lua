@@ -1,6 +1,4 @@
-local has_config, formatter = pcall(require, 'formatter')
-
-if not has_config then return end
+local has_formatter, formatter = pcall(require, 'formatter')
 
 local M = {}
 
@@ -91,6 +89,9 @@ local function setup()
   return {logging=true, filetype=ftConfigs}
 end
 
-function M.setup() formatter.setup(setup()) end
+function M.setup()
+  if not has_formatter then return end
+  formatter.setup(setup())
+end
 
 return M
