@@ -357,7 +357,7 @@ return require('packer').startup(function(use)
     -- },
     {
       'TimUntersberger/neogit',
-      cmd={'Neogit'},
+      -- cmd={'Neogit'},
       requires='nvim-lua/plenary.nvim',
       config=function() require('_.git').setup() end
     },

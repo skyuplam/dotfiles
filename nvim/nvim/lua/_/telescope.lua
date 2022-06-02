@@ -1,7 +1,5 @@
 local has_telescope, telescope = pcall(require, 'telescope')
 
-if not has_telescope then return end
-
 local M = {}
 
 local previewers = require('telescope.previewers')
@@ -32,6 +30,7 @@ local new_maker = function(filepath, bufnr, opts)
 end
 
 local function setup()
+  if not has_telescope then return end
 
   telescope.setup({
     defaults={layout_strategy='flex', buffer_previewer_maker=new_maker},
