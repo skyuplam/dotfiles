@@ -72,13 +72,13 @@ local function setup()
   telescope.load_extension('frecency')
   telescope.load_extension('fzf')
   telescope.load_extension('ui-select')
-  telescope.load_extension('live_grep_raw')
+  telescope.load_extension('live_grep_args')
 
   -- Key mappings
   vim.keymap.set('n', '<leader>ff',
                  function() require('telescope.builtin').find_files() end)
   vim.keymap.set('n', '<leader>fg', function()
-    require('telescope').extensions.live_grep_raw.live_grep_raw()
+    require('telescope').extensions.live_grep_raw.live_grep_args()
   end)
   vim.keymap.set('n', '<leader>fb',
                  function() require('telescope.builtin').buffers() end)
