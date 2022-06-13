@@ -3,9 +3,13 @@ local utils = require '_.utils'
 
 local M = {}
 
+local setup_called = false
+
 M.setup = function()
 
-  if not has_nt then return end
+  if not has_nt or setup_called then return end
+
+  setup_called = true
 
   nt.setup {
     auto_reload_on_write=true,

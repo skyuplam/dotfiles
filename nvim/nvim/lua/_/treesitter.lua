@@ -27,7 +27,6 @@ local function setup_ts_config()
       'jsdoc',
       'json',
       'json5',
-      'JSON',
       'llvm',
       'lua',
       'make',

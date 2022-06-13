@@ -50,12 +50,12 @@ return require('packer').startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run=':TSUpdate',
+    config=function() require('_.treesitter').setup() end,
     requires={
+      {'p00f/nvim-ts-rainbow'},
       {'nvim-treesitter/nvim-treesitter-refactor', after='nvim-treesitter'},
       {'nvim-treesitter/nvim-treesitter-textobjects', after='nvim-treesitter'},
-      {'nvim-treesitter/nvim-treesitter-context', after='nvim-treesitter'},
-      config=function() require('_.treesitter').setup() end,
-      event='VimEnter *'
+      {'nvim-treesitter/nvim-treesitter-context', after='nvim-treesitter'}
     }
   }
   use {'gruvbox-community/gruvbox'}
@@ -68,8 +68,8 @@ return require('packer').startup(function(use)
   use {'kevinhwang91/nvim-bqf'}
   use {
     'kyazdani42/nvim-tree.lua',
-    requires='kyazdani42/nvim-web-devicons',
-    config=function() require('_.nvimtree').setup() end
+    config=function() require('_.nvimtree').setup() end,
+    requires='kyazdani42/nvim-web-devicons'
   }
 
   use {'Shougo/vimproc.vim', run=':silent! !make'}
@@ -148,8 +148,8 @@ return require('packer').startup(function(use)
   use {
     'nvim-neorg/neorg',
     requires='nvim-lua/plenary.nvim',
-    after='nvim-treesitter',
-    config=function() require('_.neorg').setup() end
+    config=function() require('_.neorg').setup() end,
+    after='nvim-treesitter'
   }
 
   -- LSP
@@ -244,7 +244,6 @@ return require('packer').startup(function(use)
   use {
     {
       'lewis6991/gitsigns.nvim',
-      requires={'nvim-lua/plenary.nvim'},
       config=function()
         require('gitsigns').setup({
           signs={
@@ -348,7 +347,8 @@ return require('packer').startup(function(use)
           },
           yadm={enable=false}
         })
-      end
+      end,
+      requires={'nvim-lua/plenary.nvim'}
     },
     -- {
     --   'iberianpig/tig-explorer.vim',
@@ -364,8 +364,6 @@ return require('packer').startup(function(use)
   }
 
   use {'Shougo/deol.nvim'}
-
-  use {'p00f/nvim-ts-rainbow'}
 
   -- configure Neovim to automatically run :PackerCompile whenever plugins.lua is updated
   local packer_au_group = vim.api.nvim_create_augroup('packer_au_group',
