@@ -60,7 +60,7 @@ local function setup_ts_config()
     refactor={
       smart_rename={enable=true, keymaps={smart_rename='grr'}},
       highlight_definitions={enable=true, clear_on_cursor_move=true},
-      highlight_current_scope={enable=true}
+      highlight_current_scope={enable=false}
     },
     rainbow={enable=true, extended_mode=true},
     textobjects={
@@ -95,8 +95,6 @@ local function setup_ts_config()
     }
   }
 
-  vim.api.nvim_command('set foldmethod=expr');
-  vim.api.nvim_command('set foldexpr=nvim_treesitter#foldexpr()');
 end
 
 local function setup_context()
