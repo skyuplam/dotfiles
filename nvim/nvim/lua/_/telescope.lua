@@ -78,7 +78,7 @@ local function setup()
   vim.keymap.set('n', '<leader>ff',
                  function() require('telescope.builtin').find_files() end)
   vim.keymap.set('n', '<leader>fg', function()
-    require('telescope').extensions.live_grep_raw.live_grep_args()
+    require('telescope').extensions.live_grep_args.live_grep_args()
   end)
   vim.keymap.set('n', '<leader>fb',
                  function() require('telescope.builtin').buffers() end)
