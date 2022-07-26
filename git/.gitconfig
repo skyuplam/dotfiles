@@ -141,6 +141,7 @@
   # the usual default is to push all branches
   default = upstream
   followTags = true
+  autoSetupRemote = true
 [core]
   autocrlf = false
   excludesfile = ~/.gitignore_global
