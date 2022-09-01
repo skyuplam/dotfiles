@@ -65,6 +65,19 @@ local function setup()
       frecency={},
       live_grep_raw={
         auto_quoting=true -- enable/disable auto-quoting
+      },
+      file_browser={
+        theme='ivy',
+        -- disables netrw and use telescope-file-browser in its place
+        hijack_netrw=true,
+        mappings={
+          ['i']={
+            -- your custom insert mode mappings
+          },
+          ['n']={
+            -- your custom normal mode mappings
+          }
+        }
       }
     }
   })
@@ -73,6 +86,7 @@ local function setup()
   telescope.load_extension('fzf')
   telescope.load_extension('ui-select')
   telescope.load_extension('live_grep_args')
+  telescope.load_extension('file_browser')
 
   -- Key mappings
   vim.keymap.set('n', '<leader>ff',
@@ -112,6 +126,9 @@ local function setup()
 
   vim.keymap.set('n', '<leader><leader>',
                  function() require('telescope.builtin').resume() end)
+  vim.keymap.set('n', '<leader>e', function()
+    require('telescope').extensions.file_browser.file_browser()
+  end)
 end
 
 function M.setup() setup() end
