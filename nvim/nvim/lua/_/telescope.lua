@@ -126,8 +126,14 @@ local function setup()
 
   vim.keymap.set('n', '<leader><leader>',
                  function() require('telescope.builtin').resume() end)
-  vim.keymap.set('n', '<leader>e', function()
+  vim.keymap.set('n', '<leader>ee', function()
     require('telescope').extensions.file_browser.file_browser()
+  end)
+  vim.keymap.set('n', '<leader>eb', function()
+    require('telescope').extensions.file_browser.file_browser({
+      path='%:p:h',
+      select_buffer=true
+    })
   end)
 end
 
