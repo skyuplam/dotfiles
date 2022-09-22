@@ -91,7 +91,7 @@ return require('packer').startup(function(use)
     config=function() require('spellsitter').setup() end
   }
 
-  use 'SirVer/ultisnips'
+  -- use 'SirVer/ultisnips'
   use 'hrsh7th/vim-vsnip'
 
   -- Marks
