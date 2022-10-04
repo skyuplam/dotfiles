@@ -5,7 +5,9 @@ local M = {}
 local function prettier()
   local local_prettier = '.yarn/sdks/prettier/index.js'
   local prettier_exe = 'prettier';
-  if vim.fn.executable(local_prettier) > 0 then prettier_exe = 'yarn prettier' end
+  if vim.fn.executable(local_prettier) == 0 then
+    prettier_exe = './node_modules/.bin/prettier'
+  end
   return {
     exe=prettier_exe,
     args={
