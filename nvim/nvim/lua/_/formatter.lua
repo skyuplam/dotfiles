@@ -3,11 +3,11 @@ local has_formatter, formatter = pcall(require, 'formatter')
 local M = {}
 
 local function prettier()
-  local pnp_prettier = '.yarn/sdks/prettier/index.js'
+  local pnp_prettier = './.yarn/sdks/prettier/index.js'
   local node_modules_prettier = './node_modules/.bin/prettier'
   local prettier_exe = 'prettier';
   if vim.fn.executable(pnp_prettier) == 1 then
-    prettier_exe = pnp_prettier;
+    prettier_exe = 'yarn prettier';
   elseif vim.fn.executable(node_modules_prettier) == 1 then
     prettier_exe = node_modules_prettier;
   end
