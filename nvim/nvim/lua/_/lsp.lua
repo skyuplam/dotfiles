@@ -128,7 +128,7 @@ local capabilities = has_lspstatus and lspstatus.capabilities
                          or vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- nvim-cmp
-if has_cmp_lsp then capabilities = cmp_lsp.update_capabilities(capabilities) end
+if has_cmp_lsp then capabilities = cmp_lsp.default_capabilities(capabilities) end
 
 require('nlua.lsp.nvim').setup(nvim_lsp,
                                {on_attach=on_attach, globals={'vim', 'use'}})
@@ -164,6 +164,7 @@ if has_schemastore then
       'prettierrc.json',
       'babelrc.json',
       'lerna.json',
+      'JSON Resume',
       '.stylelintrc'
     }
   })
