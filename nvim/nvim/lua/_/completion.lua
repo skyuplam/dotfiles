@@ -83,14 +83,17 @@ M.setup = function()
     cmp.setup.filetype('gitcommit', {
       sources=cmp.config.sources({{name='cmp_git'}}, {{name='buffer'}})
     })
-    -- Set configuration for specific filetype.
-    for _, cmd_type in ipairs({':', '/', '?', '@'}) do
-      cmp.setup.cmdline(cmd_type, {
-        mapping=cmp.mapping.preset.cmdline(),
-        sources=cmp.config.sources({{name='cmdline_history'}, {name='cmdline'}},
-                                   {{name='buffer'}})
-      })
-    end
+    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline({'/', '?'}, {
+      mapping=cmp.mapping.preset.cmdline(),
+      sources={{name='buffer'}}
+    })
+
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline(':', {
+      mapping=cmp.mapping.preset.cmdline(),
+      sources=cmp.config.sources({{name='path'}}, {{name='cmdline'}})
+    })
   end
 end
 
