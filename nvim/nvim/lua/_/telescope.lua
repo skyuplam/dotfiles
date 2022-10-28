@@ -42,7 +42,7 @@ local delta = previewers.new_termopen_previewer {
       '-c',
       'delta.side-by-side=false',
       'diff',
-      'HEAD',
+      '--merge-base',
       vim.fn.expand('$REVIEW_BASE'),
       '--',
       entry.path
@@ -153,7 +153,7 @@ local function setup()
         'git',
         'diff',
         '--name-only',
-        'HEAD',
+        '--merge-base',
         vim.fn.expand('$REVIEW_BASE')
       },
       previewer=delta
