@@ -213,13 +213,14 @@ return require('packer').startup(function(use)
     config=function()
       require('iron.core').setup({
         config={
+          highlight_last='IronLastSent',
           -- If iron should expose `<plug>(...)` mappings for the plugins
-          should_map_plug=false,
           -- Whether a repl should be discarded or not
           scratch_repl=true,
           -- Your repl definitions come here
           repl_definition={sh={command={'zsh'}}}
-        }
+        },
+        keymaps={send_motion='<leader>sc', visual_send='<leader>sc'}
       })
     end
   }
