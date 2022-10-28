@@ -4,7 +4,6 @@ local M = {}
 
 local previewers = require('telescope.previewers')
 local builtin = require('telescope.builtin')
-local conf = require('telescope.config')
 local Job = require('plenary.job')
 
 -- Ignore binary files
@@ -33,7 +32,7 @@ local new_maker = function(filepath, bufnr, opts)
   }):sync()
 end
 
-local delta = previewers.new_termopen_previewer {
+local delta_file = previewers.new_termopen_previewer {
   get_command=function(entry)
     return {
       'git',
@@ -50,6 +49,20 @@ local delta = previewers.new_termopen_previewer {
   end
 }
 
+local delta_commit = previewers.new_termopen_previewer {
+  get_command=function(entry)
+    return {
+      'git',
+      '-c',
+      'core.pager=delta',
+      '-c',
+      'delta.side-by-side=false',
+      'diff',
+      entry.value .. '^!'
+    }
+  end
+}
+
 local function setup()
   if not has_telescope then return end
 
@@ -59,6 +72,7 @@ local function setup()
       layout_config={
         height=.95,
         width=.95,
+        flex={flip_columns=120, flip_lines=20},
         horizontal={preview_width=.5},
         vertical={preview_height=.7}
       },
@@ -119,35 +133,25 @@ local function setup()
   telescope.load_extension('file_browser')
 
   -- Key mappings
-  vim.keymap.set('n', '<leader>ff',
-                 function() require('telescope.builtin').find_files() end)
+  vim.keymap.set('n', '<leader>ff', function() builtin.find_files() end)
   vim.keymap.set('n', '<leader>fg', function()
     require('telescope').extensions.live_grep_args.live_grep_args()
   end)
-  vim.keymap.set('n', '<leader>fb',
-                 function() require('telescope.builtin').buffers() end)
-  vim.keymap.set('n', '<leader>fh',
-                 function() require('telescope.builtin').help_tags() end)
+  vim.keymap.set('n', '<leader>fb', function() builtin.buffers() end)
+  vim.keymap.set('n', '<leader>fh', function() builtin.help_tags() end)
 
-  vim.keymap.set('n', '<leader>ft',
-                 function() require('telescope.builtin').filetypes() end)
-  vim.keymap.set('n', '<leader>fj',
-                 function() require('telescope.builtin').jumplist() end)
-  vim.keymap.set('n', '<leader>fl',
-                 function() require('telescope.builtin').loclist() end)
-  vim.keymap.set('n', '<leader>fq',
-                 function() require('telescope.builtin').quickfix() end)
-  vim.keymap.set('n', '<leader>fc',
-                 function() require('telescope.builtin').command_history() end)
-  vim.keymap.set('n', '<leader>fs',
-                 function() require('telescope.builtin').search_history() end)
+  vim.keymap.set('n', '<leader>ft', function() builtin.filetypes() end)
+  vim.keymap.set('n', '<leader>fj', function() builtin.jumplist() end)
+  vim.keymap.set('n', '<leader>fl', function() builtin.loclist() end)
+  vim.keymap.set('n', '<leader>fq', function() builtin.quickfix() end)
+  vim.keymap.set('n', '<leader>fc', function() builtin.command_history() end)
+  vim.keymap.set('n', '<leader>fs', function() builtin.search_history() end)
 
   vim.keymap.set('n', '<leader>gc',
-                 function() require('telescope.builtin').git_commits() end)
-  vim.keymap.set('n', '<leader>gb',
-                 function() require('telescope.builtin').git_branches() end)
+                 function() builtin.git_commits({previewer=delta_commit}) end)
+  vim.keymap.set('n', '<leader>gb', function() builtin.git_branches() end)
   vim.keymap.set('n', '<leader>gd', function()
-    require('telescope.builtin').git_files({
+    builtin.git_files({
       prompt_title='Git review files',
       git_command={
         'git',
@@ -156,19 +160,16 @@ local function setup()
         '--merge-base',
         vim.fn.expand('$REVIEW_BASE')
       },
-      previewer=delta
+      previewer=delta_file
     })
   end)
-  vim.keymap.set('n', '<leader>gf',
-                 function() require('telescope.builtin').git_status() end)
+  vim.keymap.set('n', '<leader>gf', function() builtin.git_status() end)
   vim.keymap.set('n', '<leader>gp',
-                 function() require('telescope.builtin').git_bcommits() end)
+                 function() builtin.git_bcommits({previewer=delta_commit}) end)
 
-  vim.keymap.set('n', '<leader>zl',
-                 function() require('telescope.builtin').spell_suggest() end)
+  vim.keymap.set('n', '<leader>zl', function() builtin.spell_suggest() end)
 
-  vim.keymap.set('n', '<leader><leader>',
-                 function() require('telescope.builtin').resume() end)
+  vim.keymap.set('n', '<leader><leader>', function() builtin.resume() end)
   vim.keymap.set('n', '<leader>ee', function()
     require('telescope').extensions.file_browser.file_browser()
   end)
