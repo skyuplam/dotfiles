@@ -46,7 +46,7 @@ local function setup_ts_config()
       'yaml',
       'norg'
     },
-    highlight={enable=true},
+    highlight={enable=true, disable={'javascript', 'help', 'html'}},
     indent={enable=true},
     incremental_selection={
       enable=true,

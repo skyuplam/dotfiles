@@ -3,6 +3,8 @@ local has_telescope, telescope = pcall(require, 'telescope')
 local M = {}
 
 local previewers = require('telescope.previewers')
+local builtin = require('telescope.builtin')
+local conf = require('telescope.config')
 local Job = require('plenary.job')
 
 -- Ignore binary files
@@ -15,9 +17,11 @@ local new_maker = function(filepath, bufnr, opts)
     command='file',
     args={'--mime-type', '-b', filepath},
     on_exit=function(j)
-      local mime_type = vim.split(j:result()[1], '/')[1]
+      local mime_types = vim.split(j:result()[1], '/')
+      local mime_type = mime_types[1]
+      local mime_subtype = mime_types[2]
 
-      if mime_type == 'text' then
+      if mime_type == 'text' or mime_subtype == 'json' then
         previewers.buffer_previewer_maker(filepath, bufnr, opts)
       else
         -- maybe we want to write something to the buffer here
@@ -29,11 +33,37 @@ local new_maker = function(filepath, bufnr, opts)
   }):sync()
 end
 
+local delta = previewers.new_termopen_previewer {
+  get_command=function(entry)
+    return {
+      'git',
+      '-c',
+      'core.pager=delta',
+      '-c',
+      'delta.side-by-side=false',
+      'diff',
+      'HEAD',
+      vim.fn.expand('$REVIEW_BASE'),
+      '--',
+      entry.path
+    }
+  end
+}
+
 local function setup()
   if not has_telescope then return end
 
   telescope.setup({
-    defaults={layout_strategy='flex', buffer_previewer_maker=new_maker},
+    defaults={
+      layout_strategy='flex',
+      layout_config={
+        height=.95,
+        width=.95,
+        horizontal={preview_width=.5},
+        vertical={preview_height=.7}
+      },
+      buffer_previewer_maker=new_maker
+    },
     extensions={
       fzf={
         fuzzy=true,
@@ -116,6 +146,19 @@ local function setup()
                  function() require('telescope.builtin').git_commits() end)
   vim.keymap.set('n', '<leader>gb',
                  function() require('telescope.builtin').git_branches() end)
+  vim.keymap.set('n', '<leader>gd', function()
+    require('telescope.builtin').git_files({
+      prompt_title='Git review files',
+      git_command={
+        'git',
+        'diff',
+        '--name-only',
+        'HEAD',
+        vim.fn.expand('$REVIEW_BASE')
+      },
+      previewer=delta
+    })
+  end)
   vim.keymap.set('n', '<leader>gf',
                  function() require('telescope.builtin').git_status() end)
   vim.keymap.set('n', '<leader>gp',
