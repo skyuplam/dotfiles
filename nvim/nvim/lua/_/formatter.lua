@@ -29,6 +29,23 @@ local function prettier()
   }
 end
 
+local function rome()
+  local rome_exe = './node_modules/.bin/rome'
+  if vim.fn.executable(rome_exe) == 1 then
+    return {
+      exe=rome_exe,
+      args={
+        'format',
+        -- Get file
+        '--stdin-file-path',
+        vim.api.nvim_buf_get_name(0)
+      },
+      stdin=true
+    }
+  end
+  return prettier()
+end
+
 local function shfmt() return {exe='shfmt', args={'-'}, stdin=true} end
 
 local ftConfigs = {
@@ -68,20 +85,24 @@ local commonPrettierFTs = {
   'less',
   'html',
   'yaml',
-  'java',
-  'javascript',
-  'javascript.jsx',
-  'javascriptreact',
-  'typescript',
-  'typescript.tsx',
-  'typescriptreact',
   'markdown',
   'markdown.mdx',
   'json',
   'jsonc'
 }
 
+local javascriptFTs = {
+  'javascript',
+  'javascript.jsx',
+  'javascriptreact',
+  'typescript',
+  'typescript.tsx',
+  'typescriptreact'
+}
+
 for _, ft in ipairs(commonPrettierFTs) do ftConfigs[ft] = {prettier} end
+
+for _, ft in ipairs(javascriptFTs) do ftConfigs[ft] = {rome} end
 
 local function setup()
   local formatter_group = vim.api.nvim_create_augroup('Formatter', {clear=true})
