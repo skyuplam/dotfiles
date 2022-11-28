@@ -83,6 +83,10 @@ M.setup = function()
     cmp.setup.filetype('gitcommit', {
       sources=cmp.config.sources({{name='cmp_git'}}, {{name='buffer'}})
     })
+
+    cmp.setup.filetype('norg', {
+      sources=cmp.config.sources({{name='neorg'}}, {{name='buffer'}})
+    })
     -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline({'/', '?'}, {
       mapping=cmp.mapping.preset.cmdline(),
