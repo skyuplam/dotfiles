@@ -109,7 +109,7 @@ local function setup()
   vim.api.nvim_create_autocmd('BufWritePost', {
     command='FormatWrite',
     group=formatter_group,
-    pattern='*.js,*.jsx,*.ts,*.tsx,*.rs,*.md,*.json,*.lua'
+    pattern='*.js,*.jsx,*.ts,*.tsx,*.rs,*.json,*.lua'
   })
 
   return {logging=true, filetype=ftConfigs}

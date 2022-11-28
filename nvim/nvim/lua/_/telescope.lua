@@ -4,6 +4,7 @@ local M = {}
 
 local previewers = require('telescope.previewers')
 local builtin = require('telescope.builtin')
+local actions = require('telescope.actions')
 local Job = require('plenary.job')
 
 -- Ignore binary files
@@ -76,7 +77,13 @@ local function setup()
         horizontal={preview_width=.5},
         vertical={preview_height=.7}
       },
-      buffer_previewer_maker=new_maker
+      buffer_previewer_maker=new_maker,
+      mappings={
+        i={
+          ['<C-s>']=actions.cycle_previewers_next,
+          ['<C-a>']=actions.cycle_previewers_prev
+        }
+      }
     },
     extensions={
       fzf={

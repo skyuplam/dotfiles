@@ -45,15 +45,13 @@ if has('nvim')
   endif
 
   let g:loaded_perl_provider = 0
-endif
-" }}}
-" ============================================================================
-" LOAD PLUGINS {{{
-" ============================================================================
-lua require('_.plugins')
-" Activate statusline
-lua require('_.statusline').activate()
 
+  " Load plugins via lua
+  lua require('_.plugins')
+  " Activate statusline
+  lua require('_.statusline').activate()
+
+endif
 " }}}
 " ============================================================================
 " SOURCE LOCAL SETTINGS {{{

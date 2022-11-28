@@ -13,10 +13,11 @@ function M.setup()
       ['core.defaults']={},
       ['core.gtd.base']={config={workspace='home'}},
       ['core.norg.dirman']={
-        config={workspaces={work=note_dir .. '/work', home=note_dir .. '/home'}}
+        config={workspaces={work=note_dir .. 'work', home=note_dir .. 'home'}}
       },
-      ['core.presenter']={config={zen_mode='zen-mode'}},
+      ['core.presenter']={config={zen_mode='truezen'}},
       ['core.integrations.nvim-cmp']={},
+      ['core.integrations.telescope']={},
       ['core.norg.qol.toc']={},
       ['core.norg.journal']={},
       ['core.norg.concealer']={},

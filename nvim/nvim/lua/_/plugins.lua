@@ -140,17 +140,51 @@ return require('packer').startup(function(use)
 
   use 'vim-scripts/utl.vim'
   use 'majutsushi/tagbar'
-  use 'janko/vim-test'
   use 'tpope/vim-speeddating'
   use 'chrisbra/NrrwRgn'
   use 'mattn/calendar-vim'
   use 'inkarkat/vim-SyntaxRange'
 
   use {
+    'mxsdev/nvim-dap-vscode-js',
+    requires={
+      {'mfussenegger/nvim-dap', config=function() require '_.dap' end},
+      {
+        'microsoft/vscode-js-debug',
+        opt=true,
+        run='npm install --legacy-peer-deps && npm run compile'
+      }
+    }
+  }
+
+  use {
     'nvim-neorg/neorg',
-    requires='nvim-lua/plenary.nvim',
+    run=':Neorg sync-parsers',
+    requires={'nvim-lua/plenary.nvim', 'nvim-neorg/neorg-telescope'},
     config=function() require('_.neorg').setup() end,
     after='nvim-treesitter'
+  }
+  use {'Pocco81/true-zen.nvim'}
+
+  use {
+    'akinsho/bufferline.nvim',
+    tag='v3.*',
+    requires='nvim-tree/nvim-web-devicons',
+    config=function()
+      require('bufferline').setup({
+        options={
+          diagnostics='nvim_lsp',
+          offsets={
+            {
+              filetype='NvimTree',
+              text='File Explorer',
+              text_align='center',
+              separator=true
+            }
+          }
+        }
+      })
+    end
   }
 
   -- LSP

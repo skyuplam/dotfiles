@@ -68,13 +68,6 @@ nnoremap <expr> N (v:searchforward ? 'N' : 'n') . 'zzzv'
 " Scrolling sync
 nnoremap <silent> <F9> :set scb!<CR>
 
-" vim-test
-nmap <silent> <leader>tt :TestNearest<CR>
-nmap <silent> <leader>tT :TestFile<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
-
 " Change the current working directory to the filepath of current buffer
 nnoremap <leader>cd :cd %:p:h<CR>
 
