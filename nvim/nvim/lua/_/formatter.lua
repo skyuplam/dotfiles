@@ -72,7 +72,7 @@ local ftConfigs = {
     end
   },
   rust={
-    function() return {exe='rustfmt', args={'--emit=stdout'}, stdin=true} end
+    function() return {exe='rustfmt', args={'--emit=stdout', '--edition=2021'}, stdin=true} end
   },
   nix={function() return {exe='nixpkgs-fmt', stdin=true} end},
   sh={shfmt},

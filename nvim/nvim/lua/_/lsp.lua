@@ -8,8 +8,8 @@ local has_lsp, nvim_lsp = pcall(require, 'lspconfig')
 if not has_lsp then return end
 
 local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
-local has_lspsignature, lspsignature = pcall(require 'lsp_signature')
-local has_rust_tools, rust_tools = pcall(require 'rust-tools')
+local has_lspsignature, lspsignature = pcall(require, 'lsp_signature')
+local has_rust_tools, rust_tools = pcall(require, 'rust-tools')
 local has_schemastore, schemastore = pcall(require, 'schemastore')
 local utils = require '_.utils'
 local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
@@ -30,7 +30,18 @@ if has_lspstatus then
   lspstatus.register_progress()
 end
 
-if has_rust_tools then rust_tools.setup({}); end
+if has_rust_tools then
+  local extension_path = vim.env.HOME
+                             .. '/.vscode/extensions/vadimcn.vscode-lldb-1.8.1/'
+  local codelldb_path = extension_path .. 'adapter/codelldb'
+  local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
+  rust_tools.setup({
+    dap={
+      adapter=require('rust-tools.dap').get_codelldb_adapter(codelldb_path,
+                                                             liblldb_path)
+    }
+  })
+end
 
 vim.fn.sign_define('LspDiagnosticsSignError', {
   text=utils.get_icon('error'),
