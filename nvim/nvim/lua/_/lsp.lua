@@ -9,12 +9,10 @@ if not has_lsp then return end
 
 local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
 local has_lspsignature, lspsignature = pcall(require, 'lsp_signature')
-local has_rust_tools, rust_tools = pcall(require, 'rust-tools')
 local has_schemastore, schemastore = pcall(require, 'schemastore')
+local has_rust_tools, rust_tools = pcall(require, 'rust-tools')
 local utils = require '_.utils'
 local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
-
--- if has_lspsaga then lspsaga.init_lsp_saga() end
 
 require'_.completion'.setup()
 
@@ -28,19 +26,6 @@ if has_lspstatus then
   })
 
   lspstatus.register_progress()
-end
-
-if has_rust_tools then
-  local extension_path = vim.env.HOME
-                             .. '/.vscode/extensions/vadimcn.vscode-lldb-1.8.1/'
-  local codelldb_path = extension_path .. 'adapter/codelldb'
-  local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
-  rust_tools.setup({
-    dap={
-      adapter=require('rust-tools.dap').get_codelldb_adapter(codelldb_path,
-                                                             liblldb_path)
-    }
-  })
 end
 
 vim.fn.sign_define('LspDiagnosticsSignError', {
@@ -81,7 +66,12 @@ local on_attach = function(client, bufnr)
   -- Key Mappings.
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, attach_opts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, attach_opts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts)
+  if has_rust_tools then
+    vim.keymap
+        .set('n', 'K', rust_tools.hover_actions.hover_actions, attach_opts)
+  else
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts)
+  end
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, attach_opts)
   vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, attach_opts)
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
@@ -144,12 +134,38 @@ if has_cmp_lsp then capabilities = cmp_lsp.default_capabilities(capabilities) en
 require('nlua.lsp.nvim').setup(nvim_lsp,
                                {on_attach=on_attach, globals={'vim', 'use'}})
 
--- local eslint = {
---   lintCommand='yarn eslint -f visualstudio --stdin --stdin-filename ${INPUT}',
---   lintStdin=true,
---   lintIgnoreExitCode=true,
---   lintFormats={'%f(%l,%c): %tarning %m', '%f(%l,%c): %rror %m'}
--- }
+local rust_tool_setup = function()
+  if not has_rust_tools then return end
+  local extension_path = vim.env.HOME
+                             .. '/.vscode/extensions/vadimcn.vscode-lldb-1.8.1/'
+  if vim.fn.isdirectory('/usr/lib/codelldb/') == 1 then
+    extension_path = '/usr/lib/codelldb/'
+  end
+
+  local codelldb_path = extension_path .. 'adapter/codelldb'
+  local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
+
+  rust_tools.setup({
+    tools={runnables={use_telescope=true}, debuggables={use_telescope=true}},
+    server={
+      settings={
+        ['rust-analyzer']={
+          checkOnSave={command='clippy'},
+          procMacro={enable=true}
+        }
+      },
+      standalone=false,
+
+      on_attach=on_attach
+    },
+    dap={
+      adapter=require('rust-tools.dap').get_codelldb_adapter(codelldb_path,
+                                                             liblldb_path)
+    }
+  })
+end
+
+rust_tool_setup();
 
 local prettier = {
   formatCommand='yarn prettier --stdin-filepath ${INPUT}',
@@ -256,14 +272,6 @@ local servers = {
         },
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry={enable=false}
-      }
-    }
-  },
-  rust_analyzer={
-    settings={
-      ['rust-analyzer']={
-        checkOnSave={command='clippy'},
-        procMacro={enable=true}
       }
     }
   },
