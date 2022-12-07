@@ -9,7 +9,7 @@ for_window [app_id="firefox" title="^Picture-in-Picture$"] \
     floating enable, sticky enable
 
 # Float Firefox Sharing Indicator
-for_window [app_id="firefox" title="^Firefox.* — Sharing Indicator$"] \
+for_window [app_id="firefox" title=".* — Sharing Indicator$"] \
     floating enable, sticky enable
 
 for_window [title="^Picture in picture$"] \
