@@ -110,6 +110,7 @@ return require('packer').startup(function(use)
       {'nvim-telescope/telescope-frecency.nvim', requires={'tami5/sqlite.lua'}},
       {'nvim-telescope/telescope-ui-select.nvim'},
       {'nvim-telescope/telescope-file-browser.nvim'},
+      {'nvim-telescope/telescope-dap.nvim'},
       {'nvim-telescope/telescope-live-grep-args.nvim'}
     },
     config=function() require('_.telescope').setup() end
@@ -170,21 +171,7 @@ return require('packer').startup(function(use)
     'akinsho/bufferline.nvim',
     tag='v3.*',
     requires='nvim-tree/nvim-web-devicons',
-    config=function()
-      require('bufferline').setup({
-        options={
-          diagnostics='nvim_lsp',
-          offsets={
-            {
-              filetype='NvimTree',
-              text='File Explorer',
-              text_align='center',
-              separator=true
-            }
-          }
-        }
-      })
-    end
+    config=function() require('_.bufferline').setup() end
   }
 
   -- LSP
