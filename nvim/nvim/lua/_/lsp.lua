@@ -16,6 +16,26 @@ local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 
 require'_.completion'.setup()
 
+-- UI Customization
+local border = {
+  {'╭', 'FloatBorder'},
+  {'─', 'FloatBorder'},
+  {'╮', 'FloatBorder'},
+  {'│', 'FloatBorder'},
+  {'╯', 'FloatBorder'},
+  {'─', 'FloatBorder'},
+  {'╰', 'FloatBorder'},
+  {'│', 'FloatBorder'}
+}
+-- To instead override globally
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
+-- Status bar
 if has_lspstatus then
   lspstatus.config({
     indicator_errors=utils.get_icon('error'),
@@ -28,33 +48,18 @@ if has_lspstatus then
   lspstatus.register_progress()
 end
 
-vim.fn.sign_define('LspDiagnosticsSignError', {
-  text=utils.get_icon('error'),
-  texthl='LspDiagnosticsDefaultError',
-  linehl='',
-  numhl=''
-})
+-- Change diagnostic symbols in the sign column
+local signs = {
+  Error=utils.get_icon('error'),
+  Warn=utils.get_icon('warn'),
+  Hint=utils.get_icon('hint'),
+  Info=utils.get_icon('info')
+}
 
-vim.fn.sign_define('LspDiagnosticsSignWarning', {
-  text=utils.get_icon('warn'),
-  texthl='LspDiagnosticsDefaultWarning',
-  linehl='',
-  numhl=''
-})
-
-vim.fn.sign_define('LspDiagnosticsSignInformation', {
-  text=utils.get_icon('info'),
-  texthl='LspDiagnosticsDefaultInformation',
-  linehl='',
-  numhl=''
-})
-
-vim.fn.sign_define('LspDiagnosticsSignHint', {
-  text=utils.get_icon('hint'),
-  texthl='LspDiagnosticsDefaultHint',
-  linehl='',
-  numhl=''
-})
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, {text=icon, texthl=hl, numhl=hl})
+end
 
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -122,7 +127,13 @@ local select_symbol = function(cursor_pos, symbol)
 end
 
 -- Diagnostic settings
-vim.diagnostic.config {virtual_text=true, signs=true, update_in_insert=true}
+vim.diagnostic.config {
+  severity_sort=false,
+  signs=true,
+  underline=true,
+  update_in_insert=true,
+  virtual_text=true
+}
 
 -- Enable (broadcasting) snippet capability for completion
 local capabilities = has_lspstatus and lspstatus.capabilities
