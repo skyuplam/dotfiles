@@ -133,11 +133,13 @@ local function setup()
     }
   })
 
+  -- Load plugins
   telescope.load_extension('frecency')
   telescope.load_extension('fzf')
   telescope.load_extension('ui-select')
   telescope.load_extension('live_grep_args')
   telescope.load_extension('file_browser')
+  telescope.load_extension('dap')
 
   -- Key mappings
   vim.keymap.set('n', '<leader>ff', function() builtin.find_files() end)
@@ -188,6 +190,6 @@ local function setup()
   end)
 end
 
-function M.setup() setup() end
+function M.setup() setup(); end
 
 return M
