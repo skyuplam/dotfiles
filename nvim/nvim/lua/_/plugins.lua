@@ -65,6 +65,8 @@ return require('packer').startup(function(use)
     config=function() require('_.indent').setup() end
   }
 
+  use {'m-demare/hlargs.nvim', requires={'nvim-treesitter/nvim-treesitter'}}
+
   use {'kevinhwang91/nvim-bqf'}
   use {
     'kyazdani42/nvim-tree.lua',
@@ -259,7 +261,10 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-vsnip',
       'andersevenrud/cmp-tmux',
-      'onsails/lspkind-nvim'
+      'onsails/lspkind-nvim',
+      'dmitmel/cmp-cmdline-history',
+      'f3fora/cmp-spell',
+      'lukas-reineke/cmp-rg'
     }
   }
 
@@ -268,41 +273,11 @@ return require('packer').startup(function(use)
       'lewis6991/gitsigns.nvim',
       config=function()
         require('gitsigns').setup({
-          signs={
-            add={
-              hl='GitSignsAdd',
-              text='│',
-              numhl='GitSignsAddNr',
-              linehl='GitSignsAddLn'
-            },
-            change={
-              hl='GitSignsChange',
-              text='│',
-              numhl='GitSignsChangeNr',
-              linehl='GitSignsChangeLn'
-            },
-            delete={
-              hl='GitSignsDelete',
-              text='_',
-              numhl='GitSignsDeleteNr',
-              linehl='GitSignsDeleteLn'
-            },
-            topdelete={
-              hl='GitSignsDelete',
-              text='‾',
-              numhl='GitSignsDeleteNr',
-              linehl='GitSignsDeleteLn'
-            },
-            changedelete={
-              hl='GitSignsChange',
-              text='~',
-              numhl='GitSignsChangeNr',
-              linehl='GitSignsChangeLn'
-            }
-          },
           signcolumn=true, -- Toggle with `:Gitsigns toggle_signs`
           numhl=false, -- Toggle with `:Gitsigns toggle_numhl`
           linehl=false, -- Toggle with `:Gitsigns toggle_linehl`
+          _threaded_diff=true, -- Run diffs on a separate thread
+          _extmark_signs=true, -- Use extmarks for placing signs
           word_diff=false, -- Toggle with `:Gitsigns toggle_word_diff`
           watch_gitdir={interval=1000, follow_files=true},
           attach_to_untracked=true,
@@ -361,7 +336,7 @@ return require('packer').startup(function(use)
           max_file_length=40000,
           preview_config={
             -- Options passed to nvim_open_win
-            border='single',
+            border=require('_.utils').border,
             style='minimal',
             relative='cursor',
             row=0,

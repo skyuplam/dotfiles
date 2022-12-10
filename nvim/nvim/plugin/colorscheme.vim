@@ -20,7 +20,7 @@ hi User5 ctermfg=Red guifg=Red
 hi User6 ctermfg=Yellow guifg=Yellow
 hi User7 ctermfg=Cyan guifg=Cyan
 hi User8 ctermfg=LightBlue guifg=LightBlue
-hi NormalFloat cterm=NONE ctermbg=0 gui=NONE guibg=#000000
+hi NormalFloat guibg=#3c3836
 
 hi NeogitNotificationInfo guifg=#80ff95
 hi NeogitNotificationWarning guifg=#fff454

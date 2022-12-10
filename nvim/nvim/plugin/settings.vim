@@ -109,7 +109,7 @@ if executable('rg')
 endif
 
 set complete+=kspell
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 
 " Open splits more naturally
 set splitbelow
