@@ -19,11 +19,11 @@ local function setup_ts_config()
       'go',
       'gomod',
       'haskell',
-      'help',
+      -- 'help',
       'hjson',
       'html',
       'http',
-      'javascript',
+      -- 'javascript',
       'jsdoc',
       'json',
       'json5',
@@ -46,8 +46,9 @@ local function setup_ts_config()
       'yaml',
       'norg'
     },
-    highlight={enable=true, disable={'javascript', 'help', 'html'}},
+    highlight={enable=true},
     indent={enable=true},
+    matchup={enable=true, disable={'javascript'}},
     incremental_selection={
       enable=true,
       keymaps={

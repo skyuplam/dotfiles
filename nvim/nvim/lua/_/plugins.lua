@@ -49,7 +49,12 @@ return require('packer').startup(function(use)
   use {'sheerun/vim-polyglot'}
   use {
     'nvim-treesitter/nvim-treesitter',
-    run=':TSUpdate',
+    run=function()
+      local ts_update = require('nvim-treesitter.install').update({
+        with_sync=true
+      })
+      ts_update()
+    end,
     config=function() require('_.treesitter').setup() end,
     requires={
       {'p00f/nvim-ts-rainbow'},
@@ -58,13 +63,27 @@ return require('packer').startup(function(use)
       {'nvim-treesitter/nvim-treesitter-context', after='nvim-treesitter'}
     }
   }
-  use {'gruvbox-community/gruvbox'}
+  use {
+    'gruvbox-community/gruvbox',
+    config=function()
+      vim.g.gruvbox_italic = 1
+      vim.g.gruvbox_contrast_dark = 'hard'
+      vim.g.gruvbox_italicize_comments = 1
+      vim.g.gruvbox_italicize_strings = 1
+    end
+  }
+  use {'folke/tokyonight.nvim'}
   use {'vim-jp/syntax-vim-ex'}
   use {
     'lukas-reineke/indent-blankline.nvim',
     config=function() require('_.indent').setup() end
   }
 
+  use {
+    'danymat/neogen',
+    config=function() require('neogen').setup({}) end,
+    requires='nvim-treesitter/nvim-treesitter'
+  }
   use {'m-demare/hlargs.nvim', requires={'nvim-treesitter/nvim-treesitter'}}
 
   use {'kevinhwang91/nvim-bqf'}
@@ -83,11 +102,22 @@ return require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'tpope/vim-sleuth'
 
-  -- use 'ggandor/lightspeed.nvim'
+  -- use {
+  --   'nvim-neotest/neotest',
+  --   requires={
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-treesitter/nvim-treesitter',
+  --     'antoinemadec/FixCursorHold.nvim'
+  --   }
+  -- }
+
+  -- Neovim setup for init.lua and plugin development with full signature help,
+  -- docs and completion for the nvim lua API
+  use {'folke/neodev.nvim'}
 
   use 'godlygeek/tabular'
 
-  use {'kamykn/spelunker.vim', requires='kamykn/popup-menu.nvim'}
+  use {'kamykn/spelunker.vim'}
   use {
     'lewis6991/spellsitter.nvim',
     config=function() require('spellsitter').setup() end
@@ -118,10 +148,10 @@ return require('packer').startup(function(use)
     config=function() require('_.telescope').setup() end
   }
   use 'ryanoasis/vim-devicons'
-  use {
-    'norcalli/nvim-colorizer.lua',
-    config=function() require('colorizer').setup() end
-  }
+  -- use {
+  --   'norcalli/nvim-colorizer.lua',
+  --   config=function() require('colorizer').setup() end
+  -- }
 
   use {
     '~/dev/vim-redact-pass',
@@ -176,6 +206,8 @@ return require('packer').startup(function(use)
     config=function() require('_.bufferline').setup() end
   }
 
+  use {'echasnovski/mini.nvim'}
+
   -- LSP
   use {
     'neovim/nvim-lspconfig',
@@ -196,6 +228,7 @@ return require('packer').startup(function(use)
       },
       {'b0o/schemastore.nvim'},
       {'j-hui/fidget.nvim', config=function() require('fidget').setup() end},
+      {'dnlhc/glance.nvim', config=function() require('_.glance').setup() end},
       {
         'folke/lsp-trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',
@@ -361,6 +394,14 @@ return require('packer').startup(function(use)
   }
 
   use {'Shougo/deol.nvim'}
+
+  use {
+    'feline-nvim/feline.nvim',
+    config=function()
+      vim.o.termguicolors = true;
+      require('feline').setup({theme={bg='NONE'}})
+    end
+  }
 
   -- configure Neovim to automatically run :PackerCompile whenever plugins.lua is updated
   local packer_au_group = vim.api.nvim_create_augroup('packer_au_group',

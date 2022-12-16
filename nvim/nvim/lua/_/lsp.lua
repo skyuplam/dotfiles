@@ -13,6 +13,7 @@ local has_schemastore, schemastore = pcall(require, 'schemastore')
 local has_rust_tools, rust_tools = pcall(require, 'rust-tools')
 local utils = require '_.utils'
 local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+local has_neodev, neodev = pcall(require, 'neodev')
 
 require'_.completion'.setup()
 
@@ -121,7 +122,7 @@ vim.diagnostic.config {
   signs=true,
   underline=true,
   update_in_insert=true,
-  virtual_text=true
+  virtual_text={only_current_line=true}
 }
 
 -- Enable (broadcasting) snippet capability for completion
@@ -130,6 +131,25 @@ local capabilities = has_lspstatus and lspstatus.capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- nvim-cmp
 if has_cmp_lsp then capabilities = cmp_lsp.default_capabilities(capabilities) end
+
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+if has_neodev then
+  neodev.setup({
+    library={
+      enabled=true,
+      runtime={
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version='LuaJIT',
+        -- Setup your lua path
+        path=vim.split(package.path, ';')
+      },
+      type=true,
+      plugins=true
+    },
+    setup_jsonls=true,
+    lspconfig=true
+  })
+end
 
 require('nlua.lsp.nvim').setup(nvim_lsp,
                                {on_attach=on_attach, globals={'vim', 'use'}})
@@ -270,6 +290,7 @@ local servers = {
           -- Make the server aware of Neovim runtime files
           library=vim.api.nvim_get_runtime_file('', true)
         },
+        completion={callSnippet='Replace'},
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry={enable=false}
       }

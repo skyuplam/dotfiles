@@ -2,7 +2,7 @@ local has_neorg, neorg = pcall(require, 'neorg')
 
 local M = {}
 
-local note_dir = vim.g.zettel_note_dir or '~/notes'
+local note_dir = '~/Dropbox/notes/'
 
 function M.setup()
 

@@ -4,14 +4,14 @@ local utils = require '_.utils'
 
 local M = {}
 
-local check_back_space = function()
-  local col = vim.fn.col('.') - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-    return true
-  else
-    return false
-  end
-end
+-- local check_back_space = function()
+--   local col = vim.fn.col('.') - 1
+--   if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+--     return true
+--   else
+--     return false
+--   end
+-- end
 
 local format = {}
 
