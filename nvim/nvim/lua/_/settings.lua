@@ -12,8 +12,8 @@ opt.shortmess = {
   T=true, -- truncate non-file messages in middle
   f=true, -- (file x of x) instead of just (x of x
   F=true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
-  s=true,
-  c=true,
+  s=true, -- No search end msg
+  c=true, -- No completion msg
   W=true -- Don't show [w] or written when writing
 }
 
@@ -121,8 +121,7 @@ o.pumhwight = 15
 o.gdefault = true
 o.confirm = true -- vim prompt to save
 
-opt.complete:append({'kspell'})
-opt.completeopt = {'menu', 'menuone', 'noselect'}
+opt.completeopt = {'menu', 'menuone', 'noinsert', 'noselect'}
 opt.clipboard = {'unnamedplus'}
 o.emoji = false
 
@@ -191,9 +190,12 @@ opt.spelloptions:append({'camel', 'noplainbuffer'})
 o.spellcapcheck = '' -- don't check for capital letters at start of sentence
 opt.fileformats = {'unix', 'mac', 'dos'}
 opt.spelllang:append({'en', 'nb', 'cjk'})
+opt.complete:append('kspell')
 -----------------------------------------------------------------------------
 --  BASIC SETTINGS {{{1
 -----------------------------------------------------------------------------
+o.encoding = 'utf-8'
+o.fileencoding = 'utf-8'
 --  if hidden is not set, TextEdit might fail.
 o.hidden = true
 o.tagcase = 'followscs'
@@ -212,6 +214,7 @@ o.exrc = false -- Allow project local vimrc files example .nvimrc see :h exrc
 opt.jumpoptions = {'stack'}
 
 o.inccommand = 'nosplit'
+o.incsearch = true
 o.showmode = false
 
 -- Use one space, not two, after punctuation
@@ -224,6 +227,8 @@ o.relativenumber = true
 o.number = true
 
 o.synmaxcol = 300
+o.background = 'dark'
+o.termguicolors = true
 
 -------------------------------------------------------------------------------
 -- BACKUP AND SWAPS {{{
