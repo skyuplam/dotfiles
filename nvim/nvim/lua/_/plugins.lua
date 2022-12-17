@@ -397,10 +397,7 @@ return require('packer').startup(function(use)
 
   use {
     'feline-nvim/feline.nvim',
-    config=function()
-      vim.o.termguicolors = true;
-      require('feline').setup({theme={bg='NONE'}})
-    end
+    config=function() require('feline').setup({theme={bg='NONE'}}) end
   }
 
   -- configure Neovim to automatically run :PackerCompile whenever plugins.lua is updated

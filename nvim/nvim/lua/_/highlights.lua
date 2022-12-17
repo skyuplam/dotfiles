@@ -127,7 +127,10 @@ function M.set(namespace, name, opts)
     end
   end
 
-  api.nvim_set_hl(namespace, name, hl)
+  if not pcall(api.nvim_set_hl, namespace, name, hl) then
+    print(namespace, name, hl)
+  end
+  -- api.nvim_set_hl(namespace, name, hl)
 end
 
 --- Set window local highlights
@@ -235,7 +238,7 @@ end
 
 local function general_overrides()
   M.all({
-    {Dim={foreground={from='Normal', attr='bg', alter=25}}},
+    -- {Dim={foreground={from='Normal', attr='bg', alter=25}}},
     {VertSplit={fg={from='Comment'}}},
     {WinSeparator={fg={from='Comment'}}},
     {mkdLineBreak={link='NONE'}},
@@ -244,7 +247,7 @@ local function general_overrides()
     -----------------------------------------------------------------------------//
     -- Commandline
     -----------------------------------------------------------------------------//
-    {MsgArea={background={from='Normal', alter=-10}}},
+    {MsgArea={background='NONE'}},
     {MsgSeparator={link='MsgArea'}},
     -----------------------------------------------------------------------------//
     -- Floats
@@ -253,19 +256,13 @@ local function general_overrides()
     {FloatBorder={bg='NONE', fg={from='Comment'}}},
     {Pmenu={link='NormalFloat'}},
     -----------------------------------------------------------------------------//
-    {CodeBlock={background={from='Normal', alter=30}}},
+    {CodeBlock={background='NONE'}},
     {markdownCode={link='CodeBlock'}},
     {markdownCodeBlock={link='CodeBlock'}},
-    {
-      CurSearch={
-        background={from='String', attr='fg'},
-        foreground='white',
-        bold=true
-      }
-    },
+    {CurSearch={background='NONE', foreground='white', bold=true}},
     {CursorLineNr={inherit='CursorLine', bold=true}},
     {CursorLineSign={link='CursorLine'}},
-    {FoldColumn={background='bg'}},
+    {FoldColumn={background='NONE'}},
     {TermCursor={ctermfg='green', foreground='royalblue'}},
     -- Add undercurl to existing spellbad highlight
     {
@@ -277,8 +274,8 @@ local function general_overrides()
       }
     },
     {SpellRare={undercurl=true}},
-    {PmenuSbar={background=P.grey}},
-    {PmenuThumb={background={from='Comment', attr='fg'}}},
+    {PmenuSbar={background='NONE'}},
+    {PmenuThumb={background='NONE'}},
     -----------------------------------------------------------------------------//
     -- Diff
     -----------------------------------------------------------------------------//
@@ -429,13 +426,13 @@ end
 
 local function set_sidebar_highlight()
   M.all({
-    {PanelDarkBackground={bg={from='Normal', alter=-42}}},
+    {PanelDarkBackground={bg='NONE'}},
     {PanelDarkHeading={inherit='PanelDarkBackground', bold=true}},
-    {PanelBackground={background={from='Normal', alter=-8}}},
+    {PanelBackground={background='NONE'}},
     {PanelHeading={inherit='PanelBackground', bold=true}},
     {PanelWinSeparator={inherit='PanelBackground', fg={from='WinSeparator'}}},
     {PanelStNC={link='PanelWinSeparator'}},
-    {PanelSt={background={from='Visual', alter=-20}}}
+    {PanelSt={background='NONE'}}
   })
 end
 
@@ -463,10 +460,10 @@ end
 
 local function colorscheme_overrides()
   local overrides = {
-    ['gruvbox']={
-      {Normal={background='NONE'}},
-      {CursorLineNr={foreground={from='Keyword'}}},
-      {LineNr={background='NONE'}}
+    ['tokyonight']={
+      -- {TelescopeNormal={background='NONE'}},
+      -- {TelescopeBorder={background='NONE'}},
+      -- {NvimTreeNormal={background='NONE'}}
     }
   }
   local hls = overrides[vim.g.colors_name]
@@ -493,7 +490,6 @@ function M.setup()
     group=highlight_group,
     pattern=sidebar_fts
   })
-  vim.o.background = 'dark'
   local has_tokyonight, tokyonight = pcall(require, 'tokyonight')
   if not has_tokyonight then return end
   tokyonight.setup({
@@ -501,7 +497,7 @@ function M.setup()
     -- or leave it empty to use the default settings
     style='storm', -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
     light_style='day', -- The theme is used when the background is set to light
-    transparent=false, -- Enable this to disable setting the background color
+    transparent=true, -- Enable this to disable setting the background color
     terminal_colors=true, -- Configure the colors used when opening a `:terminal` in Neovim
     styles={
       -- Style to be applied to different syntax groups
@@ -511,11 +507,9 @@ function M.setup()
       functions={},
       variables={},
       -- Background styles. Can be "dark", "transparent" or "normal"
-      sidebars='dark', -- style for sidebars, see below
-      floats='dark' -- style for floating windows
+      sidebars='transparent', -- style for sidebars, see below
+      floats='transparent' -- style for floating windows
     },
-    sidebars={'qf', 'help'}, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-    day_brightness=0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
     hide_inactive_statusline=false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
     dim_inactive=true -- dims inactive windows
   })
