@@ -57,7 +57,6 @@ return require('packer').startup(function(use)
     end,
     config=function() require('_.treesitter').setup() end,
     requires={
-      {'p00f/nvim-ts-rainbow'},
       {'nvim-treesitter/nvim-treesitter-refactor', after='nvim-treesitter'},
       {'nvim-treesitter/nvim-treesitter-textobjects', after='nvim-treesitter'},
       {'nvim-treesitter/nvim-treesitter-context', after='nvim-treesitter'}
@@ -131,7 +130,6 @@ return require('packer').startup(function(use)
   -- Quickfix
   use {'Olical/vim-enmasse', cmd='EnMasse'}
 
-  use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
   -- use 'junegunn/fzf.vim'
   use {
@@ -206,7 +204,15 @@ return require('packer').startup(function(use)
     config=function() require('_.bufferline').setup() end
   }
 
-  use {'echasnovski/mini.nvim'}
+  use {
+    'echasnovski/mini.nvim',
+    config=function()
+      require('mini.ai').setup({})
+      require('mini.align').setup({})
+      require('mini.surround').setup({})
+      require('mini.bufremove').setup({})
+    end
+  }
 
   -- LSP
   use {
