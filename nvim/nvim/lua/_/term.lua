@@ -5,7 +5,13 @@ local M = {}
 function M.setup()
   if not has_toggle_term then return end
   local Terminal = require('toggleterm.terminal').Terminal
-  local tig = Terminal:new({cmd='tig', hidden=true})
+  local utils = require('_.utils')
+  local tig = Terminal:new({
+    cmd='tig status',
+    hidden=true,
+    direction='float',
+    float_opts={border=utils.border}
+  })
 
   local function toggleTig() tig:toggle() end
 
