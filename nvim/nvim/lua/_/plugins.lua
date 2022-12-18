@@ -40,11 +40,6 @@ return require('packer').startup(function(use)
     cmd={'Dispatch', 'Make', 'Focus', 'Start'}
   }
   use {'andymass/vim-matchup', event='VimEnter *'}
-  use {
-    'iamcco/markdown-preview.nvim',
-    run='cd app && yarn install',
-    cmd='MarkdownPreview'
-  }
 
   use {'sheerun/vim-polyglot'}
   use {
@@ -165,9 +160,6 @@ return require('packer').startup(function(use)
   use 'junegunn/gv.vim'
   use 'junegunn/vim-peekaboo'
   use 'junegunn/vim-easy-align'
-
-  use 'plasticboy/vim-markdown'
-  use 'mzlogin/vim-markdown-toc'
 
   use 'vim-scripts/utl.vim'
   use 'majutsushi/tagbar'
@@ -391,11 +383,11 @@ return require('packer').startup(function(use)
     --   cmd={'Tig', 'TigStatus'},
     --   requires='rbgrouleff/bclose.vim'
     -- },
-    {
-      'TimUntersberger/neogit',
-      config=function() require('_.git').setup() end,
-      requires='nvim-lua/plenary.nvim'
-    },
+    -- {
+    --   'TimUntersberger/neogit',
+    --   config=function() require('_.git').setup() end,
+    --   requires='nvim-lua/plenary.nvim'
+    -- },
     {'sindrets/diffview.nvim', requires='nvim-lua/plenary.nvim'}
   }
 
@@ -404,7 +396,7 @@ return require('packer').startup(function(use)
   use {
     'akinsho/toggleterm.nvim',
     tag='*',
-    config=function() require('toggleterm').setup() end
+    config=function() require('_.term').setup() end
   }
 
   use {
@@ -455,7 +447,7 @@ return require('packer').startup(function(use)
       require('feline').setup({
         theme=colors,
         vi_mode_colors=vi_mode_colors,
-        force_inactive={filetypes={'NvimTree', 'packer', 'NeogitStatus'}}
+        force_inactive={filetypes={'NvimTree', 'packer'}}
       })
     end
   }
