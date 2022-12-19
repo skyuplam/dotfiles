@@ -113,7 +113,7 @@ opt.wildignore = {
 }
 o.wildoptions = 'pum'
 o.pumblend = 0 -- Make popup window translucent
-o.pumhwight = 15
+o.pumheight = 15
 
 -----------------------------------------------------------------------------
 -- Wild and file globbing 

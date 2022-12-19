@@ -83,6 +83,10 @@ local function setup()
           ['<C-s>']=actions.cycle_previewers_next,
           ['<C-a>']=actions.cycle_previewers_prev
         }
+      },
+      history={
+        limit=100,
+        path=string.format('%s/telescope_history.sqlite3', vim.fn.stdpath 'data')
       }
     },
     extensions={
@@ -140,6 +144,7 @@ local function setup()
   telescope.load_extension('live_grep_args')
   telescope.load_extension('file_browser')
   telescope.load_extension('dap')
+  telescope.load_extension('smart_history')
 
   -- Key mappings
   vim.keymap.set('n', '<leader>ff', function() builtin.find_files() end)
@@ -155,6 +160,17 @@ local function setup()
   vim.keymap.set('n', '<leader>fq', function() builtin.quickfix() end)
   vim.keymap.set('n', '<leader>fc', function() builtin.command_history() end)
   vim.keymap.set('n', '<leader>fs', function() builtin.search_history() end)
+
+  -- LSP
+  vim.keymap.set('n', '<leader>lr', function() builtin.lsp_references() end)
+  vim.keymap
+      .set('n', '<leader>li', function() builtin.lsp_implementations() end)
+  vim.keymap.set('n', '<leader>ld', function() builtin.lsp_definitions() end)
+  vim.keymap.set('n', '<leader>ly',
+                 function() builtin.lsp_type_definitions() end)
+  vim.keymap.set('n', '<leader>lc', function() builtin.lsp_incoming_calls() end)
+  vim.keymap.set('n', '<leader>lC', function() builtin.lsp_outgoing_calls() end)
+  vim.keymap.set('n', '<leader>lD', function() builtin.diagnostics() end)
 
   vim.keymap.set('n', '<leader>gc',
                  function() builtin.git_commits({previewer=delta_commit}) end)

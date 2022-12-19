@@ -100,7 +100,11 @@ return require('packer').startup(function(use)
       {'nvim-telescope/telescope-ui-select.nvim'},
       {'nvim-telescope/telescope-file-browser.nvim'},
       {'nvim-telescope/telescope-dap.nvim'},
-      {'nvim-telescope/telescope-live-grep-args.nvim'}
+      {'nvim-telescope/telescope-live-grep-args.nvim'},
+      {
+        'nvim-telescope/telescope-smart-history.nvim',
+        requires={'tami5/sqlite.lua'}
+      }
     },
     config=function() require('tl.telescope').setup() end
   }
@@ -197,7 +201,6 @@ return require('packer').startup(function(use)
       },
       {'b0o/schemastore.nvim'},
       {'j-hui/fidget.nvim', config=function() require('fidget').setup() end},
-      {'dnlhc/glance.nvim', config=function() require('tl.glance').setup() end},
       {
         'folke/trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',
@@ -205,12 +208,6 @@ return require('packer').startup(function(use)
           require('trouble').setup({})
 
           vim.keymap.set('n', '<leader>lx', '<cmd>TroubleToggle<CR>',
-                         {silent=true, noremap=true})
-          vim.keymap.set('n', '<leader>lw',
-                         '<cmd>TroubleToggle workspace_diagnostics<CR>',
-                         {silent=true, noremap=true})
-          vim.keymap.set('n', '<leader>ld',
-                         '<cmd>TroubleToggle document_diagnostics<CR>',
                          {silent=true, noremap=true})
         end
       }
