@@ -76,18 +76,7 @@ _G.tl = tl or namespace
 -- Order matters here as globals needs to be instantiated first etc.
 R('tl.styles')
 R('tl.settings')
+if require('tl.prepare')() then return end
 if vim.fn.filereadable('tl.local') == 1 then R('tl.local') end
 R('tl.highlights')
 R('tl.plugins')
-
--- configure Neovim to automatically run :PackerCompile whenever plugins.lua is updated
-local packer_au_group = vim.api.nvim_create_augroup('packer_au_group',
-                                                    {clear=true})
-vim.api.nvim_create_autocmd('BufWritePost', {
-  pattern='plugins.lua',
-  group=packer_au_group,
-  callback=function()
-    R('init.lua')
-    vim.api.nvim_command('PackerCompile')
-  end
-})

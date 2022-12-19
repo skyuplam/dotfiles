@@ -1,36 +1,11 @@
 -- vim: set foldmethod=marker foldlevel=0 nomodeline:
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 -- ============================================================================
---  Bootstrap for packer {{{
--- ============================================================================
--- Note that this will install packer as an opt plugin; if you want packer to be
--- a start plugin, you must modify the value of install_path in the above
--- snippet.
-local fn = vim.fn
-local packer_bootstrap
-local install_path = fn.stdpath('data') .. '/site/pack/packer/opt/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({
-    'git',
-    'clone',
-    '--depth',
-    '1',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path
-  })
-end
-
--- }}}
--- ============================================================================
 --  Plugins {{{
 -- ============================================================================
-
--- Only required if you have packer in your `opt` pack
-vim.api.nvim_command('packadd packer.nvim')
-
 return require('packer').startup(function(use)
-  use 'lewis6991/impatient.nvim'
-  use {'wbthomason/packer.nvim', opt=true}
+  -- use 'lewis6991/impatient.nvim'
+  use {'wbthomason/packer.nvim'}
 
   use {
     'tpope/vim-dispatch',
@@ -423,17 +398,5 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- configure Neovim to automatically run :PackerCompile whenever plugins.lua is updated
-  -- local packer_au_group = vim.api.nvim_create_augroup('packer_au_group',
-  --                                                     {clear=true})
-  -- vim.api.nvim_create_autocmd('BufWritePost', {
-  --   pattern='plugins.lua',
-  --   group=packer_au_group,
-  --   command='source <afile> | PackerCompile'
-  -- })
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then require('packer').sync() end
 end)
 ---}}}
