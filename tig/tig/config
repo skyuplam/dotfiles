@@ -26,11 +26,17 @@ set show-changes = no
 bind generic S :source ~/.config/tig/config
 
 # Rebase -i
-bind main R ?git rebase -i %(commit)
 
-# Fetch
-bind generic F ?git fetch
-bind main F ?git fetch
+# Git commands
+bind generic , none
+bind generic ,f ?git fetch
+bind generic ,p ?git push
+bind generic ,P ?git push --force-with-lease
+bind generic ,u ?git pull --rebase
+bind generic ,r ?git rebase -i origin/main
+bind generic ,c !git commit
+bind generic ,a ?git commit --amend
+bind generic ,A ?git commit --fixup reword:%(commit)
 
 # Enter Git’s interactive add for fine-grained staging of file content
 bind generic I !git add -i %(file)
@@ -115,10 +121,6 @@ bind generic um status-merge
 bind generic ul stage-update-line
 bind generic up stage-update-part
 bind generic us stage-split-chunk
-
-bind generic c  none
-bind generic cc !git commit
-bind generic ca !?@git commit --amend --no-edit
 
 bind generic K view-help
 bind generic <C-w><C-w> view-next
