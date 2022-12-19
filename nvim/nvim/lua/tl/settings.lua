@@ -256,7 +256,7 @@ else
   o.backupcopy = 'auto'
   -- consolidate the writebackups -- not a big
   -- deal either way, since they usually get deleted
-  o.backupdir = fn.expand('$XDG_DATA_HOME/nvim/backup') .. o.backupdir
+  o.backupdir = fn.expand('$XDG_DATA_HOME/nvim/backup//') .. o.backupdir
 end
 
 if fn.exists('$SUDO_USER') > 0 then
@@ -265,14 +265,20 @@ if fn.exists('$SUDO_USER') > 0 then
 else
   -- persist the undo tree for each file
   o.undofile = true
-  o.undodir = fn.expand('$XDG_DATA_HOME/nvim/undo') .. o.undodir
+  o.undodir = fn.expand('$XDG_DATA_HOME/nvim/undo//') .. o.undodir
 end
 
 if fn.exists('$SUDO_USER') > 0 then
   -- don't create root-owned files
   o.shada = ''
 else
-  -- default in nvim: !,'100,<50,s10,h
+  -- Defaults:
+  --   Neovim: !,'100,<50,s10,h
+  -- - ! save/restore global variables (only all-uppercase variables)
+  -- - '100 save/restore marks from last 100 files
+  -- - <50 save/restore 50 lines from each register
+  -- - s10 max item size 10KB
+  -- - h do not save/restore 'hlsearch' setting
   o.shada = '!,\'100,<500,:10000,/10000,s10,h'
   local shada_group = vim.api.nvim_create_augroup('MyNeovimShada', {clear=true})
   vim.api.nvim_create_autocmd({'CursorHold', 'FocusGained', 'FocusLost'}, {
