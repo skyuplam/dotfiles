@@ -1,32 +1,63 @@
 ----------------------------------------------------------------------------------------------------
 -- Styles
 ----------------------------------------------------------------------------------------------------
--- Consistent store of various UI items to reuse throughout my config
+-- https://github.com/folke/tokyonight.nvim/blob/main/extras/lua/tokyonight_storm.lua
 local palette = {
-  green='#98c379',
-  dark_green='#10B981',
-  blue='#82AAFE',
-  dark_blue='#4e88ff',
-  bright_blue='#51afef',
-  teal='#15AABF',
-  pale_pink='#b490c0',
-  magenta='#c678dd',
-  pale_red='#E06C75',
-  light_red='#c43e1f',
-  dark_red='#be5046',
-  dark_orange='#FF922B',
-  bright_yellow='#FAB005',
-  light_yellow='#e5c07b',
-  whitesmoke='#9E9E9E',
-  light_gray='#626262',
-  comment_grey='#5c6370',
-  grey='#3E4556'
+  bg='#24283b',
+  bg_dark='#1f2335',
+  bg_float='#1f2335',
+  bg_highlight='#292e42',
+  bg_popup='#1f2335',
+  bg_search='#3d59a1',
+  bg_sidebar='#1f2335',
+  bg_statusline='#1f2335',
+  bg_visual='#364a82',
+  black='#1d202f',
+  blue='#7aa2f7',
+  blue0='#3d59a1',
+  blue1='#2ac3de',
+  blue2='#0db9d7',
+  blue5='#89ddff',
+  blue6='#b4f9f8',
+  blue7='#394b70',
+  border='#1d202f',
+  border_highlight='#29a4bd',
+  comment='#565f89',
+  cyan='#7dcfff',
+  dark3='#545c7e',
+  dark5='#737aa2',
+  diff={add='#283b4d', change='#272d43', delete='#3f2d3d', text='#394b70'},
+  error='#db4b4b',
+  fg='#c0caf5',
+  fg_dark='#a9b1d6',
+  fg_float='#a9b1d6',
+  fg_gutter='#3b4261',
+  fg_sidebar='#a9b1d6',
+  git={add='#4097a3', change='#506d9b', delete='#c47981', ignore='#545c7e'},
+  gitSigns={add='#399a96', change='#6382bd', delete='#c25d64'},
+  green='#9ece6a',
+  green1='#73daca',
+  green2='#41a6b5',
+  hint='#1abc9c',
+  info='#0db9d7',
+  magenta='#bb9af7',
+  magenta2='#ff007c',
+  none='NONE',
+  orange='#ff9e64',
+  purple='#9d7cd8',
+  red='#f7768e',
+  red1='#db4b4b',
+  teal='#1abc9c',
+  terminal_black='#414868',
+  warning='#e0af68',
+  yellow='#e0af68'
 }
 
 _.style = {
   border={
     line={'🭽', '▔', '🭾', '▕', '🭿', '▁', '🭼', '▏'},
-    rectangle={'┌', '─', '┐', '│', '┘', '─', '└', '│'}
+    rectangle={'┌', '─', '┐', '│', '┘', '─', '└', '│'},
+    rounded={'╭', '─', '╮', '│', '╯', '─', '╰', '│'}
   },
   icons={
     separators={vert_bottom_half_block='▄', vert_top_half_block='▀'},
@@ -84,6 +115,7 @@ _.style = {
       arrow_right='',
       caret_right='',
       chevron_right='',
+      chevron_down='',
       double_chevron_right='»',
       table='',
       calendar='',
@@ -94,10 +126,10 @@ _.style = {
   -- @see: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
   lsp={
     colors={
-      error=palette.pale_red,
-      warn=palette.dark_orange,
-      hint=palette.bright_blue,
-      info=palette.teal
+      error=palette.error,
+      warn=palette.warning,
+      hint=palette.hint,
+      info=palette.info
     },
     highlights={
       Text='String',

@@ -1,6 +1,5 @@
 local has_cmp, cmp = pcall(require, 'cmp')
 local has_lspkind, lspkind = pcall(require, 'lspkind')
-local utils = require '_.utils'
 
 local M = {}
 
@@ -39,7 +38,7 @@ local function prev(fallback)
 end
 
 local cmp_window = {
-  border=utils.border,
+  border=_.style.current.border,
   winhighlight=table.concat({
     'Normal:NormalFloat',
     'FloatBorder:FloatBorder',

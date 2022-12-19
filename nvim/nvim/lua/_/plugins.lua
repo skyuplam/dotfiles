@@ -28,9 +28,6 @@ end
 -- Only required if you have packer in your `opt` pack
 vim.api.nvim_command('packadd packer.nvim')
 
--- Global Variable
-_G._ = {}
-
 return require('packer').startup(function(use)
   use {'wbthomason/packer.nvim', opt=true}
 
@@ -206,6 +203,14 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- Color tool
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config=function()
+      require('colorizer').setup({'css', 'html', 'typescript'})
+    end
+  }
+
   -- LSP
   use {
     'neovim/nvim-lspconfig',
@@ -215,7 +220,6 @@ return require('packer').startup(function(use)
       {'simrat39/rust-tools.nvim'},
       {'tjdevries/nlua.nvim'},
       -- {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
-      {'nvim-lua/lsp-status.nvim'},
       {'ray-x/lsp_signature.nvim'},
       {'folke/lsp-colors.nvim'},
       {
@@ -228,21 +232,10 @@ return require('packer').startup(function(use)
       {'j-hui/fidget.nvim', config=function() require('fidget').setup() end},
       {'dnlhc/glance.nvim', config=function() require('_.glance').setup() end},
       {
-        'folke/lsp-trouble.nvim',
+        'folke/trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',
         config=function()
-          local utils = require('_.utils')
-
-          require('trouble').setup({
-            signs={
-              -- icons / text used for a diagnostic
-              error=utils.get_icon('error'),
-              warning=utils.get_icon('warn'),
-              hint=utils.get_icon('hint'),
-              information=utils.get_icon('info')
-            },
-            use_lsp_diagnostic_signs=false
-          })
+          require('trouble').setup({})
 
           vim.keymap.set('n', '<leader>lx', '<cmd>TroubleToggle<CR>',
                          {silent=true, noremap=true})
@@ -367,11 +360,7 @@ return require('packer').startup(function(use)
           max_file_length=40000,
           preview_config={
             -- Options passed to nvim_open_win
-            border=require('_.utils').border,
-            style='minimal',
-            relative='cursor',
-            row=0,
-            col=1
+            border=_.style.current.border
           },
           yadm={enable=false}
         })
@@ -453,13 +442,13 @@ return require('packer').startup(function(use)
   }
 
   -- configure Neovim to automatically run :PackerCompile whenever plugins.lua is updated
-  local packer_au_group = vim.api.nvim_create_augroup('packer_au_group',
-                                                      {clear=true})
-  vim.api.nvim_create_autocmd('BufWritePost', {
-    pattern='plugins.lua',
-    group=packer_au_group,
-    command='source <afile> | PackerCompile'
-  })
+  -- local packer_au_group = vim.api.nvim_create_augroup('packer_au_group',
+  --                                                     {clear=true})
+  -- vim.api.nvim_create_autocmd('BufWritePost', {
+  --   pattern='plugins.lua',
+  --   group=packer_au_group,
+  --   command='source <afile> | PackerCompile'
+  -- })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

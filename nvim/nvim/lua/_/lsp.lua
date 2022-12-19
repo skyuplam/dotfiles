@@ -7,11 +7,9 @@ local has_lsp, nvim_lsp = pcall(require, 'lspconfig')
 
 if not has_lsp then return end
 
-local has_lspstatus, lspstatus = pcall(require, 'lsp-status')
 local has_lspsignature, lspsignature = pcall(require, 'lsp_signature')
 local has_schemastore, schemastore = pcall(require, 'schemastore')
 local has_rust_tools, rust_tools = pcall(require, 'rust-tools')
-local utils = require '_.utils'
 local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 local has_neodev, neodev = pcall(require, 'neodev')
 
@@ -21,40 +19,13 @@ require'_.completion'.setup()
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
-  opts.border = opts.border or utils.border
+  opts.border = opts.border or _.style.current.border
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
-
--- Status bar
-if has_lspstatus then
-  lspstatus.config({
-    indicator_errors=utils.get_icon('error'),
-    indicator_warnings=utils.get_icon('warn'),
-    indicator_info=utils.get_icon('info'),
-    indicator_hint=utils.get_icon('hint'),
-    indicator_ok=utils.get_icon('success')
-  })
-
-  lspstatus.register_progress()
-end
-
--- Change diagnostic symbols in the sign column
-local signs = {
-  Error=utils.get_icon('error'),
-  Warn=utils.get_icon('warn'),
-  Hint=utils.get_icon('hint'),
-  Info=utils.get_icon('info')
-}
-
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, {text=icon, texthl=hl, numhl=hl})
 end
 
 local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  if has_lspstatus then lspstatus.on_attach(client) end
   if has_lspsignature then lspsignature.on_attach() end
 
   local attach_opts = {silent=true, buffer=bufnr}
@@ -126,8 +97,7 @@ vim.diagnostic.config {
 }
 
 -- Enable (broadcasting) snippet capability for completion
-local capabilities = has_lspstatus and lspstatus.capabilities
-                         or vim.lsp.protocol.make_client_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- nvim-cmp
 if has_cmp_lsp then capabilities = cmp_lsp.default_capabilities(capabilities) end

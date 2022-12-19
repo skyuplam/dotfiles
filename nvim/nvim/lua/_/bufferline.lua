@@ -1,18 +1,16 @@
 local has_bufferline, bufferline = pcall(require, 'bufferline')
 
-local utils = require('_.utils')
-
 local M = {}
 
 function M.setup()
   if not has_bufferline then return end
-
+  local icons = _.style.icons.lsp
   bufferline.setup({
     options={
       sort_by='insert_after_current',
       diagnostics='nvim_lsp',
       diagnostics_indicator=function(count, level)
-        return (utils.get_icon(level) or '?') .. ' ' .. count
+        return (icons[level] or '?') .. ' ' .. count
       end,
       diagnostics_update_in_insert=false,
       hover={enabled=true, reveal={'close'}},

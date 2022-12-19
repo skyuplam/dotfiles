@@ -1,5 +1,4 @@
 local has_nt, nt = pcall(require, 'nvim-tree')
-local utils = require '_.utils'
 
 local M = {}
 
@@ -10,6 +9,7 @@ M.setup = function()
   if not has_nt or setup_called then return end
 
   setup_called = true
+  local icons = _.style.icons.lsp
 
   nt.setup {
     auto_reload_on_write=true,
@@ -53,10 +53,10 @@ M.setup = function()
       enable=false,
       show_on_dirs=false,
       icons={
-        hint=utils.get_icon('hint'),
-        info=utils.get_icon('info'),
-        warning=utils.get_icon('warning'),
-        error=utils.get_icon('error')
+        hint=icons.hint,
+        info=icons.info,
+        warning=icons.warn,
+        error=icons.error
       }
     },
     filters={dotfiles=false, custom={}, exclude={}},
