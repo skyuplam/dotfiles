@@ -9,7 +9,7 @@ function M.setup()
     cmd='tig status',
     hidden=true,
     direction='float',
-    float_opts={border=_.style.current.border}
+    float_opts={border=tl.style.current.border}
   })
 
   local function toggleTig() tig:toggle() end

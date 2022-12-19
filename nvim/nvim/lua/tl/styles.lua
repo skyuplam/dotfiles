@@ -53,7 +53,7 @@ local palette = {
   yellow='#e0af68'
 }
 
-_.style = {
+tl.style = {
   border={
     line={'🭽', '▔', '🭾', '▕', '🭿', '▁', '🭼', '▏'},
     rectangle={'┌', '─', '┐', '│', '┘', '─', '└', '│'},
@@ -249,8 +249,8 @@ _.style = {
 -- Some styles can be tweaked here to apply globally i.e. by setting the current value for that style
 
 -- The current styles for various UI elements
-_.style.current = {
-  border=_.style.border.line,
-  lsp_icons=_.style.lsp.kinds.codicons
+tl.style.current = {
+  border=tl.style.border.line,
+  lsp_icons=tl.style.lsp.kinds.codicons
 }
 

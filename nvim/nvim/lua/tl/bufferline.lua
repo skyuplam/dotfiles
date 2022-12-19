@@ -4,7 +4,7 @@ local M = {}
 
 function M.setup()
   if not has_bufferline then return end
-  local icons = _.style.icons.lsp
+  local icons = tl.style.icons.lsp
   bufferline.setup({
     options={
       sort_by='insert_after_current',

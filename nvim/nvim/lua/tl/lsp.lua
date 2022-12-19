@@ -13,13 +13,13 @@ local has_rust_tools, rust_tools = pcall(require, 'rust-tools')
 local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 local has_neodev, neodev = pcall(require, 'neodev')
 
-require'_.completion'.setup()
+require'tl.completion'.setup()
 
 -- To instead override globally
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
-  opts.border = opts.border or _.style.current.border
+  opts.border = opts.border or tl.style.current.border
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 

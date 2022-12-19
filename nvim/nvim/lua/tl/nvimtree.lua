@@ -9,7 +9,7 @@ M.setup = function()
   if not has_nt or setup_called then return end
 
   setup_called = true
-  local icons = _.style.icons.lsp
+  local icons = tl.style.icons.lsp
 
   nt.setup {
     auto_reload_on_write=true,

@@ -1,7 +1,6 @@
 local fmt = string.format
 local api = vim.api
--- local P = _.style.palette
-local L = _.style.lsp.colors
+local L = tl.style.lsp.colors
 
 local M = {win_hl={}}
 

@@ -29,6 +29,7 @@ end
 vim.api.nvim_command('packadd packer.nvim')
 
 return require('packer').startup(function(use)
+  use 'lewis6991/impatient.nvim'
   use {'wbthomason/packer.nvim', opt=true}
 
   use {
@@ -47,27 +48,18 @@ return require('packer').startup(function(use)
       })
       ts_update()
     end,
-    config=function() require('_.treesitter').setup() end,
+    config=function() require('tl.treesitter').setup() end,
     requires={
       {'nvim-treesitter/nvim-treesitter-refactor', after='nvim-treesitter'},
       {'nvim-treesitter/nvim-treesitter-textobjects', after='nvim-treesitter'},
       {'nvim-treesitter/nvim-treesitter-context', after='nvim-treesitter'}
     }
   }
-  use {
-    'gruvbox-community/gruvbox',
-    config=function()
-      vim.g.gruvbox_italic = 1
-      vim.g.gruvbox_contrast_dark = 'hard'
-      vim.g.gruvbox_italicize_comments = 1
-      vim.g.gruvbox_italicize_strings = 1
-    end
-  }
   use {'folke/tokyonight.nvim'}
   use {'vim-jp/syntax-vim-ex'}
   use {
     'lukas-reineke/indent-blankline.nvim',
-    config=function() require('_.indent').setup() end
+    config=function() require('tl.indent').setup() end
   }
 
   use {
@@ -80,7 +72,7 @@ return require('packer').startup(function(use)
   use {'kevinhwang91/nvim-bqf'}
   use {
     'kyazdani42/nvim-tree.lua',
-    config=function() require('_.nvimtree').setup() end,
+    config=function() require('tl.nvimtree').setup() end,
     requires='kyazdani42/nvim-web-devicons'
   }
 
@@ -135,7 +127,7 @@ return require('packer').startup(function(use)
       {'nvim-telescope/telescope-dap.nvim'},
       {'nvim-telescope/telescope-live-grep-args.nvim'}
     },
-    config=function() require('_.telescope').setup() end
+    config=function() require('tl.telescope').setup() end
   }
   use 'ryanoasis/vim-devicons'
   -- use {
@@ -150,7 +142,7 @@ return require('packer').startup(function(use)
 
   use {
     'mhartington/formatter.nvim',
-    config=function() require('_.formatter').setup() end
+    config=function() require('tl.formatter').setup() end
   }
 
   use 'junegunn/vim-slash'
@@ -168,7 +160,7 @@ return require('packer').startup(function(use)
   use {
     'mxsdev/nvim-dap-vscode-js',
     requires={
-      {'mfussenegger/nvim-dap', config=function() require '_.dap' end},
+      {'mfussenegger/nvim-dap', config=function() require 'tl.dap' end},
       {
         'microsoft/vscode-js-debug',
         opt=true,
@@ -181,7 +173,7 @@ return require('packer').startup(function(use)
     'nvim-neorg/neorg',
     run=':Neorg sync-parsers',
     requires={'nvim-lua/plenary.nvim', 'nvim-neorg/neorg-telescope'},
-    config=function() require('_.neorg').setup() end,
+    config=function() require('tl.neorg').setup() end,
     after='nvim-treesitter'
   }
   use {'Pocco81/true-zen.nvim'}
@@ -190,7 +182,7 @@ return require('packer').startup(function(use)
     'akinsho/bufferline.nvim',
     tag='v3.*',
     requires='nvim-tree/nvim-web-devicons',
-    config=function() require('_.bufferline').setup() end
+    config=function() require('tl.bufferline').setup() end
   }
 
   use {
@@ -214,7 +206,7 @@ return require('packer').startup(function(use)
   -- LSP
   use {
     'neovim/nvim-lspconfig',
-    config=function() require '_.lsp' end,
+    config=function() require 'tl.lsp' end,
     requires={
       {'lbrayner/vim-rzip'}, -- https://yarnpkg.com/getting-started/editor-sdks#supporting-go-to-definition-et-al
       {'simrat39/rust-tools.nvim'},
@@ -230,7 +222,7 @@ return require('packer').startup(function(use)
       },
       {'b0o/schemastore.nvim'},
       {'j-hui/fidget.nvim', config=function() require('fidget').setup() end},
-      {'dnlhc/glance.nvim', config=function() require('_.glance').setup() end},
+      {'dnlhc/glance.nvim', config=function() require('tl.glance').setup() end},
       {
         'folke/trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',
@@ -360,23 +352,13 @@ return require('packer').startup(function(use)
           max_file_length=40000,
           preview_config={
             -- Options passed to nvim_open_win
-            border=_.style.current.border
+            border=tl.style.current.border
           },
           yadm={enable=false}
         })
       end,
       requires={'nvim-lua/plenary.nvim'}
     },
-    -- {
-    --   'iberianpig/tig-explorer.vim',
-    --   cmd={'Tig', 'TigStatus'},
-    --   requires='rbgrouleff/bclose.vim'
-    -- },
-    -- {
-    --   'TimUntersberger/neogit',
-    --   config=function() require('_.git').setup() end,
-    --   requires='nvim-lua/plenary.nvim'
-    -- },
     {'sindrets/diffview.nvim', requires='nvim-lua/plenary.nvim'}
   }
 
@@ -385,7 +367,7 @@ return require('packer').startup(function(use)
   use {
     'akinsho/toggleterm.nvim',
     tag='*',
-    config=function() require('_.term').setup() end
+    config=function() require('tl.term').setup() end
   }
 
   use {

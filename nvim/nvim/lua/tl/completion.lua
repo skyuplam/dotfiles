@@ -38,7 +38,7 @@ local function prev(fallback)
 end
 
 local cmp_window = {
-  border=_.style.current.border,
+  border=tl.style.current.border,
   winhighlight=table.concat({
     'Normal:NormalFloat',
     'FloatBorder:FloatBorder',
