@@ -124,18 +124,4 @@ if [ -d /usr/share/fzf ]; then
   source /usr/share/fzf/completion.zsh
 fi
 
-# ---------------------------------------------------------
-# Starship: https://starship.rs
-# ---------------------------------------------------------
-if type starship > /dev/null; then
-  eval "$(starship init zsh)"
-fi
-
-# ---------------------------------------------------------
-# zoxide: https://github.com/ajeetdsouza/zoxide
-# ---------------------------------------------------------
-if type zoxide > /dev/null; then
-  eval "$(zoxide init zsh)"
-fi
-
 # }}}
