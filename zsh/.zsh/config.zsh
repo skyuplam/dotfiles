@@ -110,18 +110,4 @@ fi
 [ -f ~/.zsh/alias.zsh ] && source ~/.zsh/alias.zsh
 [ -f ~/.zsh/local.zsh ] && source ~/.zsh/local.zsh
 
-# ---------------------------------------------------------
-# FZF
-# ---------------------------------------------------------
-# Nix
-if [ -d ~/.nix-profile/share/fzf ]; then
-  source ~/.nix-profile/share/fzf/key-bindings.zsh
-  source ~/.nix-profile/share/fzf/completion.zsh
-fi
-# Arch Linux
-if [ -d /usr/share/fzf ]; then
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/completion.zsh
-fi
-
 # }}}
