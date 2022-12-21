@@ -250,7 +250,7 @@ tl.style = {
 
 -- The current styles for various UI elements
 tl.style.current = {
-  border=tl.style.border.line,
+  border=tl.style.border.rounded,
   lsp_icons=tl.style.lsp.kinds.codicons
 }
 
