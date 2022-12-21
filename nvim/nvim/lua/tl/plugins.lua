@@ -32,10 +32,6 @@ return require('packer').startup(function(use)
   }
   use {'folke/tokyonight.nvim'}
   use {'vim-jp/syntax-vim-ex'}
-  use {
-    'lukas-reineke/indent-blankline.nvim',
-    config=function() require('tl.indent').setup() end
-  }
 
   use {
     'danymat/neogen',
@@ -171,6 +167,10 @@ return require('packer').startup(function(use)
       require('mini.align').setup({})
       require('mini.surround').setup({})
       require('mini.bufremove').setup({})
+      require('mini.comment').setup({})
+      require('mini.cursorword').setup({})
+      require('mini.indentscope').setup({})
+      require('mini.misc').setup({})
     end
   }
 

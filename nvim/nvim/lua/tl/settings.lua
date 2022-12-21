@@ -165,11 +165,12 @@ o.showbreak = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
 -----------------------------------------------------------------------------
 o.list = true -- invisible chars
 opt.listchars = {
-  eol='↵',
+  eol=nil,
   tab='› ',
   extends='»',
   precedes='«',
   nbsp='.',
+  lead='.',
   trail='•'
 }
 -----------------------------------------------------------------------------
@@ -229,6 +230,7 @@ o.number = true
 o.synmaxcol = 300
 o.background = 'dark'
 o.termguicolors = true
+o.virtualedit = 'block'
 
 -------------------------------------------------------------------------------
 -- BACKUP AND SWAPS {{{
