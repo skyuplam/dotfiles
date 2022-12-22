@@ -355,11 +355,7 @@ local function general_overrides()
     {DiagnosticUnderlineWarn={undercurl=true, sp=L.warn, foreground='none'}},
     {DiagnosticUnderlineInfo={undercurl=true, sp=L.info, foreground='none'}},
     -- Virtual Text
-    {
-      DiagnosticVirtualTextInfo={
-        bg={from='DiagnosticInfo', attr='fg', alter=-70}
-      }
-    },
+    {DiagnosticVirtualTextInfo={bg='NONE'}},
     {
       DiagnosticVirtualTextHint={
         bg={from='DiagnosticHint', attr='fg', alter=-70}
@@ -387,12 +383,7 @@ local function general_overrides()
         fg={from='DiagnosticWarn'}
       }
     },
-    {
-      DiagnosticSignInfo={
-        bg={from='DiagnosticVirtualTextInfo'},
-        fg={from='DiagnosticInfo'}
-      }
-    },
+    {DiagnosticSignInfo={bg='NONE', fg={from='DiagnosticInfo'}}},
     {
       DiagnosticSignHint={
         bg={from='DiagnosticVirtualTextHint'},

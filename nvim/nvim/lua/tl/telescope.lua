@@ -145,6 +145,8 @@ local function setup()
   telescope.load_extension('file_browser')
   telescope.load_extension('dap')
   telescope.load_extension('smart_history')
+  telescope.load_extension('notify')
+  telescope.load_extension('noice')
 
   -- Key mappings
   vim.keymap.set('n', '<leader>ff', function() builtin.find_files() end)
