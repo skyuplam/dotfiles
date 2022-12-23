@@ -939,14 +939,6 @@ local TabLineOffset = {
 }
 
 local TabLine = {
-  update={
-    'BufNew',
-    'BufDelete',
-    'WinEnter',
-    'BufEnter',
-    'BufModifiedSet',
-    callback=function() print('callback') end
-  },
   TabLineOffset,
   BufferLine,
   -- utils.make_flexible_component(1, {provider = 'aaaaaaaaaaaaaaaaaaa'}, {provider = 'bbbb'}),
@@ -1001,8 +993,9 @@ function M.setup()
         'Trouble',
         'packer'
       }, vim.bo[buf].filetype)
-      if buftype or filetype then
-        vim.opt_local.winbar = nil
+      if buftype or filetype then vim.opt_local.winbar = nil end
+
+      if vim.bo[buf].filetype == 'gitcommit' then
         vim.o.showtabline = 0
         vim.o.tabline = ''
       else
