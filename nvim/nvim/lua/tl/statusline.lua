@@ -434,6 +434,8 @@ local Navic = {
   hl={fg='gray'}
 }
 
+local git_icons = tl.style.icons.git
+
 local Git = {
   condition=conditions.is_git_repo,
 
@@ -455,28 +457,28 @@ local Git = {
   hl={fg='orange'},
 
   {
-    provider=function(self) return ' ' .. self.status_dict.head end,
+    provider=function(self) return git_icons.branch .. self.status_dict.head end,
     hl={bold=true}
   },
   {condition=function(self) return self.has_changes end, provider='('},
   {
     provider=function(self)
       local count = self.status_dict.added or 0
-      return count > 0 and ('+' .. count)
+      return count > 0 and (git_icons.add .. count)
     end,
     hl='diffAdded'
   },
   {
     provider=function(self)
       local count = self.status_dict.removed or 0
-      return count > 0 and ('-' .. count)
+      return count > 0 and (git_icons.remove .. count)
     end,
     hl='diffDeleted'
   },
   {
     provider=function(self)
       local count = self.status_dict.changed or 0
-      return count > 0 and ('~' .. count)
+      return count > 0 and (git_icons.diff .. count)
     end,
     hl='diffChanged'
   },
