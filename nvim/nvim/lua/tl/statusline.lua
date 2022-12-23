@@ -448,9 +448,8 @@ local Git = {
 
   on_click={
     callback=function()
-      vim.defer_fn(function()
-        vim.cmd('TermExec cmd="tig %:p:h" direction=float')
-      end, 100)
+      vim.defer_fn(function() vim.cmd('lua require("tl.term").toggleTig()') end,
+                   100)
     end,
     name='heirline_git',
     update=false
