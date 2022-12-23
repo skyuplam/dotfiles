@@ -446,41 +446,52 @@ local Git = {
                            ~= 0 or self.status_dict.changed ~= 0
   end,
 
-  -- on_click={
-  --   callback=function(self, minwid, nclicks, button)
-  --     vim.defer_fn(function() vim.cmd('Lazygit %:p:h') end, 100)
-  --   end,
-  --   name='heirline_git',
-  --   update=false
-  -- },
+  on_click={
+    callback=function()
+      vim.defer_fn(function()
+        vim.cmd('TermExec cmd="tig %:p:h" direction=float')
+      end, 100)
+    end,
+    name='heirline_git',
+    update=false
+  },
 
   hl={fg='orange'},
 
   {
-    provider=function(self) return git_icons.branch .. self.status_dict.head end,
+    provider=function(self)
+      return string.format('%s %s', git_icons.branch, self.status_dict.head)
+    end,
     hl={bold=true}
   },
   {condition=function(self) return self.has_changes end, provider='('},
   {
     provider=function(self)
       local count = self.status_dict.added or 0
-      return count > 0 and (git_icons.add .. count)
+      local separator = (self.status_dict.removed or 0)
+                            + (self.status_dict.changed or 0) > 0 and ' ' or ''
+      return count > 0
+                 and (string.format('%s %s', git_icons.add, count) .. separator)
     end,
-    hl='diffAdded'
+    hl={fg='git_add'}
   },
   {
     provider=function(self)
       local count = self.status_dict.removed or 0
-      return count > 0 and (git_icons.remove .. count)
+      local separator = (self.status_dict.added or 0)
+                            + (self.status_dict.changed or 0) > 0 and ' ' or ''
+      return count > 0
+                 and (string.format('%s %s', git_icons.remove, count)
+                     .. separator)
     end,
-    hl='diffDeleted'
+    hl={fg='git_del'}
   },
   {
     provider=function(self)
       local count = self.status_dict.changed or 0
-      return count > 0 and (git_icons.diff .. count)
+      return count > 0 and (string.format('%s %s', git_icons.diff, count))
     end,
-    hl='diffChanged'
+    hl={fg='git_change'}
   },
   {condition=function(self) return self.has_changes end, provider=')'}
 }
