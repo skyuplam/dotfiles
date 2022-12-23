@@ -177,6 +177,8 @@ local Diagnostics = {
                                         {severity=vim.diagnostic.severity.WARN})
     self.hints = #vim.diagnostic.get(0, {severity=vim.diagnostic.severity.HINT})
     self.info = #vim.diagnostic.get(0, {severity=vim.diagnostic.severity.INFO})
+    self.total = self.errors + self.hints + self.hints + self.info;
+    self.separator = (self.total > 1 and ' ') or ''
   end,
 
   update={'DiagnosticChanged', 'BufEnter'},
@@ -185,19 +187,21 @@ local Diagnostics = {
   {
     provider=function(self)
       -- 0 is just another output, we can decide to print it or not!
-      return self.errors > 0 and (self.error_icon .. self.errors .. ' ')
+      return self.errors > 0
+                 and (self.error_icon .. self.errors .. self.separator)
     end,
     hl={fg='diag_error'}
   },
   {
     provider=function(self)
-      return self.warnings > 0 and (self.warn_icon .. self.warnings .. ' ')
+      return self.warnings > 0
+                 and (self.warn_icon .. self.warnings .. self.separator)
     end,
     hl={fg='diag_warn'}
   },
   {
     provider=function(self)
-      return self.info > 0 and (self.info_icon .. self.info .. ' ')
+      return self.info > 0 and (self.info_icon .. self.info .. self.separator)
     end,
     hl={fg='diag_info'}
   },
