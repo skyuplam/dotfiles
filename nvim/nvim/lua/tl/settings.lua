@@ -289,3 +289,19 @@ else
     group=shada_group
   })
 end
+
+-------------------------------------------------------------------------------
+-- Diagnostic {{{
+-------------------------------------------------------------------------------
+-- Diagnostic
+local icons = tl.style.icons.lsp;
+local signs = {
+  Error=icons.error,
+  Warn=icons.warn,
+  Hint=icons.hint,
+  Info=icons.info
+}
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, {text=icon, texthl=hl, numhl=hl})
+end

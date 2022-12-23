@@ -284,6 +284,7 @@ local function general_overrides()
     {DiffText={background='#314753', foreground='NONE'}},
     {diffAdded={link='DiffAdd'}},
     {diffChanged={link='DiffChange'}},
+    {DiffDeleteD={link='DiffDelete'}},
     {diffRemoved={link='DiffDelete'}},
     {diffBDiffer={link='WarningMsg'}},
     {diffCommon={link='WarningMsg'}},
@@ -306,6 +307,12 @@ local function general_overrides()
     -- if either are specified this can lead to issues when a winhighlight is set
     {SignColumn={background='NONE'}},
     {EndOfBuffer={background='NONE'}},
+    -----------------------------------------------------------------------------//
+    -- colorscheme overrides
+    -----------------------------------------------------------------------------//
+    {StatusLine={background='NONE'}},
+    {StatusLineNC={background='NONE'}},
+    {TabLineFill={background='NONE'}},
     -----------------------------------------------------------------------------//
     -- Treesitter
     -----------------------------------------------------------------------------//
