@@ -374,5 +374,7 @@ return require('packer').startup(function(use)
     }
   }
 
+  use {'AckslD/nvim-FeMaco.lua', config='require("femaco").setup()'}
+
 end)
 ---}}}
