@@ -11,7 +11,6 @@ function M.setup()
   neorg.setup({
     load={
       ['core.defaults']={},
-      ['core.gtd.base']={config={workspace='home'}},
       ['core.norg.dirman']={
         config={workspaces={work=note_dir .. 'work', home=note_dir .. 'home'}}
       },
