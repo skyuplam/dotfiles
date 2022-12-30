@@ -235,7 +235,7 @@ bar {
         background $bg
         # Text color to be used for the statusline
         statusline $fg
-        focused_statusline $fg
+        focused_statusline $blue
         focused_separator $white
         focused_workspace $blue $bg $fg
         active_workspace $black $black $white

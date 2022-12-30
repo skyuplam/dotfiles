@@ -1,5 +1,8 @@
-theme = "gruvbox-dark"
-icons = "awesome"
+[theme]
+name = "gruvbox-dark"
+
+[icons]
+name = "awesome6"
 
 [[block]]
 block = "focused_window"
