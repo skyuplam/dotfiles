@@ -45,7 +45,14 @@ return require('packer').startup(function(use)
 
   use {
     'danymat/neogen',
-    config=function() require('neogen').setup({}) end,
+    config=function()
+      require('neogen').setup({
+        languages={
+          typescript={template={annotation_convention='tsdoc'}},
+          typescriptreact={template={annotation_convention='tsdoc'}}
+        }
+      })
+    end,
     requires='nvim-treesitter/nvim-treesitter'
   }
   use {'m-demare/hlargs.nvim', requires={'nvim-treesitter/nvim-treesitter'}}
@@ -86,9 +93,6 @@ return require('packer').startup(function(use)
     'lewis6991/spellsitter.nvim',
     config=function() require('spellsitter').setup() end
   }
-
-  -- use 'SirVer/ultisnips'
-  use 'hrsh7th/vim-vsnip'
 
   -- Marks
   use 'kshenoy/vim-signature'
@@ -267,7 +271,6 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lua',
-      'hrsh7th/cmp-vsnip',
       'andersevenrud/cmp-tmux',
       'onsails/lspkind-nvim',
       'dmitmel/cmp-cmdline-history',
@@ -354,7 +357,7 @@ return require('packer').startup(function(use)
     {'sindrets/diffview.nvim', requires='nvim-lua/plenary.nvim'}
   }
 
-  use {'Shougo/deol.nvim'}
+  -- use {'Shougo/deol.nvim'}
 
   use {
     'akinsho/toggleterm.nvim',

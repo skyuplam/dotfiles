@@ -53,12 +53,6 @@ M.setup = function()
   cmp.setup({
     formatting={format=format},
     preselect=cmp.PreselectMode.None,
-    snippet={
-      -- REQUIRED - you must specify a snippet engine
-      expand=function(args)
-        vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
-      end
-    },
     window={
       completion=cmp.config.window.bordered(cmp_window),
       documentation=cmp.config.window.bordered(cmp_window)
@@ -77,7 +71,6 @@ M.setup = function()
       {name='nvim_lsp_document_symbol'},
       {name='nvim_lsp_signature_help'},
       {name='nvim_lua'},
-      {name='vsnip'},
       {name='tmux'},
       {name='path'},
       {name='spell'},
