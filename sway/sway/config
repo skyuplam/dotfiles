@@ -23,7 +23,7 @@ set $menu wofi --show drun -i | xargs swaymsg exec --
 # disable follow focus by mouse
 focus_follows_mouse no
 
-font pango:Noto Sans CJK HK 11
+font pango: JetBrainsMono Nerd Font 12
 
 gaps inner 10
 
@@ -190,31 +190,57 @@ input type:keyboard {
     repeat_rate 45
 }
 
-input "1204:4621:Majestouch_Convertible_2" {
-    # Alt is swapped with Win
-    xkb_options altwin:swap_alt_win
-}
+ set $bg       #24283b
+ set $fg       #c0caf5
+ set $black    #1d202f
+ set $red      #f7768e
+ set $green    #9ece6a
+ set $yellow   #e0af68
+ set $blue     #2ac3de
+ set $magenta  #bb9af7
+ set $cyan     #7dcfff
+ set $white    #a9b1d6
+ set $warning  #ff9e64
+ set $alert    #db4b4b
+ set $bg_hl    #292e42
+
+# Client Colors
+# Configures the color of window borders and title bars. The first three colors
+# are required. When omitted indicator will use a sane default           and
+# child_border will use the color set for background. Colors may be specified in
+# hex, either as #RRGGBB or #RRGGBBAA.
+
+#                               border          background              text            indicator
+client.focused                  $blue           $blue                   $bg             $bg
+client.unfocused                $bg             $bg                     $fg             $bg
+client.focused_inactive         $bg             $bg                     $fg             $bg
+client.urgent                   $alert          $alert                  $bg_hl          $alert
 
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    font pango:FantasqueSansMono Nerd Font 12
+    font pango: JetBrainsMono Nerd Font 12
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
+    # The default just XX
     status_command /usr/bin/i3status-rs
 
     colors {
-        separator #666666
-        background #222222
-        statusline #dddddd
-        focused_workspace #0088CC #0088CC #ffffff
-        active_workspace #333333 #333333 #ffffff
-        inactive_workspace #333333 #333333 #888888
-        urgent_workspace #2f343a #900000 #ffffff
+        # Text color to be used for the separator
+        separator $white
+        # Background color of the bar
+        background $bg
+        # Text color to be used for the statusline
+        statusline $fg
+        focused_statusline $fg
+        focused_separator $white
+        focused_workspace $blue $bg $fg
+        active_workspace $black $black $white
+        inactive_workspace $black $black $white
+        urgent_workspace $black  $bg_hl $alert
     }
 }
 
