@@ -2,7 +2,7 @@
 name = "gruvbox-dark"
 
 [icons]
-name = "awesome6"
+name = "material-nf"
 
 [[block]]
 block = "focused_window"
@@ -35,7 +35,7 @@ critical_swap = 95
 [[block]]
 block = "cpu"
 interval = 1
-format = "{utilization} {frequency}"
+format = "{utilization} {frequency} {boost}"
 
 [[block]]
 block = "temperature"
@@ -56,9 +56,13 @@ format = "{1m}"
 interval = 1
 
 [[block]]
-block = "sound"
+block = "hueshift"
+step = 50
 
 [[block]]
 block = "time"
 interval = 60
 format = "%a %d/%m %R"
+
+[[block]]
+block = "sound"
