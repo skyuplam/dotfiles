@@ -34,29 +34,28 @@ bind generic ,p ?git push
 bind generic ,P ?git push --force-with-lease
 bind generic ,u ?git pull --rebase
 bind generic ,r ?git rebase -i origin/main
-bind generic ,c !git commit
-bind generic ,a ?git commit --amend
-bind generic ,A ?git commit --fixup reword:%(commit)
+bind generic ,cc !git commit
+bind generic ,ca ?git commit --amend
+bind generic ,cf ?git commit --fixup reword:%(commit)
+# Pick up back the commit editing message
+# https://github.com/jorisroovers/gitlint/issues/90#issuecomment-511432519
+bind status  ,ce !git commit --edit --file .git/COMMIT_EDITMSG
+# bind status  ,I !git add -i %(file)
+# bind status  ,p ?git add --patch %(file)
 
-# Enter Git’s interactive add for fine-grained staging of file content
-bind generic I !git add -i %(file)
+bind status  u  none
+bind stage   u  none
+bind generic uu status-update
+bind generic ur status-revert
+bind generic um status-merge
+bind generic ul stage-update-line
+bind generic up stage-update-part
+bind generic us stage-split-chunk
 
 # Copy the commit Hash to clipboard
 bind generic Y none
 bind generic YH !@sh -c "git rev-parse --short %(commit) | $COPY_CMD"
 bind generic YB !@sh -c "git show -s --format=%b $(commit) | $COPY_CMD"
-
-# Add patch from selected file
-bind status p ?git add --patch %(file)
-
-# User-defined external command to amend the last commit
-bind status + !git commit --amend
-
-# Pick up back the commit editing message
-# https://github.com/jorisroovers/gitlint/issues/90#issuecomment-511432519
-bind status - !git commit --edit --file .git/COMMIT_EDITMSG
-
-bind status D !git difftool --trust-exit-code %(commit) %(file)
 
 # Vim-style keybindings for Tig
 bind generic h scroll-left
@@ -112,15 +111,6 @@ bind generic @j :/^@@
 bind generic @k :?^@@
 bind generic @- :toggle diff-context -1
 bind generic @+ :toggle diff-context +1
-
-bind status  u  none
-bind stage   u  none
-bind generic uu status-update
-bind generic ur status-revert
-bind generic um status-merge
-bind generic ul stage-update-line
-bind generic up stage-update-part
-bind generic us stage-split-chunk
 
 bind generic K view-help
 bind generic <C-w><C-w> view-next
