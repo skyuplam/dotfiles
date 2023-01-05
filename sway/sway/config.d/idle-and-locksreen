@@ -8,7 +8,7 @@ for_window [app_id="^.*"] inhibit_idle fullscreen
 #
 # Example configuration:
 #
-exec swayidle -w \
+exec systemd-cat --identifier=swayidle swayidle -w \
          timeout 300 'swaylock' \
          timeout 600 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \

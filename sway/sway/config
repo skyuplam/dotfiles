@@ -39,9 +39,9 @@ output DP-1 scale 1.5
 output DP-2 scale 1.5
 output DP-1 pos 0 0
 
-exec_always swaybg --output "*" --mode fill --image ~/Downloads/wallpaper.jpg
+exec_always systemd-cat --identifier=swaybg swaybg --output "*" --mode fill --image ~/Downloads/wallpaper.jpg
 
-exec_always dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec_always systemd-cat --identifier=dbus-update-activation-environment dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 ### Input configuration
 #
@@ -248,7 +248,7 @@ bar {
 # IM
 #
 # https://wiki.archlinux.org/title/Fcitx#Desktop_Environment_Autostart
-exec --no-startup-id fcitx5 -d
+exec --no-startup-id systemd-cat --identifier=fcitx5 fcitx5 -d
 
 #
 # Include other configs

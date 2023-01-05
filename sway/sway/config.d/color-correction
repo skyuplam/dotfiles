@@ -1,0 +1,2 @@
+# vim: set foldmethod=marker foldlevel=0 ft=config nomodeline:
+exec --no-startup-id systemd-cat --identifier=gammastep gammastep
