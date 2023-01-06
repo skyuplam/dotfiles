@@ -1,0 +1,35 @@
+{
+  "$schema": "https://lnav.org/schemas/format-v1.schema.json",
+  "aquila_json": {
+    "title": "Aquila log",
+    "description": "Aquila log",
+    "hide-extra": false,
+    "multiline": false,
+    "json": true,
+    "level-field": "level",
+    "level": {
+      "fatal": 60,
+      "error": 50,
+      "warning": 40,
+      "info": 30,
+      "debug": 20,
+      "trace": 10
+    },
+    "value": {
+      "name": {"kind": "string", "identifier": true},
+      "level": {"kind": "integer", "identifier": true},
+      "time": {"kind": "integer"},
+      "msg": {"kind": "string"}
+    },
+    "timestamp-field": "time",
+    "timestamp-divisor": 1000,
+    "convert-to-local-time": true,
+    "body-field": "msg",
+    "opid-field": "name",
+    "line-format": [
+      {"field": "__timestamp__"},
+      " ",
+      {"field": "msg", "default-value": ""}
+    ]
+  }
+}
