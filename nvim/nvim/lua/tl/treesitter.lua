@@ -6,7 +6,7 @@ local M = {}
 local function setup_ts_config()
   ts_configs.setup {
     ensure_installed={
-      'bash',
+      -- 'bash',
       'c',
       'cmake',
       'comment',
