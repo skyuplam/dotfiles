@@ -989,7 +989,7 @@ function M.setup()
   }
   heriline.load_colors(colors)
 
-  heriline.setup(StatusLines, WinBar, TabLine)
+  heriline.setup({statusline=StatusLines, winbar=WinBar, tabline=TabLine})
 
   vim.api.nvim_create_augroup('Heirline', {clear=true})
 
