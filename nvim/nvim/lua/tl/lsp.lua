@@ -118,9 +118,6 @@ if has_neodev then
   })
 end
 
-require('nlua.lsp.nvim').setup(nvim_lsp,
-                               {on_attach=on_attach, globals={'vim', 'use'}})
-
 local rust_tool_setup = function()
   if not has_rust_tools then return end
   local extension_path = vim.env.HOME
@@ -233,7 +230,7 @@ local servers = {
     }
   },
   vimls={},
-  sumneko_lua={
+  lua_ls={
     settings={
       Lua={
         runtime={

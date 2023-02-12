@@ -1,5 +1,6 @@
 local has_cmp, cmp = pcall(require, 'cmp')
 local has_lspkind, lspkind = pcall(require, 'lspkind')
+local has_luasnip, luasnip = pcall(require, 'luasnip')
 
 local M = {}
 
@@ -52,6 +53,7 @@ M.setup = function()
 
   cmp.setup({
     formatting={format=format},
+    snippet={expand=function(args) luasnip.lsp_expand(args.body) end},
     preselect=cmp.PreselectMode.None,
     window={
       completion=cmp.config.window.bordered(cmp_window),
@@ -70,6 +72,7 @@ M.setup = function()
       {name='nvim_lsp'},
       {name='nvim_lsp_document_symbol'},
       {name='nvim_lsp_signature_help'},
+      {name='luasnip'},
       {name='nvim_lua'},
       {name='tmux'},
       {name='path'},

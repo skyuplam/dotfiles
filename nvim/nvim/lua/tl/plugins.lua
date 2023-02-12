@@ -212,6 +212,9 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- Snippets
+  use {'saadparwaiz1/cmp_luasnip', requires={{'L3MON4D3/LuaSnip', tag='v1.*'}}}
+
   -- LSP
   use {
     'neovim/nvim-lspconfig',
@@ -219,7 +222,6 @@ return require('packer').startup(function(use)
     requires={
       {'lbrayner/vim-rzip'}, -- https://yarnpkg.com/getting-started/editor-sdks#supporting-go-to-definition-et-al
       {'simrat39/rust-tools.nvim'},
-      {'tjdevries/nlua.nvim'},
       -- {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
       {'ray-x/lsp_signature.nvim'},
       {'folke/lsp-colors.nvim'},
