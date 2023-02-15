@@ -33,13 +33,7 @@ return require('packer').startup(function(use)
   use {'folke/tokyonight.nvim'}
   use {
     'folke/which-key.nvim',
-    config=function()
-      require('which-key').setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
+    config=function() require('tl.keys').setup(); end
   }
   use {'vim-jp/syntax-vim-ex'}
 
@@ -72,15 +66,6 @@ return require('packer').startup(function(use)
 
   use 'tpope/vim-rhubarb'
   use 'tpope/vim-sleuth'
-
-  -- use {
-  --   'nvim-neotest/neotest',
-  --   requires={
-  --     'nvim-lua/plenary.nvim',
-  --     'nvim-treesitter/nvim-treesitter',
-  --     'antoinemadec/FixCursorHold.nvim'
-  --   }
-  -- }
 
   -- Neovim setup for init.lua and plugin development with full signature help,
   -- docs and completion for the nvim lua API
@@ -145,18 +130,6 @@ return require('packer').startup(function(use)
   use 'chrisbra/NrrwRgn'
   use 'mattn/calendar-vim'
   use 'inkarkat/vim-SyntaxRange'
-
-  use {
-    'mxsdev/nvim-dap-vscode-js',
-    requires={
-      {'mfussenegger/nvim-dap', config=function() require 'tl.dap' end},
-      {
-        'microsoft/vscode-js-debug',
-        opt=true,
-        run='npm install --legacy-peer-deps && npm run compile'
-      }
-    }
-  }
 
   use {
     'nvim-neorg/neorg',
@@ -230,12 +203,7 @@ return require('packer').startup(function(use)
       {
         'folke/trouble.nvim',
         requires='kyazdani42/nvim-web-devicons',
-        config=function()
-          require('trouble').setup({})
-
-          vim.keymap.set('n', '<leader>lx', '<cmd>TroubleToggle<CR>',
-                         {silent=true, noremap=true})
-        end
+        config=function() require('trouble').setup({}) end
       }
     }
   }
