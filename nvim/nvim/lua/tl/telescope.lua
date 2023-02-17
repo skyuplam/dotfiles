@@ -143,40 +143,63 @@ local function setup()
   telescope.load_extension('ui-select')
   telescope.load_extension('live_grep_args')
   telescope.load_extension('file_browser')
-  telescope.load_extension('dap')
+  -- telescope.load_extension('dap')
   telescope.load_extension('smart_history')
   telescope.load_extension('notify')
   telescope.load_extension('noice')
 
   -- Key mappings
-  vim.keymap.set('n', '<leader>ff', function() builtin.find_files() end)
+  vim.keymap.set('n', '<leader>ff', function() builtin.find_files() end,
+                 {desc='Find files'})
   vim.keymap.set('n', '<leader>fg', function()
     require('telescope').extensions.live_grep_args.live_grep_args()
-  end)
-  vim.keymap.set('n', '<leader>fb', function() builtin.buffers() end)
-  vim.keymap.set('n', '<leader>fh', function() builtin.help_tags() end)
+  end, {desc='Live grep files'})
+  vim.keymap.set('n', '<leader>fb', function() builtin.buffers() end,
+                 {desc='Find buffers'})
+  vim.keymap.set('n', '<leader>fh', function() builtin.help_tags() end,
+                 {desc='Find help tags'})
 
-  vim.keymap.set('n', '<leader>ft', function() builtin.filetypes() end)
-  vim.keymap.set('n', '<leader>fj', function() builtin.jumplist() end)
-  vim.keymap.set('n', '<leader>fl', function() builtin.loclist() end)
-  vim.keymap.set('n', '<leader>fq', function() builtin.quickfix() end)
-  vim.keymap.set('n', '<leader>fc', function() builtin.command_history() end)
-  vim.keymap.set('n', '<leader>fs', function() builtin.search_history() end)
+  vim.keymap.set('n', '<leader>ft', function() builtin.filetypes() end,
+                 {desc='Find filetypes'})
+  vim.keymap.set('n', '<leader>fj', function() builtin.jumplist() end,
+                 {desc='Find jumplist'})
+  vim.keymap.set('n', '<leader>fl', function() builtin.loclist() end,
+                 {desc='Find loclist'})
+  vim.keymap.set('n', '<leader>fq', function() builtin.quickfix() end,
+                 {desc='Find quickfix'})
+  vim.keymap.set('n', '<leader>fc', function() builtin.command_history() end,
+                 {desc='Find command history'})
+  vim.keymap.set('n', '<leader>fs', function() builtin.search_history() end,
+                 {desc='Find search history'})
 
   -- LSP
-  vim.keymap.set('n', '<leader>lr', function() builtin.lsp_references() end)
-  vim.keymap
-      .set('n', '<leader>li', function() builtin.lsp_implementations() end)
-  vim.keymap.set('n', '<leader>ld', function() builtin.lsp_definitions() end)
+  vim.keymap.set('n', '<leader>lr', function() builtin.lsp_references() end,
+                 {desc='Lsp references'})
+  vim.keymap.set('n', '<leader>li',
+                 function() builtin.lsp_implementations() end,
+                 {desc='Lsp implementations'})
+  vim.keymap.set('n', '<leader>ld', function() builtin.lsp_definitions() end,
+                 {desc='Lsp definitions'})
   vim.keymap.set('n', '<leader>ly',
-                 function() builtin.lsp_type_definitions() end)
-  vim.keymap.set('n', '<leader>lc', function() builtin.lsp_incoming_calls() end)
-  vim.keymap.set('n', '<leader>lC', function() builtin.lsp_outgoing_calls() end)
-  vim.keymap.set('n', '<leader>lD', function() builtin.diagnostics() end)
+                 function() builtin.lsp_type_definitions() end,
+                 {desc='Lsp type definitions'})
+  vim.keymap.set('n', '<leader>lci',
+                 function() builtin.lsp_incoming_calls() end,
+                 {desc='Lsp incoming calls'})
+  vim.keymap.set('n', '<leader>lco',
+                 function() builtin.lsp_outgoing_calls() end,
+                 {desc='Lsp outgoing calls'})
+  vim.keymap.set('n', '<leader>lD', function() builtin.diagnostics() end,
+                 {desc='List current diagnostics', buffer=0})
+  vim.keymap.set('n', '<leader>ls',
+                 function() builtin.lsp_document_symbols() end,
+                 {desc='Lsp document symbols'})
 
   vim.keymap.set('n', '<leader>gc',
-                 function() builtin.git_commits({previewer=delta_commit}) end)
-  vim.keymap.set('n', '<leader>gb', function() builtin.git_branches() end)
+                 function() builtin.git_commits({previewer=delta_commit}) end,
+                 {desc='List git commits'})
+  vim.keymap.set('n', '<leader>gb', function() builtin.git_branches() end,
+                 {desc='List git branchs'})
   vim.keymap.set('n', '<leader>gd', function()
     builtin.git_files({
       prompt_title='Git review files',
@@ -188,24 +211,28 @@ local function setup()
         vim.fn.expand('$REVIEW_BASE')
       },
       previewer=delta_file
-    })
+    }, {desc='Git review files'})
   end)
-  vim.keymap.set('n', '<leader>gf', function() builtin.git_status() end)
+  vim.keymap.set('n', '<leader>gf', function() builtin.git_status() end,
+                 {desc='Git status'})
   vim.keymap.set('n', '<leader>gp',
-                 function() builtin.git_bcommits({previewer=delta_commit}) end)
+                 function() builtin.git_bcommits({previewer=delta_commit}) end,
+                 {desc='List buffer commits'})
 
-  vim.keymap.set('n', '<leader>zl', function() builtin.spell_suggest() end)
+  vim.keymap.set('n', '<leader>zl', function() builtin.spell_suggest() end,
+                 {desc='List spell suggestions'})
 
-  vim.keymap.set('n', '<leader><leader>', function() builtin.resume() end)
+  vim.keymap.set('n', '<leader><leader>', function() builtin.resume() end,
+                 {desc='Resume'})
   vim.keymap.set('n', '<leader>ee', function()
     require('telescope').extensions.file_browser.file_browser()
-  end)
+  end, {desc='Browser files from root'})
   vim.keymap.set('n', '<leader>eb', function()
     require('telescope').extensions.file_browser.file_browser({
       path='%:p:h',
       select_buffer=true
     })
-  end)
+  end, {desc='Browser files from current file path'})
 end
 
 function M.setup() setup(); end

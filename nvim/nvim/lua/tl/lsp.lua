@@ -29,31 +29,36 @@ local on_attach = function(client, bufnr)
 
   if has_lspsignature then lspsignature.on_attach() end
 
-  local attach_opts = {silent=true, buffer=bufnr}
-  -- Key Mappings.
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, attach_opts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, attach_opts)
-  if has_rust_tools then
-    vim.keymap
-        .set('n', 'K', rust_tools.hover_actions.hover_actions, attach_opts)
-  else
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts)
+  local function attach_opts(desc)
+    return {silent=true, buffer=bufnr, desc=desc}
   end
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, attach_opts)
-  vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, attach_opts)
+  -- Key Mappings.
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
+                 attach_opts('Goto declaration'))
+  -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
+  --                attach_opts('Goto definition'))
+  if has_rust_tools then
+    vim.keymap.set('n', 'K', rust_tools.hover_actions.hover_actions,
+                   attach_opts('Hover actions'))
+  else
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts('Hover'))
+  end
+  -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
+  --                attach_opts('Goto implementation'))
+  vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help,
+                 attach_opts('Signature help'))
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
-                 attach_opts)
+                 attach_opts('Add workspace folder'))
   vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
-                 attach_opts)
+                 attach_opts('Remove workspace folder'))
   vim.keymap.set('n', '<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, attach_opts)
-  vim.keymap.set('n', '<leader>wo', function()
-    require('telescope.builtin').lsp_document_symbols()
-  end)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, attach_opts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, attach_opts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, attach_opts)
+  end, attach_opts('List workspace folder'))
+  -- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition,
+  --                attach_opts('Goto type definition'))
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, attach_opts('Rename'))
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
+                 attach_opts('Code action'))
 end
 
 vim.api.nvim_create_user_command('Format', vim.lsp.buf.format, {})
@@ -62,7 +67,8 @@ local handlers = {
   ['textDocument/hover']=function(...)
     local bufnr, _ = vim.lsp.handlers.hover(...)
     if bufnr then
-      vim.keymap.set('n', 'K', '<Cmd>wincmd p<CR>', {silent=true, buffer=bufnr})
+      vim.keymap.set('n', 'K', '<Cmd>wincmd p<CR>',
+                     {silent=true, buffer=bufnr, desc='Hover'})
     end
   end
 }
@@ -96,19 +102,10 @@ if has_cmp_lsp then capabilities = cmp_lsp.default_capabilities(capabilities) en
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 if has_neodev then
   neodev.setup({
-    library={
-      enabled=true,
-      runtime={
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version='LuaJIT',
-        -- Setup your lua path
-        path=vim.split(package.path, ';')
-      },
-      type=true,
-      plugins=true
-    },
+    library={enabled=true, runtime=true, types=true, plugins=true},
     setup_jsonls=true,
-    lspconfig=true
+    lspconfig=true,
+    pathStrict=true
   })
 end
 
