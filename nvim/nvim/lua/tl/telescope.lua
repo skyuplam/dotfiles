@@ -190,7 +190,7 @@ local function setup()
                  function() builtin.lsp_outgoing_calls() end,
                  {desc='Lsp outgoing calls'})
   vim.keymap.set('n', '<leader>lD', function() builtin.diagnostics() end,
-                 {desc='List current diagnostics', buffer=0})
+                 {desc='List diagnostics'})
   vim.keymap.set('n', '<leader>ls',
                  function() builtin.lsp_document_symbols() end,
                  {desc='Lsp document symbols'})
