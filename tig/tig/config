@@ -34,6 +34,7 @@ bind generic ,p ?git push
 bind generic ,P ?git push --force-with-lease
 bind generic ,u ?git pull --rebase
 bind generic ,r ?git rebase -i origin/main
+bind generic ,R ?git rebase -i %(commit)
 bind generic ,cc !git commit
 bind generic ,ca ?git commit --amend
 bind generic ,cf ?git commit --fixup reword:%(commit)
