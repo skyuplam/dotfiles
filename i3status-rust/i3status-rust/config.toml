@@ -12,7 +12,6 @@ format = "$title.str(max_w:50)"
 block = "disk_space"
 path = "/"
 info_type = "available"
-alert_unit = "GB"
 interval = 20
 warning = 30.0
 alert = 20.0
