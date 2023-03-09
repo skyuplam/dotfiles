@@ -9,7 +9,7 @@ let mapleader = ','
 let g:mapleader = ','
 
 " Explorer Mapping
-nnoremap <C-e> :NvimTreeFindFileToggle<CR>
+nnoremap <C-e> :Xplr %:p:h<CR>
 " nnoremap <C-p> :Files<CR>
 " nnoremap <A-p> :Buffers<CR>
 nnoremap <silent> <space>t :TagbarToggle<CR>

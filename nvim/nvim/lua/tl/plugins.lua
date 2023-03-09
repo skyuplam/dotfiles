@@ -52,11 +52,12 @@ return require('packer').startup(function(use)
   use {'m-demare/hlargs.nvim', requires={'nvim-treesitter/nvim-treesitter'}}
 
   use {'kevinhwang91/nvim-bqf'}
-  use {
-    'kyazdani42/nvim-tree.lua',
-    config=function() require('tl.nvimtree').setup() end,
-    requires='kyazdani42/nvim-web-devicons'
-  }
+  -- use {
+  --   'kyazdani42/nvim-tree.lua',
+  --   config=function() require('tl.nvimtree').setup() end,
+  --   requires='kyazdani42/nvim-web-devicons'
+  -- }
+  use {'is0n/fm-nvim'}
 
   use {'Shougo/vimproc.vim', run=':silent! !make'}
   use 'vim-scripts/vis'
