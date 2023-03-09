@@ -40,7 +40,7 @@ chip = "*-pci-*"
 [[block]]
 block = "net"
 device = "enp38s0"
-format = " $icon $ip $graph_down $speed_down $graph_up $speed_up "
+format = " $icon $ip | $graph_down $speed_down $graph_up $speed_up "
 missing_format = " x "
 interval = 5
 
