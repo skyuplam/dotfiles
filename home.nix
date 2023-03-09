@@ -2,6 +2,16 @@
 
 {
   # Packages with configuration --------------------------------------------------------------- {{{
+  # xdg.configFile."nixpkgs/config.nix".text = ''
+  #   {
+  #     allowUnfree = true;
+  #     experimental-features = "nix-command flakes";
+  #   }
+  # '';
+
+  programs.git = {
+    enable = true;
+  };
 
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
@@ -26,55 +36,65 @@
 
   home.packages = with pkgs; [
     # (pass.withExtensions (exts: [ exts.pass-otp ]))
-    abduco # lightweight session management
+    alacritty
+    # abduco # lightweight session management
     aspell
     borgbackup
     bottom # fancy version of `top` with ASCII graphs
     browsh # in terminal browser
-    cmake
+    # caddy
+    # cmake
     coreutils
     codespell
     curl
     du-dust # fancy version of `du`
     exa # fancy version of `ls`
     fd # fancy version of `find`
-    fontconfig
+    # fontconfig
     fzf
-    gawk
-    gcc
-    git
+    # gawk
+    # gcc
+    libiconv
     gitAndTools.delta
     gnupg
     go
-    htop # fancy version of `top`
-    hyperfine # benchmarking tool
+    git-cliff
+    # htop # fancy version of `top`
+    # hyperfine # benchmarking tool
+    # kondo
     lsd
     luajitPackages.luarocks
-    neovim-nightly
-    ninja
+    lnav
+    # neovim
+    # ninja
     # passExtensions.pass-import
     passff-host
     # procs # fancy version of `ps`
     ripgrep # better version of `grep`
+    rclone
     rsync
+    sd
     skhd
-    slides
+    # slides
     sqlite
     stow
     tealdeer # rust implementation of `tldr`
     tig
     tmux
-    tree
+    # tree
+    tree-sitter
     units
     wget
     wasm-pack
-    xz # extract XZ archives
-    yabai
+    # xz # extract XZ archives
+    # yabai
     yarn
+    zellij
     bash
+    xplr
 
     # Dev stuff
-    cloc # source code line counter
+    # cloc # source code line counter
     jq
     nodePackages.typescript-language-server
     nodePackages.vscode-json-languageserver-bin
@@ -115,6 +135,7 @@
     # See docs here: https://starship.rs/config/
     # Symbols config configured in Flake.
 
+    command_timeout = 1000;
     directory.fish_style_pwd_dir_length = 1; # turn on fish directory truncation
     directory.truncation_length = 2; # number of directories not to truncate
     gcloud.disabled = true; # annoying to always have on
@@ -129,6 +150,6 @@
   #
   # You can update Home Manager without changing this value. See the Home Manager release notes for
   # a list of state version changes in each release.
-  home.stateVersion = "21.11";
+  home.stateVersion = "23.05";
 }
 # vim: foldmethod=marker
