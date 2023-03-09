@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # Networking
   networking.computerName = "Terrence Lam’s 💻";
@@ -27,11 +27,21 @@
   services.nix-daemon.enable = true;
 
   # Enable experimental version of nix with flakes support
-  nix.package = pkgs.nixFlakes;
+  # nix.package = pkgs.nixVersions.stable;
+  nix.extraOptions = ''
+    auto-optimise-store = true
+    experimental-features = nix-command flakes
+  '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+    extra-platforms = x86_64-darwin aarch64-darwin
+  '';
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 4;
+  # system.stateVersion = 4;
+
+  # Keyboard
+  system.keyboard.enableKeyMapping = true;
+  system.keyboard.remapCapsLockToEscape = true;
 
   services.yabai = {
     enable = false;
@@ -40,18 +50,27 @@
     config = {
       focus_follows_mouse          = "off";
       mouse_follows_focus          = "off";
+      window_origin_display        = "default";
       window_placement             = "second_child";
       window_opacity               = "off";
+      window_animation_duration    = "0.0";
       window_opacity_duration      = "0.0";
       window_topmost               = "on";
       window_shadow                = "float";
       active_window_opacity        = "1.0";
       normal_window_opacity        = "1.0";
+      window_border_width          = "4";
+      window_border_radius         = "12";
+      window_border_blur           = "off";
+      window_border_hidpi          = "on";
+      window_border                = "off";
       split_ratio                  = "0.50";
-      auto_balance                 = "on";
+      split_type                   = "auto";
+      auto_balance                 = "off";
       mouse_modifier               = "fn";
       mouse_action1                = "move";
       mouse_action2                = "resize";
+      mouse_drop_action            = "swap";
       layout                       = "bsp";
       top_padding                  = 10;
       bottom_padding               = 10;

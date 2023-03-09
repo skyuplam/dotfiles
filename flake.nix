@@ -15,7 +15,10 @@
   outputs = { self, darwin, nixpkgs, home-manager, neovim-nightly-overlay }:
   let
     nixpkgsConfig = rec {
-      config = { allowUnfree = true; };
+      config = {
+        allowUnfree = true;
+        experimental-features = "nix-command flakes";
+      };
       overlays = [ neovim-nightly-overlay.overlay ];
     };
   in
