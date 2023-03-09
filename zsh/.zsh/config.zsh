@@ -13,6 +13,9 @@ export BROWSER=firefox-nightly
 
 # GPG
 export GPG_TTY=$(tty)
+unset SSH_AGENT_PID
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
+gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
