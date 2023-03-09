@@ -2268,16 +2268,34 @@ xplr.fn.custom = {}
 -- }
 -- ```
 
-local config_home = os.getenv('XDG_CONFIG_HOME')
+-- XPM
+local data_home = os.getenv('XDG_DATA_HOME')
+local xpm_path = data_home .. '/xplr/dtomvan/xpm.xplr'
+local xpm_url = 'https://github.com/dtomvan/xpm.xplr'
 
-package.path = config_home .. '/xplr/plugins/?/init.lua;' .. config_home
-                   .. '/xplr/plugins/?.lua;' .. package.path
+package.path = package.path .. ';' .. xpm_path .. '/?.lua;' .. xpm_path
+                   .. '/?/init.lua'
+os.execute(string.format('[ -e \'%s\' ] || git clone \'%s\' \'%s\'', xpm_path,
+                         xpm_url, xpm_path))
 
-require('zoxide').setup()
-require('icons').setup()
-require('extra-icons').setup()
-
-xplr.config.general.table.row.cols[2] = {format='custom.icons_dtomvan_col_1'}
+require('xpm').setup({
+  plugins={
+    'dtomvan/xpm.xplr',
+    'sayanarijit/tri-pane.xplr',
+    'sayanarijit/zoxide.xplr',
+    'prncss-xyz/icons.xplr',
+    {
+      'dtomvan/extra-icons.xplr',
+      after=function()
+        xplr.config.general.table.row.cols[2] = {
+          format='custom.icons_dtomvan_col_1'
+        }
+      end
+    }
+  },
+  auto_install=true,
+  auto_cleanup=true
+})
 
 return {
   on_load={},
