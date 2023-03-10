@@ -129,7 +129,7 @@ map <Leader>3 :diffget REMOTE<CR>
 " imap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
 " imap <c-x><c-l> <plug>(fzf-complete-line)
 
-nmap <silent> <leader>z <Plug>(zoom)
+" nmap <silent> <leader>zz <Plug>(zoom)
 
 " ----------------------------------------------------------------------------
 " Notes

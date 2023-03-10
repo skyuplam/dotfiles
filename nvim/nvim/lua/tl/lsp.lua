@@ -12,19 +12,22 @@ local has_schemastore, schemastore = pcall(require, 'schemastore')
 local has_rust_tools, rust_tools = pcall(require, 'rust-tools')
 local has_cmp_lsp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 local has_neodev, neodev = pcall(require, 'neodev')
+local map = require('tl.common').map
+local lsp_buf = vim.lsp.buf
+local lsp_util = vim.lsp.util
 
 require'tl.completion'.setup()
 
 -- To instead override globally
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+local orig_util_open_floating_preview = lsp_util.open_floating_preview
 ---@diagnostic disable-next-line: duplicate-set-field
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+function lsp_util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
   opts.border = opts.border or tl.style.current.border
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   if has_lspsignature then lspsignature.on_attach() end
@@ -33,42 +36,39 @@ local on_attach = function(client, bufnr)
     return {silent=true, buffer=bufnr, desc=desc}
   end
   -- Key Mappings.
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration,
-                 attach_opts('Goto declaration'))
-  -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition,
+  map('n', 'gD', lsp_buf.declaration, attach_opts('Goto declaration'))
+  -- map('n', 'gd', lsp_buf.definition,
   --                attach_opts('Goto definition'))
   if has_rust_tools then
-    vim.keymap.set('n', 'K', rust_tools.hover_actions.hover_actions,
-                   attach_opts('Hover actions'))
+    map('n', 'K', rust_tools.hover_actions.hover_actions,
+        attach_opts('Hover actions'))
   else
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, attach_opts('Hover'))
+    map('n', 'K', lsp_buf.hover, attach_opts('Hover'))
   end
-  -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation,
+  -- map('n', 'gi', lsp_buf.implementation,
   --                attach_opts('Goto implementation'))
-  vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help,
-                 attach_opts('Signature help'))
-  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
-                 attach_opts('Add workspace folder'))
-  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
-                 attach_opts('Remove workspace folder'))
-  vim.keymap.set('n', '<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, attach_opts('List workspace folder'))
-  -- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition,
+  map('n', '<C-s>', lsp_buf.signature_help, attach_opts('Signature help'))
+  map('n', '<leader>wa', lsp_buf.add_workspace_folder,
+      attach_opts('Add workspace folder'))
+  map('n', '<leader>wr', lsp_buf.remove_workspace_folder,
+      attach_opts('Remove workspace folder'))
+  map('n', '<leader>wl',
+      function() print(vim.inspect(lsp_buf.list_workspace_folders())) end,
+      attach_opts('List workspace folder'))
+  -- map('n', '<leader>D', lsp_buf.type_definition,
   --                attach_opts('Goto type definition'))
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, attach_opts('Rename'))
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
-                 attach_opts('Code action'))
+  map('n', '<leader>rn', lsp_buf.rename, attach_opts('Rename'))
+  map('n', '<leader>ca', lsp_buf.code_action, attach_opts('Code action'))
 end
 
-vim.api.nvim_create_user_command('Format', vim.lsp.buf.format, {})
+vim.api.nvim_create_user_command('Format', lsp_buf.format, {})
 
 local handlers = {
   ['textDocument/hover']=function(...)
     local bufnr, _ = vim.lsp.handlers.hover(...)
     if bufnr then
-      vim.keymap.set('n', 'K', '<Cmd>wincmd p<CR>',
-                     {silent=true, buffer=bufnr, desc='Hover'})
+      map('n', 'K', '<Cmd>wincmd p<CR>',
+          {silent=true, buffer=bufnr, desc='Hover'})
     end
   end
 }
