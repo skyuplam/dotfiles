@@ -19,7 +19,7 @@ function M.setup()
         ['vim.lsp.util.stylize_markdown']=true,
         ['cmp.entry.get_documentation']=true
       },
-      signature={enabled=false}
+      signature={enabled=true}
     },
     -- you can enable a preset for easier configuration
     presets={
