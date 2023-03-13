@@ -2291,6 +2291,29 @@ require('xpm').setup({
           format='custom.icons_dtomvan_col_1'
         }
       end
+    },
+    {
+      'Junker/nuke.xplr',
+      setup=function()
+        require('nuke').setup {
+          open={
+            run_executables=true, -- default: false
+            custom={
+              {mime_regex='^image/.*', command='imv {}'},
+              {mime_regex='^video/.*', command='mpv {}'},
+              {mime_regex='^audio/.*', command='mpv {}'},
+              {mime_regex='.*', command='xdg-open {}'}
+            }
+          },
+          view={
+            show_line_numbers=true -- default: false
+          },
+          smart_view={custom={{extension='so', command='ldd -r {} | less'}}}
+        }
+        local key = xplr.config.modes.builtin.default.key_bindings.on_key
+
+        key.v = {help='nuke', messages={'PopMode', {SwitchModeCustom='nuke'}}}
+      end
     }
   },
   auto_install=true,
