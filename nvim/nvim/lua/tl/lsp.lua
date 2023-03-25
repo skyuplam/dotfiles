@@ -254,6 +254,8 @@ local servers = {
       codeActionOnSave={enable=true, mode='all'}
     }
   },
+  glslls={},
+  wgsl_analyzer={},
   tsserver={
     on_attach=function(client, bufnr)
       on_attach(client, bufnr)
