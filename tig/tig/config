@@ -40,7 +40,7 @@ bind generic ,ca ?git commit --amend
 bind generic ,cf ?git commit --fixup reword:%(commit)
 # Pick up back the commit editing message
 # https://github.com/jorisroovers/gitlint/issues/90#issuecomment-511432519
-bind status  ,ce !git commit --edit --file .git/COMMIT_EDITMSG
+bind status  ,ce !git commit --edit --file %(repo:git-dir)/COMMIT_EDITMSG
 # bind status  ,I !git add -i %(file)
 # bind status  ,p ?git add --patch %(file)
 
@@ -56,7 +56,7 @@ bind generic us stage-split-chunk
 # Copy the commit Hash to clipboard
 bind generic Y none
 bind generic YH !@sh -c "git rev-parse --short %(commit) | $COPY_CMD"
-bind generic YB !@sh -c "git show -s --format=%b $(commit) | $COPY_CMD"
+bind generic YB !@sh -c "git show -s --format=%b %(commit) | $COPY_CMD"
 
 # Vim-style keybindings for Tig
 bind generic h scroll-left
