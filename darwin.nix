@@ -3,14 +3,6 @@
   # Networking
   networking.computerName = "Terrence Lam’s 💻";
   networking.hostName = "tlamsmbpro16";
-  networking.knownNetworkServices = [
-    "Wi-Fi"
-    "USB 10/100/1000 LAN"
-  ];
-  networking.dns = [
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -28,8 +20,9 @@
 
   # Enable experimental version of nix with flakes support
   # nix.package = pkgs.nixVersions.stable;
+  # https://github.com/LnL7/nix-darwin/issues/149 - auto-optimise-store = false
   nix.extraOptions = ''
-    auto-optimise-store = true
+    auto-optimise-store = false
     experimental-features = nix-command flakes
   '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
     extra-platforms = x86_64-darwin aarch64-darwin

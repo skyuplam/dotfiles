@@ -91,7 +91,6 @@
     yarn
     zellij
     bash
-    xplr
 
     # Dev stuff
     # cloc # source code line counter
