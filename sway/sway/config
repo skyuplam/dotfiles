@@ -35,9 +35,9 @@ xwayland disable
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 
 # Scale for HiDPI
-output DP-1 scale 1.5
 output DP-2 scale 1.5
-output DP-1 pos 0 0
+output DP-3 scale 1.5
+output DP-2 pos 0 0
 
 exec_always systemd-cat --identifier=swaybg swaybg --output "*" --mode fill --image ~/Downloads/wallpaper.jpg
 
