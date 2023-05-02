@@ -11,16 +11,14 @@ function M.setup()
   neorg.setup({
     load={
       ['core.defaults']={},
-      ['core.norg.dirman']={
+      ['core.concealer']={},
+      ['core.dirman']={
         config={workspaces={work=note_dir .. 'work', home=note_dir .. 'home'}}
       },
       ['core.presenter']={config={zen_mode='truezen'}},
       ['core.integrations.nvim-cmp']={},
       ['core.integrations.telescope']={},
-      ['core.norg.qol.toc']={},
-      ['core.norg.journal']={},
-      ['core.norg.concealer']={},
-      ['core.norg.completion']={config={engine='nvim-cmp'}},
+      ['core.completion']={config={engine='nvim-cmp'}},
       ['core.export']={}
     }
   })

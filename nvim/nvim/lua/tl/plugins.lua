@@ -134,6 +134,7 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-neorg/neorg',
+    ft='norg',
     run=':Neorg sync-parsers',
     requires={'nvim-lua/plenary.nvim', 'nvim-neorg/neorg-telescope'},
     config=function() require('tl.neorg').setup() end,
