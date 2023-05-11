@@ -243,7 +243,7 @@ else
   -- updatecount (200 keystrokes) and updatetime
   -- (4 seconds) are fine
   o.swapfile = true
-  o.directory = fn.expand('$XDG_DATA_HOME/nvim/swap//') .. o.directory
+  o.directory = fn.expand('$XDG_DATA_HOME/nvim/swap//')
 end
 
 if fn.exists('$SUDO_USER') > 0 then
@@ -258,7 +258,7 @@ else
   o.backupcopy = 'auto'
   -- consolidate the writebackups -- not a big
   -- deal either way, since they usually get deleted
-  o.backupdir = fn.expand('$XDG_DATA_HOME/nvim/backup//') .. o.backupdir
+  o.backupdir = fn.expand('$XDG_DATA_HOME/nvim/backup//')
 end
 
 if fn.exists('$SUDO_USER') > 0 then
@@ -267,7 +267,7 @@ if fn.exists('$SUDO_USER') > 0 then
 else
   -- persist the undo tree for each file
   o.undofile = true
-  o.undodir = fn.expand('$XDG_DATA_HOME/nvim/undo//') .. o.undodir
+  o.undodir = fn.expand('$XDG_DATA_HOME/nvim/undo//')
 end
 
 if fn.exists('$SUDO_USER') > 0 then

@@ -65,7 +65,7 @@ tl.style = {
       error='', -- '✗'
       warn='',
       warning='',
-      info='', -- 
+      info='', -- 
       hint='' -- ⚑
     },
     git={
@@ -76,31 +76,33 @@ tl.style = {
       rename='',
       diff='',
       repo='',
-      logo='',
+      logo='',
       branch=''
     },
     documents={file='', files='', folder='', open_folder=''},
-    type={array='', number='', object='', null='[]', float=''},
+    type={array='󰅨', number='', object='', null='󰟢', float='󱂡'},
     misc={
       ellipsis='…',
-      up='⇡',
-      down='⇣',
-      line='ℓ', -- ''
-      indent='Ξ',
+      up='',
+      down='',
+      left='',
+      right='',
+      line='', -- ''
+      indent='󰉶',
       tab='⇥',
       bug='', -- 'ﴫ'
       question='',
       clock='',
-      lock='',
+      lock='',
       circle='',
       project='',
       dashboard='',
-      history='',
-      comment='',
-      robot='ﮧ',
-      lightbulb='',
-      search='',
-      code='',
+      history='',
+      comment='',
+      robot='󰚩',
+      lightbulb='',
+      search='',
+      code='',
       telescope='',
       gear='',
       package='',

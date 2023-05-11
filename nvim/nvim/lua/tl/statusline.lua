@@ -727,7 +727,7 @@ local CloseButton = {
   update={'WinNew', 'WinClosed', 'BufEnter'},
   {provider=' '},
   {
-    provider=' ',
+    provider='󰅙 ',
     hl={fg='gray'},
     on_click={
       callback=function(_, minwid) vim.api.nvim_win_close(minwid, true) end,
@@ -843,7 +843,7 @@ local TablineCloseButton = {
   end,
   {provider=' '},
   { --  ✗    
-    provider=' ',
+    provider='󰅙 ',
     hl={fg='gray'},
     on_click={
       callback=function(_, minwid)
@@ -914,7 +914,7 @@ local Tabpage = {
   end
 }
 
-local TabpageClose = {provider=' %999X %X', hl='TabLine'}
+local TabpageClose = {provider=' %999X󰅙 %X', hl='TabLine'}
 
 local TabPages = {
   condition=function() return #vim.api.nvim_list_tabpages() >= 2 end,
