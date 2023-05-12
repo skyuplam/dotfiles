@@ -7,10 +7,6 @@ function M.setup()
 
   noice.setup({
     popupmenu={backend='cmp'},
-    routes={
-      {filter={event='msg_show', kind='search_count'}, opts={skip=true}},
-      {filter={event='msg_show', kind='', find='written'}, opts={skip=true}}
-    },
     -- add any options here
     lsp={
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -21,6 +17,7 @@ function M.setup()
       },
       signature={enabled=false}
     },
+    smar_move={enabled=false},
     -- you can enable a preset for easier configuration
     presets={
       bottom_search=true, -- use a classic bottom cmdline for search

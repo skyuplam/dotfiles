@@ -15,6 +15,7 @@ return require('packer').startup(function(use)
   use {'andymass/vim-matchup', event='VimEnter *'}
 
   use {'sheerun/vim-polyglot'}
+  use {'elkowar/yuck.vim'}
   use {
     'nvim-treesitter/nvim-treesitter',
     run=function()
@@ -36,6 +37,8 @@ return require('packer').startup(function(use)
     config=function() require('tl.keys').setup(); end
   }
   use {'vim-jp/syntax-vim-ex'}
+
+  -- use {'eraserhd/parinfer-rust', run='cargo build --release'}
 
   use {
     'danymat/neogen',
@@ -134,7 +137,6 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-neorg/neorg',
-    ft='norg',
     run=':Neorg sync-parsers',
     requires={'nvim-lua/plenary.nvim', 'nvim-neorg/neorg-telescope'},
     config=function() require('tl.neorg').setup() end,
