@@ -1,18 +1,22 @@
 layout {
     default_tab_template {
-        children
-    }
-    tab split_direction="Horizontal" {
         pane size=1 borderless=true {
             plugin location="zellij:tab-bar"
         }
-        pane size="80%" focus=true
-        pane size="20%" split_direction="Vertical" {
-            pane
-            pane
-        }
+        children
         pane size=2 borderless=true {
             plugin location="zellij:status-bar"
         }
+    }
+    tab split_direction="horizontal" focus=true {
+        pane size="80%" focus=true
+        pane size="20%" split_direction="vertical" {
+            pane
+            pane
+        }
+    }
+    tab split_direction="vertical" {
+        pane
+        pane
     }
 }
