@@ -15,6 +15,7 @@ local has_neodev, neodev = pcall(require, 'neodev')
 local map = require('tl.common').map
 local lsp_buf = vim.lsp.buf
 local lsp_util = vim.lsp.util
+local vim_api = vim.api
 
 require'tl.completion'.setup()
 
@@ -27,10 +28,31 @@ function lsp_util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local on_attach = function(_, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+local lsp_formatting = function(bufnr)
+  lsp_buf.format({
+    filter=function(client)
+      -- apply whatever logic you want (in this example, we'll only use null-ls)
+      return client.name == 'null-ls'
+    end,
+    bufnr=bufnr
+  })
+end
+-- if you want to set up formatting on save, you can use this as a callback
+local augroup = vim_api.nvim_create_augroup('LspFormatting', {})
+
+local on_attach = function(client, bufnr)
+  vim_api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   if has_lspsignature then lspsignature.on_attach() end
+
+  if client.supports_method('textDocument/formatting') then
+    vim_api.nvim_clear_autocmds({group=augroup, buffer=bufnr})
+    vim_api.nvim_create_autocmd('BufWritePre', {
+      group=augroup,
+      buffer=bufnr,
+      callback=function() lsp_formatting(bufnr) end
+    })
+  end
 
   local function attach_opts(desc)
     return {silent=true, buffer=bufnr, desc=desc}
@@ -61,7 +83,7 @@ local on_attach = function(_, bufnr)
   map('n', '<leader>ca', lsp_buf.code_action, attach_opts('Code action'))
 end
 
-vim.api.nvim_create_user_command('Format', lsp_buf.format, {})
+vim_api.nvim_create_user_command('Format', lsp_buf.format, {})
 
 local handlers = {
   ['textDocument/hover']=function(...)
@@ -142,10 +164,10 @@ end
 
 rust_tool_setup();
 
-local prettier = {
-  formatCommand='yarn prettier --stdin-filepath ${INPUT}',
-  formatStdin=true
-}
+-- local prettier = {
+--   formatCommand='yarn prettier --stdin-filepath ${INPUT}',
+--   formatStdin=true
+-- }
 
 local jsons = {}
 local yamls = {}
@@ -196,30 +218,30 @@ local servers = {
   },
   yamlls={settings={yaml={schemas=yamls, validate={enable=true}}}},
   html={cmd={htmlls, '--stdio'}},
-  efm={
-    filetypes={
-      'javascript',
-      'javascriptreact',
-      'javascript.jsx',
-      'typescript',
-      'typescriptreact',
-      'typescript.tsx'
-    },
-    init_options={documentFormatting=true, publishDiagnostics=true},
-    root_dir=function(fname)
-      return nvim_lsp.util.root_pattern('.yarn/')(fname)
-                 or nvim_lsp.util.root_pattern('tsconfig.json')(fname)
-    end,
-    settings={
-      rootMarkers={'.yarn/', '.git/'},
-      languages={
-        javascript={prettier},
-        typescript={prettier},
-        javascriptreact={prettier},
-        typescriptreact={prettier}
-      }
-    }
-  },
+  -- efm={
+  --   filetypes={
+  --     'javascript',
+  --     'javascriptreact',
+  --     'javascript.jsx',
+  --     'typescript',
+  --     'typescriptreact',
+  --     'typescript.tsx'
+  --   },
+  --   init_options={documentFormatting=true, publishDiagnostics=true},
+  --   root_dir=function(fname)
+  --     return nvim_lsp.util.root_pattern('.yarn/')(fname)
+  --                or nvim_lsp.util.root_pattern('tsconfig.json')(fname)
+  --   end,
+  --   settings={
+  --     rootMarkers={'.yarn/', '.git/'},
+  --     languages={
+  --       javascript={prettier},
+  --       typescript={prettier},
+  --       javascriptreact={prettier},
+  --       typescriptreact={prettier}
+  --     }
+  --   }
+  -- },
   vimls={},
   lua_ls={
     settings={
@@ -236,7 +258,7 @@ local servers = {
         },
         workspace={
           -- Make the server aware of Neovim runtime files
-          library=vim.api.nvim_get_runtime_file('', true)
+          library=vim_api.nvim_get_runtime_file('', true)
         },
         completion={callSnippet='Replace'},
         -- Do not send telemetry data containing a randomized but unique identifier
@@ -260,7 +282,7 @@ local servers = {
     on_attach=function(client, bufnr)
       on_attach(client, bufnr)
       -- formatting is done via formatter.nvim
-      client.server_capabilities.document_formatting = false
+      -- client.server_capabilities.document_formatting = false
     end,
     init_options={
       hostInfo='neovim',

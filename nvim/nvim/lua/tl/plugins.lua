@@ -118,10 +118,10 @@ return require('packer').startup(function(use)
     event='VimEnter /private$TMPDIR/pass.?*/?*.txt,/dev/shm/pass.?*/?*.txt'
   }
 
-  use {
-    'mhartington/formatter.nvim',
-    config=function() require('tl.formatter').setup() end
-  }
+  -- use {
+  --   'mhartington/formatter.nvim',
+  --   config=function() require('tl.formatter').setup() end
+  -- }
 
   use 'junegunn/vim-slash'
   use 'junegunn/gv.vim'
@@ -134,15 +134,6 @@ return require('packer').startup(function(use)
   use 'chrisbra/NrrwRgn'
   use 'mattn/calendar-vim'
   use 'inkarkat/vim-SyntaxRange'
-
-  use {
-    'nvim-neorg/neorg',
-    run=':Neorg sync-parsers',
-    requires={'nvim-lua/plenary.nvim', 'nvim-neorg/neorg-telescope'},
-    config=function() require('tl.neorg').setup() end,
-    after='nvim-treesitter'
-  }
-  use {'Pocco81/true-zen.nvim'}
 
   use {
     'echasnovski/mini.nvim',
@@ -212,6 +203,12 @@ return require('packer').startup(function(use)
         config=function() require('trouble').setup({}) end
       }
     }
+  }
+
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    config=function() require 'tl.nullls' end,
+    requires={{'nvim-lua/plenary.nvim'}}
   }
 
   -- Interactive Repls Over Neovim
