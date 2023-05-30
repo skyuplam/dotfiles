@@ -13,6 +13,8 @@
     enable = true;
   };
 
+  fonts.fontconfig.enable = true;
+
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bat.enable
@@ -50,8 +52,8 @@
     du-dust # fancy version of `du`
     exa # fancy version of `ls`
     fd # fancy version of `find`
-    # fontconfig
     fzf
+    (nerdfonts.override { fonts = ["JetBrainsMono" "Noto"]; })
     # gawk
     # gcc
     libiconv
@@ -65,7 +67,7 @@
     lsd
     luajitPackages.luarocks
     lnav
-    # neovim
+    neovim
     # ninja
     # passExtensions.pass-import
     passff-host
@@ -104,17 +106,17 @@
     nodePackages.vscode-langservers-extracted
     sumneko-lua-language-server
     efm-langserver
-    nodejs-16_x
     rust-analyzer
+    bazel
     (python3.withPackages (p: with p; [ pip ]))
   ];
   # }}}
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    enableSyntaxHighlighting = true;
+    # enableAutosuggestions = true;
+    # enableCompletion = true;
+    # enableSyntaxHighlighting = true;
     initExtraBeforeCompInit = "[ -f $HOME/.zsh/init.zsh ] && source $HOME/.zsh/init.zsh";
   };
 
