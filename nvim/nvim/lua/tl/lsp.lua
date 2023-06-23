@@ -258,6 +258,7 @@ local servers = {
     --   }
     -- },
     vimls = {},
+    marksman = {on_attach = on_attach},
     lua_ls = {
         settings = {
             Lua = {
@@ -294,11 +295,7 @@ local servers = {
     glslls = {},
     wgsl_analyzer = {},
     tsserver = {
-        on_attach = function(client, bufnr)
-            -- formatting is done via formatter.nvim
-            -- client.server_capabilities.documentFormattingProvider = false
-            on_attach(client, bufnr)
-        end,
+        on_attach = on_attach,
         init_options = {
             hostInfo = 'neovim',
             preferences = {
