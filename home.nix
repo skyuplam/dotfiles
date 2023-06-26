@@ -15,6 +15,9 @@
 
   fonts.fontconfig.enable = true;
 
+  # Workaround https://github.com/NixOS/nixpkgs/issues/196651
+  manual.manpages.enable = false;
+
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bat.enable
@@ -41,7 +44,7 @@
     alacritty
     # abduco # lightweight session management
     aspell
-    borgbackup
+    # borgbackup
     bottom # fancy version of `top` with ASCII graphs
     browsh # in terminal browser
     # caddy
@@ -52,7 +55,6 @@
     du-dust # fancy version of `du`
     exa # fancy version of `ls`
     fd # fancy version of `find`
-    fzf
     (nerdfonts.override { fonts = ["JetBrainsMono" "Noto"]; })
     # gawk
     # gcc
@@ -60,7 +62,7 @@
     gitAndTools.delta
     gnupg
     go
-    git-cliff
+    # git-cliff
     # htop # fancy version of `top`
     # hyperfine # benchmarking tool
     # kondo
@@ -76,11 +78,11 @@
     rclone
     rsync
     sd
-    skhd
+    # skhd
     # slides
     sqlite
     stow
-    tealdeer # rust implementation of `tldr`
+    # tealdeer # rust implementation of `tldr`
     tig
     tmux
     # tree
@@ -92,22 +94,22 @@
     # yabai
     yarn
     zellij
-    bash
+    xplr
+    mpv-unwrapped
+    lapce
 
     # Dev stuff
     # cloc # source code line counter
     jq
     nodePackages.typescript-language-server
-    nodePackages.vscode-json-languageserver-bin
     nodePackages.yaml-language-server
-    nodePackages.vscode-css-languageserver-bin
-    nodePackages.vscode-html-languageserver-bin
     nodePackages.vim-language-server
     nodePackages.vscode-langservers-extracted
-    sumneko-lua-language-server
+    lua-language-server
     efm-langserver
     rust-analyzer
-    bazel
+    marksman
+    # bazel
     (python3.withPackages (p: with p; [ pip ]))
   ];
   # }}}
@@ -115,15 +117,27 @@
   programs.zsh = {
     enable = true;
     # enableAutosuggestions = true;
-    # enableCompletion = true;
+    enableCompletion = false;
+    completionInit = "";
     # enableSyntaxHighlighting = true;
     initExtraBeforeCompInit = "[ -f $HOME/.zsh/init.zsh ] && source $HOME/.zsh/init.zsh";
+  };
+
+  programs.bash.enable = false;
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.password-store = {
     enable = true;
     package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
     settings = { PASSWORD_STORE_DIR = "$HOME/.password-store"; };
+  };
+
+  programs.zellij = {
+    enable = true;
   };
 
   # Starship Prompt
