@@ -140,6 +140,11 @@ bindkey -M vicmd 'j' history-substring-search-down
 [ -d $HOME/dev/nix-zsh-completions ] && fpath=($HOME/dev/nix-zsh-completions $fpath)
 [ -d $HOME/.nix-profile/share/zsh/site-functions ] && fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
 [ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
+[ -d /opt/homebrew/share/zsh/site-functions ] && fpath=(/opt/homebrew/share/zsh/site-functions(N) ${fpath})
+
+export HOMEBREW_NO_ANALYTICS=1
+# Homebrew
+export PATH="/opt/homebrew/bin:$PATH"
 
 export LC_ALL=en_US.UTF-8
 
