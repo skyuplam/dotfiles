@@ -1,372 +1,81 @@
-# NOTE(koekeishiya):
-# A list of all built-in modifier and literal keywords can
-# be found at https://github.com/koekeishiya/skhd/issues/1
-#
-# A hotkey is written according to the following rules:
-#
-#   hotkey       = <mode> '<' <action> | <action>
-#
-#   mode         = 'name of mode' | <mode> ',' <mode>
-#
-#   action       = <keysym> '[' <proc_map_lst> ']' | <keysym> '->' '[' <proc_map_lst> ']'
-#                  <keysym> ':' <command>          | <keysym> '->' ':' <command>
-#                  <keysym> ';' <mode>             | <keysym> '->' ';' <mode>
-#
-#   keysym       = <mod> '-' <key> | <key>
-#
-#   mod          = 'modifier keyword' | <mod> '+' <mod>
-#
-#   key          = <literal> | <keycode>
-#
-#   literal      = 'single letter or built-in keyword'
-#
-#   keycode      = 'apple keyboard kVK_<Key> values (0x3C)'
-#
-#   proc_map_lst = * <proc_map>
-#
-#   proc_map     = <string> ':' <command> | <string>     '~' |
-#                  '*'      ':' <command> | '*'          '~'
-#
-#   string       = '"' 'sequence of characters' '"'
-#
-#   command      = command is executed through '$SHELL -c' and
-#                  follows valid shell syntax. if the $SHELL environment
-#                  variable is not set, it will default to '/bin/bash'.
-#                  when bash is used, the ';' delimeter can be specified
-#                  to chain commands.
-#
-#                  to allow a command to extend into multiple lines,
-#                  prepend '\' at the end of the previous line.
-#
-#                  an EOL character signifies the end of the bind.
-#
-#   ->           = keypress is not consumed by skhd
-#
-#   *            = matches every application not specified in <proc_map_lst>
-#
-#   ~            = application is unbound and keypress is forwarded per usual,
-#                  when specified in a <proc_map>
-#
-# NOTE(koekeishiya):
-# A mode is declared according to the following rules:
-#
-#   mode_decl = '::' <name> '@' ':' <command> | '::' <name> ':' <command> |
-#               '::' <name> '@'               | '::' <name>
-#
-#   name      = desired name for this mode,
-#
-#   @         = capture keypresses regardless of being bound to an action
-#
-#   command   = command is executed through '$SHELL -c' and
-#               follows valid shell syntax. if the $SHELL environment
-#               variable is not set, it will default to '/bin/bash'.
-#               when bash is used, the ';' delimeter can be specified
-#               to chain commands.
-#
-#               to allow a command to extend into multiple lines,
-#               prepend '\' at the end of the previous line.
-#
-#               an EOL character signifies the end of the bind.
-#
-# add an on_enter command to the default mode
-# :: default : chunkc border::color 0xff775759
-#
-# defines a new mode 'test' with an on_enter command, that captures keypresses
-# :: test @ : chunkc border::color 0xff24ccaa
-#
-# from 'default' mode, activate mode 'test'
-# cmd - x ; test
-#
-# from 'test' mode, activate mode 'default'
-# test < cmd - x ; default
-#
-# launch a new terminal instance when in either 'default' or 'test' mode
-# default, test < cmd - return : open -na /Applications/Terminal.app
-#
-# application specific bindings
-#
-# cmd - n [
-#     "kitty"       : echo "hello kitty"
-#     *             : echo "hello everyone"
-#     "qutebrowser" : echo "hello qutebrowser"
-#     "terminal"    ~
-#     "finder"      : false
-# ]
-#
-# specify a file that should be included as an additional config-file.
-# treated as an absolutepath if the filename begins with '/' otherwise
-# the file is relative to the path of the config-file it was loaded from.
-#
-# .load "/Users/Koe/.config/partial_skhdrc"
-# .load "partial_skhdrc"
-#
-# prevent skhd from monitoring events for specific applications.
-#
-# .blacklist [
-#    "kitty"
-#    "terminal"
-#    "qutebrowser"
-# ]
-
-# Based on @pkazmier:
-#   https://gist.github.com/pkazmier/213d9dce6b1ea313eaf0a17b017c2b08
-
-# The following configuration heavily leverages modal keymaps to minimize the
-# pollution of global keybindings. In addition, the modal keymaps facilitate
-# the consistent use of the same keybindings across different modes. For
-# example, this configuration uses 'h', 'l', 'j', and 'k' to represent west,
-# east, south, and north when: changing focus, warping windows, resizing
-# windows, swapping windows, and moving floating windows. Those four keys are
-# mapped differently depending on the current mode to provide a consistent user
-# experience.
-#
-# Six different modes are provided in this configuration in addition to the
-# default mode. The modes are tailored to their respective operations. Common
-# operations are generally available without the need of any modifier keys.
-# When modifier keys are used, they are for infrequent actions or size related
-# actions. Entry into the modal system is via Ctrl - Space, which enters FOCUS
-# mode. From there, any of the other modes can be activated with a single
-# keypress.
-#
-# The following is a high-level summary of the keybindngs:
-#
-# GLOBAL KEYBINDINGS:
-#                    ctrl - space    Enter/Exit FOCUS mode
-#                        ctrl - [    Exit any mode
-#                   ctrl - escape    Exit any mode
-#                   ctrl - return    Open an Alacritty
-#
-#
-# KEYBINDINGS AVAILABLE IN ALL MODES:
-#                          escape    Exit current mode
-#                               f    Enter FOCUS mode
-#                               g    Enter GRID mode
-#                               s    Enter SWAP mode
-#                               r    Enter RESIZE mode
-#                               w    Enter WARP mode
-#                       shift - w    Enter WARP NO FOLLOW mode
-#
-#                               q    Close window
-#                        ctrl - =    Balance window sizes: [ | ]
-#                        ctrl - -    Main-and-side windows layout: [  | ]
-#                        ctrl - x    Delete focused space
-#                        ctrl - c    Create a new space on active display, and change focus to the space
-#                shift + ctrl - c    Create a new space, move the active window and follow
-#                        ctrl - f    Change space layout to float
-#                        ctrl - t    Change space layout to bsp
-#                               m    Toggle fullscreen
-#                               o    Toggle offset
-#                               z    Toggle parent zoom
-#                               i    Toggle split
-#                               t    Toggle float
-#                               b    Toggle border
-#                               a    Toggle sticky
-#                               x    Mirror horizontal
-#                               y    Mirror vertical
-#                           space    Rotate desktop 90
-#                   shift - space    Rotate desktop 270
-
-# Setting up MODE
-:: default   : yabai -m config window_border off
-:: focus  @  : yabai -m config window_border on;\
-               yabai -m config active_window_border_color 0xff448AFF;\
-               yabai -m config normal_window_border_color 0xff82B1FF;\
-               yabai -m config insert_feedback_color      0xff42A5F5;
-:: grid   @  # Floating window layout
-:: swap   @  : yabai -m config active_window_border_color 0xff40C4FF;\
-               yabai -m config normal_window_border_color 0xff80D8FF;\
-               yabai -m config insert_feedback_color      0xff29B6F6;
-:: warp   @  : yabai -m config active_window_border_color 0xff3D5AFE;\
-               yabai -m config normal_window_border_color 0xff8C9EFF;\
-               yabai -m config insert_feedback_color      0xff5C6BC0;
-:: warpnf @  : yabai -m config active_window_border_color 0xff7E57C2;\
-               yabai -m config normal_window_border_color 0xffB388FF;\
-               yabai -m config insert_feedback_color      0xff7E57C2;
-:: resize @  : yabai -m config active_window_border_color 0xff00E676;\
-               yabai -m config normal_window_border_color 0xffB9F6CA;\
-               yabai -m config insert_feedback_color      0xff66BB6A;
-
-# CTRL-SPACE is the global hotkey to toggle in/out of modal mode. Entry is
-# always to FOCUS mode. Getting out of any mode can also be done with ESCAPE.
-default                                 < ctrl - space      ; focus
-focus, grid, swap, warp, warpnf, resize < ctrl - space      ; default
-focus, grid, swap, warp, warpnf, resize < escape            ; default
-focus, grid, swap, warp, warpnf, resize < ctrl - 0x21       ; default  # ctrl - [ same as escape
-focus, grid, swap, warp, warpnf, resize < return            ; default  # ctrl - [ same as escape
-
-# Global hotkeys
-default                                 < cmd - return      : open -na alacritty   # Launch Alacritty
-default                                 < ctrl - 0x21       : skhd --key "escape"  # Map ctrl - [ to escape
-
-# Once in FOCUS mode (or any other mode other than default), you can switch
-# modes with single keystroke. (mnemonic: letter corresponds to first letter of
-# mode name, with exception of warpnf, which is a variant invoked with shift)
-focus, grid, swap, warp, warpnf, resize < f                 ; focus
-focus, grid, swap, warp, warpnf, resize < g                 ; grid
-focus, grid, swap, warp, warpnf, resize < s                 ; swap
-focus, grid, swap, warp, warpnf, resize < r                 ; resize
-focus, grid, swap, warp, warpnf, resize < w                 ; warp
-focus, grid, swap, warp, warpnf, resize < shift - w         ; warpnf
-
-# The following keybindngs are available in all modes.
-focus, grid, swap, warp, warpnf, resize < space             : yabai -m space --rotate 90
-focus, grid, swap, warp, warpnf, resize < shift - space     : yabai -m space --rotate 270
-focus, grid, swap, warp, warpnf, resize < y                 : yabai -m space --mirror y-axis
-focus, grid, swap, warp, warpnf, resize < x                 : yabai -m space --mirror x-axis
-focus, grid, swap, warp, warpnf, resize < o                 : yabai -m space --toggle padding;\
-                                                              yabai -m space --toggle gap  # Toggle Offset
-focus, grid, swap, warp, warpnf, resize < ctrl - 0x18       : yabai -m space --balance  # Balance space: ctrl - =
-focus, grid, swap, warp, warpnf, resize < ctrl - 0x1B       : yabai -m space --balance;\
-                                                              yabai -m window --focus first;\
-                                                              yabai -m window --resize right:200:0 # Main-side layout: ctrl - -
-# # create desktop and follow focus
-focus, grid, swap, warp, warpnf, resize < ctrl - c          : yabai -m space --create\
-                                                              id=$(yabai -m query --displays --display | grep "spaces");\
-                                                              yabai -m space --focus $(echo ${id:10:${#id}-10})
-# create desktop, move window and follow focus
-focus, grid, swap, warp, warpnf, resize < shift + ctrl - c  : yabai -m space --create;\
-                                                              id=$(yabai -m query --displays --display | grep "spaces");\
-                                                              yabai -m window --space $(echo ${id:10:${#id}-10});\
-                                                              yabai -m space --focus $(echo ${id:10:${#id}-10})
-focus, grid, swap, warp, warpnf, resize < ctrl - x          : yabai -m space --destroy
-focus, grid, swap, warp, warpnf, resize < ctrl - f          : yabai -m space --layout float
-focus, grid, swap, warp, warpnf, resize < ctrl - t          : yabai -m space --layout bsp
-focus, grid, swap, warp, warpnf, resize < z                 : yabai -m window --toggle zoom-parent  # toggle window parent zoom
-focus, grid, swap, warp, warpnf, resize < m                 : yabai -m window --toggle zoom-fullscreen  # toggle window fullscreen zoom
-focus, grid, swap, warp, warpnf, resize < shift - m         : yabai -m window --toggle native-fullscreen  # toggle window native fullscreen
-focus, grid, swap, warp, warpnf, resize < i                 : yabai -m window --toggle split # toggle window split type
-focus, grid, swap, warp, warpnf, resize < t                 : yabai -m window --toggle float;\
-                                                              yabai -m window --grid 4:4:1:1:2:2  # float / unfloat window and center on screen
-focus, grid, swap, warp, warpnf, resize < b                 : yabai -m window --toggle border;
-focus, grid, swap, warp, warpnf, resize < a                 : yabai -m window --toggle sticky;  # toggle whether the focused window should be shown on all spaces
-
-# FOCUS window
-focus < h                 : yabai -m window --focus west
-focus < j                 : yabai -m window --focus south
-focus < k                 : yabai -m window --focus north
-focus < l                 : yabai -m window --focus east
-focus < n                 : yabai -m window --focus next
-focus < p                 : yabai -m window --focus prev
-focus < 1                 : yabai -m window --focus first
-focus < 0                 : yabai -m window --focus last
-
-# Change insertion point
-focus < shift - h : yabai -m window --insert west; skhd --key "escape"
-focus < shift - j : yabai -m window --insert south; skhd --key "escape"
-focus < shift - k : yabai -m window --insert north; skhd --key "escape"
-focus < shift - l : yabai -m window --insert east; skhd --key "escape"
-
-# FOCUS monitor/display
-focus < cmd - r           : yabai -m display --focus recent
-focus < cmd - n           : yabai -m display --focus next
-focus < cmd - p           : yabai -m display --focus prev
-focus < cmd - 1           : yabai -m display --focus 1
-focus < cmd - 2           : yabai -m display --focus 2
-focus < cmd - 3           : yabai -m display --focus 3
-
-# FOCUS space/desktop
-focus < ctrl - r           : yabai -m space --focus recent
-focus < ctrl - n           : yabai -m space --focus next
-focus < ctrl - p           : yabai -m space --focus prev
-focus < ctrl - 1           : yabai -m space --focus 1
-focus < ctrl - 2           : yabai -m space --focus 2
-focus < ctrl - 3           : yabai -m space --focus 3
-focus < ctrl - 4           : yabai -m space --focus 4
-focus < ctrl - 5           : yabai -m space --focus 5
-focus < ctrl - 6           : yabai -m space --focus 6
-focus < ctrl - 7           : yabai -m space --focus 7
-focus < ctrl - 8           : yabai -m space --focus 8
-
-# SWAP window
-swap < h                   : yabai -m window --swap west
-swap < j                   : yabai -m window --swap south
-swap < k                   : yabai -m window --swap north
-swap < l                   : yabai -m window --swap east
-swap < r                   : yabai -m window --swap recent
-swap < n                   : yabai -m window --swap next
-swap < p                   : yabai -m window --swap prev
-swap < 1                   : yabai -m window --swap first
-swap < 0                   : yabai -m window --swap last
-
-# WARP & WARPNF window on active space/desktop
-warp, warpnf < h           : yabai -m window --warp west
-warp, warpnf < j           : yabai -m window --warp south
-warp, warpnf < k           : yabai -m window --warp north
-warp, warpnf < l           : yabai -m window --warp east
-warp, warpnf < r           : yabai -m window --warp recent
-warp, warpnf < n           : yabai -m window --warp next
-warp, warpnf < p           : yabai -m window --warp prev
-
-# WARP on certain space/desktop
-warp < ctrl - r : yabai -m window --space recent; yabai -m space --focus recent
-warp < ctrl - n : yabai -m window --space next; yabai -m space --focus next
-warp < ctrl - p : yabai -m window --space prev; yabai -m space --focus prev
-warp < ctrl - 1 : yabai -m window --space 1; yabai -m space --focus 1
-warp < ctrl - 2 : yabai -m window --space 2; yabai -m space --focus 2
-warp < ctrl - 3 : yabai -m window --space 3; yabai -m space --focus 3
-warp < ctrl - 4 : yabai -m window --space 4; yabai -m space --focus 4
-warp < ctrl - 5 : yabai -m window --space 5; yabai -m space --focus 5
-warp < ctrl - 6 : yabai -m window --space 6; yabai -m space --focus 6
-warp < ctrl - 7 : yabai -m window --space 7; yabai -m space --focus 7
-warp < ctrl - 8 : yabai -m window --space 8; yabai -m space --focus 8
-
-# WARPNF on certain space/desktop (no follow)
-warpnf < ctrl - r : yabai -m window --space recent
-warpnf < ctrl - n : yabai -m window --space next
-warpnf < ctrl - p : yabai -m window --space prev
-warpnf < ctrl - 1 : yabai -m window --space 1
-warpnf < ctrl - 2 : yabai -m window --space 2
-warpnf < ctrl - 3 : yabai -m window --space 3
-warpnf < ctrl - 4 : yabai -m window --space 4
-warpnf < ctrl - 5 : yabai -m window --space 5
-warpnf < ctrl - 6 : yabai -m window --space 6
-warpnf < ctrl - 7 : yabai -m window --space 7
-warpnf < ctrl - 8 : yabai -m window --space 8
-
-# WARP on certain monitor/display
-warp < cmd - r : yabai -m window --display recent; yabai -m display --focus recent
-warp < cmd - n : yabai -m window --display next; yabai -m display --focus next
-warp < cmd - p : yabai -m window --display prev; yabai -m display --focus prev
-warp < cmd - 1 : yabai -m window --display 1; yabai -m display --focus 1
-warp < cmd - 2 : yabai -m window --display 2; yabai -m display --focus 2
-warp < cmd - 3 : yabai -m window --display 3; yabai -m display --focus 3
-
-# WARPNF on certain monitor/display (no follow)
-warpnf < cmd - r : yabai -m window --display recent
-warpnf < cmd - n : yabai -m window --display next
-warpnf < cmd - p : yabai -m window --display prev
-warpnf < cmd - 1 : yabai -m window --display 1
-warpnf < cmd - 2 : yabai -m window --display 2
-warpnf < cmd - 3 : yabai -m window --display 3
-
-# RESIZE
-# increase window size
-resize < h : yabai -m window --resize left:-20:0
-resize < j : yabai -m window --resize bottom:0:20
-resize < k : yabai -m window --resize top:0:-20
-resize < l : yabai -m window --resize right:20:0
-#
-# decrease window size
-resize < shift - h : yabai -m window --resize left:20:0
-resize < shift - j : yabai -m window --resize bottom:0:-20
-resize < shift - k : yabai -m window --resize top:0:20
-resize < shift - l : yabai -m window --resize right:-20:0
-
-# # make floating window fill screen
-# shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
-#
-# # make floating window fill left-half of screen
-# shift + alt - left   : yabai -m window --grid 1:2:0:0:1:1
+# hotkey       = <mode> '<' <action> | <action>
 # 
-# # make floating window fill right-half of screen
-# shift + alt - right  : yabai -m window --grid 1:2:1:0:1:1
-#
-# # move window
-# shift + ctrl - a : yabai -m window --move rel:-20:0
-# shift + ctrl - s : yabai -m window --move rel:0:20
-# shift + ctrl - w : yabai -m window --move rel:0:-20
-# shift + ctrl - d : yabai -m window --move rel:20:0
-#
-# # toggle sticky, float and resize to picture-in-picture size
-# alt - p : yabai -m window --toggle sticky;\
-#           yabai -m window --grid 5:5:4:0:1:1
+# mode         = 'name of mode' | <mode> ',' <mode>
+# 
+# action       = <keysym> '[' <proc_map_lst> ']' | <keysym> '->' '[' <proc_map_lst> ']'
+#                <keysym> ':' <command>          | <keysym> '->' ':' <command>
+#                <keysym> ';' <mode>             | <keysym> '->' ';' <mode>
+# 
+# keysym       = <mod> '-' <key> | <key>
+# 
+# mod          = 'modifier keyword' | <mod> '+' <mod>
+# 
+# key          = <literal> | <keycode>
+# 
+# literal      = 'single letter or built-in keyword'
+# 
+# keycode      = 'apple keyboard kVK_<Key> values (0x3C)'
+# 
+# proc_map_lst = * <proc_map>
+# 
+# proc_map     = <string> ':' <command> | <string>     '~' |
+#                '*'      ':' <command> | '*'          '~'
+# 
+# string       = '"' 'sequence of characters' '"'
+# 
+# command      = command is executed through '$SHELL -c' and
+#                follows valid shell syntax. if the $SHELL environment
+#                variable is not set, it will default to '/bin/bash'.
+#                when bash is used, the ';' delimeter can be specified
+#                to chain commands.
+# 
+#                to allow a command to extend into multiple lines,
+#                prepend '\' at the end of the previous line.
+# 
+#                an EOL character signifies the end of the bind.
+# 
+# ->           = keypress is not consumed by skhd
+# 
+# *            = matches every application not specified in <proc_map_lst>
+# 
+# ~            = application is unbound and keypress is forwarded per usual, when specified in a <proc_map>
+# Global hotkeys
+cmd - return : open -na alacritty   # Launch Alacritty
+# Focus window
+cmd - h : yabai -m window --focus west || yabai -m display --focus recent
+cmd - j : yabai -m window --focus south
+cmd - k : yabai -m window --focus north
+cmd - l : yabai -m window --focus east || yabai -m display --focus recent
+
+# swap managed windows
+shift + cmd - h : yabai -m window --swap west
+shift + cmd - j : yabai -m window --swap south
+shift + cmd - k : yabai -m window --swap north
+shift + cmd - l : yabai -m window --swap east
+
+# move managed windows
+shift + cmd + ctrl - h : yabai -m window --warp west
+shift + cmd + ctrl - j : yabai -m window --warp south
+shift + cmd + ctrl - k : yabai -m window --warp north
+shift + cmd + ctrl - l : yabai -m window --warp east
+
+# move managed windows
+shift + cmd + ctrl - 1 : yabai -m window --space 1; \
+                         yabai -m space --focus 1
+shift + cmd + ctrl - 2 : yabai -m window --space 2; \
+                         yabai -m space --focus 2
+shift + cmd + ctrl - 3 : yabai -m window --space 3; \
+                         yabai -m space --focus 3
+shift + cmd + ctrl - 4 : yabai -m window --space 4; \
+                         yabai -m space --focus 4
+shift + cmd + ctrl - 5 : yabai -m window --space 5; \
+                         yabai -m space --focus 5
+shift + cmd + ctrl - 6 : yabai -m window --space 6; \
+                         yabai -m space --focus 6
+shift + cmd + ctrl - 7 : yabai -m window --space 7; \
+                         yabai -m space --focus 7
+
+# Toggle float
+alt - t : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
+alt - b : yabai -m space --balance
