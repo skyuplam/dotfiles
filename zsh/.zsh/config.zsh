@@ -9,7 +9,7 @@ export SAVEHIST=20000
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export VISUAL=nvim
-export BROWSER=firefox-nightly
+export BROWSER=w3m
 
 # GPG
 export GPG_TTY=$(tty)
