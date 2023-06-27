@@ -258,7 +258,9 @@ return require('packer').startup(function(use)
             'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-nvim-lua', 'andersevenrud/cmp-tmux',
             'onsails/lspkind-nvim', 'dmitmel/cmp-cmdline-history',
-            'f3fora/cmp-spell', 'lukas-reineke/cmp-rg'
+            'f3fora/cmp-spell', 'lukas-reineke/cmp-rg',
+            {'tzachar/cmp-fuzzy-buffer', requires = {'tzachar/fuzzy.nvim'}},
+            {'tzachar/cmp-fuzzy-path', requires = {'tzachar/fuzzy.nvim'}}
         }
     }
 
