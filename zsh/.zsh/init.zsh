@@ -146,6 +146,9 @@ export HOMEBREW_NO_ANALYTICS=1
 # Homebrew
 export PATH="/opt/homebrew/bin:$PATH"
 
+# Setup Volta https://docs.volta.sh/guide/getting-started
+[ -d $HOME/.volta ] && export VOLTA_HOME=$HOME/.volta && export PATH="$VOLTA_HOME/bin:$PATH"
+
 export LC_ALL=en_US.UTF-8
 
 # Ignore git files
