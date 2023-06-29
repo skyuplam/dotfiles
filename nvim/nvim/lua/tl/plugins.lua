@@ -208,10 +208,10 @@ return require('packer').startup(function(use)
             {'simrat39/rust-tools.nvim'},
             -- {'onsails/lspkind-nvim', config=function() require'lspkind'.init() end},
             {'ray-x/lsp_signature.nvim'}, {'folke/lsp-colors.nvim'},
-            {'b0o/schemastore.nvim'},
-            {
+            {'b0o/schemastore.nvim'}, {
                 'j-hui/fidget.nvim',
-                config = function() require('fidget').setup() end
+                config = function() require('fidget').setup() end,
+                tag = 'legacy'
             }, {
                 'folke/trouble.nvim',
                 requires = 'kyazdani42/nvim-web-devicons',
