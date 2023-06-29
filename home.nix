@@ -104,13 +104,18 @@
     nodePackages.typescript-language-server
     nodePackages.yaml-language-server
     nodePackages.vim-language-server
-    nodePackages.vscode-langservers-extracted
+    nodePackages.prettier
+    nodePackages.write-good
+    vscode-langservers-extracted
     lua-language-server
     efm-langserver
     rust-analyzer
     marksman
+    gitlint
+    luaformatter
+    dotenv-linter
     # bazel
-    (python3.withPackages (p: with p; [ pip ]))
+    (python3.withPackages (p: with p; [ pip pynvim ]))
   ];
   # }}}
 
