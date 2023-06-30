@@ -15,8 +15,9 @@ local has_neodev, neodev = pcall(require, 'neodev')
 local has_null_ls, null_ls = pcall(require, 'null-ls')
 local command_resolver = require("null-ls.helpers.command_resolver")
 local map = require('tl.common').map
-local lsp_buf = vim.lsp.buf
-local lsp_util = vim.lsp.util
+local lsp = vim.lsp
+local lsp_buf = lsp.buf
+local lsp_util = lsp.util
 local vim_api = vim.api
 
 require'tl.completion'.setup()
@@ -43,10 +44,12 @@ end
 -- if you want to set up formatting on save, you can use this as a callback
 local augroup = vim_api.nvim_create_augroup('LspFormatting', {})
 
+if has_lspsignature then
+    lspsignature.setup({bind = true, handler_opts = {border = "rounded"}})
+end
+
 local on_attach = function(client, bufnr)
     vim_api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    if has_lspsignature then lspsignature.on_attach() end
 
     if client.supports_method('textDocument/formatting') then
         vim_api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
@@ -64,7 +67,7 @@ local on_attach = function(client, bufnr)
     map('n', 'gD', lsp_buf.declaration, attach_opts('Goto declaration'))
     -- map('n', 'gd', lsp_buf.definition,
     --                attach_opts('Goto definition'))
-    if has_rust_tools then
+    if has_rust_tools and client.name == 'rust_analyzer' then
         map('n', 'K', rust_tools.hover_actions.hover_actions,
             attach_opts('Hover actions'))
     else
@@ -95,26 +98,25 @@ if has_null_ls then
             null_ls.builtins.diagnostics.write_good,
             null_ls.builtins.code_actions.gitsigns,
             null_ls.builtins.completion.luasnip,
-            null_ls.builtins.completion.spell,
-            null_ls.builtins.completion.tags,
+            null_ls.builtins.completion.spell, null_ls.builtins.completion.tags,
             -- null_ls.builtins.diagnostics.deno_lint,
             null_ls.builtins.diagnostics.dotenv_linter,
-            null_ls.builtins.diagnostics.gitlint,
+            null_ls.builtins.diagnostics.gitlint
         }
     })
 end
 
 vim_api.nvim_create_user_command('Format', lsp_buf.format, {})
 
-local handlers = {
-    ['textDocument/hover'] = function(...)
-        local bufnr, _ = vim.lsp.handlers.hover(...)
-        if bufnr then
-            map('n', 'K', '<Cmd>wincmd p<CR>',
-                {silent = true, buffer = bufnr, desc = 'Hover'})
-        end
-    end
-}
+-- local handlers = {
+--     ['textDocument/hover'] = function(...)
+--         local bufnr, _ = lsp.handlers.hover(...)
+--         if bufnr then
+--             map('n', 'K', '<Cmd>wincmd p<CR>',
+--                 {silent = true, buffer = bufnr, desc = 'Hover'})
+--         end
+--     end
+-- }
 
 local select_symbol = function(cursor_pos, symbol)
     if symbol.valueRange then
@@ -326,8 +328,8 @@ for server, config in pairs(servers) do
         nvim_lsp[server].setup(vim.tbl_deep_extend('force', {
             on_attach = on_attach,
             capabilities = capabilities,
-            select_symbol = select_symbol,
-            handlers = handlers
+            select_symbol = select_symbol
+            -- handlers = handlers
         }, config))
     end
 end
