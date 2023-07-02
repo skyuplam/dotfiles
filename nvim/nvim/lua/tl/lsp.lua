@@ -95,17 +95,21 @@ if has_null_ls then
             null_ls.builtins.formatting.prettier.with({
                 dynamic_command = command_resolver.from_yarn_pnp()
             }), null_ls.builtins.formatting.lua_format,
-            null_ls.builtins.diagnostics.write_good,
-            null_ls.builtins.code_actions.gitsigns,
-            null_ls.builtins.completion.luasnip,
-            null_ls.builtins.completion.spell, null_ls.builtins.completion.tags,
             -- null_ls.builtins.diagnostics.deno_lint,
-            null_ls.builtins.diagnostics.dotenv_linter,
-            null_ls.builtins.diagnostics.gitlint,
-            null_ls.builtins.formatting.yq,
             null_ls.builtins.code_actions.gitsigns,
             null_ls.builtins.code_actions.ltrs,
-            null_ls.builtins.diagnostics.ltrs
+            null_ls.builtins.completion.luasnip,
+            null_ls.builtins.completion.spell, null_ls.builtins.completion.tags,
+            null_ls.builtins.diagnostics.deadnix,
+            null_ls.builtins.diagnostics.dotenv_linter,
+            null_ls.builtins.diagnostics.gitlint,
+            null_ls.builtins.diagnostics.ltrs,
+            null_ls.builtins.diagnostics.statix,
+            null_ls.builtins.diagnostics.stylelint,
+            null_ls.builtins.diagnostics.typos,
+            null_ls.builtins.diagnostics.write_good,
+            null_ls.builtins.formatting.nixpkgs_fmt,
+            null_ls.builtins.formatting.yq
         }
     })
 end
