@@ -30,6 +30,15 @@ function lsp_util.open_floating_preview(contents, syntax, opts, ...)
     opts.border = opts.border or tl.style.current.border
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts#avoid-breaking-formatexpr-ie-gq
+local function is_null_ls_formatting_enabled(bufnr)
+    local file_type = vim.api.nvim_buf_get_option(bufnr, "filetype")
+    local generators = require("null-ls.generators").get_available(file_type,
+                                                                   require(
+                                                                       "null-ls.methods").internal
+                                                                       .FORMATTING)
+    return #generators > 0
+end
 
 local lsp_formatting = function(bufnr)
     lsp_buf.format({
@@ -49,8 +58,10 @@ if has_lspsignature then
 end
 
 local on_attach = function(client, bufnr)
+    local function attach_opts(desc)
+        return {silent = true, buffer = bufnr, desc = desc}
+    end
     vim_api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
     if client.supports_method('textDocument/formatting') then
         vim_api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
         vim_api.nvim_create_autocmd('BufWritePre', {
@@ -59,11 +70,18 @@ local on_attach = function(client, bufnr)
             callback = function() lsp_formatting(bufnr) end
         })
     end
-
-    local function attach_opts(desc)
-        return {silent = true, buffer = bufnr, desc = desc}
-    end
     -- Key Mappings.
+    if client.server_capabilities.documentFormattingProvider then
+        if client.name == "null-ls" and is_null_ls_formatting_enabled(bufnr) or
+            client.name ~= "null-ls" then
+            vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()"
+            map("n", "<leader>gq",
+                "<cmd>lua vim.lsp.buf.format({ async = true })<CR>",
+                attach_opts('LSP Format'))
+        else
+            vim.bo[bufnr].formatexpr = nil
+        end
+    end
     map('n', 'gD', lsp_buf.declaration, attach_opts('Goto declaration'))
     -- map('n', 'gd', lsp_buf.definition,
     --                attach_opts('Goto definition'))
