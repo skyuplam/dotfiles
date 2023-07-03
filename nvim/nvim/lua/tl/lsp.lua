@@ -126,8 +126,9 @@ if has_null_ls then
             null_ls.builtins.diagnostics.stylelint,
             null_ls.builtins.diagnostics.typos,
             null_ls.builtins.diagnostics.write_good,
+            null_ls.builtins.formatting.dprint,
             null_ls.builtins.formatting.nixpkgs_fmt,
-            null_ls.builtins.formatting.yq, null_ls.builtins.formatting.dprint
+            null_ls.builtins.formatting.yq
         }
     })
 end
