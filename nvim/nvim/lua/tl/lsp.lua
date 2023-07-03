@@ -40,14 +40,14 @@ local function is_null_ls_formatting_enabled(bufnr)
     return #generators > 0
 end
 
-local lsp_formatting = function(bufnr)
+local lsp_formatting = function(param)
     lsp_buf.format({
         filter = function(client)
             -- apply whatever logic you want (in this example, we'll only use null-ls)
             return client.name == 'null-ls'
         end,
         timeout_ms = 3000,
-        bufnr = bufnr
+        bufnr = param.bufnr or 0
     })
 end
 -- if you want to set up formatting on save, you can use this as a callback
@@ -67,7 +67,7 @@ local on_attach = function(client, bufnr)
         vim_api.nvim_create_autocmd('BufWritePre', {
             group = augroup,
             buffer = bufnr,
-            callback = function() lsp_formatting(bufnr) end
+            callback = function() lsp_formatting({bufnr = bufnr}) end
         })
     end
     -- Key Mappings.
@@ -133,7 +133,7 @@ if has_null_ls then
     })
 end
 
-vim_api.nvim_create_user_command('Format', lsp_buf.format, {})
+vim_api.nvim_create_user_command('Format', lsp_formatting, {})
 
 -- local handlers = {
 --     ['textDocument/hover'] = function(...)
