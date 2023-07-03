@@ -55,7 +55,7 @@
     du-dust # fancy version of `du`
     exa # fancy version of `ls`
     fd # fancy version of `find`
-    (nerdfonts.override { fonts = ["JetBrainsMono" "Noto"]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" ]; })
     # gawk
     # gcc
     libiconv
@@ -114,6 +114,12 @@
     gitlint
     luaformatter
     dotenv-linter
+    statix
+    deadnix
+    typos
+    dprint
+    nixpkgs-fmt
+    languagetool-rust
     # bazel
     (python3.withPackages (p: with p; [ pip pynvim ]))
   ];
