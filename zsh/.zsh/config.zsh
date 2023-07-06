@@ -27,7 +27,7 @@ typeset -U path
 path=(/usr/local/sbin /usr/local/bin $path[@])
 
 # Rust
-export RUSTUP_HOME=~/.multirust
+export RUSTUP_HOME=~/.rustup
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 [ -d $HOME/.cargo/bin ] && export PATH=$HOME/.cargo/bin:$PATH
 
