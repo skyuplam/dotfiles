@@ -110,10 +110,6 @@ end
 if has_null_ls then
     null_ls.setup({
         sources = {
-            null_ls.builtins.formatting.prettier.with({
-                dynamic_command = command_resolver.from_yarn_pnp()
-            }), null_ls.builtins.formatting.lua_format,
-            -- null_ls.builtins.diagnostics.deno_lint,
             null_ls.builtins.code_actions.gitsigns,
             null_ls.builtins.code_actions.ltrs,
             null_ls.builtins.completion.luasnip,
@@ -127,8 +123,30 @@ if has_null_ls then
             null_ls.builtins.diagnostics.typos,
             null_ls.builtins.diagnostics.write_good,
             null_ls.builtins.formatting.dprint,
+            null_ls.builtins.formatting.lua_format,
             null_ls.builtins.formatting.nixpkgs_fmt,
-            null_ls.builtins.formatting.yq
+            null_ls.builtins.formatting.prettier.with({
+                dynamic_command = command_resolver.from_yarn_pnp()
+            }), null_ls.builtins.formatting.rustfmt.with({
+                -- Read from Cargo.toml for edition
+                extra_args = function(params)
+                    local Path = require("plenary.path")
+                    local cargo_toml = Path:new(
+                                           params.root .. "/" .. "Cargo.toml")
+
+                    if cargo_toml:exists() and cargo_toml:is_file() then
+                        for _, line in ipairs(cargo_toml:readlines()) do
+                            local edition = line:match(
+                                                [[^edition%s*=%s*%"(%d+)%"]])
+                            if edition then
+                                return {"--edition=" .. edition}
+                            end
+                        end
+                    end
+                    -- default edition when we don't find `Cargo.toml` or the `edition` in it.
+                    return {"--edition=2021"}
+                end
+            }), null_ls.builtins.formatting.yq
         }
     })
 end
@@ -204,6 +222,7 @@ local rust_tool_setup = function()
             debuggables = {use_telescope = true}
         },
         server = {
+            cmd = {'rustup', 'run', 'stable', 'rust-analyzer'},
             settings = {
                 ['rust-analyzer'] = {
                     checkOnSave = {command = 'clippy'},
