@@ -42,14 +42,14 @@
 # Global hotkeys
 cmd - return : open -na alacritty   # Launch Alacritty
 # Focus window
-cmd - h : yabai -m window --focus west || yabai -m display --focus recent
+cmd - h : yabai -m window --focus west || yabai -m display --focus west
 cmd - j : yabai -m window --focus south
 cmd - k : yabai -m window --focus north
-cmd - l : yabai -m window --focus east || yabai -m display --focus recent
+cmd - l : yabai -m window --focus east || yabai -m display --focus east
 
 # Focus display
-shift + ctrl + alt - h: yabai -m display --focus recent
-shift + ctrl + alt - l: yabai -m display --focus recent
+shift + ctrl + alt - h: yabai -m display --focus west
+shift + ctrl + alt - l: yabai -m display --focus east
 
 # Focus space
 ctrl - 1 : yabai -m space --focus 1
@@ -69,11 +69,11 @@ shift + cmd + ctrl - l : yabai -m window --swap east
 
 # move managed windows
 shift + cmd - h : yabai -m window --warp west || \
-                 (yabai -m window --display recent; yabai -m window --focus recent);
+                 (yabai -m window --display west; yabai -m window --focus recent);
 shift + cmd - j : yabai -m window --warp south
 shift + cmd - k : yabai -m window --warp north
 shift + cmd - l : yabai -m window --warp east || \
-                 (yabai -m window --display recent; yabai -m window --focus recent);
+                 (yabai -m window --display east; yabai -m window --focus recent);
 
 # move managed space
 shift + cmd + ctrl - 1 : yabai -m window --space 1; \
