@@ -75,7 +75,7 @@
     passff-host
     # procs # fancy version of `ps`
     ripgrep # better version of `grep`
-    rclone
+    # rclone
     rsync
     sd
     # skhd
@@ -101,6 +101,7 @@
     # Dev stuff
     # cloc # source code line counter
     jq
+    minicom
     nodePackages.typescript-language-server
     nodePackages.yaml-language-server
     nodePackages.vim-language-server
