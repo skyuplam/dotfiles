@@ -26,7 +26,7 @@
 # command      = command is executed through '$SHELL -c' and
 #                follows valid shell syntax. if the $SHELL environment
 #                variable is not set, it will default to '/bin/bash'.
-#                when bash is used, the ';' delimeter can be specified
+#                when bash is used, the ';' delemeter can be specified
 #                to chain commands.
 # 
 #                to allow a command to extend into multiple lines,
@@ -47,11 +47,23 @@ cmd - j : yabai -m window --focus south
 cmd - k : yabai -m window --focus north
 cmd - l : yabai -m window --focus east || yabai -m display --focus recent
 
+# Focus space
+ctrl - 1 : yabai -m space --focus 1
+ctrl - 2 : yabai -m space --focus 2
+ctrl - 3 : yabai -m space --focus 3
+ctrl - 4 : yabai -m space --focus 4
+ctrl - 5 : yabai -m space --focus 5
+ctrl - 6 : yabai -m space --focus 6
+ctrl - 7 : yabai -m space --focus 7
+ctrl - 8 : yabai -m space --focus 8
+
 # swap managed windows
-shift + cmd - h : yabai -m window --swap west
+shift + cmd - h : yabai -m window --swap west || yabai -m window --display recent; \
+                  yabai -m display --focus recent;
 shift + cmd - j : yabai -m window --swap south
 shift + cmd - k : yabai -m window --swap north
-shift + cmd - l : yabai -m window --swap east
+shift + cmd - l : yabai -m window --swap east || yabai -m window --display recent; \
+                  yabai -m display --focus recent;
 
 # move managed windows
 shift + cmd + ctrl - h : yabai -m window --warp west
@@ -59,7 +71,7 @@ shift + cmd + ctrl - j : yabai -m window --warp south
 shift + cmd + ctrl - k : yabai -m window --warp north
 shift + cmd + ctrl - l : yabai -m window --warp east
 
-# move managed windows
+# move managed space
 shift + cmd + ctrl - 1 : yabai -m window --space 1; \
                          yabai -m space --focus 1
 shift + cmd + ctrl - 2 : yabai -m window --space 2; \
@@ -74,8 +86,13 @@ shift + cmd + ctrl - 6 : yabai -m window --space 6; \
                          yabai -m space --focus 6
 shift + cmd + ctrl - 7 : yabai -m window --space 7; \
                          yabai -m space --focus 7
+shift + cmd + ctrl - 8 : yabai -m window --space 8; \
+                         yabai -m space --focus 8
 
 # Toggle float
 alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
+# Balance layout
 alt - b : yabai -m space --balance
+# Zoom parent
+alt - f : yabai -m window --toggle zoom-parent
