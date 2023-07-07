@@ -110,7 +110,7 @@
     vscode-langservers-extracted
     lua-language-server
     efm-langserver
-    rust-analyzer
+    rustup
     marksman
     gitlint
     luaformatter
