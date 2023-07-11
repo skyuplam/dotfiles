@@ -72,7 +72,6 @@
     neovim
     # ninja
     # passExtensions.pass-import
-    passff-host
     # procs # fancy version of `ps`
     ripgrep # better version of `grep`
     # rclone
