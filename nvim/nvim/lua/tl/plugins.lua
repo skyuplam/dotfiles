@@ -12,7 +12,7 @@ return require('packer').startup(function(use)
         opt = true,
         cmd = {'Dispatch', 'Make', 'Focus', 'Start'}
     }
-    use {'andymass/vim-matchup', event = 'VimEnter *'}
+    -- use {'andymass/vim-matchup', event = 'silent! VimEnter *'}
 
     use {'sheerun/vim-polyglot'}
     use {'elkowar/yuck.vim'}
@@ -258,9 +258,7 @@ return require('packer').startup(function(use)
             'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-nvim-lua', 'andersevenrud/cmp-tmux',
             'onsails/lspkind-nvim', 'dmitmel/cmp-cmdline-history',
-            'f3fora/cmp-spell', 'lukas-reineke/cmp-rg',
-            {'tzachar/cmp-fuzzy-buffer', requires = {'tzachar/fuzzy.nvim'}},
-            {'tzachar/cmp-fuzzy-path', requires = {'tzachar/fuzzy.nvim'}}
+            'f3fora/cmp-spell', 'lukas-reineke/cmp-rg'
         }
     }
 
