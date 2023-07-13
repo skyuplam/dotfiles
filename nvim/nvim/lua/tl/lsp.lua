@@ -85,6 +85,8 @@ local on_attach = function(client, bufnr)
     map('n', 'gD', lsp_buf.declaration, attach_opts('Goto declaration'))
     map('n', '<leader>lo', vim.diagnostic.open_float,
         attach_opts('Show line diagnostic'))
+    map('n', '[d', vim.diagnostic.goto_prev, attach_opts('Goto prev diagnostic'))
+    map('n', ']d', vim.diagnostic.goto_next, attach_opts('Goto next diagnostic'))
     -- map('n', 'gd', lsp_buf.definition,
     --                attach_opts('Goto definition'))
     if has_rust_tools and client.name == 'rust_analyzer' then
