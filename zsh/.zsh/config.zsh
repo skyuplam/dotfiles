@@ -95,6 +95,7 @@ export FZF_ALT_C_OPTS="--preview 'lsd --tree --color=always -l --depth=2 {} | he
 # ---------------------------------------------------------
 # colorizing pager for man
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 
 # ---------------------------------------------------------
 # GPG
