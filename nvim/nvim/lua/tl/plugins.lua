@@ -89,10 +89,6 @@ return require('packer').startup(function(use)
     use 'godlygeek/tabular'
 
     use {'kamykn/spelunker.vim'}
-    use {
-        'lewis6991/spellsitter.nvim',
-        config = function() require('spellsitter').setup() end
-    }
 
     -- Marks
     use 'kshenoy/vim-signature'
