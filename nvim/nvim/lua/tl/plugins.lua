@@ -150,7 +150,7 @@ return require('packer').startup(function(use)
             require('mini.align').setup({})
             require('mini.surround').setup({})
             require('mini.bufremove').setup({})
-            require('mini.comment').setup({})
+            -- require('mini.comment').setup({})
             require('mini.cursorword').setup({})
             require('mini.indentscope').setup({
                 draw = {
@@ -164,23 +164,6 @@ return require('packer').startup(function(use)
         end
     }
 
-    -- use({
-    --     'folke/noice.nvim',
-    --     config = function() require('tl.noice').setup() end,
-    --     requires = {
-    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --         'MunifTanjim/nui.nvim', -- OPTIONAL:
-    --         --   `nvim-notify` is only needed, if you want to use the notification view.
-    --         --   If not available, we use `mini` as the fallback
-    --         {
-    --             'rcarriga/nvim-notify',
-    --             config = function()
-    --                 require('notify').setup({background_colour = '#000000'})
-    --             end
-    --         }
-    --     }
-    -- })
-
     -- Color tool
     use {
         'norcalli/nvim-colorizer.lua',
@@ -192,7 +175,18 @@ return require('packer').startup(function(use)
     -- Snippets
     use {
         'saadparwaiz1/cmp_luasnip',
-        requires = {{'L3MON4D3/LuaSnip', tag = 'v1.*'}}
+        requires = {
+            {
+                'L3MON4D3/LuaSnip',
+                config = function()
+                    require("luasnip.loaders.from_vscode").lazy_load()
+                end,
+                run = "make install_jsregexp"
+            }, {
+                'numToStr/Comment.nvim',
+                config = function() require('Comment').setup() end
+            }
+        }
     }
 
     -- LSP

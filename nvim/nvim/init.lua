@@ -1,6 +1,6 @@
 vim.g.os = vim.loop.os_uname().sysname
-vim.g.sqlite_clib_path = vim.g.os == 'Darwin'
-                             and '/usr/lib/sqlite3/libtclsqlite3.dylib' or nil
+vim.g.sqlite_clib_path = vim.g.os == 'Darwin' and
+                             '/usr/lib/sqlite3/libtclsqlite3.dylib' or nil
 -------------------------------------------------------------------------------
 -- SKIP VIM PLUGINS {{{
 -------------------------------------------------------------------------------
@@ -39,21 +39,21 @@ vim.g.loaded_python_provider = 0
 
 vim.g.python3_host_skip_check = 1
 if vim.fn.executable('python3') == 1 then
-  vim.g.python3_host_prog = vim.fn.exepath('python3')
+    vim.g.python3_host_prog = vim.fn.exepath('python3')
 else
-  vim.g.loaded_python3_provider = 0
+    vim.g.loaded_python3_provider = 0
 end
 
 if vim.fn.executable('neovim-node-host') == 1 then
-  vim.g.node_host_prog = vim.fn.exepath('neovim-node-host')
+    vim.g.node_host_prog = vim.fn.exepath('neovim-node-host')
 else
-  vim.g.loaded_node_provider = 0
+    vim.g.loaded_node_provider = 0
 end
 
 if vim.fn.executable('neovim-ruby-host') == 1 then
-  vim.g.ruby_host_prog = vim.fn.exepath('neovim-ruby-host')
+    vim.g.ruby_host_prog = vim.fn.exepath('neovim-ruby-host')
 else
-  vim.g.loaded_ruby_provider = 0
+    vim.g.loaded_ruby_provider = 0
 end
 
 vim.g.loaded_perl_provider = 0
@@ -65,19 +65,19 @@ local ok, reload = pcall(require, 'plenary.reload')
 RELOAD = ok and reload.reload_module or function(...) return ... end
 
 function R(name)
-  RELOAD(name)
-  return require(name)
+    RELOAD(name)
+    return require(name)
 end
 
 ----------------------------------------------------------------------------------------------------
 -- Global namespace
 ----------------------------------------------------------------------------------------------------
 local namespace = {
-  -- for UI elements like the winbar and statusline that need global references
-  ui={winbar={enable=true}, foldtext={enable=false}},
-  -- some vim mappings require a mixture of commandline commands and function calls
-  -- this table is place to store lua functions to be called in those mappings
-  mappings={}
+    -- for UI elements like the winbar and statusline that need global references
+    ui = {winbar = {enable = true}, foldtext = {enable = false}},
+    -- some vim mappings require a mixture of commandline commands and function calls
+    -- this table is place to store lua functions to be called in those mappings
+    mappings = {}
 }
 
 _G.tl = tl or namespace
