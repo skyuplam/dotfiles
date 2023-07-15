@@ -62,14 +62,14 @@ local on_attach = function(client, bufnr)
         return {silent = true, buffer = bufnr, desc = desc}
     end
     vim_api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    if client.supports_method('textDocument/formatting') then
-        vim_api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
-        vim_api.nvim_create_autocmd('BufWritePre', {
-            group = augroup,
-            buffer = bufnr,
-            callback = function() lsp_formatting({bufnr = bufnr}) end
-        })
-    end
+    -- if client.supports_method('textDocument/formatting') then
+    vim_api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+    vim_api.nvim_create_autocmd('BufWritePre', {
+        group = augroup,
+        buffer = bufnr,
+        callback = function() lsp_formatting({bufnr = bufnr}) end
+    })
+    -- end
     -- Key Mappings.
     if client.server_capabilities.documentFormattingProvider then
         if client.name == "null-ls" and is_null_ls_formatting_enabled(bufnr) or
@@ -246,11 +246,6 @@ end
 
 rust_tool_setup();
 
--- local prettier = {
---   formatCommand='yarn prettier --stdin-filepath ${INPUT}',
---   formatStdin=true
--- }
-
 local jsons = {}
 local yamls = {}
 
@@ -290,32 +285,8 @@ local servers = {
     },
     yamlls = {settings = {yaml = {schemas = yamls, validate = {enable = true}}}},
     html = {cmd = {htmlls, '--stdio'}},
-    -- efm={
-    --   filetypes={
-    --     'javascript',
-    --     'javascriptreact',
-    --     'javascript.jsx',
-    --     'typescript',
-    --     'typescriptreact',
-    --     'typescript.tsx'
-    --   },
-    --   init_options={documentFormatting=true, publishDiagnostics=true},
-    --   root_dir=function(fname)
-    --     return nvim_lsp.util.root_pattern('.yarn/')(fname)
-    --                or nvim_lsp.util.root_pattern('tsconfig.json')(fname)
-    --   end,
-    --   settings={
-    --     rootMarkers={'.yarn/', '.git/'},
-    --     languages={
-    --       javascript={prettier},
-    --       typescript={prettier},
-    --       javascriptreact={prettier},
-    --       typescriptreact={prettier}
-    --     }
-    --   }
-    -- },
     vimls = {},
-    marksman = {on_attach = on_attach},
+    marksman = {},
     lua_ls = {
         settings = {
             Lua = {
