@@ -62,6 +62,7 @@
     gitAndTools.delta
     gnupg
     go
+    nb
     # git-cliff
     # htop # fancy version of `top`
     # hyperfine # benchmarking tool
@@ -95,6 +96,7 @@
     zellij
     xplr
     mpv-unwrapped
+    yt-dlp
     lapce
 
     # Dev stuff
