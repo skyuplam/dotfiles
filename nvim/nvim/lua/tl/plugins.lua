@@ -75,6 +75,26 @@ return require('lazy').setup({
   -- Neovim setup for init.lua and plugin development with full signature help,
   -- docs and completion for the nvim lua API
   { 'folke/neodev.nvim' },
+  {
+    'ThePrimeagen/refactoring.nvim',
+    keys = {
+      {
+        '<leader>rr',
+        function()
+          require('refactoring').select_refactor()
+        end,
+        mode = 'v',
+        noremap = true,
+        silent = true,
+        expr = false,
+      },
+    },
+    opts = {},
+    dependencies = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-treesitter/nvim-treesitter' },
+    },
+  },
 
   { 'godlygeek/tabular' },
 
