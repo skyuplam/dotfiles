@@ -32,6 +32,7 @@ function lsp_util.open_floating_preview(contents, syntax, opts, ...)
   opts.border = opts.border or tl.style.current.border
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
+
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts#avoid-breaking-formatexpr-ie-gq
 local function is_null_ls_formatting_enabled(bufnr)
   local file_type = vim.api.nvim_buf_get_option(bufnr, 'filetype')
@@ -59,21 +60,33 @@ if has_lspsignature then
   lspsignature.setup({ bind = true, handler_opts = { border = 'rounded' } })
 end
 
+local function supports_format(client)
+  if
+    client.config
+    and client.config.capabilities
+    and client.config.capabilities.documentFormattingProvider == false
+  then
+    return false
+  end
+  return client.supports_method('textDocument/formatting')
+    or client.supports_method('textDocument/rangeFormatting')
+end
+
 local on_attach = function(client, bufnr)
   local function attach_opts(desc)
     return { silent = true, buffer = bufnr, desc = desc }
   end
   vim_api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  -- if client.supports_method('textDocument/formatting') then
-  vim_api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-  vim_api.nvim_create_autocmd('BufWritePre', {
-    group = augroup,
-    buffer = bufnr,
-    callback = function()
-      lsp_formatting({ bufnr = bufnr })
-    end,
-  })
-  -- end
+  if supports_format(client) then
+    vim_api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim_api.nvim_create_autocmd('BufWritePre', {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        lsp_formatting({ bufnr = bufnr })
+      end,
+    })
+  end
   -- Key Mappings.
   if client.server_capabilities.documentFormattingProvider then
     if
@@ -188,16 +201,6 @@ if has_null_ls then
 end
 
 vim_api.nvim_create_user_command('Format', lsp_formatting, {})
-
--- local handlers = {
---     ['textDocument/hover'] = function(...)
---         local bufnr, _ = lsp.handlers.hover(...)
---         if bufnr then
---             map('n', 'K', '<Cmd>wincmd p<CR>',
---                 {silent = true, buffer = bufnr, desc = 'Hover'})
---         end
---     end
--- }
 
 local select_symbol = function(cursor_pos, symbol)
   if symbol.valueRange then

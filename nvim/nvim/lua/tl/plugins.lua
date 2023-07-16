@@ -171,6 +171,24 @@ return require('lazy').setup({
     end,
   },
 
+  {
+    'nvim-pack/nvim-spectre',
+    cmd = 'Spectre',
+    opts = { open_cmd = 'noswapfile vnew' },
+    keys = {
+      {
+        '<leader>sr',
+        function()
+          require('spectre').open()
+        end,
+        desc = 'Replace in files (Spectre)',
+      },
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  },
+
   -- Color tool
   {
     'norcalli/nvim-colorizer.lua',
