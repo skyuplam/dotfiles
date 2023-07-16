@@ -4,15 +4,11 @@
 " KEY MAPPINGS {{{
 " ============================================================================
 
-" Set mapleader
-let mapleader = ','
-let g:mapleader = ','
-
 " Explorer Mapping
 nnoremap <C-e> :Xplr %:p:h<CR>
 " nnoremap <C-p> :Files<CR>
 " nnoremap <A-p> :Buffers<CR>
-nnoremap <silent> <space>t :TagbarToggle<CR>
+nnoremap <silent> <leader>tb :TagbarToggle<CR>
 
 " Terminal
 nnoremap <leader>nt :bo 15sp +term<CR>

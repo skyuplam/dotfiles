@@ -1,29 +1,20 @@
 -- vim: set foldmethod=marker foldlevel=0 nomodeline:
 -- A function to bootstrap packer
-local download_packer = function()
-  if vim.fn.input 'Download Packer? (y for yes)' ~= 'y' then return end
-
-  local directory = string.format('%s/site/pack/packer/start/',
-                                  vim.fn.stdpath 'data')
-
-  vim.fn.mkdir(directory, 'p')
-  local clone_cmd = string.format('git clone %s %s --depth 1',
-                                  'https://github.com/wbthomason/packer.nvim',
-                                  directory .. '/packer.nvim')
-  local out = vim.fn.system(clone_cmd)
-
-  print(out)
-  print 'Downloading packer.nvim...'
-  print '( You\'ll need to restart now )'
-  vim.cmd [[qa]]
+local load_package_manager = function()
+  local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+  if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+      'git',
+      'clone',
+      '--filter=blob:none',
+      'https://github.com/folke/lazy.nvim.git',
+      '--branch=stable', -- latest stable release
+      lazypath,
+    })
+  end
+  vim.opt.rtp:prepend(lazypath)
 end
 
 return function()
-  if not pcall(require, 'packer') then
-    download_packer()
-
-    return true
-  end
-
-  return false
+  load_package_manager()
 end
