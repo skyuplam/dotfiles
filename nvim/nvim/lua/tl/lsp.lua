@@ -77,6 +77,8 @@ local on_attach = function(client, bufnr)
     return { silent = true, buffer = bufnr, desc = desc }
   end
   vim_api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Format
   if supports_format(client) then
     vim_api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
     vim_api.nvim_create_autocmd('BufWritePre', {
@@ -87,6 +89,16 @@ local on_attach = function(client, bufnr)
       end,
     })
   end
+
+  -- Inlay hint
+  local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+
+  if inlay_hint then
+    if client.server_capabilities.inlayHintProvider then
+      inlay_hint(bufnr, true)
+    end
+  end
+
   -- Key Mappings.
   if client.server_capabilities.documentFormattingProvider then
     if
@@ -221,16 +233,24 @@ end
 
 -- Diagnostic settings
 vim.diagnostic.config({
-  severity_sort = false,
+  severity_sort = true,
   signs = true,
   underline = true,
-  update_in_insert = true,
-  virtual_text = { only_current_line = true },
+  update_in_insert = false,
+  virtual_text = {
+    spacing = 4,
+    source = 'if_many',
+    only_current_line = true,
+  },
 })
 
 -- Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
 -- nvim-cmp
 if has_cmp_lsp then
   capabilities = cmp_lsp.default_capabilities(capabilities)
