@@ -34,7 +34,7 @@ return require('lazy').setup({
       },
     },
   },
-  { 'folke/tokyonight.nvim' },
+  { 'folke/tokyonight.nvim', lazy = false, priority = 1000, opts = {} },
   {
     'folke/which-key.nvim',
     config = function()
@@ -101,7 +101,6 @@ return require('lazy').setup({
   { 'kamykn/spelunker.vim' },
 
   -- Marks
-  { 'kshenoy/vim-signature' },
   -- Quickfix
   { 'Olical/vim-enmasse', cmd = 'EnMasse' },
 
@@ -212,7 +211,9 @@ return require('lazy').setup({
         'numToStr/Comment.nvim',
         opts = {},
         config = function()
-          require('Comment').setup()
+          require('Comment').setup({
+            mappings = false,
+          })
         end,
       },
     },

@@ -2,7 +2,7 @@ local fmt = string.format
 local api = vim.api
 local L = tl.style.lsp.colors
 
-local M = {win_hl={}}
+local M = { win_hl = {} }
 
 ---@class HighlightAttributes
 ---@field from string
@@ -38,8 +38,9 @@ local M = {win_hl={}}
 ---@return number
 local function hex_to_rgb(color)
   local hex = color:gsub('#', '')
-  return tonumber(hex:sub(1, 2), 16), tonumber(hex:sub(3, 4), 16),
-         tonumber(hex:sub(5), 16)
+  return tonumber(hex:sub(1, 2), 16),
+    tonumber(hex:sub(3, 4), 16),
+    tonumber(hex:sub(5), 16)
 end
 
 local function alter(attr, percent)
@@ -53,7 +54,9 @@ end
 ---@return string
 function M.alter_color(color, percent)
   local r, g, b = hex_to_rgb(color)
-  if not r or not g or not b then return 'NONE' end
+  if not r or not g or not b then
+    return 'NONE'
+  end
   r, g, b = alter(r, percent), alter(g, percent), alter(b, percent)
   r, g, b = math.min(r, 255), math.min(g, 255), math.min(b, 255)
   return fmt('#%02x%02x%02x', r, g, b)
@@ -62,7 +65,9 @@ end
 ---@param group_name string A highlight group name
 local function get_highlight(group_name)
   local ok, hl = pcall(api.nvim_get_hl_by_name, group_name, true)
-  if not ok then return {} end
+  if not ok then
+    return {}
+  end
   hl.foreground = hl.foreground and '#' .. bit.tohex(hl.foreground, 6)
   hl.background = hl.background and '#' .. bit.tohex(hl.background, 6)
   hl[true] = nil -- BUG: API returns a true key which errors during the merge
@@ -80,12 +85,17 @@ end
 function M.get(group, attribute, fallback)
   assert(group, 'cannot get a highlight without specifying a group name')
   local data = get_highlight(group)
-  if not attribute then return data end
-  local attr = ({fg='foreground', bg='background'})[attribute] or attribute
+  if not attribute then
+    return data
+  end
+  local attr = ({ fg = 'foreground', bg = 'background' })[attribute]
+    or attribute
   local color = data[attr] or fallback
-  if color then return color end
+  if color then
+    return color
+  end
   vim.schedule(function()
-    vim.notify(fmt('%s\'s %s does not exist', group, attr), 'error')
+    vim.notify(fmt("%s's %s does not exist", group, attr), 'error')
   end)
   return 'NONE'
 end
@@ -110,9 +120,9 @@ function M.set(namespace, name, opts)
   end
 
   vim.validate({
-    opts={opts, 'table'},
-    name={name, 'string'},
-    namespace={namespace, 'number'}
+    opts = { opts, 'table' },
+    name = { name, 'string' },
+    namespace = { namespace, 'number' },
   })
 
   local hl = get_highlight(opts.inherit or name)
@@ -120,7 +130,9 @@ function M.set(namespace, name, opts)
   for attr, value in pairs(opts) do
     if type(value) == 'table' and value.from then
       hl[attr] = M.get(value.from, value.attr or attr)
-      if value.alter then hl[attr] = M.alter_color(hl[attr], value.alter) end
+      if value.alter then
+        hl[attr] = M.alter_color(hl[attr], value.alter)
+      end
     elseif attr ~= 'inherit' then
       hl[attr] = value
     end
@@ -151,8 +163,10 @@ end
 --- @return boolean, string
 function M.win_hl.exists(win_id, ...)
   local win_hl = vim.wo[win_id].winhighlight
-  for _, target in ipairs({...}) do
-    if win_hl:match(target) then return true, win_hl end
+  for _, target in ipairs({ ... }) do
+    if win_hl:match(target) then
+      return true, win_hl
+    end
   end
   return false, win_hl
 end
@@ -167,7 +181,9 @@ function M.win_hl.adopt(win_id, target, name, fallback)
   local win_hl_name = name .. win_id
   local _, win_hl = M.win_hl.exists(win_id, target)
 
-  if pcall(api.nvim_get_hl_by_name, win_hl_name, true) then return win_hl_name end
+  if pcall(api.nvim_get_hl_by_name, win_hl_name, true) then
+    return win_hl_name
+  end
 
   local hl
   for _, part in ipairs(vim.split(win_hl, ',')) do
@@ -177,10 +193,15 @@ function M.win_hl.adopt(win_id, target, name, fallback)
     end
   end
 
-  if not hl then return fallback end
+  if not hl then
+    return fallback
+  end
 
   local hl_group = vim.split(hl, ':')[2]
-  M.set(win_hl_name, {inherit=fallback, background={from=hl_group, attr='bg'}})
+  M.set(
+    win_hl_name,
+    { inherit = fallback, background = { from = hl_group, attr = 'bg' } }
+  )
   return win_hl_name
 end
 
@@ -193,7 +214,9 @@ end
 ---@param hls table<string, HighlightKeys>
 ---@param namespace integer?
 function M.all(hls, namespace)
-  for _, hl in pairs(hls) do M.set(namespace or 0, next(hl)) end
+  for _, hl in pairs(hls) do
+    M.set(namespace or 0, next(hl))
+  end
 end
 
 ---------------------------------------------------------------------------------
@@ -208,7 +231,9 @@ local function add_theme_overrides(theme)
   local list = vim.list_extend(theme[vim.g.colors_name] or {}, theme['*'] or {})
   for _, hl in ipairs(list) do
     local n = next(hl)
-    if not seen[n] then res[#res + 1] = hl end
+    if not seen[n] then
+      res[#res + 1] = hl
+    end
     seen[n] = true
   end
   return res
@@ -221,215 +246,314 @@ function M.plugin(name, opts)
   -- definition otherwise use the opts as is
   if opts.theme then
     opts = add_theme_overrides(opts.theme)
-    if not next(opts) then return end
+    if not next(opts) then
+      return
+    end
   end
   -- capitalise the name for autocommand convention sake
   name = name:gsub('^%l', string.upper)
   M.all(opts)
-  api.nvim_create_augroup(fmt('%sHighlightOverrides', name), {clear=true});
+  api.nvim_create_augroup(fmt('%sHighlightOverrides', name), { clear = true })
   api.nvim_create_autocmd('ColorScheme', {
-    callback=function()
+    callback = function()
       -- Defer resetting these highlights to ensure they apply after other overrides
-      vim.defer_fn(function() M.all(opts) end, 1)
-    end
+      vim.defer_fn(function()
+        M.all(opts)
+      end, 1)
+    end,
   })
 end
 
 local function general_overrides()
   M.all({
     -- {Dim={foreground={from='Normal', attr='bg', alter=25}}},
-    {VertSplit={fg={from='Comment'}}},
-    {WinSeparator={fg={from='Comment'}}},
-    {mkdLineBreak={link='NONE'}},
-    {Directory={inherit='Keyword', bold=true}},
-    {URL={inherit='Keyword', underline=true}},
+    { VertSplit = { fg = { from = 'Comment' } } },
+    { WinSeparator = { fg = { from = 'Comment' } } },
+    { mkdLineBreak = { link = 'NONE' } },
+    { Directory = { inherit = 'Keyword', bold = true } },
+    { URL = { inherit = 'Keyword', underline = true } },
     -----------------------------------------------------------------------------//
     -- Commandline
     -----------------------------------------------------------------------------//
-    {MsgArea={background='NONE'}},
-    {MsgSeparator={link='MsgArea'}},
+    { MsgArea = { background = 'NONE' } },
+    { MsgSeparator = { link = 'MsgArea' } },
     -----------------------------------------------------------------------------//
     -- Floats
     -----------------------------------------------------------------------------//
-    {NormalFloat={bg='NONE'}},
-    {FloatBorder={bg='NONE', fg={from='Comment'}}},
-    {Pmenu={link='NormalFloat'}},
+    { NormalFloat = { bg = 'NONE' } },
+    { FloatBorder = { bg = 'NONE', fg = { from = 'Comment' } } },
+    { Pmenu = { link = 'NormalFloat' } },
     -----------------------------------------------------------------------------//
-    {CodeBlock={background='NONE'}},
-    {markdownCode={link='CodeBlock'}},
-    {markdownCodeBlock={link='CodeBlock'}},
-    {CurSearch={background='NONE', foreground='white', bold=true}},
-    {CursorLineNr={inherit='CursorLine', bold=true}},
-    {CursorLineSign={link='CursorLine'}},
-    {FoldColumn={background='NONE'}},
-    {TermCursor={ctermfg='green', foreground='royalblue'}},
+    { CodeBlock = { background = 'NONE' } },
+    { markdownCode = { link = 'CodeBlock' } },
+    { markdownCodeBlock = { link = 'CodeBlock' } },
+    { CurSearch = { background = 'NONE', foreground = 'white', bold = true } },
+    { CursorLineNr = { inherit = 'CursorLine', bold = true } },
+    { CursorLineSign = { link = 'CursorLine' } },
+    { FoldColumn = { background = 'NONE' } },
+    { TermCursor = { ctermfg = 'green', foreground = 'royalblue' } },
     -- Add undercurl to existing spellbad highlight
     {
-      SpellBad={
-        undercurl=true,
-        background='NONE',
-        foreground='NONE',
-        sp='green'
-      }
+      SpellBad = {
+        undercurl = true,
+        background = 'NONE',
+        foreground = 'NONE',
+        sp = 'green',
+      },
     },
-    {SpellRare={undercurl=true}},
-    {PmenuSbar={background='NONE'}},
-    {PmenuThumb={background='NONE'}},
+    { SpellRare = { undercurl = true } },
+    { PmenuSbar = { background = 'NONE' } },
+    { PmenuThumb = { background = 'NONE' } },
     -----------------------------------------------------------------------------//
     -- Diff
     -----------------------------------------------------------------------------//
-    {DiffAdd={background='#26332c', foreground='NONE', underline=false}},
-    {DiffDelete={background='#572E33', foreground='#5c6370', underline=false}},
-    {DiffChange={background='#273842', foreground='NONE', underline=false}},
-    {DiffText={background='#314753', foreground='NONE'}},
-    {diffAdded={link='DiffAdd'}},
-    {diffChanged={link='DiffChange'}},
-    {DiffDeleteD={link='DiffDelete'}},
-    {diffRemoved={link='DiffDelete'}},
-    {diffBDiffer={link='WarningMsg'}},
-    {diffCommon={link='WarningMsg'}},
-    {diffDiffer={link='WarningMsg'}},
-    {diffFile={link='Directory'}},
-    {diffIdentical={link='WarningMsg'}},
-    {diffIndexLine={link='Number'}},
-    {diffIsA={link='WarningMsg'}},
-    {diffNoEOL={link='WarningMsg'}},
-    {diffOnly={link='WarningMsg'}},
+    {
+      DiffAdd = {
+        background = '#26332c',
+        foreground = 'NONE',
+        underline = false,
+      },
+    },
+    {
+      DiffDelete = {
+        background = '#572E33',
+        foreground = '#5c6370',
+        underline = false,
+      },
+    },
+    {
+      DiffChange = {
+        background = '#273842',
+        foreground = 'NONE',
+        underline = false,
+      },
+    },
+    { DiffText = { background = '#314753', foreground = 'NONE' } },
+    { diffAdded = { link = 'DiffAdd' } },
+    { diffChanged = { link = 'DiffChange' } },
+    { DiffDeleteD = { link = 'DiffDelete' } },
+    { diffRemoved = { link = 'DiffDelete' } },
+    { diffBDiffer = { link = 'WarningMsg' } },
+    { diffCommon = { link = 'WarningMsg' } },
+    { diffDiffer = { link = 'WarningMsg' } },
+    { diffFile = { link = 'Directory' } },
+    { diffIdentical = { link = 'WarningMsg' } },
+    { diffIndexLine = { link = 'Number' } },
+    { diffIsA = { link = 'WarningMsg' } },
+    { diffNoEOL = { link = 'WarningMsg' } },
+    { diffOnly = { link = 'WarningMsg' } },
     -----------------------------------------------------------------------------//
     -- colorscheme overrides
     -----------------------------------------------------------------------------//
-    {Comment={italic=true}},
-    {Type={italic=true, bold=true}},
-    {Include={italic=true, bold=false}},
-    {QuickFixLine={inherit='PmenuSbar', foreground='NONE', italic=true}},
+    { Comment = { italic = true } },
+    { Type = { italic = true, bold = true } },
+    { Include = { italic = true, bold = false } },
+    {
+      QuickFixLine = {
+        inherit = 'PmenuSbar',
+        foreground = 'NONE',
+        italic = true,
+      },
+    },
     -- Neither the sign column or end of buffer highlights require an explicit background
     -- they should both just use the background that is in the window they are in.
     -- if either are specified this can lead to issues when a winhighlight is set
-    {SignColumn={background='NONE'}},
-    {EndOfBuffer={background='NONE'}},
+    { SignColumn = { background = 'NONE' } },
+    { EndOfBuffer = { background = 'NONE' } },
     -----------------------------------------------------------------------------//
     -- colorscheme overrides
     -----------------------------------------------------------------------------//
-    {StatusLine={background='NONE'}},
-    {StatusLineNC={background='NONE'}},
-    {TabLineFill={background='NONE'}},
+    { StatusLine = { background = 'NONE' } },
+    { StatusLineNC = { background = 'NONE' } },
+    { TabLineFill = { background = 'NONE' } },
     -----------------------------------------------------------------------------//
     -- Treesitter
     -----------------------------------------------------------------------------//
-    {['@keyword.return']={italic=true, foreground={from='Keyword'}}},
-    {['@parameter']={italic=true, bold=true, foreground='NONE'}},
-    {['@error']={foreground='fg', background='NONE'}},
-    {['@text.diff.add']={link='DiffAdd'}},
-    {['@text.diff.delete']={link='DiffDelete'}},
+    {
+      ['@keyword.return'] = { italic = true, foreground = { from = 'Keyword' } },
+    },
+    { ['@parameter'] = { italic = true, bold = true, foreground = 'NONE' } },
+    { ['@error'] = { foreground = 'fg', background = 'NONE' } },
+    { ['@text.diff.add'] = { link = 'DiffAdd' } },
+    { ['@text.diff.delete'] = { link = 'DiffDelete' } },
     -----------------------------------------------------------------------------//
     -- LSP
     -----------------------------------------------------------------------------//
-    {LspCodeLens={inherit='Comment', bold=true, italic=false}},
-    {LspCodeLensSeparator={bold=false, italic=false}},
+    { LspCodeLens = { inherit = 'Comment', bold = true, italic = false } },
+    { LspCodeLensSeparator = { bold = false, italic = false } },
     {
-      LspReferenceText={
-        underline=true,
-        background='NONE',
-        special={from='Comment', attr='fg'}
-      }
+      LspReferenceText = {
+        underline = true,
+        background = 'NONE',
+        special = { from = 'Comment', attr = 'fg' },
+      },
     },
     {
-      LspReferenceRead={
-        underline=true,
-        background='NONE',
-        special={from='Comment', attr='fg'}
-      }
+      LspReferenceRead = {
+        underline = true,
+        background = 'NONE',
+        special = { from = 'Comment', attr = 'fg' },
+      },
     },
     -- This represents when a reference is assigned which is more interesting than regular
     -- occurrences so should be highlighted more distinctly
     {
-      LspReferenceWrite={
-        bold=true,
-        italic=true,
-        background='NONE',
-        underline=true,
-        special={from='Comment', attr='fg'}
-      }
+      LspReferenceWrite = {
+        bold = true,
+        italic = true,
+        background = 'NONE',
+        underline = true,
+        special = { from = 'Comment', attr = 'fg' },
+      },
     },
     -- Base colours
-    {DiagnosticHint={foreground=L.hint}},
-    {DiagnosticError={foreground=L.error}},
-    {DiagnosticWarning={foreground=L.warn}},
-    {DiagnosticInfo={foreground=L.info}},
+    { DiagnosticHint = { foreground = L.hint } },
+    { DiagnosticError = { foreground = L.error } },
+    { DiagnosticWarning = { foreground = L.warn } },
+    { DiagnosticInfo = { foreground = L.info } },
     -- Underline
-    {DiagnosticUnderlineError={undercurl=true, sp=L.error, foreground='none'}},
-    {DiagnosticUnderlineHint={undercurl=true, sp=L.hint, foreground='none'}},
-    {DiagnosticUnderlineWarn={undercurl=true, sp=L.warn, foreground='none'}},
-    {DiagnosticUnderlineInfo={undercurl=true, sp=L.info, foreground='none'}},
+    {
+      DiagnosticUnderlineError = {
+        undercurl = true,
+        sp = L.error,
+        foreground = 'none',
+      },
+    },
+    {
+      DiagnosticUnderlineHint = {
+        undercurl = true,
+        sp = L.hint,
+        foreground = 'none',
+      },
+    },
+    {
+      DiagnosticUnderlineWarn = {
+        undercurl = true,
+        sp = L.warn,
+        foreground = 'none',
+      },
+    },
+    {
+      DiagnosticUnderlineInfo = {
+        undercurl = true,
+        sp = L.info,
+        foreground = 'none',
+      },
+    },
     -- Virtual Text
-    {DiagnosticVirtualTextInfo={bg='NONE'}},
+    { DiagnosticVirtualTextInfo = { bg = 'NONE' } },
     {
-      DiagnosticVirtualTextHint={
-        bg={from='DiagnosticHint', attr='fg', alter=-70}
-      }
+      DiagnosticVirtualTextHint = {
+        bg = { from = 'DiagnosticHint', attr = 'fg', alter = -70 },
+      },
     },
     {
-      DiagnosticVirtualTextWarn={
-        bg={from='DiagnosticWarn', attr='fg', alter=-80}
-      }
+      DiagnosticVirtualTextWarn = {
+        bg = { from = 'DiagnosticWarn', attr = 'fg', alter = -80 },
+      },
     },
     {
-      DiagnosticVirtualTextError={
-        bg={from='DiagnosticError', attr='fg', alter=-80}
-      }
+      DiagnosticVirtualTextError = {
+        bg = { from = 'DiagnosticError', attr = 'fg', alter = -80 },
+      },
     },
     -- Sign column line
-    {DiagnosticSignInfoLine={inherit='DiagnosticVirtualTextInfo', fg='NONE'}},
-    {DiagnosticSignHintLine={inherit='DiagnosticVirtualTextHint', fg='NONE'}},
-    {DiagnosticSignErrorLine={inherit='DiagnosticVirtualTextError', fg='NONE'}},
-    {DiagnosticSignWarnLine={inherit='DiagnosticVirtualTextWarn', fg='NONE'}},
+    {
+      DiagnosticSignInfoLine = {
+        inherit = 'DiagnosticVirtualTextInfo',
+        fg = 'NONE',
+      },
+    },
+    {
+      DiagnosticSignHintLine = {
+        inherit = 'DiagnosticVirtualTextHint',
+        fg = 'NONE',
+      },
+    },
+    {
+      DiagnosticSignErrorLine = {
+        inherit = 'DiagnosticVirtualTextError',
+        fg = 'NONE',
+      },
+    },
+    {
+      DiagnosticSignWarnLine = {
+        inherit = 'DiagnosticVirtualTextWarn',
+        fg = 'NONE',
+      },
+    },
     -- Sign column signs
     {
-      DiagnosticSignWarn={
-        bg={from='DiagnosticVirtualTextWarn'},
-        fg={from='DiagnosticWarn'}
-      }
+      DiagnosticSignWarn = {
+        bg = { from = 'DiagnosticVirtualTextWarn' },
+        fg = { from = 'DiagnosticWarn' },
+      },
     },
-    {DiagnosticSignInfo={bg='NONE', fg={from='DiagnosticInfo'}}},
+    { DiagnosticSignInfo = { bg = 'NONE', fg = { from = 'DiagnosticInfo' } } },
     {
-      DiagnosticSignHint={
-        bg={from='DiagnosticVirtualTextHint'},
-        fg={from='DiagnosticHint'}
-      }
+      DiagnosticSignHint = {
+        bg = { from = 'DiagnosticVirtualTextHint' },
+        fg = { from = 'DiagnosticHint' },
+      },
     },
     {
-      DiagnosticSignError={
-        bg={from='DiagnosticVirtualTextError'},
-        fg={from='DiagnosticError'}
-      }
+      DiagnosticSignError = {
+        bg = { from = 'DiagnosticVirtualTextError' },
+        fg = { from = 'DiagnosticError' },
+      },
     },
     -- Sign column line number
-    {DiagnosticSignWarnNr={link='DiagnosticSignWarn'}},
-    {DiagnosticSignInfoNr={link='DiagnosticSignInfo'}},
-    {DiagnosticSignHintNr={link='DiagnosticSignHint'}},
-    {DiagnosticSignErrorNr={link='DiagnosticSignError'}},
+    { DiagnosticSignWarnNr = { link = 'DiagnosticSignWarn' } },
+    { DiagnosticSignInfoNr = { link = 'DiagnosticSignInfo' } },
+    { DiagnosticSignHintNr = { link = 'DiagnosticSignHint' } },
+    { DiagnosticSignErrorNr = { link = 'DiagnosticSignError' } },
     -- Sign column cursor line number
-    {DiagnosticSignWarnCursorNr={inherit='DiagnosticSignWarn', bold=true}},
-    {DiagnosticSignInfoCursorNr={inherit='DiagnosticSignInfo', bold=true}},
-    {DiagnosticSignHintCursorNr={inherit='DiagnosticSignHint', bold=true}},
-    {DiagnosticSignErrorCursorNr={inherit='DiagnosticSignError', bold=true}},
+    {
+      DiagnosticSignWarnCursorNr = {
+        inherit = 'DiagnosticSignWarn',
+        bold = true,
+      },
+    },
+    {
+      DiagnosticSignInfoCursorNr = {
+        inherit = 'DiagnosticSignInfo',
+        bold = true,
+      },
+    },
+    {
+      DiagnosticSignHintCursorNr = {
+        inherit = 'DiagnosticSignHint',
+        bold = true,
+      },
+    },
+    {
+      DiagnosticSignErrorCursorNr = {
+        inherit = 'DiagnosticSignError',
+        bold = true,
+      },
+    },
     -- Floating windows
-    {DiagnosticFloatingWarn={link='DiagnosticWarn'}},
-    {DiagnosticFloatingInfo={link='DiagnosticInfo'}},
-    {DiagnosticFloatingHint={link='DiagnosticHint'}},
-    {DiagnosticFloatingError={link='DiagnosticError'}}
+    { DiagnosticFloatingWarn = { link = 'DiagnosticWarn' } },
+    { DiagnosticFloatingInfo = { link = 'DiagnosticInfo' } },
+    { DiagnosticFloatingHint = { link = 'DiagnosticHint' } },
+    { DiagnosticFloatingError = { link = 'DiagnosticError' } },
   })
 end
 
 local function set_sidebar_highlight()
   M.all({
-    {PanelDarkBackground={bg='NONE'}},
-    {PanelDarkHeading={inherit='PanelDarkBackground', bold=true}},
-    {PanelBackground={background='NONE'}},
-    {PanelHeading={inherit='PanelBackground', bold=true}},
-    {PanelWinSeparator={inherit='PanelBackground', fg={from='WinSeparator'}}},
-    {PanelStNC={link='PanelWinSeparator'}},
-    {PanelSt={background='NONE'}}
+    { PanelDarkBackground = { bg = 'NONE' } },
+    { PanelDarkHeading = { inherit = 'PanelDarkBackground', bold = true } },
+    { PanelBackground = { background = 'NONE' } },
+    { PanelHeading = { inherit = 'PanelBackground', bold = true } },
+    {
+      PanelWinSeparator = {
+        inherit = 'PanelBackground',
+        fg = { from = 'WinSeparator' },
+      },
+    },
+    { PanelStNC = { link = 'PanelWinSeparator' } },
+    { PanelSt = { background = 'NONE' } },
   })
 end
 
@@ -440,31 +564,33 @@ local sidebar_fts = {
   'Outline',
   'dbui',
   'neotest-summary',
-  'pr'
+  'pr',
 }
 
 local function on_sidebar_enter()
   vim.opt_local.winhighlight:append({
-    Normal='PanelBackground',
-    EndOfBuffer='PanelBackground',
-    StatusLine='PanelSt',
-    StatusLineNC='PanelStNC',
-    SignColumn='PanelBackground',
-    VertSplit='PanelVertSplit',
-    WinSeparator='PanelWinSeparator'
+    Normal = 'PanelBackground',
+    EndOfBuffer = 'PanelBackground',
+    StatusLine = 'PanelSt',
+    StatusLineNC = 'PanelStNC',
+    SignColumn = 'PanelBackground',
+    VertSplit = 'PanelVertSplit',
+    WinSeparator = 'PanelWinSeparator',
   })
 end
 
 local function colorscheme_overrides()
   local overrides = {
-    ['tokyonight']={
+    ['tokyonight'] = {
       -- {TelescopeNormal={background='NONE'}},
       -- {TelescopeBorder={background='NONE'}},
       -- {NvimTreeNormal={background='NONE'}}
-    }
+    },
   }
   local hls = overrides[vim.g.colors_name]
-  if not hls then return end
+  if not hls then
+    return
+  end
 
   M.all(hls)
 end
@@ -476,39 +602,45 @@ local function user_highlights()
 end
 
 function M.setup()
-  local highlight_group = vim.api.nvim_create_augroup('UserHighlights',
-                                                      {clear=true})
+  local highlight_group =
+    vim.api.nvim_create_augroup('UserHighlights', { clear = true })
   api.nvim_create_autocmd('ColorScheme', {
-    callback=function() user_highlights() end,
-    group=highlight_group
+    callback = function()
+      user_highlights()
+    end,
+    group = highlight_group,
   })
   api.nvim_create_autocmd('FileType', {
-    callback=function() on_sidebar_enter() end,
-    group=highlight_group,
-    pattern=sidebar_fts
+    callback = function()
+      on_sidebar_enter()
+    end,
+    group = highlight_group,
+    pattern = sidebar_fts,
   })
   local has_tokyonight, tokyonight = pcall(require, 'tokyonight')
-  if not has_tokyonight then return end
+  if not has_tokyonight then
+    return
+  end
   tokyonight.setup({
     -- your configuration comes here
     -- or leave it empty to use the default settings
-    style='storm', -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-    light_style='day', -- The theme is used when the background is set to light
-    transparent=true, -- Enable this to disable setting the background color
-    terminal_colors=true, -- Configure the colors used when opening a `:terminal` in Neovim
-    styles={
+    style = 'storm', -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+    light_style = 'day', -- The theme is used when the background is set to light
+    transparent = true, -- Enable this to disable setting the background color
+    terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+    styles = {
       -- Style to be applied to different syntax groups
       -- Value is any valid attr-list value for `:help nvim_set_hl`
-      comments={italic=true},
-      keywords={italic=true},
-      functions={},
-      variables={},
+      comments = { italic = true },
+      keywords = { italic = true },
+      functions = {},
+      variables = {},
       -- Background styles. Can be "dark", "transparent" or "normal"
-      sidebars='transparent', -- style for sidebars, see below
-      floats='transparent' -- style for floating windows
+      sidebars = 'transparent', -- style for sidebars, see below
+      floats = 'transparent', -- style for floating windows
     },
-    hide_inactive_statusline=false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-    dim_inactive=true -- dims inactive windows
+    hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+    dim_inactive = true, -- dims inactive windows
   })
   vim.cmd.colorscheme('tokyonight')
 end

@@ -96,5 +96,5 @@ require('tl.prepare')()
 if vim.fn.filereadable('tl.local') == 1 then
   R('tl.local')
 end
-R('tl.highlights')
 R('tl.plugins')
+R('tl.highlights')
