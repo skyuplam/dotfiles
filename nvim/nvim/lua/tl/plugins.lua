@@ -37,25 +37,14 @@ return require('lazy').setup({
   { 'folke/tokyonight.nvim', lazy = false, priority = 1000, opts = {} },
   {
     'folke/which-key.nvim',
-    config = function()
-      require('tl.keys').setup()
+    event = 'VeryLazy',
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
     end,
+    opts = {},
   },
   { 'vim-jp/syntax-vim-ex' },
-  {
-    'danymat/neogen',
-    config = function()
-      require('neogen').setup({
-        languages = {
-          typescript = { template = { annotation_convention = 'tsdoc' } },
-          typescriptreact = {
-            template = { annotation_convention = 'tsdoc' },
-          },
-        },
-      })
-    end,
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-  },
   {
     'm-demare/hlargs.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
@@ -152,7 +141,6 @@ return require('lazy').setup({
       require('mini.align').setup({})
       require('mini.surround').setup({})
       require('mini.bufremove').setup({})
-      -- require('mini.comment').setup({})
       require('mini.cursorword').setup({})
       require('mini.indentscope').setup({
         draw = {
@@ -210,11 +198,6 @@ return require('lazy').setup({
       {
         'numToStr/Comment.nvim',
         opts = {},
-        config = function()
-          require('Comment').setup({
-            mappings = false,
-          })
-        end,
       },
     },
   },
@@ -255,19 +238,6 @@ return require('lazy').setup({
         opts = {},
       },
     },
-  },
-  {
-    'danymat/neogen',
-    keys = {
-      {
-        '<leader>cc',
-        function()
-          require('neogen').generate({})
-        end,
-        desc = 'Neogen Comment',
-      },
-    },
-    opts = { snippet_engine = 'luasnip' },
   },
 
   {
