@@ -27,7 +27,7 @@ yabai -m config mouse_action2 resize
 
 # Window modifications
 # floating windows are always on top (default: off)
-yabai -m config window_topmost on
+yabai -m config window_topmost off
 
 
 yabai -m rule --add app="^System Information$" manage=off
