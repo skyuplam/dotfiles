@@ -98,6 +98,8 @@
     mpv-unwrapped
     yt-dlp
     lapce
+    nmap
+    kubectl
 
     # Dev stuff
     # cloc # source code line counter
@@ -114,7 +116,8 @@
     rustup
     marksman
     gitlint
-    luaformatter
+    stylua
+    selene
     dotenv-linter
     statix
     deadnix
