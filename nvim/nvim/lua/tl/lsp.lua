@@ -246,15 +246,15 @@ vim.diagnostic.config({
 
 -- Enable (broadcasting) snippet capability for completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- nvim-cmp
+if has_cmp_lsp then
+  capabilities = cmp_lsp.default_capabilities(capabilities)
+end
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true,
 }
--- nvim-cmp
-if has_cmp_lsp then
-  capabilities = cmp_lsp.default_capabilities(capabilities)
-end
 
 -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
 if has_neodev then
@@ -333,6 +333,14 @@ if has_schemastore then
       'GitHub Action',
       'prettierrc.json',
       '.stylelintrc',
+    },
+    extra = {
+      {
+        description = 'kubernetes',
+        fileMatch = { 'config', '*.yaml', '*.k8s.yaml' },
+        name = 'all.json',
+        url = 'https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.27.3-standalone-strict/all.json',
+      },
     },
   })
 end

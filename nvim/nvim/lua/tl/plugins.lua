@@ -499,7 +499,12 @@ return require('lazy').setup({
       'folke/tokyonight.nvim',
     },
   },
-
+  {
+    'allaman/kustomize.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    ft = 'yaml',
+    config = true,
+  },
   {
     'AckslD/nvim-FeMaco.lua',
     config = function()
