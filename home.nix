@@ -100,6 +100,7 @@
     lapce
     nmap
     kubectl
+    kubernetes-helm
 
     # Dev stuff
     # cloc # source code line counter
