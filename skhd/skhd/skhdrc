@@ -98,5 +98,7 @@ alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
 # Balance layout
 alt - b : yabai -m space --balance
+alt - b : yabai -m space --balance
+alt - space: yabai -m window --toggle split
 # Zoom parent
 alt - f : yabai -m window --toggle zoom-parent
