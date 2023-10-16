@@ -95,6 +95,18 @@ if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
 
+# ------------------
+# Add Completion sources before sourcing zim init
+# ------------------
+# source nix-zsh-completions
+[ -d $HOME/dev/nix-zsh-completions ] && source $HOME/dev/nix-zsh-completions/nix-zsh-completions.plugin.zsh
+
+# ZSH completion folder
+# [ -d $HOME/.zfunc ] && fpath=($HOME/.zfunc $fpath)
+[ -d $HOME/dev/nix-zsh-completions ] && fpath=($HOME/dev/nix-zsh-completions $fpath)
+[ -d $HOME/.nix-profile/share/zsh/site-functions ] && fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
+[ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
+[ -d /opt/homebrew/share/zsh/site-functions ] && fpath=(/opt/homebrew/share/zsh/site-functions(N) ${fpath})
 
 # ------------------
 # Initialize modules
@@ -132,15 +144,6 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 # vim: set foldmethod=marker foldlevel=0 nomodeline:
 
-# source nix-zsh-completions
-[ -d $HOME/dev/nix-zsh-completions ] && source $HOME/dev/nix-zsh-completions/nix-zsh-completions.plugin.zsh
-
-# ZSH completion folder
-# [ -d $HOME/.zfunc ] && fpath=($HOME/.zfunc $fpath)
-[ -d $HOME/dev/nix-zsh-completions ] && fpath=($HOME/dev/nix-zsh-completions $fpath)
-[ -d $HOME/.nix-profile/share/zsh/site-functions ] && fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
-[ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
-[ -d /opt/homebrew/share/zsh/site-functions ] && fpath=(/opt/homebrew/share/zsh/site-functions(N) ${fpath})
 
 export HOMEBREW_NO_ANALYTICS=1
 # Homebrew

@@ -1,8 +1,3 @@
-# exa or ls
-# if type exa > /dev/null; then
-#   alias ll="exa -lgm --group-directories-first -s modified $argv"
-#   alias ls="exa $argv"
-# fi
 if type nvim > /dev/null; then
   alias vim="nvim"
 fi
