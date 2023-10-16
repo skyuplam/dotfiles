@@ -95,6 +95,9 @@ M.setup = function()
         cmp.config.compare.order,
       },
     },
+    view = {
+      docs = { auto_open = false },
+    },
     snippet = {
       expand = function(args)
         if has_luasnip then
@@ -110,6 +113,13 @@ M.setup = function()
     mapping = cmp.mapping.preset.insert({
       ['<C-n>'] = cmp.mapping(next, { 'i', 's', 'c' }),
       ['<C-p>'] = cmp.mapping(prev, { 'i', 's', 'c' }),
+      ['<C-g>'] = cmp.mapping(function()
+        if cmp.visible_docs() then
+          cmp.close_docs()
+        else
+          cmp.open_docs()
+        end
+      end),
       ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping.complete(),
