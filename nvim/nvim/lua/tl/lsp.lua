@@ -33,7 +33,7 @@ function lsp_util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
--- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts#avoid-breaking-formatexpr-ie-gq
+-- https://github.com/nvimtools/none-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts#avoid-breaking-formatexpr-ie-gq
 local function is_null_ls_formatting_enabled(bufnr)
   local file_type = vim.api.nvim_buf_get_option(bufnr, 'filetype')
   local generators = require('null-ls.generators').get_available(
