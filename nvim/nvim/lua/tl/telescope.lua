@@ -218,7 +218,7 @@ local function setup()
   end, { desc = 'List git commits' })
   map('n', '<leader>gb', function()
     builtin.git_branches()
-  end, { desc = 'List git branchs' })
+  end, { desc = 'List git branches' })
   map('n', '<leader>gd', function()
     builtin.git_files({
       prompt_title = 'Git review files',
@@ -238,6 +238,9 @@ local function setup()
   map('n', '<leader>gp', function()
     builtin.git_bcommits({ previewer = delta_commit })
   end, { desc = 'List buffer commits' })
+  map('v', '<leader>gp', function()
+    builtin.git_bcommits_range({ operator = true })
+  end, { desc = 'List buffer commits for selected' })
 
   map('n', '<leader>zl', function()
     builtin.spell_suggest()
