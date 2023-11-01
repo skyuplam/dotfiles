@@ -37,12 +37,12 @@ bind generic ,r ?git rebase -i origin/main
 bind generic ,R ?git rebase -i %(commit)
 bind generic ,cc !git commit
 bind generic ,ca ?git commit --amend
+ bind status ,ci !git add -i %(file)
+bind status  ,cp ?git add --patch %(file)
 bind generic ,cf ?git commit --fixup reword:%(commit)
 # Pick up back the commit editing message
 # https://github.com/jorisroovers/gitlint/issues/90#issuecomment-511432519
 bind status  ,ce !git commit --edit --file %(repo:git-dir)/COMMIT_EDITMSG
-# bind status  ,I !git add -i %(file)
-# bind status  ,p ?git add --patch %(file)
 
 bind status  u  none
 bind stage   u  none
