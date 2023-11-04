@@ -76,7 +76,7 @@ local function setup()
       layout_config = {
         height = 0.95,
         width = 0.95,
-        flex = { flip_columns = 120, flip_lines = 20 },
+        flex = { flip_columns = 220, flip_lines = 20 },
         horizontal = { preview_width = 0.5 },
         vertical = { preview_height = 0.7 },
       },
