@@ -141,6 +141,17 @@ return require('lazy').setup({
     event = 'VimEnter /private$TMPDIR/pass.?*/?*.txt,/dev/shm/pass.?*/?*.txt',
   },
 
+  -- Clipboard manager
+  {
+    'AckslD/nvim-neoclip.lua',
+    dependencies = {
+      { 'nvim-telescope/telescope.nvim' },
+    },
+    config = function()
+      require('neoclip').setup()
+    end,
+  },
+
   { 'junegunn/vim-slash' },
   { 'junegunn/gv.vim' },
   { 'junegunn/vim-peekaboo' },

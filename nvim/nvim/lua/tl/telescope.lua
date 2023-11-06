@@ -151,8 +151,7 @@ local function setup()
   telescope.load_extension('file_browser')
   -- telescope.load_extension('dap')
   telescope.load_extension('smart_history')
-  -- telescope.load_extension('notify')
-  -- telescope.load_extension('noice')
+  telescope.load_extension('neoclip')
 
   -- Key mappings
   map('n', '<leader>ff', function()
@@ -167,6 +166,9 @@ local function setup()
   map('n', '<leader>fh', function()
     builtin.help_tags()
   end, { desc = 'Find help tags' })
+  map('n', '<leader>f"', function()
+    require('telescope').extensions.neoclip.default()
+  end, { desc = 'Find register "' })
 
   map('n', '<leader>ft', function()
     builtin.filetypes()
@@ -230,8 +232,11 @@ local function setup()
         vim.fn.expand('$REVIEW_BASE'),
       },
       previewer = delta_file,
-    }, { desc = 'Git review files' })
-  end)
+    })
+  end, { desc = 'Git review files' })
+  -- map('n', '<leader>gd', function()
+  --   require('telescope').extensions.git_diffs.diff_commits()
+  -- end, { desc = 'Git diff commits' })
   map('n', '<leader>gf', function()
     builtin.git_status()
   end, { desc = 'Git status' })
