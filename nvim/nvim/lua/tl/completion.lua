@@ -59,6 +59,15 @@ local has_words_before = function()
       == nil
 end
 
+local kind_score = {
+  Variable = 1,
+  Class = 2,
+  Method = 3,
+  Keyword = 4,
+}
+
+local kind_mapper = require('cmp.types').lsp.CompletionItemKind
+
 M.setup = function()
   if not has_cmp then
     return
@@ -74,22 +83,18 @@ M.setup = function()
     formatting = { format = format },
     sorting = {
       comparators = {
-        cmp.config.compare.offset,
         cmp.config.compare.exact,
-        cmp.config.compare.score,
-
+        cmp.config.compare.recently_used,
         function(entry1, entry2)
-          local _, entry1_under = entry1.completion_item.label:find('^_+')
-          local _, entry2_under = entry2.completion_item.label:find('^_+')
-          entry1_under = entry1_under or 0
-          entry2_under = entry2_under or 0
-          if entry1_under > entry2_under then
-            return false
-          elseif entry1_under < entry2_under then
+          local kind1 = kind_score[kind_mapper[entry1:get_kind()]] or 100
+          local kind2 = kind_score[kind_mapper[entry2:get_kind()]] or 100
+
+          if kind1 < kind2 then
             return true
           end
         end,
-        cmp.config.compare.kind,
+        cmp.config.compare.offset,
+        cmp.config.compare.score,
         cmp.config.compare.sort_text,
         cmp.config.compare.length,
         cmp.config.compare.order,
