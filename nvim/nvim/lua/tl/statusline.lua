@@ -821,7 +821,7 @@ local CloseButton = {
   update = { 'WinNew', 'WinClosed', 'BufEnter' },
   { provider = ' ' },
   {
-    provider = '',
+    provider = ' ',
     hl = { fg = 'gray' },
     on_click = {
       minwid = function()
