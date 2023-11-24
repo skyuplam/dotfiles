@@ -93,11 +93,6 @@ M.setup = function()
             return true
           end
         end,
-        cmp.config.compare.offset,
-        cmp.config.compare.score,
-        cmp.config.compare.sort_text,
-        cmp.config.compare.length,
-        cmp.config.compare.order,
       },
     },
     view = {
