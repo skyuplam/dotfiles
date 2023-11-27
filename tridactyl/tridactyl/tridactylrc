@@ -1,0 +1,182 @@
+" vim: filetype=vim
+
+" This wipes all existing settings. This means that if a setting in this file
+" is removed, then it will return to default. In other words, this file serves
+" as an enforced single point of truth for Tridactyl's configuration.
+sanitize tridactyllocal tridactylsync
+
+" Just use a blank page for new tab. It would be nicer to use the standard
+" Firefox homepage, but Tridactyl doesn't support this yet.
+set newtab about:blank
+
+" Smooth scrolling, yes please. This is still a bit janky in Tridactyl.
+set smoothscroll true
+" The default jump of 10 is a bit much.
+bind j scrollline 5
+bind k scrollline -5
+
+" Don't run Tridactyl on some web sites because it doesn't work well, or
+" because the web site has its own keybindings.
+autocmd DocStart mail.google.com mode ignore
+autocmd DocStart localhost mode ignore
+
+" bind find
+bind / fillcmdline find
+bind ? fillcmdline find --reverse
+bind n findnext --search-from-view
+bind N findnext --search-from-view --reverse
+bind gn findselect
+bind gN composite findnext --search-from-view --reverse; findselect
+bind ,<Space> nohlsearch
+bind ;c composite hint -pipe a href | tabopen -c personal
+
+" Native messenger stuff
+guiset_quiet hoverlink right
+guiset_quiet tabs count
+setpref accessibility.typeaheadfind.autostart false
+setpref accessibility.typeaheadfind.flashBar 0
+setpref app.normandy.api_url ""
+setpref app.normandy.enabled false
+setpref app.normandy.first_run false
+setpref app.shield.optoutstudies.enabled false
+setpref app.update.enabled false
+setpref beacon.enabled false
+setpref beacon.enabled false
+setpref browser.autofocus false
+setpref browser.aboutHomeSnippets.updateUrl "data:,"
+setpref browser.display.use_document_fonts 0
+setpref browser.download.folderList 2
+setpref browser.download.manager.addToRecentDocs false
+setpref browser.download.useDownloadDir false
+setpref browser.eme.ui.enabled false
+setpref browser.feeds.handler.default "client"
+setpref browser.formfill.enable false
+setpref browser.helperApps.deleteTempFileOnExit true
+setpref browser.library.activity-stream.enabled false
+setpref browser.messaging-system.whatsNewPanel.enabled false
+setpref browser.newtab.preload false
+setpref browser.newtab.url "about:blank"
+setpref browser.newtabpage.enabled false
+setpref browser.newtabtabpage.enabled false
+setpref browser.newtabtabpage.enhanced false
+setpref browser.onboarding.enabled false
+setpref browser.pagethumbnails.capturing_disabled true
+setpref browser.ping-centre.telemetry false
+setpref browser.pocket.api ""
+setpref browser.pocket.oAuthConsumerKey ""
+setpref browser.pocket.site ""
+setpref browser.safebrowsing.appRepURL ""
+setpref browser.safebrowsing.blockedURIs.enabled false
+setpref browser.safebrowsing.downloads.remote.enabled false
+setpref browser.safebrowsing.downloads.remote.url ""
+setpref browser.safebrowsing.gethashURL ""
+setpref browser.safebrowsing.malware.enabled false
+setpref browser.safebrowsing.malware.reportURL ""
+setpref browser.safebrowsing.phishing.enabled false
+setpref browser.safebrowsing.provider.google.gethashURL ""
+setpref browser.safebrowsing.provider.google.lists ""
+setpref browser.safebrowsing.provider.google.reportMalwareMistakeURL ""
+setpref browser.safebrowsing.provider.google.reportPhishMistakeURL ""
+setpref browser.safebrowsing.provider.google.reportURL ""
+setpref browser.safebrowsing.provider.google.updateURL ""
+setpref browser.safebrowsing.provider.google4.dataSharing.enabled false
+setpref browser.safebrowsing.provider.google4.dataSharingURL ""
+setpref browser.safebrowsing.provider.google4.reportMalwareMistakeURL ""
+setpref browser.safebrowsing.provider.google4.reportPhishMistakeURL ""
+setpref browser.safebrowsing.provider.google4.reportURL ""
+setpref browser.safebrowsing.provider.mozilla.gethashURL ""
+setpref browser.safebrowsing.provider.mozilla.updateURL ""
+setpref browser.safebrowsing.reportPhishURL ""
+setpref browser.safebrowsing.reportURL ""
+setpref browser.safebrowsing.updateURL ""
+setpref browser.search.region "US"
+setpref browser.search.suggest.enabled false
+setpref browser.send_pings false
+setpref browser.send_pings.require_same_host true
+setpref browser.sessionstore.restore_on_demand false
+setpref browser.shell.checkDefaultBrowser false
+setpref browser.startup.homepage "about:blank"
+setpref browser.startup.homepage_override.mstone "ignore"
+setpref browser.startup.page 3
+setpref browser.tabs.closeWindowWithLastTab false
+setpref browser.tabs.remote.autostart.2 true
+setpref browser.uidensity 1
+setpref browser.urlbar.placeholderName ""
+setpref browser.urlbar.trimURLs false
+setpref datareporting.healthreport.uploadEnabled false
+setpref datareporting.policy.dataSubmissionEnabled false
+setpref devtools.gcli.hideIntro true
+setpref devtools.scratchpad.enabled true
+setpref devtools.scratchpad.wrapText true
+setpref devtools.webide.autoinstallADBHelper false
+setpref devtools.webide.enabled false
+setpref extensions.formautofill.addresses.enabled false
+setpref extensions.formautofill.available "off"
+setpref extensions.formautofill.creditCards.enabled false
+setpref extensions.formautofill.heuristics.enabled false
+setpref extensions.pocket.enabled false
+setpref extensions.screenshots.disabled true
+setpref extensions.screenshots.upload-disabled true
+setpref extensions.webcompat-reporter.enabled false
+setpref extensions.webextensions.restrictedDomains ""
+setpref font.blacklist.underline_offset ""
+setpref general.warnOnAboutConfig false
+setpref geo.enabled false
+setpref geo.wifi.uri ""
+setpref intl.accept_languages "en-US, en"
+setpref intl.locale.requested "en-US"
+setpref intl.regional_prefs.use_os_locales false
+setpref javascript.use_us_english_locale true
+setpref layout.css.font-loading-api.enabled false
+setpref media.autoplay.default 1
+setpref media.eme.enabled false
+setpref media.gmp-gmpopenh264.autoupdate false
+setpref media.gmp-gmpopenh264.enabled false
+setpref media.gmp-manager.updateEnabled false
+setpref media.gmp-manager.url "data:text/plain,"
+setpref media.gmp-manager.url.override "data:text/plain,"
+setpref media.gmp-provider.enabled false
+setpref media.gmp-widevinecdm.autoupdate false
+setpref media.gmp-widevinecdm.enabled false
+setpref media.gmp-widevinecdm.visible false
+setpref media.gmp.trial-create.enabled false
+" WebRTC. Might need to re-enable some day
+setpref media.peerconnection.enabled false
+setpref network.IDN_show_punycode true
+setpref network.allow-experiments false
+setpref network.http.referer.XOriginPolicy 1
+setpref network.http.referer.defaultPolicy 3
+setpref network.http.referer.defaultPolicy.pbmode 2
+setpref network.http.referer.spoofSource false
+setpref pdfjs.disabled true
+setpref permissions.default.geo 0
+setpref plugin.default.state 0
+setpref plugin.defaultXpi.state 0
+setpref plugin.sessionPermissionNow.intervalInMinutes 0
+setpref plugins.click_to_play true
+setpref privacy.firstparty.isolate true
+" Disabled until https://bugzilla.mozilla.org/show_bug.cgi?id=1450398 is fixed
+setpref privacy.resistFingerprinting false
+setpref privacy.resistFingerprinting.block_mozAddonManager true
+setpref privacy.userContext.enabled true
+setpref privacy.userContext.ui.enabled true
+setpref privacy.usercontext.about_newtab_segregation.enabled true
+setpref reader.parse-on-load.enabled false
+setpref security.dialog_enable_delay 500
+setpref security.insecure_field_warning.contextual.enabled true
+setpref signon.autofillForms false
+setpref signon.rememberSignons false
+setpref toolkit.cosmeticAnimations.enabled false
+setpref toolkit.telemetry.archive.enabled false
+setpref toolkit.telemetry.bhrPing.enabled false
+setpref toolkit.telemetry.cachedClientID ""
+setpref toolkit.telemetry.enabled false
+setpref toolkit.telemetry.firstShutdownPing.enabled false
+setpref toolkit.telemetry.hybridContent.enabled false
+setpref toolkit.telemetry.newProfilePing.enabled false
+setpref toolkit.telemetry.server "data:,"
+setpref toolkit.telemetry.shutdownPingSender.enabled false
+setpref toolkit.telemetry.unified false
+setpref toolkit.telemetry.updatePing.enabled false
+setpref ui.key.menuAccessKeyFocuses false
+setpref xpinstall.signatures.required false
