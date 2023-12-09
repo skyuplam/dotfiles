@@ -23,15 +23,9 @@ return require('lazy').setup({
       require('tl.treesitter').setup()
     end,
     dependencies = {
-      {
-        'nvim-treesitter/nvim-treesitter-refactor',
-      },
-      {
-        'nvim-treesitter/nvim-treesitter-textobjects',
-      },
-      {
-        'nvim-treesitter/nvim-treesitter-context',
-      },
+      { 'nvim-treesitter/nvim-treesitter-refactor' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects' },
+      { 'nvim-treesitter/nvim-treesitter-context' },
     },
   },
   { 'folke/tokyonight.nvim', lazy = false, priority = 1000, opts = {} },
@@ -292,6 +286,68 @@ return require('lazy').setup({
     },
   },
 
+  {
+    'rcarriga/nvim-notify',
+    config = function()
+      local notify = require('notify')
+      notify.setup()
+      vim.notify = notify
+    end,
+  },
+
+  {
+    'nvim-neorg/neorg',
+    build = ':Neorg sync-parsers',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-neorg/neorg-telescope',
+    },
+    config = function()
+      require('neorg').setup({
+        load = {
+          ['core.esupports.metagen'] = {
+            config = { type = 'auto', update_date = true },
+          },
+          ['core.defaults'] = {}, -- Loads default behaviour
+          ['core.concealer'] = {}, -- Adds pretty icons to your documents
+          ['core.completion'] = { config = { engine = 'nvim-cmp' } }, -- Adds pretty icons to your documents
+          ['core.ui.calendar'] = {}, -- Adds pretty icons to your documents
+          ['core.dirman'] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = '~/notes/home',
+              },
+            },
+          },
+          ['core.journal'] = {
+            config = { strategy = 'flat', workspace = 'notes' },
+          }, -- Adds pretty icons to your documents
+          ['core.integrations.telescope'] = {},
+        },
+      })
+      local neorg_callbacks = require('neorg.core.callbacks')
+      neorg_callbacks.on_event(
+        'core.keybinds.events.enable_keybinds',
+        function(_, keybinds)
+          -- Map all the below keybinds only when the "norg" mode is active
+          keybinds.map_event_to_mode('norg', {
+            n = { -- Bind keys in normal mode
+              { '<C-s>', 'core.integrations.telescope.find_linkable' },
+            },
+
+            i = { -- Bind in insert mode
+              { '<C-l>', 'core.integrations.telescope.insert_link' },
+            },
+          }, {
+            silent = true,
+            noremap = true,
+          })
+        end
+      )
+    end,
+  },
+
   -- LSP
   {
     'neovim/nvim-lspconfig',
@@ -305,6 +361,7 @@ return require('lazy').setup({
       { 'ray-x/lsp_signature.nvim' },
       { 'folke/lsp-colors.nvim' },
       { 'b0o/schemastore.nvim' },
+      { 'p00f/clangd_extensions.nvim' },
       {
         'j-hui/fidget.nvim',
         config = function()
