@@ -79,23 +79,19 @@ return require('lazy').setup({
   { 'folke/neodev.nvim' },
   {
     'ThePrimeagen/refactoring.nvim',
-    keys = {
-      {
-        '<leader>rr',
-        function()
-          require('refactoring').select_refactor()
-        end,
-        mode = 'v',
-        noremap = true,
-        silent = true,
-        expr = false,
-      },
-    },
-    opts = {},
     dependencies = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'nvim-treesitter/nvim-treesitter' },
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
+    config = function()
+      require('refactoring').setup()
+
+      local map = require('tl.common').map
+      -- Extract block supports only normal mode
+      map({ 'n', 'x' }, '<leader>rr', function()
+        require('refactoring').select_refactor()
+      end)
+    end,
   },
 
   { 'godlygeek/tabular' },
