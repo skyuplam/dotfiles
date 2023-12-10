@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
   # Networking
-  networking.computerName = "Terrence Lam’s 💻";
+  networking.computerName = "TerrenceLamsTerm";
   networking.hostName = "tlamm2";
 
   environment.pathsToLink = [

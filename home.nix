@@ -53,7 +53,6 @@
     codespell
     curl
     du-dust # fancy version of `du`
-    exa # fancy version of `ls`
     fd # fancy version of `find`
     (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" ]; })
     # gawk
@@ -61,6 +60,7 @@
     libiconv
     gitAndTools.delta
     gnupg
+    pinentry_mac
     go
     nb
     # git-cliff
@@ -97,20 +97,21 @@
     xplr
     mpv-unwrapped
     yt-dlp
-    lapce
+    # lapce
     nmap
     kubectl
     kubernetes-helm
+    presenterm
 
     # Dev stuff
     # cloc # source code line counter
     jq
-    minicom
     nodePackages.typescript-language-server
     nodePackages.yaml-language-server
     nodePackages.vim-language-server
     nodePackages.prettier
     nodePackages.write-good
+    deno
     vscode-langservers-extracted
     lua-language-server
     efm-langserver

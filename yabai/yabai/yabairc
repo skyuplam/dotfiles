@@ -35,5 +35,6 @@ yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^mpv$" manage=off
 yabai -m rule --add app="^Stats$" manage=off
+yabai -m rule --add app="^YubiKey Manager$" manage=off
 
 echo "yabai configuration loaded.."
