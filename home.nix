@@ -70,7 +70,7 @@
     lsd
     luajitPackages.luarocks
     lnav
-    neovim
+    neovim-nightly
     # ninja
     # passExtensions.pass-import
     # procs # fancy version of `ps`
