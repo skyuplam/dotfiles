@@ -19,6 +19,8 @@ if has_lspkind then
   format = lspkind.cmp_format({
     mode = 'symbol', -- show only symbol annotations
     maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    ellipsis_char = '...',
+    symbol_map = { Codeium = '' },
   })
 end
 
@@ -149,6 +151,7 @@ M.setup = function()
       end, { 'i', 's' }),
     }),
     sources = cmp.config.sources({
+      { name = 'codeium' },
       { name = 'nvim_lsp' },
       { name = 'nvim_lsp_document_symbol' },
       { name = 'nvim_lsp_signature_help' },
