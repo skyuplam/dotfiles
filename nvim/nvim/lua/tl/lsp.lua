@@ -90,14 +90,14 @@ local on_attach = function(client, bufnr)
     })
   end
 
-  -- -- Inlay hint
-  -- local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-  --
-  -- if inlay_hint then
-  --   if client.server_capabilities.inlayHintProvider then
-  --     inlay_hint(0, true)
-  --   end
-  -- end
+  -- Inlay hint
+  local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+
+  if inlay_hint then
+    if client.server_capabilities.inlayHintProvider then
+      inlay_hint.enable(bufnr, true)
+    end
+  end
 
   -- Key Mappings.
   if client.server_capabilities.documentFormattingProvider then
@@ -503,8 +503,8 @@ local servers = {
     settings = {
       typescript = {
         inlayHints = {
-          includeInlayParameterNameHints = 'literal',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayParameterNameHints = 'all',
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
           includeInlayFunctionParameterTypeHints = true,
           includeInlayVariableTypeHints = false,
           includeInlayPropertyDeclarationTypeHints = true,
@@ -515,7 +515,7 @@ local servers = {
       javascript = {
         inlayHints = {
           includeInlayParameterNameHints = 'all',
-          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
           includeInlayFunctionParameterTypeHints = true,
           includeInlayVariableTypeHints = true,
           includeInlayPropertyDeclarationTypeHints = true,
