@@ -54,7 +54,7 @@ local lsp_formatting = function(param)
   })
 end
 -- if you want to set up formatting on save, you can use this as a callback
-local augroup = vim_api.nvim_create_augroup('LspFormatting', {})
+local LspFormattingAUGroup = vim_api.nvim_create_augroup('LspFormatting', {})
 
 if has_lspsignature then
   lspsignature.setup({ bind = true, handler_opts = { border = 'rounded' } })
@@ -80,9 +80,9 @@ local on_attach = function(client, bufnr)
 
   -- Format
   if supports_format(client) then
-    vim_api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim_api.nvim_clear_autocmds({ group = LspFormattingAUGroup, buffer = bufnr })
     vim_api.nvim_create_autocmd('BufWritePre', {
-      group = augroup,
+      group = LspFormattingAUGroup,
       buffer = bufnr,
       callback = function()
         lsp_formatting({ bufnr = bufnr })
@@ -502,6 +502,11 @@ local servers = {
     end,
     settings = {
       typescript = {
+        implementationsCodeLens = { enabled = true },
+        referencesCodeLens = {
+          enabled = true,
+          showOnAllFunctions = true,
+        },
         inlayHints = {
           includeInlayParameterNameHints = 'all',
           includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -513,6 +518,8 @@ local servers = {
         },
       },
       javascript = {
+        referencesCodeLens = { enabled = true },
+        implementationsCodeLens = { enabled = true },
         inlayHints = {
           includeInlayParameterNameHints = 'all',
           includeInlayParameterNameHintsWhenArgumentMatchesName = true,

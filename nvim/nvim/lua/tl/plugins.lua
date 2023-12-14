@@ -385,6 +385,12 @@ return require('lazy').setup({
       { 'b0o/schemastore.nvim' },
       { 'p00f/clangd_extensions.nvim' },
       {
+        'VidocqH/lsp-lens.nvim',
+        config = function()
+          require('lsp-lens').setup({})
+        end,
+      },
+      {
         'j-hui/fidget.nvim',
         config = function()
           require('fidget').setup()
