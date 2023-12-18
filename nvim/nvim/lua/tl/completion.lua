@@ -4,15 +4,6 @@ local has_luasnip, luasnip = pcall(require, 'luasnip')
 
 local M = {}
 
--- local check_back_space = function()
---   local col = vim.fn.col('.') - 1
---   if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
---     return true
---   else
---     return false
---   end
--- end
-
 local format = {}
 
 if has_lspkind then
@@ -22,22 +13,6 @@ if has_lspkind then
     ellipsis_char = '...',
     symbol_map = { Codeium = '' },
   })
-end
-
-local function next(fallback)
-  if cmp.visible() then
-    cmp.select_next_item()
-  else
-    fallback()
-  end
-end
-
-local function prev(fallback)
-  if cmp.visible() then
-    cmp.select_prev_item()
-  else
-    fallback()
-  end
 end
 
 local cmp_window = {
@@ -61,6 +36,41 @@ local has_words_before = function()
       == nil
 end
 
+local next = function(fallback)
+  if cmp.visible() then
+    if #cmp.get_entries() == 1 then
+      cmp.confirm({ select = true })
+    else
+      cmp.select_next_item()
+    end
+    -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+    -- they way you will only jump inside the snippet region
+  elseif luasnip.expand_or_jumpable() then
+    luasnip.expand_or_jump()
+  elseif has_words_before() then
+    cmp.complete()
+    if #cmp.get_entries() == 1 then
+      cmp.confirm({ select = true })
+    end
+  else
+    fallback()
+  end
+end
+
+local prev = function(fallback)
+  if cmp.visible() then
+    if #cmp.get_entries() == 1 then
+      cmp.confirm({ select = true })
+    else
+      cmp.select_prev_item()
+    end
+  elseif luasnip.jumpable(-1) then
+    luasnip.jump(-1)
+  else
+    fallback()
+  end
+end
+
 local kind_score = {
   Variable = 1,
   Class = 2,
@@ -76,9 +86,6 @@ M.setup = function()
   end
 
   cmp.setup({
-    experimental = {
-      ghost_text = true,
-    },
     completion = {
       completeopt = 'menu,menuone,noinsert',
     },
@@ -126,29 +133,65 @@ M.setup = function()
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ['<Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-          -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-          -- they way you will only jump inside the snippet region
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        elseif has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end, { 'i', 's' }),
-      ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { 'i', 's' }),
+      ['<CR>'] = cmp.mapping({
+        i = function(fallback)
+          if cmp.visible() then
+            local entry = cmp.get_selected_entry()
+            if not entry then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            else
+              cmp.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = false,
+              })
+            end
+          else
+            fallback()
+          end
+        end,
+        s = cmp.mapping.confirm({ select = true }),
+        c = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        }),
+      }),
+      ['<Tab>'] = cmp.mapping({
+        i = next,
+        s = next,
+        c = function(_)
+          if cmp.visible() then
+            if #cmp.get_entries() == 1 then
+              cmp.confirm({ select = true })
+            else
+              cmp.select_next_item()
+            end
+          else
+            cmp.complete()
+            if #cmp.get_entries() == 1 then
+              cmp.confirm({ select = true })
+            end
+          end
+        end,
+      }),
+      ['<S-Tab>'] = cmp.mapping({
+        i = prev,
+        s = prev,
+
+        c = function(_)
+          if cmp.visible() then
+            if #cmp.get_entries() == 1 then
+              cmp.confirm({ select = true })
+            else
+              cmp.select_prev_item()
+            end
+          else
+            cmp.complete()
+            if #cmp.get_entries() == 1 then
+              cmp.confirm({ select = true })
+            end
+          end
+        end,
+      }),
     }),
     sources = cmp.config.sources({
       { name = 'codeium' },
@@ -199,6 +242,17 @@ M.setup = function()
       { name = 'path' },
       { name = 'cmdline_history', priority = 10, max_item_count = 5 },
     }),
+    enabled = function()
+      -- Set of commands where cmp will be disabled
+      local disabled = {
+        IncRename = true,
+      }
+      -- Get first word of cmdline
+      local cmd = vim.fn.getcmdline():match('%S+')
+      -- Return true if cmd isn't disabled
+      -- else call/return cmp.close(), which returns false
+      return not disabled[cmd] or cmp.close()
+    end,
   })
 end
 
