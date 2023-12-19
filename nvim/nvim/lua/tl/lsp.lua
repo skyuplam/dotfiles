@@ -162,7 +162,11 @@ local on_attach = function(client, bufnr)
   end, attach_opts('List workspace folder'))
   -- map('n', '<leader>D', lsp_buf.type_definition,
   --                attach_opts('Goto type definition'))
-  map('n', '<leader>rn', lsp_buf.rename, attach_opts('Rename'))
+  -- map('n', '<leader>rn', lsp_buf.rename, attach_opts('Rename'))
+
+  map('n', '<leader>rn', function()
+    return ':IncRename ' .. vim.fn.expand('<cword>')
+  end, { expr = true })
   map('n', '<leader>ca', lsp_buf.code_action, attach_opts('Code action'))
 end
 
@@ -197,6 +201,7 @@ if has_null_ls then
         },
       }),
       null_ls.builtins.diagnostics.write_good,
+      null_ls.builtins.formatting.clang_format,
       null_ls.builtins.formatting.dprint,
       null_ls.builtins.formatting.nixpkgs_fmt,
       null_ls.builtins.formatting.stylua,

@@ -391,6 +391,12 @@ return require('lazy').setup({
         end,
       },
       {
+        'smjonas/inc-rename.nvim',
+        config = function()
+          require('inc_rename').setup()
+        end,
+      },
+      {
         'j-hui/fidget.nvim',
         config = function()
           require('fidget').setup()
