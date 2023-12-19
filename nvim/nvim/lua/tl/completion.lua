@@ -114,7 +114,7 @@ M.setup = function()
         end
       end,
     },
-    preselect = cmp.PreselectMode.None,
+    -- preselect = cmp.PreselectMode.None,
     window = {
       completion = cmp.config.window.bordered(cmp_window),
       documentation = cmp.config.window.bordered(cmp_window),
