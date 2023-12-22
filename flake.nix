@@ -9,16 +9,17 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    zig.url = "github:mitchellh/zig-overlay";
   };
 
-  outputs = { self, darwin, neovim-nightly-overlay, nixpkgs, home-manager }:
+  outputs = { self, darwin, zig, neovim-nightly-overlay, nixpkgs, home-manager }:
     let
       nixpkgsConfig = rec {
         config = {
           allowUnfree = true;
           experimental-features = "nix-command flakes";
         };
-        overlays = [ neovim-nightly-overlay.overlay ];
+        overlays = [ neovim-nightly-overlay.overlay zig.overlays.default ];
       };
     in
     {

@@ -94,7 +94,9 @@
     kubectl
     kubernetes-helm
     presenterm
-    zig
+    # https://github.com/mitchellh/zig-overlay
+    # latest nightly release
+    zigpkgs.master
     zls
 
     # Dev stuff
@@ -116,6 +118,7 @@
     dotenv-linter
     statix
     deadnix
+    alejandra
     typos
     dprint
     nixpkgs-fmt
