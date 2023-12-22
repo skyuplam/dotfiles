@@ -1,14 +1,6 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
-  # Packages with configuration --------------------------------------------------------------- {{{
-  # xdg.configFile."nixpkgs/config.nix".text = ''
-  #   {
-  #     allowUnfree = true;
-  #     experimental-features = "nix-command flakes";
-  #   }
-  # '';
-
   programs.git = {
     enable = true;
   };
@@ -102,6 +94,8 @@
     kubectl
     kubernetes-helm
     presenterm
+    zig
+    zls
 
     # Dev stuff
     # cloc # source code line counter
@@ -111,7 +105,6 @@
     nodePackages.vim-language-server
     nodePackages.prettier
     nodePackages.write-good
-    deno
     vscode-langservers-extracted
     lua-language-server
     efm-langserver
