@@ -203,6 +203,7 @@ M.setup = function()
       { name = 'tmux' },
       { name = 'path' },
       { name = 'spell' },
+      { name = 'treesitter' },
       {
         name = 'rg',
         keyword_length = 4,
@@ -228,10 +229,10 @@ M.setup = function()
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources(
-      { { name = 'nvim_lsp_document_symbol' } },
-      { { name = 'buffer' } }
-    ),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp_document_symbol' },
+      { name = 'cmdline_history', priority = 10, max_item_count = 5 },
+    }, { { name = 'buffer' } }),
   })
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).

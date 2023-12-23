@@ -438,6 +438,7 @@ return require('lazy').setup({
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lua',
       'andersevenrud/cmp-tmux',
+      'ray-x/cmp-treesitter',
       'onsails/lspkind-nvim',
       'dmitmel/cmp-cmdline-history',
       'f3fora/cmp-spell',
