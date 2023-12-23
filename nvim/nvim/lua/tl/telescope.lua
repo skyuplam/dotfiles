@@ -2,37 +2,37 @@ local has_telescope, telescope = pcall(require, 'telescope')
 
 local M = {}
 
-local Job = require('plenary.job')
+-- local Job = require('plenary.job')
 local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 local previewers = require('telescope.previewers')
 local map = require('tl.common').map
 
 -- Ignore binary files
-local new_maker = function(filepath, bufnr, opts)
-  opts = opts or {}
-
-  filepath = vim.fn.expand(filepath)
-
-  Job:new({
-    command = 'file',
-    args = { '--mime-type', '-b', filepath },
-    on_exit = function(j)
-      local mime_types = vim.split(j:result()[1], '/')
-      local mime_type = mime_types[1]
-      local mime_subtype = mime_types[2]
-
-      if mime_type == 'text' or mime_subtype == 'json' then
-        previewers.buffer_previewer_maker(filepath, bufnr, opts)
-      else
-        -- maybe we want to write something to the buffer here
-        vim.schedule(function()
-          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'BINARY' })
-        end)
-      end
-    end,
-  }):sync()
-end
+-- local new_maker = function(filepath, bufnr, opts)
+--   opts = opts or {}
+--
+--   filepath = vim.fn.expand(filepath)
+--
+--   Job:new({
+--     command = 'file',
+--     args = { '--mime-type', '-b', filepath },
+--     on_exit = function(j)
+--       local mime_types = vim.split(j:result()[1], '/')
+--       local mime_type = mime_types[1]
+--       local mime_subtype = mime_types[2]
+--
+--       if mime_type == 'text' or mime_subtype == 'json' then
+--         previewers.buffer_previewer_maker(filepath, bufnr, opts)
+--       else
+--         -- maybe we want to write something to the buffer here
+--         vim.schedule(function()
+--           vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { 'BINARY' })
+--         end)
+--       end
+--     end,
+--   }):sync()
+-- end
 
 local delta_file = previewers.new_termopen_previewer({
   get_command = function(entry)
@@ -80,7 +80,7 @@ local function setup()
         horizontal = { preview_width = 0.5 },
         vertical = { preview_height = 0.7 },
       },
-      buffer_previewer_maker = new_maker,
+      -- buffer_previewer_maker = new_maker,
       mappings = {
         i = {
           ['<C-s>'] = actions.cycle_previewers_next,
@@ -127,6 +127,13 @@ local function setup()
       live_grep_raw = {
         auto_quoting = true, -- enable/disable auto-quoting
       },
+      media_files = {
+        -- filetypes whitelist
+        -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+        filetypes = { 'png', 'webp', 'jpg', 'jpeg' },
+        -- find command (defaults to `fd`)
+        find_cmd = 'rg',
+      },
       file_browser = {
         theme = 'ivy',
         -- disables netrw and use telescope-file-browser in its place
@@ -152,6 +159,7 @@ local function setup()
   -- telescope.load_extension('dap')
   telescope.load_extension('smart_history')
   telescope.load_extension('neoclip')
+  telescope.load_extension('media_files')
 
   -- Key mappings
   map('n', '<leader>ff', function()

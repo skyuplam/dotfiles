@@ -119,6 +119,13 @@ return require('lazy').setup({
         'nvim-telescope/telescope-smart-history.nvim',
         dependencies = { 'tami5/sqlite.lua' },
       },
+      {
+        'nvim-telescope/telescope-media-files.nvim',
+        dependencies = {
+          'nvim-lua/plenary.nvim',
+          'nvim-lua/popup.nvim',
+        },
+      },
     },
     config = function()
       require('tl.telescope').setup()
