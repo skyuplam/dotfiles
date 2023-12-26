@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.git = {
     enable = true;
   };
@@ -13,15 +15,19 @@
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.bat.enable
-  programs.bat.enable = true;
-  programs.bat.config = {
-    style = "plain";
+  programs.bat = {
+    enable = true;
+    config = {
+      style = "plain";
+    };
   };
 
   # Htop
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
-  programs.htop.enable = true;
-  programs.htop.settings.show_program_path = true;
+  programs.htop = {
+    enable = true;
+    settings.show_program_path = true;
+  };
 
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
@@ -33,7 +39,7 @@
 
   home.packages = with pkgs; [
     # (pass.withExtensions (exts: [ exts.pass-otp ]))
-    alacritty
+    # alacritty
     # abduco # lightweight session management
     aspell
     # borgbackup
@@ -44,9 +50,11 @@
     coreutils
     codespell
     curl
+    chafa
+    wezterm
     du-dust # fancy version of `du`
     fd # fancy version of `find`
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "Noto" ]; })
+    (nerdfonts.override {fonts = ["JetBrainsMono" "Noto"];})
     # gawk
     # gcc
     libiconv
@@ -98,6 +106,7 @@
     # latest nightly release
     zigpkgs.master
     zls
+    qemu
 
     # Dev stuff
     # cloc # source code line counter
@@ -124,7 +133,7 @@
     nixpkgs-fmt
     languagetool-rust
     # bazel
-    (python3.withPackages (p: with p; [ pip pynvim ]))
+    (python3.withPackages (p: with p; [pip pynvim]))
   ];
   # }}}
 
@@ -146,8 +155,8 @@
 
   programs.password-store = {
     enable = true;
-    package = pkgs.pass.withExtensions (exts: [ exts.pass-otp ]);
-    settings = { PASSWORD_STORE_DIR = "$HOME/.password-store"; };
+    package = pkgs.pass.withExtensions (exts: [exts.pass-otp]);
+    settings = {PASSWORD_STORE_DIR = "$HOME/.password-store";};
   };
 
   programs.zellij = {
