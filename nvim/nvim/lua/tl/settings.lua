@@ -290,11 +290,13 @@ else
   -- Defaults:
   --   Neovim: !,'100,<50,s10,h
   -- - ! save/restore global variables (only all-uppercase variables)
+  -- - %50 save/restore the bufferist
   -- - '100 save/restore marks from last 100 files
-  -- - <50 save/restore 50 lines from each register
+  -- - /10000 Maximum number of itemsIN the search pattern history to be saved
+  -- - <500 save/restore 500 lines from each register
   -- - s10 max item size 10KB
   -- - h do not save/restore 'hlsearch' setting
-  o.shada = "!,'100,<500,:10000,/10000,s10,h"
+  o.shada = "!,%50,'100,/10000,<500,s10,h"
   local shada_group =
     vim.api.nvim_create_augroup('MyNeovimShada', { clear = true })
   vim.api.nvim_create_autocmd({ 'CursorHold', 'FocusGained', 'FocusLost' }, {
