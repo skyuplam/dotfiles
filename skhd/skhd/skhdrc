@@ -40,7 +40,7 @@
 # 
 # ~            = application is unbound and keypress is forwarded per usual, when specified in a <proc_map>
 # Global hotkeys
-cmd - return : open -na alacritty   # Launch Alacritty
+cmd - return : open -na wezterm   # Launch Alacritty
 # Focus window
 cmd - h : yabai -m window --focus west || yabai -m display --focus west
 cmd - j : yabai -m window --focus south
@@ -96,6 +96,11 @@ shift + cmd + ctrl - 8 : yabai -m window --space 8; \
 # Toggle float
 alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
+
+# Toggle gap for the current space
+shift + alt - p : yabai -m space --toggle padding; \
+                  yabai -m space --toggle gap;
+
 # Balance layout
 alt - b : yabai -m space --balance
 alt - b : yabai -m space --balance
