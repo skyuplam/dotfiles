@@ -152,6 +152,11 @@ export PATH="/opt/homebrew/bin:$PATH"
 # Setup Volta https://docs.volta.sh/guide/getting-started
 [ -d $HOME/.volta ] && export VOLTA_HOME=$HOME/.volta && export PATH="$VOLTA_HOME/bin:$PATH"
 
+# Nix
+[ -d /run/current-system/sw/bin ] && export PATH="/run/current-system/sw/bin:$PATH"
+[ -d /nix/var/nix/profiles/default/bin ] && export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+[ -d $HOME/.nix-profile/bin ] && export PATH="$HOME/.nix-profile/bin:$PATH"
+
 export LC_ALL=en_US.UTF-8
 
 # Ignore git files
@@ -159,16 +164,14 @@ export LC_ALL=en_US.UTF-8
 
 [ -f $HOME/.zsh/config.zsh ] && source $HOME/.zsh/config.zsh
 
-if [ -e /Users/terrencelam/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/terrencelam/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
 # luarocks local bin folder
 export PATH="$HOME/.luarocks/bin:$PATH"
 
-alias luamake=/Users/terrencelam/dev/lua-language-server/3rd/luamake/luamake
+# alias luamake=/Users/terrencelam/dev/lua-language-server/3rd/luamake/luamake
 
 # Fix gcc ld issue when using the one from nix
 # https://stackoverflow.com/questions/71788323/how-should-i-resolve-a-ld-library-not-found-for-liconv-error-when-running-c
-export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.nix-profile/lib:/Library/Developer/CommandLineTools/usr/lib
+# export LIBRARY_PATH=$LIBRARY_PATH:$HOME/.nix-profile/lib:/Library/Developer/CommandLineTools/usr/lib
 # export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/System/Library/Frameworks/
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/System/Library/Frameworks/
 
