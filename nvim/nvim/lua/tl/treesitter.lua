@@ -60,6 +60,7 @@ local function setup_ts_config()
       'tsx',
       'typescript',
       'vim',
+      'vimdoc',
       'wgsl',
       'yaml',
       'yuck',
