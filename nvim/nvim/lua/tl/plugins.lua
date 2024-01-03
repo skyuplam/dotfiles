@@ -595,9 +595,6 @@ return require('lazy').setup({
       local map = require('tl.common').map
       local tfm = require('tfm')
       tfm.setup({
-        keybindings = {
-          ['<ESC>'] = 'q',
-        },
         ui = {
           border = 'rounded',
           height = 1,
