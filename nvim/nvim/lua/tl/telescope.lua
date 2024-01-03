@@ -134,19 +134,6 @@ local function setup()
         -- find command (defaults to `fd`)
         find_cmd = 'rg',
       },
-      file_browser = {
-        theme = 'ivy',
-        -- disables netrw and use telescope-file-browser in its place
-        hijack_netrw = true,
-        mappings = {
-          ['i'] = {
-            -- your custom insert mode mappings
-          },
-          ['n'] = {
-            -- your custom normal mode mappings
-          },
-        },
-      },
     },
   })
 
@@ -155,7 +142,6 @@ local function setup()
   telescope.load_extension('fzf')
   telescope.load_extension('ui-select')
   telescope.load_extension('live_grep_args')
-  telescope.load_extension('file_browser')
   -- telescope.load_extension('dap')
   telescope.load_extension('smart_history')
   telescope.load_extension('neoclip')
@@ -262,15 +248,6 @@ local function setup()
   map('n', '<leader><leader>', function()
     builtin.resume()
   end, { desc = 'Resume' })
-  map('n', '<leader>ee', function()
-    require('telescope').extensions.file_browser.file_browser()
-  end, { desc = 'Browser files from root' })
-  map('n', '<leader>eb', function()
-    require('telescope').extensions.file_browser.file_browser({
-      path = '%:p:h',
-      select_buffer = true,
-    })
-  end, { desc = 'Browser files from current file path' })
 end
 
 function M.setup()

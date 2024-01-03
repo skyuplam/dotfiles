@@ -64,7 +64,6 @@ return require('lazy').setup({
   },
 
   { 'kevinhwang91/nvim-bqf' },
-  { 'is0n/fm-nvim' },
 
   { 'Shougo/vimproc.vim', build = ':silent! !make' },
   { 'vim-scripts/vis' },
@@ -113,7 +112,6 @@ return require('lazy').setup({
         dependencies = { 'tami5/sqlite.lua' },
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-telescope/telescope-file-browser.nvim' },
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
       {
         'nvim-telescope/telescope-smart-history.nvim',
@@ -587,6 +585,33 @@ return require('lazy').setup({
       dependencies = { 'nvim-lua/plenary.nvim' },
     },
     { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+  },
+
+  -- Terminal filemanager
+  {
+    'Rolv-Apneseth/tfm.nvim',
+    opts = {},
+    config = function()
+      local map = require('tl.common').map
+      local tfm = require('tfm')
+      tfm.setup({
+        keybindings = {
+          ['<ESC>'] = 'q',
+        },
+        ui = {
+          border = 'rounded',
+          height = 1,
+          width = 1,
+          x = 0.5,
+          y = 0.5,
+        },
+      })
+      -- Set keymap so you can open the default terminal file manager (yazi)
+      map('n', '<C-e>', tfm.open, {
+        noremap = true,
+        desc = 'Open Yazi',
+      })
+    end,
   },
 
   {

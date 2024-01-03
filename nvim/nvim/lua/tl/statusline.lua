@@ -157,7 +157,7 @@ local ViMode = {
 local WorkDir = {
   on_click = {
     callback = function()
-      vim.cmd('Xplr')
+      vim.cmd('lua require("tfm").open()')
     end,
     name = 'heirline_workdir',
   },
