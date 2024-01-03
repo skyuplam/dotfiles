@@ -5,7 +5,6 @@
 " ============================================================================
 
 " Explorer Mapping
-nnoremap <C-e> :Xplr %:p:h<CR>
 " nnoremap <C-p> :Files<CR>
 " nnoremap <A-p> :Buffers<CR>
 nnoremap <silent> <leader>tb :TagbarToggle<CR>
@@ -46,9 +45,6 @@ vnoremap <silent> # :<C-U>
 " vim-slash https://github.com/junegunn/vim-slash
 " Places the current match at the center of the window
 noremap <plug>(slash-after) zz
-
-" Select the text in visual mode then `y` to copy them to clipboard
-vmap y y:call SendViaOSC52(getreg('"'))<CR>
 
 " Vim
 nnoremap <Leader>ev :tabe $MYINITVIM<CR>
