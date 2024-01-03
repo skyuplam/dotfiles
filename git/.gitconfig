@@ -115,7 +115,8 @@
   tool = vimdiff2
   trustExitCode = true
   algorithm = patience
-  colorMoved = default
+  colormoved = "default"
+  colormovedws = "allow-indentation-change"
 [difftool "vimdiff2"]
   cmd = $EDITOR -d $LOCAL $REMOTE
 [merge]
