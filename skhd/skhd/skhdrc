@@ -107,3 +107,8 @@ alt - b : yabai -m space --balance
 alt - space: yabai -m window --toggle split
 # Zoom parent
 alt - f : yabai -m window --toggle zoom-parent
+
+# prevents skhd from monitoring events for listed processes.
+.blacklist [
+    "UTM"
+]
